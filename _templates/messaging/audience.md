@@ -1,0 +1,181 @@
+---
+title: ""
+icp_industries: []
+icp_company_size: ""
+icp_geography: []
+icp_signals: []
+updated: ""
+---
+
+# Target Audience
+
+This pillar defines who the company sells to — the companies, the people inside those companies, and the process by which they buy. Everything here cascades into content. Personas determine tone, altitude, and proof selection. Segments modify emphasis and language. The buying process shapes how campaigns sequence content across stages and stakeholders. The ICP anchors all of it — if a company isn't ICP-fit, nothing downstream applies.
+
+## Messaging Blocks
+
+### Ideal Customer Profile
+
+#### Characteristics
+
+[Instructions:
+Define the structural traits that make a company a strong fit right now — conditions under which the problem is real, visible, and funded. Distinguish between required (hard filters) and preferred (stronger fit, not dealbreakers).]
+
+[Tips:
+- Focus on structural realities (complexity, scale, regulations, operating model, etc.)
+- Avoid vanity descriptors
+- Mark each trait as Required or Preferred]
+
+[Format:
+**Required**
+- [trait]
+- [trait]
+
+**Preferred**
+- [trait]
+- [trait]]
+
+#### Behaviors
+
+[Instructions:
+Describe observable behaviors — actions, events, decisions — that indicate active pain, urgency, or readiness. Include both positive signals (fit and timing) and negative signals (bad timing despite structural fit).]
+
+[Tips:
+- Favor real actions over possible intent
+- Look for signals tied to budget, risk, or operational strain
+- Include 2-3 negative behavioral signals (e.g., "just signed a 3-year contract with a competitor," "currently mid-platform migration")]
+
+[Format:
+**Positive Signals**
+- [behavior]
+
+**Negative Signals**
+- [behavior]]
+
+#### Environment
+
+[Instructions:
+Describe the operational, technical, and organizational conditions that matter to your solution.]
+
+[Tips:
+- Be specific about technology stack components that matter to your integration story
+- Include scale indicators (number of users, data volume, transaction frequency)
+- Note organizational dynamics that affect buying (centralized vs. decentralized, security-first culture, etc.)]
+
+[Format:
+**Technical Environment**
+Stack, infrastructure, scale, and tooling that matter to your solution.
+
+**Operational Environment**
+Team structure, workflows, processes, and compliance requirements.
+
+**Organizational Environment**
+Reporting structure, budget ownership, change appetite, and decision-making culture.]
+
+#### Maturity
+
+[Instructions:
+Define the maturity spectrum your customers fall across relative to this problem space. The messaging shifts at each level — problem education for the unaware, limitation framing for point-solution users, differentiation for active evaluators. Define 3-5 levels.]
+
+[Tips:
+- The primary messaging angle is the most important field — it determines how to frame value at each level
+- "What moves them forward" connects maturity to your GTM motions
+- Start with the 2-3 levels where you see the most pipeline]
+
+[Format:
+For each maturity level:
+- **Level:** [name]
+- **Description:** [where they are today]
+- **Primary messaging angle:** [how to frame value at this level]
+- **What moves them forward:** [the trigger or realization that advances them]]
+
+#### Disqualifying Conditions
+
+[Instructions:
+State who this is not for and why. Each condition should include the reason.]
+
+[Tips:
+- Be honest and specific using quantitative and qualitative measures
+- Disqualify based on current reality, not future ambition
+- Include both structural disqualifiers (from missing required characteristics) and behavioral/temporal disqualifiers]
+
+[Format:
+- [condition] — [reason]
+- [condition] — [reason]]
+
+### Buying Process
+
+#### Customer Journey
+
+[Instructions:
+Document each stage of the customer journey from a messaging perspective. Each stage has a different emotional register, information need, and bar for proof.]
+
+[Tips:
+- Only craft focused messages that matter to this stage — avoid watering down consistent value messaging
+- Internalize the "walk away feeling" to get a sense for how to move the customer from one phase to the next
+- The journey applies to individual personas, teams, and the organization as a whole
+- Keep this focused on messaging — save marketing attribution, sales stages, and technical maturity phases for internal documentation]
+
+[Format:
+For each journey stage, include:
+- **Primary Goal:** your messaging intent for this stage
+- **Walk Away Feeling:** what the customer should be feeling to move forward
+- **Key Messaging:** specific messages that apply to this stage
+- **Best Proof:** proof types that work best — with examples if you have them
+- **Best Channels:** content types and distribution channels most effective at this stage
+- **Common Objections:** objections that typically surface at this stage]
+
+#### Buying Committee
+
+[Instructions:
+Map the typical buying committee structure — who is involved in purchase decisions, their role in the process, and how they influence each other. If composition varies by deal type or company size, document the common patterns separately.]
+
+[Tips:
+- Most deals have 2-3 recurring committee compositions — document the common patterns
+- The influence chain matters more than org chart hierarchy — who actually convinces whom
+- Note which personas engage early vs. late in the process]
+
+[Format:
+For each committee pattern:
+- **Pattern name:** (e.g., "Enterprise Security Deal," "Mid-Market Technical Sale")
+- **Typical deal size/type:** (what triggers this committee composition)
+
+For each committee member within a pattern:
+- **Persona:** (reference to persona profile in `messaging/personas/`)
+- **Committee Role:** (decision-maker | champion | evaluator | influencer | blocker | ratifier)
+- **Influence:** (who they influence and who influences them)
+- **Timing:** (when in the process they typically engage)
+- **Content needs:** (what they need to see to play their role effectively)]
+
+### Personas
+
+| Persona | File | Role | Type | Seniority | Priority |
+|---|---|---|---|---|---|
+| | | | | | |
+
+[Instructions:
+List the personas that apply to your GTM. Grounded in real responsibilities, pressures, and motivations — not generic demographic or personality-based descriptions. For each, carve out a distinct profile in `messaging/personas/[persona-name].md`.]
+
+### Segments
+
+| Segment | File | Type | Defining Trait |
+|---|---|---|---|
+| | | | |
+
+[Instructions:
+List segments that carry particular messaging considerations. Only create segments when you need additional contextual clarifiers — compliance regulations, regional differences, scale implications, etc. For each, carve out a distinct profile in `messaging/segments/[segment-name].md`.]
+
+## Rules and Guidelines
+
+- ICP defines eligibility — if ICP conditions are not met, assume no fit, urgency, or budget
+- Validate ICP fit before refining to specific segments and personas
+- Do not invent personas or segments beyond those defined 
+- Required characteristics are hard filters — missing required traits should have a corresponding Disqualifying Condition
+- Negative behavioral signals indicate bad timing, not bad fit — treat them as temporal disqualifiers
+- Environment context grounds messaging in operational reality — it changes how you talk about value, not the value itself
+- Maturity level adjusts messaging angle and urgency framing — it does not change the fundamental value proposition
+- Customer journey stages determine proof type and emotional register — earlier stages require framing and insight, later stages require confidence and validation
+- Walk Away Feeling is the primary success metric for stage-specific content — if the reader doesn't feel the intended shift, the content hasn't done its job
+- Use ICP signals to determine whether urgency is inferred or needs to be established
+- Personas influence tone, direction, and value emphasis — not positioning. Positioning comes from Space
+- Segments adapt context and emphasis, not redefine value propositions — segment adjustments layer on top of persona messaging
+- Buying committee patterns inform multi-persona campaign sequencing — target personas in the order and through the influence chain documented above

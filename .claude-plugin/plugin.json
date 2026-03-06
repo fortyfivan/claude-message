@@ -1,0 +1,10 @@
+{
+  "name": "claude-message",
+  "version": "0.3.0",
+  "description": "Messaging intelligence system — agents, commands, and skills for building and maintaining company messaging",
+  "author": {
+    "name": "Ivan Dwyer",
+    "url": "https://github.com/fortyfivan"
+  },
+  "repository": "https://github.com/fortyfivan/claude-message"
+}

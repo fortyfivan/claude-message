@@ -1,162 +1,182 @@
 ```
- _____ _                 _       ___  ___                               
-/  __ \ |               | |      |  \/  |                               
-| /  \/ | __ _ _   _  __| | ___  | .  . | ___  ___ ___  __ _  __ _  ___ 
+ _____ _                 _       ___  ___
+/  __ \ |               | |      |  \/  |
+| /  \/ | __ _ _   _  __| | ___  | .  . | ___  ___ ___  __ _  __ _  ___
 | |   | |/ _` | | | |/ _` |/ _ \ | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \
 | \__/\ | (_| | |_| | (_| |  __/ | |  | |  __/\__ \__ \ (_| | (_| |  __/
  \____/_|\__,_|\__,_|\__,_|\___| \_|  |_/\___||___/___/\__,_|\__, |\___|
-                                                              __/ |     
-                                                             |___/      
+                                                              __/ |
+                                                             |___/
 ```
 
-Claude Message is an opinionated, yet customizable messaging framework built around the Claude Code harness. It acts as the positioning and messaging context engine for Claude Code to generate content assets – ensuring the copy always strikes a chord and is uniquely yours.
+Claude Message is a messaging intelligence system built for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging.
 
-This is meant for Product Marketers, Founders, and anyone who cares about messaging quality and taste. It's built primarily for B2B companies, but the principles may apply to others.
-
-A basic understanding of how to use Claude Code, and how its harness works is required.
-
-The tl;dr - fork it, tune to your market, write to your message, generate dope content. 
+Built for Product Marketers, Founders, and anyone who cares about messaging quality and taste. Primarily for B2B companies, but the principles may apply to others.
 
 *I said who's house? Your house!*
 
 ## Getting Started
 
-Claude Message requires in-depth messaging across a number of components. You can inspect the files with instructions in `/messaging` to customize, or run a progressive workflow that will bootstrap the system.
+### Fork Mode (Primary)
 
-Run the orchestrator to guide you through:
+Clone the repo and make it your messaging workspace:
 
-```
-/messaging-orchestrator
-```
-
-The orchestrator grabs existing messaging documents, performs outside research, and asks questions in a sequence – while tracking what's complete and recommends what to build next. Components are built in a predefined sequence to get the facts, the foundation, and the flair in the right order:
-
-```
-Profile → Purpose → Portfolio → Proposition → Position → Pitch → People → Proof → Preferences
+```bash
+git clone https://github.com/fortyfivan/claude-message.git my-company-messaging
+cd my-company-messaging
+claude
+> /project:bootstrap
 ```
 
-Once your Messaging House is complete, the system will use your positioning and messaging as the context engine for content generation.
+The bootstrap agent guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides).
 
-## How it Works
+### Plugin Mode
 
-This repository is your messaging system for creating clear and compelling content tuned to your market. Your business is dynamic, your messaging must be too.
+Install the agents, commands, and skills into an existing project:
+
+```bash
+claude plugin install https://github.com/fortyfivan/claude-message
+```
+
+Then run `/project:bootstrap` to create the messaging directories in your project.
+
+## How It Works
 
 ### Messaging House
 
-The Messaging House is a structured model of your positioning and messaging. Components are built progressively—each one extracts context from prior components and adds new context for what comes next.
+The Messaging House is a structured model of your positioning and messaging. Six pillars cover every strategic dimension, built progressively:
 
-| # | Component | Purpose | Depends On |
-|---|-----------|---------|------------|
-| 1 | Profile | Company facts and foundation | — |
-| 2 | Purpose | Vision and mission | Profile |
-| 3 | Portfolio | Products and solutions | Profile |
-| 4 | Proposition | Unique value | Profile, Purpose, Portfolio |
-| 5 | Position | Market landscape | All prior |
-| 6 | Pitch | Strategic narrative | All prior |
-| 7 | People | Target audience | Profile, Portfolio, Proposition, Position |
-| 8 | Proof | Evidence of value | Proposition, Profile |
-| 9 | Preferences | Brand voice | All prior (derived) |
+| # | Pillar | Purpose | Absorbs |
+|---|--------|---------|---------|
+| 1 | Profile | Company identity, narrative, voice, mission | purpose, profile, pitch, preferences |
+| 2 | Portfolio | Products, solutions, capabilities | portfolio |
+| 3 | Space | Market landscape, positioning, differentiation | position, proposition |
+| 4 | Audience | ICP, buyer/user personas, market segments | people |
+| 5 | Proof | Social proof, case studies, evidence | proof |
+| 6 | Motions | GTM strategies, campaign playbooks | plays |
 
-Within the components, there are specific elements that may contain multiple profiles. Carve out dedicated profiles for:
+Each pillar uses YAML frontmatter for structured metadata and markdown body for narrative content. Collection subdirectories hold detailed profiles:
 
-- Categories
-- Competitors
-- Personas
-- Products
-- Segments
-- Solutions
+- `categories/` — Market category profiles
+- `competitors/` — Competitor profiles
+- `personas/` — Persona profiles
+- `plays/` — GTM play profiles
+- `products/` — Product detail docs
+- `quotes/` — Customer quotes and proof fragments
+- `segments/` — Market segment profiles
+- `solutions/` — Solution briefs
 
-### Messaging Skills
+### Agents
 
-Messaging Skills are dynamically loaded instructions for Claude Code to follow when generating content assets. The Skills are focused on specific asset-types, and include a messaging brief, writing instructions, context pointers, guidelines to follow, evaluation criteria, and an output format template. The examples in this repository include:
+| Agent | Purpose |
+|-------|---------|
+| **bootstrap** | Interactive 6-phase system builder. Walks through Profile → Portfolio → Space → Audience → Proof → Motions with a discover → synthesize → validate → draft → write → bridge cycle at each phase. |
+| **researcher** | Messaging intelligence. Runs automated scans to surface insights, handles deep-dive investigations, and performs ad-hoc research on competitors, personas, and topics. |
+| **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
+| **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
+| **tune** | Skill calibration agent. Reads the messaging house, builds a company profile across five dimensions, and writes tuned skills that encode company-specific guidance into the content generation instructions. |
 
-- Email Copywriting
-- Social Copywriting
-- Blog Copywriting
-- Brief Copywriting
+### Commands
 
-### Messaging Commands
+| Command | Purpose |
+|---------|---------|
+| `/project:bootstrap` | Build messaging system from scratch |
+| `/project:scan` | Run messaging intelligence scan |
+| `/project:investigate [topic]` | Deep-dive on an insight or topic |
+| `/project:research [topic]` | Research a topic, write to research/ |
+| `/project:competitor [name]` | Research and profile a competitor |
+| `/project:persona [role]` | Draft or update a persona |
+| `/project:audit` | Audit messaging for gaps and inconsistencies |
+| `/project:generate [skill] [topic]` | Generate content using a skill |
+| `/project:brief [topic]` | Generate a creative brief |
+| `/project:campaign [type] [topic]` | Build a multi-asset content campaign |
+| `/project:tune` | Calibrate skills to the messaging house |
+| `/project:tune --check` | Detect tuning drift without changes |
 
-Messaging Commands are specific research tasks you can kick off from the Claude Code CLI. These tasks are executed within the context of the Messaging System, so they are naturally framed and pointed in the right direction. The examples in this repository include:
+### Skills
 
-- Competitive Research
-- Initiative Research
-- Market Research
-- Persona Research
-- Segment Research
+Skills are dynamically loaded instructions for content generation, organized by category/type:
 
-### Messaging Agents
+| Category | Types |
+|----------|-------|
+| Blog Copywriting | Thought leadership, use case deep dive, threat research, data study, product announcement |
+| Brief Copywriting | Solution brief, industry vertical, persona brief, product datasheet, use case overview, company overview, event companion |
+| Email Copywriting | Single outbound, outbound sequence, inbound sequence, event promotion, product newsletter |
+| Social Copywriting | LinkedIn post, LinkedIn article, X post, X thread |
 
-Messaging Agents are subagents that Claude Code may execute during a session. Their advantage is having an isolated context window to perform a specific task without overwhelming the main session context window. I only included one subagent in this repo because I'm of the mindset that you only need to carve out subagents when you're testing the limits of the context window. For messaging and content generation, this is rarely an issue. If you find yourself hitting a wall, you can add more agents - just be sure to modify Claude.md to call the subagents during the task workflow.
+### Insights System
 
-I added an `asset-reader` subagent that reads and grades each generated asset after its written. This is an example of a clean context window being beneficial because there's no preconceived notion of what went into the content, just a persona-led response to what was generated. A good sniff test.
-
-## Using This Repository
-
-Fork this repository or copy the contents into your own Claude Code environment.
-
-### Step 1: Add Your Research
-
-Drop existing messaging documents into the `/research/` directory. The system will scan this folder first before searching externally. Include anything you have:
-
-- Pitch decks and sales presentations
-- Existing positioning documents
-- Competitor analysis
-- Customer research or interview notes
-- Product briefs or PRDs
-
-### Step 2: Configure Your Writing Profile
-
-Edit `CLAUDE.md` to set your writing profile—role, company, stage, and market. This shapes how Claude approaches all messaging work.
-
-### Step 3: Build Your Messaging House
-
-Run the orchestrator to build components progressively:
+The research agent runs scheduled scans that evaluate external signals against the messaging system. Insights follow a lifecycle:
 
 ```
-/messaging-orchestrator
+open → acknowledged → resolved
+         ↓
+       deferred
 ```
 
-The orchestrator will guide you through each component in sequence, extracting from your research documents, asking clarifying questions, and generating structured output.
+Configure scan cadence and focus areas in `insights/config.md`. Run scans on a cron schedule:
 
-Alternatively, edit the markdown files in `/messaging/` directly. Each file includes instructions, tips, and format guidance for each block.
-
-### Step 4: Generate Content
-
-Once your Messaging House is complete, use Skills to generate assets:
-
-```
-/email-copywriting
-/social-copywriting
-/blog-copywriting
-/brief-copywriting
+```bash
+0 6 * * 1 cd /path/to/repo && claude -p "/project:scan" --print
 ```
 
-Content will automatically inherit your positioning, voice, and messaging.
+## Directory Structure
 
-### Optional: Customize Skills and Commands
+```
+_templates/
+  messaging/             → Canonical schemas for messaging docs (read-only)
+  skills/                → Base generic skill templates (read-only)
 
-Review `.claude/skills/` to customize output formats, evaluation criteria, or add your own examples. Review `.claude/commands/` to adjust research task instructions. 
+.claude/
+  CLAUDE.md              → Plugin context and user guide
+  settings.json          → MCP server configuration
+  skills/
+    messaging/           → Tuned content generation skills
+
+.claude-plugin/
+  plugin.json            → Plugin manifest
+  marketplace.json       → Marketplace manifest
+
+agents/                  → Agent definitions
+commands/                → Slash command definitions
+
+messaging/
+  profile.md             → Company identity, narrative, voice
+  space.md               → Market landscape, positioning, differentiation
+  motions.md             → GTM strategies, campaign playbooks
+  audience.md            → ICP, personas, market segments
+  portfolio.md           → Products, solutions, capabilities
+  proof.md               → Social proof, case studies, evidence
+  categories/            → Market category profiles
+  competitors/           → Competitor profiles
+  personas/              → Persona profiles
+  quotes/                → Customer quotes and proof fragments
+  plays/                 → GTM play profiles
+  products/              → Product detail docs
+  segments/              → Market segment profiles
+  solutions/             → Solution briefs
+
+research/                → Uploaded and agent-generated research
+insights/                → Messaging intelligence
+  tracker.md             → Rolling insight tracker
+  config.md              → Scan configuration
+  scans/                 → Scan digests
+  investigations/        → Deep-dive reports
+output/                  → Generated content (gitignored)
+  campaigns/             → Campaign briefs and generated assets
+```
 
 ## Your Writing Profile
 
-You can't change the main Claude Code system prompt, but you can provide a profile to guide its writing style. It's recommended to provide Claude Code with a more personal writing profile, rather than some generic, "you are a writing agent."
-
-The default format provided in the sample `CLAUDE.md` file follows this structure:
+Provide Claude Code with a writing profile in CLAUDE.md to guide its messaging style:
 
 ```
-You are a {role} at {company}. {company} is a(n) {stage} {type} company in the {market} space. 
+You are a {role} at {company}. {company} is a(n) {stage} {type} company in the {market} space.
 
-You are responsible for generating consistent, clear, and compelling messaging based on user requests. 
+You are responsible for generating consistent, clear, and compelling messaging based on user requests.
 
 You must be well versed in the market, business, and technical landscape of {company} to be effective in this role.
 ```
-
-- {role}: the specific job function you want Claude to think like (PMM, Founder, etc.)
-- {company}: use your company name so messaging comes from the right first-person 
-- {stage}: the stage of company (emerging, growing, established)
-- {type}: the type of company (B2B, B2C, E-Commerce, Services)
-- {market}: your top-level market category (cybersecurity, developer tools, financial services, etc.)
 
 ## FAQ
 
@@ -170,17 +190,21 @@ Yes, probably for most. But when your company has multiple products serving mult
 No, probably not. But it has potential to get you into a messaging flow state that no other tool has been able to accomplish (yet).
 
 ## Contributing
-I primarily encourage you to take this as-is and make it yours. But I do welcome PRs for the Messaging Blocks, Skills, Commands, and Agents. 
+
+I primarily encourage you to take this as-is and make it yours. But I do welcome PRs for the agents, commands, and skills.
 
 ## History
 
+Version 0.3 (2026-03-03) - plugin architecture, 6-pillar consolidation, agent-driven system
 Version 0.2 (2026-02-06) - system bootstrap
 Version 0.1 (2026-01-16) - initial drop
 
 ## Credits
+
 Ivan Dwyer (@fortyfivan)
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Chris Kibble
