@@ -53,7 +53,7 @@ The Messaging House is a structured model of your positioning and messaging. Six
 | 3 | Space | Market landscape, positioning, differentiation | position, proposition |
 | 4 | Audience | ICP, buyer/user personas, market segments | people |
 | 5 | Proof | Social proof, case studies, evidence | proof |
-| 6 | Motions | GTM strategies, campaign playbooks | plays |
+| 6 | Motion | GTM strategies, campaign playbooks | plays |
 
 Each pillar uses YAML frontmatter for structured metadata and markdown body for narrative content. Collection subdirectories hold detailed profiles:
 
@@ -62,7 +62,7 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 - `personas/` — Persona profiles
 - `plays/` — GTM play profiles
 - `products/` — Product detail docs
-- `quotes/` — Customer quotes and proof fragments
+- `stories/` — Customer stories and proof narratives
 - `segments/` — Market segment profiles
 - `solutions/` — Solution briefs
 
@@ -70,7 +70,7 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Agent | Purpose |
 |-------|---------|
-| **bootstrap** | Interactive 6-phase system builder. Walks through Profile → Portfolio → Space → Audience → Proof → Motions with a discover → synthesize → validate → draft → write → bridge cycle at each phase. |
+| **bootstrap** | Interactive 6-phase system builder. Walks through Profile → Portfolio → Space → Audience → Proof → Motion with a discover → synthesize → validate → draft → write → bridge cycle at each phase. |
 | **researcher** | Messaging intelligence. Runs automated scans to surface insights, handles deep-dive investigations, and performs ad-hoc research on competitors, personas, and topics. |
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
@@ -143,14 +143,14 @@ commands/                → Slash command definitions
 messaging/
   profile.md             → Company identity, narrative, voice
   space.md               → Market landscape, positioning, differentiation
-  motions.md             → GTM strategies, campaign playbooks
+  motion.md              → GTM strategies, campaign playbooks
   audience.md            → ICP, personas, market segments
   portfolio.md           → Products, solutions, capabilities
   proof.md               → Social proof, case studies, evidence
   categories/            → Market category profiles
   competitors/           → Competitor profiles
   personas/              → Persona profiles
-  quotes/                → Customer quotes and proof fragments
+  stories/               → Customer stories and proof narratives
   plays/                 → GTM play profiles
   products/              → Product detail docs
   segments/              → Market segment profiles

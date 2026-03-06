@@ -115,7 +115,7 @@ Which personas this solution is most relevant to and their role in adopting or b
 ### Proof Points
 
 [Instructions:
-Customer examples, deployment metrics, or testimonials that demonstrate this solution delivering the outcomes claimed above. Reference quotes from `messaging/quotes/` where they're solution-specific.]
+Customer examples, deployment metrics, or testimonials that demonstrate this solution delivering the outcomes claimed above. Reference quotes from `messaging/stories/` where they're solution-specific.]
 
 [Tips:
 - Proof should directly support the Value Delivered metrics — if you claim 40-60% MTTR reduction, the proof should show a customer who achieved it

@@ -14,7 +14,7 @@ Scan runs non-interactively. Never prompt for user input during a scan.
 ### Scan Process
 
 **Step 1: Read the messaging system.**
-Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/audience.md`, `messaging/portfolio.md`, `messaging/proof.md`, `messaging/motions.md`). Scan collection frontmatter in `messaging/categories/`, `messaging/competitors/`, `messaging/personas/`, `messaging/plays/`, `messaging/products/`, `messaging/segments/`, `messaging/solutions/`. Read `insights/tracker.md` for open insights. Build an internal assessment map of positions, competitors, personas, products, proof claims, and open insights.
+Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/audience.md`, `messaging/portfolio.md`, `messaging/proof.md`, `messaging/motion.md`). Scan collection frontmatter in `messaging/categories/`, `messaging/competitors/`, `messaging/personas/`, `messaging/plays/`, `messaging/products/`, `messaging/segments/`, `messaging/solutions/`, `messaging/stories/`. Read `insights/tracker.md` for open insights. Build an internal assessment map of positions, competitors, personas, products, proof claims, and open insights.
 
 **Step 2: Scan external sources.**
 Search for signals across five domains using messaging-derived queries:
@@ -50,7 +50,7 @@ Finding: Acme Corp launched a free tier targeting SMB
 ↓
 Impact:
 - space.md: "no free tier friction" differentiator weakened (CRITICAL)
-- motions.md: PLG motion advantage reduced (WARNING)
+- motion.md: PLG motion advantage reduced (WARNING)
 - competitors/acme-corp.md: Pricing model changed (CRITICAL)
 ```
 

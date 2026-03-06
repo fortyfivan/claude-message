@@ -28,7 +28,7 @@ Load and analyze all six pillars and collection frontmatter:
 - `messaging/space.md` — market, positioning, differentiation
 - `messaging/audience.md` — ICP, buying process
 - `messaging/portfolio.md` — product ecosystem
-- `messaging/motions.md` — GTM motions, channels, conversion patterns
+- `messaging/motion.md` — GTM motions, channels, conversion patterns
 - `messaging/proof.md` — evidence inventory (depth assessment, not full content)
 - All persona docs in `messaging/personas/` — frontmatter for type, seniority, pain points, goals
 - All category docs in `messaging/categories/` — market dynamics
@@ -90,7 +90,7 @@ For each skill, produce a tuning specification covering all five dimensions:
 
 Identify mismatches between the messaging house and the current skill set:
 
-**Missing skills for declared motions.** If `motions.md` describes a motion but no matching skills exist, flag it.
+**Missing skills for declared motions.** If `motion.md` describes a motion but no matching skills exist, flag it.
 
 **Missing skills for active personas.** If personas exist but skills lack persona-specific guidance for some of them, flag the gap.
 
@@ -176,7 +176,7 @@ Creating new skills is optional and requires per-skill approval. Present each re
 | Audience Calibration | `audience.md`, `personas/` | Persona-specific instruction blocks, altitude guidance per seniority level, vocabulary calibration from pain points and goals |
 | Voice Alignment | `profile.md` | Voice dos/don'ts from tone attributes, phrasing patterns (self-reference, product naming), differentiation language style |
 | Company Stage | `profile.md`, `proof.md` | Proof requirements per skill (calibrated to actual evidence depth), positioning boldness, CTA calibration by stage |
-| Motion Alignment | `motions.md` | CTA architecture per content type, content depth expectations, conversion context, multi-persona handling |
+| Motion Alignment | `motion.md` | CTA architecture per content type, content depth expectations, conversion context, multi-persona handling |
 
 ## Re-Tuning and Drift Detection
 

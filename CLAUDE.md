@@ -54,7 +54,7 @@ commands/
 messaging/
   profile.md             → Company identity, narrative, voice
   space.md               → Market landscape, positioning, differentiation
-  motions.md             → GTM strategies, campaign playbooks
+  motion.md              → GTM strategies, campaign playbooks
   audience.md            → ICP, personas, market segments
   portfolio.md           → Products, solutions, capabilities
   proof.md               → Social proof, case studies, evidence
@@ -63,7 +63,7 @@ messaging/
   personas/              → Persona profiles
   plays/                 → GTM play profiles
   products/              → Product detail docs
-  quotes/                → Customer quotes and proof fragments
+  stories/               → Customer stories and proof narratives
   segments/              → Market segment profiles
   solutions/             → Solution briefs
 
@@ -77,7 +77,7 @@ output/                  → Generated content assets (gitignored)
 
 Six pillar docs at the root of `messaging/` cover every strategic dimension. Collection subdirectories hold detailed profiles that support the pillars.
 
-Pillars build on each other: Profile (who we are) → Portfolio (what we sell) → Space (where we compete) → Audience (who we sell to) → Proof (evidence it works) → Motions (how we go to market).
+Pillars build on each other: Profile (who we are) → Portfolio (what we sell) → Space (where we compete) → Audience (who we sell to) → Proof (evidence it works) → Motion (how we go to market).
 
 ### File Conventions
 
@@ -87,6 +87,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 - Use kebab-case for filenames.
 - Follow the schema in `_templates/messaging/` when creating new docs.
 - Place collection docs in the appropriate subdirectory.
+- Messaging docs use a two-section structure: `## Messaging Blocks` contains the content sections; `## Rules and Guidelines` defines how the document should be interpreted by agents.
 - Ask for confirmation before writing changes to existing messaging docs.
 
 ## Messaging Rules
@@ -136,7 +137,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 
 ### bootstrap
 
-Builds a complete messaging system from scratch through six interactive phases: Profile → Portfolio → Space → Audience → Proof → Motions. Each phase follows a discover → synthesize → validate → draft → write → bridge cycle. Can start from existing materials or pure Q&A.
+Builds a complete messaging system from scratch through six interactive phases: Profile → Portfolio → Space → Audience → Proof → Motion. Each phase follows a discover → synthesize → validate → draft → write → bridge cycle. Can start from existing materials or pure Q&A.
 
 Invoke: `/project:bootstrap` or `/agents bootstrap`
 

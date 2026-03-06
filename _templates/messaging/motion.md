@@ -4,7 +4,7 @@ primary_motion: ""  # sales-led | product-led | partner-led | community-led | ev
 secondary_motions: []
 ---
 
-# Motions
+# Motion
 
 This pillar defines how the company goes to market — the selling motion, the channels, the plays, and the repeatable campaign patterns that turn messaging into pipeline. The primary motion shapes everything downstream. A sales-led company produces different content at different depths with different CTAs than a product-led company. 
 

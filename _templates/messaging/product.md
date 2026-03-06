@@ -119,7 +119,7 @@ Proof points specific to this product — customer results, deployment metrics, 
 
 [Tips:
 - If this product is new (beta or recently GA), proof may be thin — note what exists and what's in progress
-- Reference quotes from `messaging/quotes/` if they're product-specific]
+- Reference quotes from `messaging/stories/` if they're product-specific]
 
 [Format:
 Bulleted list of proof points, each with source or attribution]

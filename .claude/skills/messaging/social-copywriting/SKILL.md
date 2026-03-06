@@ -37,7 +37,7 @@ After identifying the platform and format, load the corresponding guide:
 | Value Framework    | Key insights, differentiation, outcomes      | space.md, portfolio.md       |
 | Market Perspective | Industry tensions, trends, contrarian views  | space.md                     |
 | Evidence           | Data points, customer stories, proof         | proof.md                     |
-| Strategic Context  | Campaign themes, current initiatives         | motions.md                   |
+| Strategic Context  | Campaign themes, current initiatives         | motion.md                   |
 
 ## Platform Guidelines
 

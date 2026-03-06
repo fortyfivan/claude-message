@@ -38,7 +38,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Value Messaging | Core value propositions, products and solutions    | space.md, portfolio.md       |
 | Market Context  | Industry trends, positioning, narrative hooks      | space.md                     |
 | Credibility     | Social proof, customer wins, use cases             | proof.md, portfolio.md       |
-| GTM Alignment   | Campaign strategy, motion-specific messaging       | motions.md                   |
+| GTM Alignment   | Campaign strategy, motion-specific messaging       | motion.md                   |
 
 
 ## Email Copy Guidelines

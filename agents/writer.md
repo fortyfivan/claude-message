@@ -34,6 +34,7 @@ For each parameter, load the corresponding messaging document:
 | Segment | `messaging/segments/[name].md` | `messaging/segments/mid-market-finance.md` |
 | Category | `messaging/categories/[name].md` | `messaging/categories/attack-surface-mgmt.md` |
 | Play | `messaging/plays/[name].md` | `messaging/plays/build-asset-foundation.md` |
+| Story | `messaging/stories/[name].md` | `messaging/stories/acme-corp.md` |
 
 Then load the pillar docs that ground the context:
 
@@ -47,7 +48,10 @@ Then load the pillar docs that ground the context:
 | `messaging/audience.md` | ICP context when a persona is involved |
 | `messaging/portfolio.md` | Product ecosystem context when a specific product is involved |
 | `messaging/proof.md` | Evidence when claims need backing |
-| `messaging/motions.md` | GTM framing when the content supports a specific motion |
+| `messaging/motion.md` | GTM framing when the content supports a specific motion |
+
+When reading messaging docs, `## Messaging Blocks` contains the content to draw claims and context
+from. `## Rules and Guidelines` contains instructions to follow when generating content from that doc.
 
 ### Step 3: Load the Skill
 

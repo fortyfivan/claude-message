@@ -1,9 +1,9 @@
 ---
 title: ""
-portfolio_structure: ""
-pricing_model: ""
+primary_motion: ""
+secondary_motions: []
 ---
 
-# Portfolio
+# Motion
 
 <!-- Run /project:bootstrap to populate this file -->

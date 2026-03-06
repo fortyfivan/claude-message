@@ -39,7 +39,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Value Framework    | Core propositions, differentiation, outcomes        | space.md, portfolio.md       |
 | Market Perspective | Industry trends, positioning, competitive landscape | space.md                     |
 | Evidence           | Social proof, customer stories, data points         | proof.md, portfolio.md       |
-| Strategic Context  | Campaign alignment, content themes                  | motions.md                   |
+| Strategic Context  | Campaign alignment, content themes                  | motion.md                   |
 
 ## SEO/GEO Optimization
 

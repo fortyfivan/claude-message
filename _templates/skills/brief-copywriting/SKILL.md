@@ -40,7 +40,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Value Messaging | Core propositions, products, solutions              | space.md, portfolio.md         |
 | Market Context  | Industry trends, positioning, competitive landscape | space.md                       |
 | Credibility     | Social proof, customer wins, use cases              | proof.md                       |
-| GTM Alignment   | Campaign strategy, motion-specific messaging        | motions.md                     |
+| GTM Alignment   | Campaign strategy, motion-specific messaging        | motion.md                     |
 
 ## Design Principles
 
