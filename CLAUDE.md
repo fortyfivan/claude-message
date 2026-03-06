@@ -37,6 +37,7 @@ agents/
   writer.md              → Context-resolution content generation
   campaign.md            → Campaign orchestrator for multi-asset campaigns
   tune.md                → Skill calibration agent
+  glossary.md            → Terminology extraction and glossary maintenance
 
 commands/
   bootstrap.md           → /project:bootstrap
@@ -50,6 +51,7 @@ commands/
   brief.md               → /project:brief [topic]
   campaign.md            → /project:campaign [type] [topic]
   tune.md                → /project:tune
+  glossary.md            → /project:glossary
 
 messaging/
   profile.md             → Company identity, narrative, voice
@@ -58,6 +60,7 @@ messaging/
   audience.md            → ICP, personas, market segments
   portfolio.md           → Products, solutions, capabilities
   proof.md               → Social proof, case studies, evidence
+  glossary.md            → Company-specific terminology definitions
   categories/            → Market category profiles
   competitors/           → Competitor profiles
   personas/              → Persona profiles
@@ -75,7 +78,7 @@ output/                  → Generated content assets (gitignored)
 
 ## Messaging House
 
-Six pillar docs at the root of `messaging/` cover every strategic dimension. Collection subdirectories hold detailed profiles that support the pillars.
+Six pillar docs at the root of `messaging/` cover every strategic dimension. A glossary provides cross-cutting terminology definitions. Collection subdirectories hold detailed profiles that support the pillars.
 
 Pillars build on each other: Profile (who we are) → Portfolio (what we sell) → Space (where we compete) → Audience (who we sell to) → Proof (evidence it works) → Motion (how we go to market).
 
@@ -112,7 +115,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 
 **Resolve context before writing.** Every content task implies a specific combination of messaging docs. Parse the task for persona, product, competitor, segment, and motion. Load the matching docs from `messaging/`. Never write against the full messaging house — load only what the task requires.
 
-**Always load profile.md and space.md.** Voice and positioning apply to all content. Other pillars and collection docs load conditionally based on the task.
+**Always load profile.md, space.md, and glossary.md (if present).** Voice, positioning, and terminology consistency apply to all content. Other pillars and collection docs load conditionally based on the task.
 
 **Follow skill templates.** Load the relevant skill from `.claude/skills/messaging/` and use its output format, evaluation criteria, and guidelines.
 
@@ -186,6 +189,12 @@ Two-layer model: base templates in `_templates/skills/` (read-only) are enriched
 
 Invoke: `/project:tune` or `/project:tune --check`
 
+### glossary
+
+Maintains `messaging/glossary.md` — a curated list of terms with company-specific definitions extracted from the messaging house. Runs on demand, scanning all messaging docs to add, update, and remove entries. Flags terminology conflicts.
+
+Invoke: `/project:glossary` or `/project:glossary --check`
+
 ## Commands
 
 | Command | Purpose |
@@ -202,6 +211,8 @@ Invoke: `/project:tune` or `/project:tune --check`
 | `/project:campaign [type] [topic]` | Build a multi-asset content campaign |
 | `/project:tune` | Calibrate skills to the messaging house |
 | `/project:tune --check` | Detect tuning drift without changes |
+| `/project:glossary` | Update glossary from messaging house |
+| `/project:glossary --check` | Check glossary health without changes |
 
 ## Skills
 

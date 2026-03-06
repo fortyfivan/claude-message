@@ -109,6 +109,10 @@ The bootstrap process is long. At the end of each phase, write a progress marker
 
 After all six phases: read all written files, perform a consistency check, flag contradictions or gaps, present a summary with recommended next steps, and delete the progress file.
 
+After the consistency check, invoke the glossary agent to generate the initial glossary from the freshly populated messaging house. Present the proposed glossary to the user for approval before finalizing the bootstrap process.
+
+/agents glossary
+
 Your messaging house is populated. Suggest running `/project:tune` as the next step to calibrate the content generation skills to the company's market, audience, voice, stage, and motions.
 
 ## Handling Ambiguity

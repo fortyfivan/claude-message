@@ -30,6 +30,7 @@ Load and analyze all six pillars and collection frontmatter:
 - `messaging/portfolio.md` — product ecosystem
 - `messaging/motion.md` — GTM motions, channels, conversion patterns
 - `messaging/proof.md` — evidence inventory (depth assessment, not full content)
+- `messaging/glossary.md` (if present) — term definitions for vocabulary calibration
 - All persona docs in `messaging/personas/` — frontmatter for type, seniority, pain points, goals
 - All category docs in `messaging/categories/` — market dynamics
 - All competitor docs in `messaging/competitors/` — frontmatter for tier, threat level, differentiators

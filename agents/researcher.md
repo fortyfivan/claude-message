@@ -99,6 +99,8 @@ Read `messaging/space.md` for positioning context. Check `messaging/competitors/
 ### Persona [role]
 Read `messaging/audience.md` for ICP context. Check `messaging/personas/` for existing profile. Create or update using `_templates/messaging/persona.md`. Research the role online. Cross-reference with product capabilities from `messaging/portfolio.md`. Write to `messaging/personas/[role].md` with user confirmation.
 
+After writing or updating any messaging doc, check whether new terms were introduced or existing terms were retired. If so, note in the output: "Glossary may need updating — run `/project:glossary` to sync."
+
 ## Tool Scoping
 
 - **Read** — `messaging/`, `research/`, `insights/`, `.claude/skills/messaging/`

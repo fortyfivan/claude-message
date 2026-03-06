@@ -105,6 +105,8 @@ The through-line that unifies every asset. Two parts:
 
 **Key messages** — 3-5 specific claims the campaign makes. Not taglines — grounded assertions, each citing the messaging doc it derives from. Key messages are the raw material that writers adapt to their asset's audience and altitude.
 
+Load `messaging/glossary.md` when writing the campaign narrative. Key terms used in the narrative should align with glossary definitions. If the campaign introduces terms not in the glossary, note them for the user — the glossary may need updating after the campaign is produced.
+
 ```markdown
 ## Campaign Narrative
 

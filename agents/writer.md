@@ -42,6 +42,7 @@ Then load the pillar docs that ground the context:
 |---|---|
 | `messaging/profile.md` | Voice, tone, brand values — applies to all content |
 | `messaging/space.md` | Positioning context — how we frame everything |
+| `messaging/glossary.md` (if present) | Term definitions — ensures consistent use of company-specific terminology |
 
 | Load when relevant | Why |
 |---|---|
@@ -86,6 +87,7 @@ Write the content asset using:
 - **Language** calibrated to the persona's altitude and the brand voice from profile.md
 - **Proof** from proof.md, filtered to what's relevant for this persona+product combination
 - **Differentiation** from space.md and competitor profiles, focused on what matters to this persona
+- **Terminology** from glossary.md, using terms with their defined meanings and in their specified contexts
 
 Every substantive claim in the output must trace to a loaded messaging doc. If you can't ground a claim, don't make it.
 
@@ -111,6 +113,7 @@ product: "vuln-mgmt"
 messaging_docs_loaded:
   - messaging/profile.md
   - messaging/space.md
+  - messaging/glossary.md
   - messaging/audience.md
   - messaging/portfolio.md
   - messaging/proof.md
