@@ -1,5 +1,6 @@
 ---
 title: ""
+updated: ""
 ---
 
 # Proof
@@ -33,14 +34,14 @@ Customer stories are the primary proof artifacts in the messaging system. Each s
 
 When specific stories are related to your task, extract the respective profile in `messaging/stories/`.
 
-| Story | File | Customer | Products | Personas | Segments |
-|---|---|---|---|---|---|
-| | | | | | |
+| Story | File | Customer | Products | Personas | Segments | Description |
+|---|---|---|---|---|---|---|
+| | | | | | | |
 
 [Instructions:
 Document customer stories as discrete profiles in `messaging/stories/[story-name].md`. Each story should capture the full arc — who the customer is, what they were dealing with, why they acted, and what they achieved. Quotes embedded within each story profile are the atomic fragments that get dropped into emails, social posts, landing pages, and battlecards.
 
-Tag each story in the reference table with products, personas, and segments so the writer can filter by relevance without opening every file.]
+Tag each story in the reference table with products, personas, and segments so the writer can filter by relevance without opening every file. Description should capture the proof arc in one sentence (~15 words) — the problem domain and the measurable outcome.]
 
 ### Analyst Recognition
 

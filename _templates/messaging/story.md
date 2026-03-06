@@ -8,6 +8,7 @@ products: []
 personas: []
 segments: []
 status: ""  # approved | draft | stale
+updated: ""
 ---
 
 # Story: [Name]

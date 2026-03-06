@@ -1,14 +1,13 @@
 ---
 title: ""
-website: ""
 type: ""  # vendor | diy | status-quo | adjacent
 tier: ""  # primary | secondary | emerging
 category_overlap: []
 ---
 
-# Competitor: [Name]
+# Alternative: [Name]
 
-This profile defines how to message against a specific competitive alternative — their approach, where they're strong, where they're weak, and the specific scenarios where deals are won or lost. This is a messaging tool, not a competitive intelligence database. Focus on what affects positioning, content, and sales conversations.
+This profile defines how to message against a competitive alternative — a grouping of vendors, approaches, or strategies that represent a common pattern the buyer is evaluating instead of choosing you. The messaging sections describe the group's shared approach, strengths, and weaknesses. Vendor Specifics carry individual vendor data for enablement skills that need to name names.
 
 ## Messaging Blocks
 
@@ -133,19 +132,42 @@ For each pattern:
 [Format:
 Numbered list of 2-3 contrast statements]
 
-## Writing Guidelines
+### Vendor Specifics
+
+[Instructions:
+Factual reference data for specific vendors represented in this competitive grouping. The messaging sections above describe the group's shared approach, strengths, and weaknesses. This section carries vendor-level detail that enablement skills (battlecards, discovery guides, playbooks) need to produce specific, accurate content.
+
+Not every vendor in the group needs a full entry. Prioritize vendors in active deals or with primary/secondary tier status.]
+
+[Tips:
+- Keep entries factual — this is reference data, not messaging. Your messaging about these vendors lives in the sections above
+- Recent moves should be kept current — the research agent updates these during scans
+- Note where a specific vendor deviates from the group pattern — if the group weakness is "slow to innovate" but one vendor just shipped a major release, capture that]
+
+[Format:
+For each vendor:
+
+#### [Vendor Name]
+
+- **Website:** [url]
+- **Products:** [their product names and what each does]
+- **Pricing:** [model and tiers if known — freemium, per-seat, enterprise-only, etc.]
+- **Key customers:** [notable logos they reference]
+- **Tech stack:** [architecture approach — cloud-native, on-prem, hybrid, agent-based, etc.]
+- **Integrations:** [key ecosystem partnerships and integrations]
+- **Recent moves:** [last 6-12 months — launches, acquisitions, funding, partnerships, pivots]
+- **Analyst standing:** [Gartner/Forrester positioning if applicable]
+- **Group deviations:** [where this vendor breaks from the group pattern — specific strengths, weaknesses, or positioning that differ from the shared profile above]]
+
+## Rules and Guidelines
 
 - This profile is a messaging tool, not a competitive intelligence database — focus on what affects content, campaigns, and sales conversations
 - Be honest about competitor strengths — understating them damages credibility with buyers who've done their research
-- Do not introduce competitive claims here that aren't supported elsewhere in the messaging system
+- Differentiation messages must trace back to differentiators defined in space.md — do not introduce competitive claims here that aren't supported elsewhere in the messaging system
+- Win/Loss Patterns are the most actionable section for strategic planning — prioritize keeping them current over general Strengths/Weaknesses updates
 - When generating competitive content (battlecards, objection handling, competitive blog posts), load this profile alongside the relevant persona profile — the competitive argument changes depending on who you're talking to
 - "When They Win" scenarios should inform campaign targeting exclusions and counter-play development, not be hidden or minimized
 - Strategic Approach determines engagement posture — "monitor" alternatives should not receive the same content investment as "beat" alternatives
-- For status-quo and DIY alternatives, Strengths/Weaknesses frame around organizational inertia and switching cost, not product capabilities
-
-## Messaging Rules
-
-[Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
-
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+- The messaging sections (Their Approach through Differentiation Messages) describe the group. Vendor Specifics carry individual vendor facts. Enablement skills should pull from both — group messaging for the narrative, vendor data for accuracy
+- Group deviations are the most important field in Vendor Specifics — they tell the writer where to break from the group narrative for a specific vendor
+- For status-quo and DIY alternatives, Strengths/Weaknesses frame around organizational inertia and switching cost, not product capabilities. Vendor Specifics may be minimal or absent for these alternative types

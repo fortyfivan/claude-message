@@ -6,6 +6,7 @@ seniority: ""  # executive | director | manager | practitioner | developer
 department: ""
 priority: ""  # primary | secondary | tertiary
 product_role: ""  # owner | administrator | end-user | observer
+updated: ""
 ---
 
 # Persona: [Name]

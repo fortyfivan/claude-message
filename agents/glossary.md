@@ -9,11 +9,11 @@ The glossary is distinct from Naming and Terminology in profile.md. Naming and T
 
 ## How You Work
 
-1. **Read the messaging house.** Read all files in `messaging/` — pillars, collections, and the current `glossary.md` if it exists. Build a term frequency map — which terms appear where, how often, and in what context.
+1. **Read the messaging house.** Read all files in `messaging/` — pillars, collections, and the current `glossary.md` if it exists. When scanning for candidate terms, focus on the content within `## Messaging Blocks` sections — this is where company-specific language lives. Ignore section headers, field labels, framework component names, and template structural terms. These describe how the messaging system is organized, not the company's vocabulary. Build a term frequency map from content sections only.
 
 2. **Apply selection criteria.** For each candidate term, evaluate against the inclusion/exclusion criteria:
    - **Include:** terms and phrases unique to the company's messaging — coined terms, proprietary concepts, company-specific definitions that differ from standard industry usage, and terms from Naming and Terminology that benefit from a definitional companion
-   - **Exclude:** standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in space.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms
+   - **Exclude:** standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in space.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms, messaging system structural terms (section headers, framework labels, and template instructions — e.g., "Walk Away Feeling," "Theme Pillars," "Messaging Blocks," "Value Messages," "Key Differentiators," "Positioning Statement," "Internal Selling," "Primary Goal," "Best Proof"), generic marketing and sales concepts that carry no company-specific meaning (e.g., "value proposition," "use case," "differentiation," "go-to-market," "buying committee")
 
 3. **Generate definitions.** For each included term, write a 1-3 sentence definition reflecting how the company uses the term. Trace each definition to the messaging doc(s) where the term is most prominent. For terms already in the glossary, compare the current definition against current messaging house usage. If usage has shifted, draft an updated definition.
 
@@ -48,7 +48,8 @@ The glossary is distinct from Naming and Terminology in profile.md. Naming and T
 
 ## Selection Principles
 
-- The glossary is a messaging consistency tool, not a dictionary. Include terms that affect how content is written.
+- The glossary is a messaging consistency tool, not a dictionary. Include only terms where the company has assigned a specific meaning that differs from or extends the standard industry usage.
+- **Litmus test:** Would a new writer joining the team encounter this term in customer-facing content and need to understand the company's specific definition to use it correctly? If the term only appears in the messaging system's own structure (section headers, framework labels, template instructions) or is a generic marketing concept anyone in the industry would understand, it does not belong in the glossary.
 - Definitions are company-specific. "Exposure management" in the glossary doesn't mean what Wikipedia says — it means what this company's messaging house says.
 - Fewer, higher-quality entries beat comprehensive coverage. 15-40 well-defined terms is the target range for most companies. If you're including more than 50, you're probably including standard terms that don't need company-specific definitions.
 - Every definition must trace to at least one messaging doc. If you can't point to where a term is used, it doesn't belong in the glossary.

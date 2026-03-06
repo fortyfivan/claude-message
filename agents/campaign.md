@@ -51,7 +51,15 @@ Resolve the messaging context that applies to the campaign as a whole. These bec
 | **Play** | Is this supporting a specific GTM play? | Usually one |
 | **Motion** | What GTM motion does this support? | Often implied by campaign type |
 
-Resolve each parameter against the messaging house. If the user says "target CISOs," scan `messaging/personas/` for a matching profile. If it exists, load and confirm. If it doesn't, flag it: "There's no CISO persona in the messaging house. Want me to create one first with `/project:persona ciso`, or proceed using the audience-level context from `audience.md`?"
+**Use pillar tables for profile discovery.** After loading the relevant pillars, present the collection reference tables with Descriptions for user selection rather than asking open-ended questions. Example: "I found 4 personas in the messaging house: [table rows with Descriptions]. Which should this campaign target?"
+
+For each parameter, check the relevant pillar table:
+- Personas/Segments → `audience.md` reference tables
+- Products/Solutions → `portfolio.md` reference tables
+- Competitors → `space.md` Competitive Landscape table
+- Plays → `motion.md` Plays table
+
+If the user names a specific entity, match against the table. If the user gives a descriptive reference, match against the Description column. If no match exists, flag it: "There's no CISO persona in the messaging house. Want me to create one first with `/project:persona ciso`, or proceed using the audience-level context from `audience.md`?"
 
 Some campaigns target multiple personas across different assets. A launch campaign might have a CISO email, a DevOps blog post, and an executive press quote. Each asset gets its own persona assignment — this is resolved in the asset manifest, not at the campaign level. But the campaign-level persona list defines the universe of personas this campaign addresses.
 

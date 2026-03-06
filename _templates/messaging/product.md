@@ -5,6 +5,7 @@ parent: ""  # slug of parent product, if module or add-on (optional)
 status: ""  # ga | beta | planned | deprecated
 category: ""  # primary market category slug
 pricing_model: ""  # per-product model if different from portfolio default (optional)
+updated: ""
 ---
 
 # Product: [Name]

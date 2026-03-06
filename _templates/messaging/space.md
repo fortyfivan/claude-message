@@ -2,6 +2,7 @@
 title: ""
 primary_category: ""
 adjacent_categories: []
+updated: ""
 ---
 
 # Market Space
@@ -102,28 +103,27 @@ For each differentiator:
 
 When researching specific categories, extract the details from files in `messaging/categories/`.
 
-| Category | File | Position |
+| Category | File | Description |
 |---|---|---|
 | | | |
 
 [Instructions:
-List the market categories you align with or intersect with. For each, carve out a distinct profile in `messaging/categories/[category-name].md`.]
+List the market categories you align with or intersect with. For each, carve out a distinct profile in `messaging/categories/[category-name].md`. Description should lead with the company's position (e.g., category leader, new entrant) and capture the strategic relationship — one sentence (~15 words).]
 
 ### Competitive Landscape
 
 When researching specific alternatives, extract the details from files in `messaging/competitors/`.
 
-| Competitor | File | Tier | Approach |
+| Competitor | File | Tier | Description |
 |---|---|---|---|
 | | | | |
 
 [Instructions:
-List the alternatives customers evaluate instead of choosing you. This includes vendors, DIY approaches, and inaction. Focus on patterns of choice, not just named competitors — this is scoped to messaging, not a competitive intelligence database. For each competing alternative, carve out a distinct profile in `messaging/competitors/[competitor-name].md`.]
+List the alternatives customers evaluate instead of choosing you. This includes vendors, DIY approaches, and inaction. Focus on patterns of choice, not just named competitors — this is scoped to messaging, not a competitive intelligence database. For each competing alternative, carve out a distinct profile in `messaging/competitors/[competitor-name].md`. Description should lead with their positioning approach and capture what makes them a distinct alternative — one sentence (~15 words).]
 
 [Tips:
 - Include "do nothing" and "build in-house" if they're common alternatives — these are competitors too
-- Tier reflects how often you encounter them, not how good they are (primary | secondary | emerging)
-- Approach should be a short phrase describing their positioning angle, not a full analysis]
+- Tier reflects how often you encounter them, not how good they are (primary | secondary | emerging)]
 
 ## Writing Guidelines
 

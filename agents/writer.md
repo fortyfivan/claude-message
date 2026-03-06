@@ -23,33 +23,49 @@ Not every parameter applies to every task. A blog post might only need persona +
 
 ### Step 2: Resolve Context
 
-For each parameter, load the corresponding messaging document:
+Use a pillars-first loading pattern. Pillars are the routing layer — their reference tables tell you which collection profiles to load.
 
-| Parameter | Resolves to | Example |
-|---|---|---|
-| Persona | `messaging/personas/[name].md` | `messaging/personas/enterprise-ciso.md` |
-| Product | `messaging/products/[name].md` | `messaging/products/vuln-mgmt.md` |
-| Solution | `messaging/solutions/[name].md` | `messaging/solutions/exposure-management.md` |
-| Competitor | `messaging/competitors/[name].md` | `messaging/competitors/acme-corp.md` |
-| Segment | `messaging/segments/[name].md` | `messaging/segments/mid-market-finance.md` |
-| Category | `messaging/categories/[name].md` | `messaging/categories/attack-surface-mgmt.md` |
-| Play | `messaging/plays/[name].md` | `messaging/plays/build-asset-foundation.md` |
-| Story | `messaging/stories/[name].md` | `messaging/stories/acme-corp.md` |
+**Always load these pillars:**
 
-Then load the pillar docs that ground the context:
-
-| Always load | Why |
+| Pillar | Why |
 |---|---|
 | `messaging/profile.md` | Voice, tone, brand values — applies to all content |
 | `messaging/space.md` | Positioning context — how we frame everything |
 | `messaging/glossary.md` (if present) | Term definitions — ensures consistent use of company-specific terminology |
 
-| Load when relevant | Why |
-|---|---|
-| `messaging/audience.md` | ICP context when a persona is involved |
-| `messaging/portfolio.md` | Product ecosystem context when a specific product is involved |
-| `messaging/proof.md` | Evidence when claims need backing |
-| `messaging/motion.md` | GTM framing when the content supports a specific motion |
+**Conditionally load these pillars based on task type:**
+
+| Pillar | Load when | Why |
+|---|---|---|
+| `messaging/audience.md` | Persona is involved | ICP context, buying process, persona/segment tables |
+| `messaging/portfolio.md` | Product or solution is involved | Product ecosystem, product/solution tables |
+| `messaging/proof.md` | Claims need backing | Evidence inventory, story table |
+| `messaging/motion.md` | Content supports a specific motion | GTM framing, play table |
+
+**Route via pillar tables to discover collection profiles:**
+
+Each pillar contains reference tables for its collection profiles with a Description column. Use these tables to identify which profiles to load — do not load collection profiles without first checking the pillar table.
+
+| Pillar table | Routes to | Key columns for matching |
+|---|---|---|
+| `audience.md` → Personas table | `messaging/personas/` | Type, Seniority, Priority, Description |
+| `audience.md` → Segments table | `messaging/segments/` | Type, Defining Trait, Description |
+| `portfolio.md` → Products table | `messaging/products/` | Type, Status, Parent, Description |
+| `portfolio.md` → Solutions table | `messaging/solutions/` | Scope, Products, Description |
+| `space.md` → Categories table | `messaging/categories/` | Description |
+| `space.md` → Competitors table | `messaging/competitors/` | Tier, Description |
+| `proof.md` → Stories table | `messaging/stories/` | Customer, Products, Personas, Segments, Description |
+| `motion.md` → Plays table | `messaging/plays/` | Type, Status, Description |
+
+**Matching rules:**
+- When the user names a specific entity (e.g., "CISO", "Acme Corp"), match against the entity name and File columns.
+- When the user gives a descriptive reference (e.g., "security leaders", "our main competitor"), match against the Description column.
+- If multiple candidates match, present the matching table rows with Descriptions to the user and ask which to use.
+- If no match is found, flag the gap.
+
+**Load only the matched collection profiles.** Read the full content of selected profiles for claims, proof, and messaging guidance.
+
+**Cross-collection relationships** are already encoded in pillar tables. The Stories table lists Products, Personas, and Segments. The Solutions table lists Products. Use these columns to find related profiles without loading additional docs speculatively.
 
 When reading messaging docs, `## Messaging Blocks` contains the content to draw claims and context
 from. `## Writing Guidelines` contains instructions for how to interpret and use the doc. `## Messaging Rules` contains company-specific constraints to follow when generating content.
@@ -138,8 +154,8 @@ Present the review results to the user alongside the generated asset. If the rev
 If the user says "write a blog post about our platform," you don't know the persona, the angle, or the altitude. Before writing:
 
 1. Check if the skill definition specifies required parameters.
-2. Scan the messaging house to understand what personas and products exist.
-3. Ask the user to clarify: "I see three personas in the messaging house — CISO, VP Engineering, and DevOps Lead. Who is this blog post for? That'll determine the angle and depth."
+2. Check the pillar reference tables to see what personas, products, and other profiles exist. Present the table rows with Descriptions to the user.
+3. Ask the user to clarify: "I see three personas in the messaging house: [table rows with Descriptions]. Who is this blog post for? That'll determine the angle and depth."
 
 Keep questions focused. Present what you found, then ask what's missing. Never ask the user to tell you things the messaging house already contains.
 

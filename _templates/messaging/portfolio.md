@@ -2,6 +2,7 @@
 title: ""
 portfolio_structure: ""  # platform | product-suite | single-product | product-and-services
 pricing_model: ""     # freemium | per-seat | platform | usage | contact-sales
+updated: ""
 ---
 
 # Portfolio
@@ -31,18 +32,19 @@ Describe the high-level structure of your offering — the relationship between 
 
 Products are the canonical units of offering within the portfolio. Reference products intentionally — only when they're relevant to the scenario, persona, or use case. When specific products are related to your task, extract the respective profile in `messaging/products/` for in-depth messaging.
 
-| Product | File | Type | Status | Parent | Pricing |
+| Product | File | Type | Status | Parent | Description |
 |---|---|---|---|---|---|
 | | | | | | |
 
 [Instructions:
-List each product as a row in the reference table and create a discrete profile in `messaging/products/[product-name].md`. Type and Status are enums. Parent references the parent product for modules and add-ons (leave empty for top-level products). Pricing captures the per-product model if it differs from the portfolio-level default.]
+List each product as a row in the reference table and create a discrete profile in `messaging/products/[product-name].md`. Type and Status are enums. Parent references the parent product for modules and add-ons (leave empty for top-level products). Description should be a routing signal — one sentence (~15 words) capturing what this product does and why it matters, not just its name.]
 
 [Tips:
 - Type: platform | product | module | add-on | service
 - Status: ga | beta | planned | deprecated
 - Parent makes the hierarchy navigable — a module launch campaign needs to reference its parent platform
-- Only create product profiles for offerings with distinct messaging — if two products always go to market together with identical positioning, they may be one profile]
+- Only create product profiles for offerings with distinct messaging — if two products always go to market together with identical positioning, they may be one profile
+- Pricing model, if it differs from the portfolio default, belongs in the product profile frontmatter — not the pillar table]
 
 ### Solutions
 
@@ -52,17 +54,16 @@ Use solutions to ground messaging in what teams are trying to accomplish. A prod
 
 When specific solutions are related to your task, extract the respective profile in `messaging/solutions/` for in-depth messaging.
 
-| Solution | File | Scope | Products | Theme |
+| Solution | File | Scope | Products | Description |
 |---|---|---|---|---|
 | | | | | |
 
 [Instructions:
-Document repeatable, outcome-oriented solutions. Solutions may span multiple products or apply to a single product. For each, carve out a distinct profile in `messaging/solutions/[solution-name].md`.]
+Document repeatable, outcome-oriented solutions. Solutions may span multiple products or apply to a single product. For each, carve out a distinct profile in `messaging/solutions/[solution-name].md`. Description should lead with the strategic theme (e.g., consolidation, risk reduction) and capture the outcome — one sentence (~15 words).]
 
 [Tips:
 - Scope: single-product (one product delivers this) | cross-product (requires multiple products) | platform (the platform as a whole delivers this)
 - Products: which product(s) power this solution — reference by slug
-- Theme: the strategic narrative this solution connects to — e.g., "consolidation," "risk reduction," "developer velocity"
 - Only create a solution profile when the use case has its own messaging — distinct audience, distinct proof, distinct value framing. If a use case is just a feature of a product, it belongs in the product profile, not here
 - When you have many solutions, group them by theme to avoid messaging sprawl]
 

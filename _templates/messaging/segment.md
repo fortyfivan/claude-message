@@ -5,6 +5,7 @@ defining_trait: ""
 verticals: []
 regions: []
 company_size: ""
+updated: ""
 ---
 
 # Segment: [Name]

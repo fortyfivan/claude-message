@@ -14,7 +14,7 @@ Scan runs non-interactively. Never prompt for user input during a scan.
 ### Scan Process
 
 **Step 1: Read the messaging system.**
-Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/audience.md`, `messaging/portfolio.md`, `messaging/proof.md`, `messaging/motion.md`). Scan collection frontmatter in `messaging/categories/`, `messaging/competitors/`, `messaging/personas/`, `messaging/plays/`, `messaging/products/`, `messaging/segments/`, `messaging/solutions/`, `messaging/stories/`. Read `insights/tracker.md` for open insights. Build an internal assessment map of positions, competitors, personas, products, proof claims, and open insights.
+Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/audience.md`, `messaging/portfolio.md`, `messaging/proof.md`, `messaging/motion.md`). Use the pillar reference tables to enumerate collection profiles — the tables in each pillar list all collection docs with Descriptions that provide routing context. Only load full collection profiles when a scan finding requires deeper analysis. Read `insights/tracker.md` for open insights. Build an internal assessment map of positions, competitors, personas, products, proof claims, and open insights from the pillar tables and their Description columns.
 
 **Step 2: Scan external sources.**
 Search for signals across five domains using messaging-derived queries:
@@ -60,7 +60,7 @@ Findings that don't connect to a messaging component are excluded.
 Each insight gets a severity (critical, warning, opportunity, confirmation) and type (competitive, market, audience, portfolio, proof, internal).
 
 **Step 6: Update the tracker.**
-New insights appended as `open` to `insights/tracker.md`. Recurring insights get `last_seen` updated. Insights where the underlying messaging doc has been updated since creation are auto-resolved.
+New insights appended as `open` to `insights/tracker.md`. Recurring insights get `last_seen` updated. Insights where the underlying messaging doc has been updated since creation are auto-resolved — compare the `updated` field on the affected messaging doc against the insight's `created` date. If `updated > created`, auto-resolve the insight.
 
 ### Scan Output
 

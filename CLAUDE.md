@@ -95,7 +95,22 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 - Follow the schema in `_templates/messaging/` when creating new docs.
 - Place collection docs in the appropriate subdirectory.
 - Messaging docs use a three-section structure: `## Messaging Blocks` contains the content sections; `## Writing Guidelines` defines how the document should be interpreted by agents; `## Messaging Rules` captures company-specific constraints for content generation.
+- Pillar docs contain reference tables for their collection profiles. Every table includes a **Description** column — a one-sentence routing signal (~15 words) that enables agents to identify the right profile without loading it. When creating or updating collection profiles, ensure the corresponding pillar table row exists with a Description that differentiates from sibling entries.
+- All messaging docs include an `updated` field in frontmatter (ISO date) tracking the last substantive edit.
 - Ask for confirmation before writing changes to existing messaging docs.
+
+## Progressive Loading
+
+Agents use a pillars-first loading pattern for messaging documents:
+
+1. **Always load** profile.md, space.md, glossary.md (voice, positioning, terminology)
+2. **Conditionally load** other pillars based on task type
+3. **Route via pillar tables** — each pillar contains reference tables for its collection profiles with a Description column. Use these to identify which profiles to load. Do not load collection profiles without first checking the pillar table.
+4. **Load selectively** — read only the collection profiles the task requires
+
+Pillar tables encode relationships between collection types (e.g., the story table lists Products, Personas, and Segments). Use these columns to find cross-collection connections without loading additional profiles speculatively.
+
+The `updated` field on all messaging docs tracks the date of last substantive edit. Agents use this for drift detection and auto-resolve logic.
 
 ## Messaging Rules
 
@@ -163,7 +178,7 @@ Also handles ad-hoc research: `/project:research`, `/project:competitor`, `/proj
 Context-resolution engine for content generation. Its primary job is deciding what to read, not writing. Given a task, it resolves the exact combination of messaging docs required:
 
 1. **Parse** — Extract task parameters: skill type, persona, product, competitor, segment, motion, altitude.
-2. **Resolve** — Load the corresponding messaging docs. Always loads `profile.md` (voice) and `space.md` (positioning). Conditionally loads persona profiles, product docs, competitor profiles, segment docs, proof points, and motion context based on what the task requires.
+2. **Resolve** — Pillars-first loading. Always loads `profile.md`, `space.md`, `glossary.md`. Conditionally loads other pillars. Routes via pillar reference tables (Description column) to discover and selectively load only the collection profiles the task requires.
 3. **Load skill** — Read the skill category's routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
 4. **Cross-reference** — Check loaded context for consistency. Flag gaps or conflicts to the user before writing.
 5. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.

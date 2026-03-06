@@ -22,7 +22,7 @@ On subsequent runs: compare current tuned skills against the messaging house (wh
 
 ## Step 1: Read the Messaging House
 
-Load and analyze all six pillars and collection frontmatter:
+Load and analyze all six pillars and collection docs:
 
 - `messaging/profile.md` — voice, stage, identity
 - `messaging/space.md` — market, positioning, differentiation
@@ -31,9 +31,14 @@ Load and analyze all six pillars and collection frontmatter:
 - `messaging/motion.md` — GTM motions, channels, conversion patterns
 - `messaging/proof.md` — evidence inventory (depth assessment, not full content)
 - `messaging/glossary.md` (if present) — term definitions for vocabulary calibration
-- All persona docs in `messaging/personas/` — frontmatter for type, seniority, pain points, goals
-- All category docs in `messaging/categories/` — market dynamics
-- All competitor docs in `messaging/competitors/` — frontmatter for tier, threat level, differentiators
+
+Use pillar reference tables to enumerate collection profiles. The tables in each pillar list all collection docs with Descriptions — use these for the company profile summary. Load full collection docs for deeper analysis:
+
+- Persona docs in `messaging/personas/` — frontmatter for type, seniority, pain points, goals
+- Category docs in `messaging/categories/` — market dynamics
+- Competitor docs in `messaging/competitors/` — frontmatter for tier, threat level, differentiators
+
+Note the `updated` timestamp on each pillar and collection doc for drift detection against `tuned_date` in skill frontmatter.
 
 Build a **company profile** — a compact internal summary across the five tuning dimensions:
 
@@ -187,9 +192,9 @@ When invoked with `--check`, compare the messaging house state against tuning me
 
 Check three dimensions:
 
-1. **Messaging house vs. last tune** — Has voice changed? New personas added? Motion shifted? Repositioned?
-2. **Proof inventory vs. last tune** — More case studies? Analyst validation? Proof posture may have graduated.
-3. **Skills vs. messaging house** — Are persona blocks still aligned? Do CTAs match the declared motion?
+1. **Messaging house vs. last tune** — Compare `updated` timestamps on pillar and collection docs against `tuned_date` in skill frontmatter. Any doc with `updated > tuned_date` indicates drift. Has voice changed? New personas added? Motion shifted? Repositioned?
+2. **Proof inventory vs. last tune** — More case studies? Analyst validation? Proof posture may have graduated. Check `updated` on `proof.md` and story profiles.
+3. **Skills vs. messaging house** — Are persona blocks still aligned? Do CTAs match the declared motion? Use pillar tables to verify all collection profiles are accounted for in tuned skills.
 
 ### Preserving Manual Edits
 

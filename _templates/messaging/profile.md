@@ -7,6 +7,7 @@ company_size: ""
 funding_stage: ""
 stage: ""  # emerging | growth | established
 website: ""
+updated: ""
 ---
 
 # Company Profile

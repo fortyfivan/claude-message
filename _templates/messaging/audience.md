@@ -148,21 +148,21 @@ For each committee member within a pattern:
 
 ### Personas
 
-| Persona | File | Role | Type | Seniority | Priority |
+| Persona | File | Type | Seniority | Priority | Description |
 |---|---|---|---|---|---|
 | | | | | | |
 
 [Instructions:
-List the personas that apply to your GTM. Grounded in real responsibilities, pressures, and motivations — not generic demographic or personality-based descriptions. For each, carve out a distinct profile in `messaging/personas/[persona-name].md`.]
+List the personas that apply to your GTM. Grounded in real responsibilities, pressures, and motivations — not generic demographic or personality-based descriptions. For each, carve out a distinct profile in `messaging/personas/[persona-name].md`. Description should be a routing signal — one sentence (~15 words) capturing what makes this persona distinct, their domain, and why they matter for messaging.]
 
 ### Segments
 
-| Segment | File | Type | Defining Trait |
-|---|---|---|---|
-| | | | |
+| Segment | File | Type | Defining Trait | Description |
+|---|---|---|---|---|
+| | | | | |
 
 [Instructions:
-List segments that carry particular messaging considerations. Only create segments when you need additional contextual clarifiers — compliance regulations, regional differences, scale implications, etc. For each, carve out a distinct profile in `messaging/segments/[segment-name].md`.]
+List segments that carry particular messaging considerations. Only create segments when you need additional contextual clarifiers — compliance regulations, regional differences, scale implications, etc. For each, carve out a distinct profile in `messaging/segments/[segment-name].md`. Description should be a routing signal — one sentence (~15 words) capturing the segment's key constraint or context that differentiates its messaging needs.]
 
 ## Writing Guidelines
 

@@ -2,6 +2,7 @@
 title: ""
 primary_motion: ""  # sales-led | product-led | partner-led | community-led | event-led
 secondary_motions: []
+updated: ""
 ---
 
 # Motion
@@ -51,17 +52,16 @@ For each channel:
 
 Plays are reusable messaging narratives tied to specific buyer situations, competitive scenarios, or strategic initiatives. Each play explains when the motion applies, why it matters, and how value is created. When specific plays are related to your task, extract the respective profile in `messaging/plays/`.
 
-| Play | File | Type | Status | Trigger |
+| Play | File | Type | Status | Description |
 |---|---|---|---|---|
 | | | | | |
 
 [Instructions:
-Document plays as discrete profiles in `messaging/plays/[play-name].md`. The table serves as a reference index.]
+Document plays as discrete profiles in `messaging/plays/[play-name].md`. The table serves as a reference index. Description should lead with the trigger condition and capture the play's strategic intent — one sentence (~15 words).]
 
 [Tips:
 - Type: competitive | expansion | displacement | new-logo | retention | event | partner
-- Status: active | draft | retired
-- Trigger: the one-line condition that activates this play — "competitor contract renewal within 90 days," "new compliance mandate in target vertical," "customer using only one module"]
+- Status: active | draft | retired]
 
 ## Writing Guidelines
 
