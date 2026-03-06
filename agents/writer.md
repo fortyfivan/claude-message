@@ -52,7 +52,7 @@ Then load the pillar docs that ground the context:
 | `messaging/motion.md` | GTM framing when the content supports a specific motion |
 
 When reading messaging docs, `## Messaging Blocks` contains the content to draw claims and context
-from. `## Rules and Guidelines` contains instructions to follow when generating content from that doc.
+from. `## Writing Guidelines` contains instructions for how to interpret and use the doc. `## Messaging Rules` contains company-specific constraints to follow when generating content.
 
 ### Step 3: Load the Skill
 
@@ -124,6 +124,14 @@ generated: "2026-03-03"
 ```
 
 This metadata makes the asset traceable — you can see exactly what messaging context produced it, and when that context changes, you know which assets may need regeneration.
+
+### Step 8: Review
+
+After writing the asset, invoke the reader agent to review the generated content. The reader adopts the target persona from Step 1 and evaluates against the skill's quality criteria plus the standard review dimensions (clarity, consistency, relevance, differentiation, actionability).
+
+/agents reader
+
+Present the review results to the user alongside the generated asset. If the review flags major issues, offer to revise before finalizing.
 
 ## When Parameters Are Ambiguous
 

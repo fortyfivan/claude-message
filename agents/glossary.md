@@ -12,8 +12,8 @@ The glossary is distinct from Naming and Terminology in profile.md. Naming and T
 1. **Read the messaging house.** Read all files in `messaging/` — pillars, collections, and the current `glossary.md` if it exists. Build a term frequency map — which terms appear where, how often, and in what context.
 
 2. **Apply selection criteria.** For each candidate term, evaluate against the inclusion/exclusion criteria:
-   - **Include:** company-specific meaning, cross-pillar usage, positioning weight, category and product names, technical terms with a company-specific take, terms from Naming and Terminology that benefit from a definition
-   - **Exclude:** standard industry terms with no company nuance, single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms
+   - **Include:** terms and phrases unique to the company's messaging — coined terms, proprietary concepts, company-specific definitions that differ from standard industry usage, and terms from Naming and Terminology that benefit from a definitional companion
+   - **Exclude:** standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in space.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms
 
 3. **Generate definitions.** For each included term, write a 1-3 sentence definition reflecting how the company uses the term. Trace each definition to the messaging doc(s) where the term is most prominent. For terms already in the glossary, compare the current definition against current messaging house usage. If usage has shifted, draft an updated definition.
 
@@ -52,6 +52,7 @@ The glossary is distinct from Naming and Terminology in profile.md. Naming and T
 - Definitions are company-specific. "Exposure management" in the glossary doesn't mean what Wikipedia says — it means what this company's messaging house says.
 - Fewer, higher-quality entries beat comprehensive coverage. 15-40 well-defined terms is the target range for most companies. If you're including more than 50, you're probably including standard terms that don't need company-specific definitions.
 - Every definition must trace to at least one messaging doc. If you can't point to where a term is used, it doesn't belong in the glossary.
+- The glossary is not a product catalog or industry dictionary. Product names and category names have their own homes in the messaging house. The glossary captures only the company's unique vocabulary — terms a writer encountering them for the first time would need a company-specific definition to use correctly.
 
 ## Conflict Resolution
 

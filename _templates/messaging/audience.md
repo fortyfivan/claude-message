@@ -164,11 +164,11 @@ List the personas that apply to your GTM. Grounded in real responsibilities, pre
 [Instructions:
 List segments that carry particular messaging considerations. Only create segments when you need additional contextual clarifiers — compliance regulations, regional differences, scale implications, etc. For each, carve out a distinct profile in `messaging/segments/[segment-name].md`.]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - ICP defines eligibility — if ICP conditions are not met, assume no fit, urgency, or budget
 - Validate ICP fit before refining to specific segments and personas
-- Do not invent personas or segments beyond those defined 
+- Do not invent personas or segments beyond those defined
 - Required characteristics are hard filters — missing required traits should have a corresponding Disqualifying Condition
 - Negative behavioral signals indicate bad timing, not bad fit — treat them as temporal disqualifiers
 - Environment context grounds messaging in operational reality — it changes how you talk about value, not the value itself
@@ -179,3 +179,10 @@ List segments that carry particular messaging considerations. Only create segmen
 - Personas influence tone, direction, and value emphasis — not positioning. Positioning comes from Space
 - Segments adapt context and emphasis, not redefine value propositions — segment adjustments layer on top of persona messaging
 - Buying committee patterns inform multi-persona campaign sequencing — target personas in the order and through the influence chain documented above
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

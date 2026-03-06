@@ -133,7 +133,7 @@ For each pattern:
 [Format:
 Numbered list of 2-3 contrast statements]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - This profile is a messaging tool, not a competitive intelligence database — focus on what affects content, campaigns, and sales conversations
 - Be honest about competitor strengths — understating them damages credibility with buyers who've done their research
@@ -142,3 +142,10 @@ Numbered list of 2-3 contrast statements]
 - "When They Win" scenarios should inform campaign targeting exclusions and counter-play development, not be hidden or minimized
 - Strategic Approach determines engagement posture — "monitor" alternatives should not receive the same content investment as "beat" alternatives
 - For status-quo and DIY alternatives, Strengths/Weaknesses frame around organizational inertia and switching cost, not product capabilities
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

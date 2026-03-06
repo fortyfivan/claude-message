@@ -22,6 +22,8 @@ _templates/
   skills/                → Base generic skill templates (read-only)
 
 .claude/
+  agents/              → Symlinks to agents/ for native Claude Code features
+  commands/            → Symlinks to commands/ for native Claude Code features
   CLAUDE.md              → Plugin context and user guide
   settings.json          → MCP server configuration
   skills/
@@ -38,6 +40,7 @@ agents/
   campaign.md            → Campaign orchestrator for multi-asset campaigns
   tune.md                → Skill calibration agent
   glossary.md            → Terminology extraction and glossary maintenance
+  reader.md              → Content review and quality assessment
 
 commands/
   bootstrap.md           → /project:bootstrap
@@ -70,6 +73,7 @@ messaging/
   segments/              → Market segment profiles
   solutions/             → Solution briefs
 
+input/                   → User-provided source materials for bootstrap
 research/                → Uploaded and agent-generated research
 insights/                → Messaging intelligence (scan digests, tracker, investigations)
 output/                  → Generated content assets (gitignored)
@@ -80,7 +84,7 @@ output/                  → Generated content assets (gitignored)
 
 Six pillar docs at the root of `messaging/` cover every strategic dimension. A glossary provides cross-cutting terminology definitions. Collection subdirectories hold detailed profiles that support the pillars.
 
-Pillars build on each other: Profile (who we are) → Portfolio (what we sell) → Space (where we compete) → Audience (who we sell to) → Proof (evidence it works) → Motion (how we go to market).
+Pillars build on each other: Profile (who we are) → Space (where we compete) → Audience (who we sell to) → Portfolio (what we sell) → Proof (evidence it works) → Motion (how we go to market).
 
 ### File Conventions
 
@@ -90,7 +94,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 - Use kebab-case for filenames.
 - Follow the schema in `_templates/messaging/` when creating new docs.
 - Place collection docs in the appropriate subdirectory.
-- Messaging docs use a two-section structure: `## Messaging Blocks` contains the content sections; `## Rules and Guidelines` defines how the document should be interpreted by agents.
+- Messaging docs use a three-section structure: `## Messaging Blocks` contains the content sections; `## Writing Guidelines` defines how the document should be interpreted by agents; `## Messaging Rules` captures company-specific constraints for content generation.
 - Ask for confirmation before writing changes to existing messaging docs.
 
 ## Messaging Rules
@@ -105,7 +109,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 
 ## Research Rules
 
-**Research local first.** Always check `messaging/`, `research/`, and `insights/` before using WebSearch.
+**Research local first.** Always check `messaging/`, `input/`, `research/`, and `insights/` before using WebSearch.
 
 **Annotate sources.** Note whether information came from local documents, prior components, or web search.
 
@@ -132,6 +136,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 | `messaging/` | Yes | With user confirmation | Source of truth. Never write without approval. |
 | `_templates/` | Yes | No | Base schemas and skills. Never modify. |
 | `.claude/skills/messaging/` | Yes | Tune agent with approval | Tuned skills. Writer reads, tune agent writes. |
+| `input/` | Yes | No | User-provided source materials for bootstrap. |
 | `research/` | Yes | Yes | Agents can write autonomously. |
 | `insights/` | Yes | Yes | Scan agent writes autonomously. |
 | `output/` | Yes | Yes | Generated content. Agents write autonomously. |
@@ -140,7 +145,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 
 ### bootstrap
 
-Builds a complete messaging system from scratch through six interactive phases: Profile → Portfolio → Space → Audience → Proof → Motion. Each phase follows a discover → synthesize → validate → draft → write → bridge cycle. Can start from existing materials or pure Q&A.
+Builds a complete messaging system from scratch through six interactive phases: Profile → Space → Audience → Portfolio → Proof → Motion. Each phase follows a discover → synthesize → validate → draft → write → bridge cycle. Can start from existing materials or pure Q&A.
 
 Invoke: `/project:bootstrap` or `/agents bootstrap`
 
@@ -164,6 +169,7 @@ Context-resolution engine for content generation. Its primary job is deciding wh
 5. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
 6. **Evaluate** — Self-assess against skill criteria. Flag weak areas and thin context.
 7. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
+8. **Review** — Invoke the reader agent to review the generated content against persona, glossary, and skill criteria.
 
 The agent never dumps the entire messaging house into context. It surgically selects the docs that matter for this task, this audience, this product, this competitor. A battlecard for Acme targeting CISOs pulls completely different context than a nurture email for DevOps leads about the platform product.
 
@@ -194,6 +200,12 @@ Invoke: `/project:tune` or `/project:tune --check`
 Maintains `messaging/glossary.md` — a curated list of terms with company-specific definitions extracted from the messaging house. Runs on demand, scanning all messaging docs to add, update, and remove entries. Flags terminology conflicts.
 
 Invoke: `/project:glossary` or `/project:glossary --check`
+
+### reader
+
+Reviews generated content assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against five criteria: clarity, consistency, relevance, differentiation, and actionability. Invoked automatically by the writer agent after generating content.
+
+Invoke: Automatically after content generation, or manually with `/agents reader`
 
 ## Commands
 

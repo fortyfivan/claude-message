@@ -81,7 +81,7 @@ For each pattern:
 - **Representative example:** [one specific quote or observation that captures the theme]
 - **Sentiment:** [positive | mixed | negative]]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Evidence basis matters — proven metrics can be stated as fact; projected metrics must be hedged ("customers typically see" or "expected to reduce")
 - Match proof type to journey stage — trends and insights for awareness, stories and metrics for consideration, ROI and analyst validation for decision
@@ -91,3 +91,10 @@ For each pattern:
 - Prefer specificity over logos — "reduced MTTR from 45 days to 72 hours" beats "trusted by Fortune 500 companies"
 - Customer evidence beats analyst validation — when both are available, lead with the customer story
 - Story profiles are the primary proof source for content generation — quotes embedded in stories are preferred over paraphrasing from the pillar summaries
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

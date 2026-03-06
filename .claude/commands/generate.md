@@ -1,0 +1,1 @@
+../../commands/generate.md

@@ -103,7 +103,7 @@ Which personas and segments this play targets, and their role in the play's exec
 - Role in Play for personas: "primary target — receives outbound sequence," "champion — armed with internal selling materials," "decision-maker — receives executive summary after champion engagement"
 - Why This Play Applies for segments: the segment-specific condition that makes this play relevant]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Plays are activated by trigger conditions — do not apply a play's messaging when the trigger conditions aren't present
 - The canonical scenario grounds the play in buyer reality — every asset produced for this play should connect to this scenario
@@ -112,3 +112,10 @@ Which personas and segments this play targets, and their role in the play's exec
 - Campaign structure is a starting point — the campaign agent uses it as defaults but the user customizes asset list, personas, and sequencing per campaign
 - Value measures should be tracked — if a play isn't producing measurable company value, consider retiring it
 - When a play targets multiple personas, the campaign structure should sequence assets by the buying committee influence chain defined in audience.md
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

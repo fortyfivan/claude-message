@@ -111,10 +111,17 @@ Related categories that are converging, competing, or complementary. Reference c
 [Tips:
 - Relationship types: converging (categories merging), competing (different categories solving the same problem), complementary (frequently purchased together), subsuming (this category absorbing the other), or being-subsumed (the other absorbing this one)]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Analyst landscape should be honest about the company's current standing — overclaiming analyst recognition damages credibility in evaluation-stage content
 - Differentiation within a category must be backed by evidence — do not introduce claims here that aren't supported elsewhere in the messaging system
 - Key buyers in this category may have different priorities than their general persona profile describes — use the Category-Specific Context to capture the delta
 - Portfolio alignment determines which product docs to load when generating category-specific content — if a product isn't listed here, it shouldn't be referenced in category-level messaging
 - Adjacent category relationships affect competitive content — converging categories mean new competitors, complementary categories mean co-marketing opportunities
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

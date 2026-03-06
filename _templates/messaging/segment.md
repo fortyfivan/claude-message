@@ -98,10 +98,17 @@ For each objection:
 - **Objection:** [what they say]
 - **Reframe:** [how to address it]]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Segment characteristics and behaviors are deltas from the ICP baseline — do not repeat what's already in audience.md
 - If buying dynamics don't differ from the baseline, omit the Buying Dynamics section rather than restating audience.md
 - Value messages reframe existing claims for segment context — they do not introduce new value propositions
 - Objections here are segment-specific — persona-level objections live in the persona profile, not here
 - When content targets a specific persona within a specific segment, load both profiles — persona determines altitude and tone, segment determines emphasis and proof selection
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

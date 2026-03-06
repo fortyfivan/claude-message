@@ -93,7 +93,7 @@ For each quote:
 - **Best for:** [personas, products, journey stages, or content types where this quote lands hardest]
 - **Approved:** [yes | pending | internal-only]]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Quotes must be exact — do not paraphrase or adapt attributed statements. If the exact words don't fit the context, choose a different quote
 - Approval status is a hard constraint — only quotes marked "approved" can appear in external content. "Pending" and "internal-only" quotes are for sales enablement and internal use only
@@ -101,3 +101,10 @@ For each quote:
 - Stories age — flag profiles as "stale" when the outcomes are more than 18 months old or when the customer's situation has materially changed. Stale stories can still be used but should be supplemented with current proof
 - Each story should support at least one Value Evidence metric from proof.md — a story that doesn't connect to a measurable claim is an anecdote, not proof
 - Before/after framing is always stronger than standalone metrics — use it whenever the data supports it
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

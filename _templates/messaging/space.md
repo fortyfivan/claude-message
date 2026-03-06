@@ -125,7 +125,7 @@ List the alternatives customers evaluate instead of choosing you. This includes 
 - Tier reflects how often you encounter them, not how good they are (primary | secondary | emerging)
 - Approach should be a short phrase describing their positioning angle, not a full analysis]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - The positioning statement is authoritative but not meant to be used as explicit copy — it's the internal anchor that external messaging derives from
 - Use Market Landscape to establish relevance and urgency — it provides the "why now" for top-of-funnel content
@@ -137,3 +137,10 @@ List the alternatives customers evaluate instead of choosing you. This includes 
 - Tailwind trends reinforce urgency and relevance — use them in awareness and thought leadership content
 - Headwind trends require honest acknowledgment — ignoring them creates vulnerability in competitive and evaluation-stage content
 - When positioning conflicts with proof, defer to proof — do not make claims that exceed what the company can demonstrate
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

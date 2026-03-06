@@ -125,10 +125,17 @@ Customer examples, deployment metrics, or testimonials that demonstrate this sol
 [Format:
 Bulleted list — each proof point with source or attribution]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Solutions are outcome-led — lead with what the buyer achieves, not what the product does. Product capabilities support the narrative but don't lead it
 - Do not introduce competitive claims here that aren't grounded in the positioning pillar
 - Value Delivered metrics should be provable — if they're projected rather than proven, say so. Overclaiming erodes trust in evaluation-stage content
 - When a solution spans multiple products, the integration and composition is often the differentiator — message the combined outcome, not the individual products
 - Proof points should directly support value claims — proof that doesn't map to a claimed outcome is noise
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

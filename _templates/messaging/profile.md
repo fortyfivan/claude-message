@@ -237,7 +237,7 @@ Describe the company as it should appear in marketplace listings or partner cata
 [Format:
 1-2 sentences with 3-5 bullet points optimized for listing views]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Use Company Overview when company facts are required — it's a fact sheet, not a narrative
 - Use Boilerplate Statement for formal or press-style introductions
@@ -254,3 +254,10 @@ Describe the company as it should appear in marketplace listings or partner cata
 - Do not introduce stylistic elements that conflict with defined Tone or Theme Pillars
 - Stage (emerging | growth | established) calibrates proof burden and positioning boldness — do not make claims that exceed the company's stage
 - When in doubt, favor clarity, precision, and restraint — let insight and structure carry the message, not stylistic flair
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

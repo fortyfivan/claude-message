@@ -63,7 +63,7 @@ Document plays as discrete profiles in `messaging/plays/[play-name].md`. The tab
 - Status: active | draft | retired
 - Trigger: the one-line condition that activates this play — "competitor contract renewal within 90 days," "new compliance mandate in target vertical," "customer using only one module"]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Primary motion determines CTA defaults across the system — sales-led leads with demo/conversation, product-led leads with trial/self-serve, partner-led leads with joint engagement, event-led leads with registration/meeting
 - Content depth follows motion — sales-led content tends longer and more comprehensive (the reader is evaluating), product-led content tends shorter and more action-oriented (get to the "try it" moment fast)
@@ -72,3 +72,10 @@ Document plays as discrete profiles in `messaging/plays/[play-name].md`. The tab
 - Channel constraints are hard rules — do not generate content that violates the character limits, format requirements, or deliverability rules defined in Channel Strategy
 - Campaign playbooks are starting points, not mandates — the campaign agent uses them as defaults but the user can customize the asset list and sequence
 - When motions conflict with persona preferences (e.g., a sales-led motion targeting a developer persona who prefers self-serve), defer to persona — adapt the CTA and engagement model to the audience while maintaining the motion's overall structure
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

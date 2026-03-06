@@ -66,7 +66,7 @@ Document repeatable, outcome-oriented solutions. Solutions may span multiple pro
 - Only create a solution profile when the use case has its own messaging — distinct audience, distinct proof, distinct value framing. If a use case is just a feature of a product, it belongs in the product profile, not here
 - When you have many solutions, group them by theme to avoid messaging sprawl]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - Portfolio defines altitude — use it to speak broadly about the offering when product specifics aren't needed
 - Products define scope — introduce them only when specificity is required by the persona, scenario, or skill
@@ -78,3 +78,10 @@ Document repeatable, outcome-oriented solutions. Solutions may span multiple pro
 - Technical details support credibility — include them selectively, after establishing value
 - Avoid long feature lists — introduce capabilities sparingly when they're additive to a value-led narrative
 - Prefer buyer outcomes and use cases over product mechanics
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

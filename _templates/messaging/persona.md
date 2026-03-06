@@ -123,10 +123,17 @@ For each objection:
 - **Objection:** [what they say]
 - **Reframe:** [how to address it]]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - This persona's messaging must be consistent with the ICP defined in audience.md — if the account isn't ICP-fit, persona-level messaging doesn't apply
 - Messaging Guidance overrides default tone assumptions — when this persona is the target, Altitude, Lead with, and Language cues take precedence
 - Objection reframes should be grounded in messaging docs — don't invent claims not supported by proof.md, space.md, or product profiles
 - Internal Selling applies primarily to champion and evaluator types — for decision-makers and blockers, focus on Key Messages and Objections instead
 - Do not merge or generalize across personas — each profile is a distinct individual with distinct messaging. When content targets multiple personas, load each profile separately and address them in distinct sections or separate assets
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

@@ -1,6 +1,6 @@
 {
   "name": "fortyfivan",
-  "description": "Messaging intelligence plugins for Claude Code",
+  "description": "Dynamic messaging system for Claude Code",
   "owner": {
     "name": "Ivan Dwyer",
     "url": "https://github.com/fortyfivan"
@@ -9,7 +9,7 @@
     {
       "name": "claude-message",
       "path": ".",
-      "description": "Messaging intelligence system — agents, commands, and skills for building and maintaining company messaging"
+      "description": "Dynamic messaging system — agents, commands, and skills for building and maintaining clear, compelling, and consistent company messaging across changing markets, multiple audiences, and expansive portfolios."
     }
   ]
 }
