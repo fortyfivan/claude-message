@@ -4,7 +4,7 @@
 
 Claude Message is a messaging intelligence plugin for Claude Code. It provides agents, commands, and skills that help teams build, maintain, and operationalize their positioning and messaging.
 
-The plugin provides the tools. The bootstrap agent scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. All agent paths are relative to the user's working directory.
+The plugin provides the tools. The onboard agent scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. Bootstrap delegates to onboard before starting its six-phase build. All agent paths are relative to the user's working directory.
 
 The messaging house in `messaging/` is the single source of truth. Agents read it for context, write to it with user approval, and generate content from it. Everything traces back to the messaging house.
 
@@ -25,6 +25,7 @@ claude-message/                    <- plugin root
 │   ├── bootstrap.md
 │   ├── campaign.md
 │   ├── glossary.md
+│   ├── onboard.md
 │   ├── reader.md
 │   ├── researcher.md
 │   ├── tune.md
@@ -38,12 +39,15 @@ claude-message/                    <- plugin root
 │   ├── generate.md
 │   ├── glossary.md
 │   ├── investigate.md
+│   ├── onboard.md
 │   ├── persona.md
 │   ├── research.md
 │   ├── scan.md
 │   └── tune.md
-├── templates/                    <- read by bootstrap agent
+├── templates/                    <- read by onboard and bootstrap agents
+│   ├── insights/                  <- seed templates for insights system
 │   ├── messaging/                 <- schemas for messaging docs
+│   ├── onboard/                   <- plugin context block for CLAUDE.md injection
 │   └── skills/                    <- base skill templates (read-only)
 ├── .mcp.json                      <- MCP server config
 ├── settings.json                  <- plugin default settings
@@ -51,7 +55,7 @@ claude-message/                    <- plugin root
 └── README.md
 ```
 
-**What bootstrap creates in the user's project:**
+**What onboard creates in the user's project:**
 ```
 user-project/
 ├── messaging/                     <- the messaging house
@@ -160,9 +164,13 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 ## Agents
 
+### onboard
+
+Scaffolds the messaging workspace. Creates directories, copies templates, writes seed files, and injects plugin context into the project's CLAUDE.md. Handles fresh projects and existing workspaces — adds missing structure without overwriting, surfaces conflicts for user resolution. Non-interactive unless conflicts are found. Bootstrap delegates to onboard as a pre-check.
+
 ### bootstrap
 
-Builds a complete messaging system from scratch. Scaffolds the workspace (directories, templates, seed files), then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
+Builds a complete messaging system from scratch. Delegates workspace scaffolding to the onboard agent, then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
 
 ### researcher
 
@@ -216,6 +224,7 @@ Reviews generated content assets for quality, clarity, and messaging consistency
 
 | Command | Purpose |
 |---|---|
+| `onboard` | Scaffold workspace and inject plugin context |
 | `bootstrap` | Build messaging system from scratch |
 | `scan` | Run messaging intelligence scan |
 | `investigate [topic]` | Deep-dive on an insight or topic |

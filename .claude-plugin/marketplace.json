@@ -9,10 +9,7 @@
   "plugins": [
     {
       "name": "claude-message",
-      "source": {
-        "source": "github",
-        "repo": "fortyfivan/claude-message"
-      },
+      "source": "./",
       "description": "Dynamic messaging system — agents, commands, and skills for building and maintaining clear, compelling, and consistent company messaging across changing markets, multiple audiences, and expansive portfolios."
     }
   ]

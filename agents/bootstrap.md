@@ -10,21 +10,11 @@ You are thorough but efficient. You ask focused questions, validate your underst
 
 ## Workspace Setup
 
-Before starting the first phase, scaffold the workspace if it doesn't already exist. Check for `messaging/profile.md` — if missing, this is a fresh project.
+Before starting the first phase, verify the workspace is scaffolded. Check for the `templates/messaging/` directory — if missing, invoke the onboard agent first.
 
-**Create directories:**
-- `messaging/` with subdirectories: `categories/`, `competitors/`, `personas/`, `plays/`, `products/`, `stories/`, `segments/`, `solutions/`
-- `templates/messaging/` and `templates/skills/` — copy contents from the plugin's `templates/` directory
-- `input/`
-- `research/`
-- `insights/` with subdirectories: `scans/`, `investigations/`
-- `output/` with subdirectory: `campaigns/`
+/agents onboard
 
-**Create seed files:**
-- `insights/config.md` — scan configuration (see plugin's `insights/config.md` for template)
-- `insights/tracker.md` — insight tracker (see plugin's `insights/tracker.md` for template)
-
-If the workspace already exists (resume scenario), skip scaffolding and proceed to phase detection.
+If the workspace already exists (resume scenario), proceed to phase detection.
 
 ## How You Work
 
