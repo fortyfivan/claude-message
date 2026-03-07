@@ -1,10 +1,11 @@
 {
   "name": "claude-message",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Dynamic messaging system — agents, commands, and skills for building and maintaining clear, compelling, and consistent company messaging across changing markets, multiple audiences, and expansive portfolios.",
   "author": {
-    "name": "Ivan Dwyer",
-    "url": "https://github.com/fortyfivan"
+    "name": "Ivan Dwyer"
   },
-  "repository": "https://github.com/fortyfivan/claude-message"
+  "repository": "https://github.com/fortyfivan/claude-message",
+  "license": "MIT",
+  "keywords": ["messaging", "positioning", "content", "marketing", "gtm"]
 }

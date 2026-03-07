@@ -1,1 +1,0 @@
-../../agents/campaign.md

@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-## About This Repository
+## About This Plugin
 
-Claude Message is a messaging intelligence system built for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging.
+Claude Message is a messaging intelligence plugin for Claude Code. It provides agents, commands, and skills that help teams build, maintain, and operationalize their positioning and messaging.
 
-The repo works in two modes: **fork** (clone the repo, it becomes your messaging workspace) and **install** (install the agents, commands, and skills as a plugin into an existing project via `/plugin install`). In fork mode, the messaging house is the project. In plugin mode, the bootstrap agent creates the messaging directories in the user's project.
+The plugin provides the tools. The bootstrap agent scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. All agent paths are relative to the user's working directory.
 
 The messaging house in `messaging/` is the single source of truth. Agents read it for context, write to it with user approval, and generate content from it. Everything traces back to the messaging house.
 
@@ -14,77 +14,79 @@ You are a messaging strategist. You are responsible for generating consistent, c
 
 Read the messaging house before responding to any messaging or content request. Your output must be grounded in what the company actually claims, who it actually serves, and how it actually differentiates. Never fabricate positioning, claims, or evidence.
 
-## Repository Structure
+## Plugin Structure
 
 ```
-_templates/
-  messaging/             → Canonical schemas for messaging docs (read-only)
-  skills/                → Base generic skill templates (read-only)
+claude-message/                    <- plugin root
+├── .claude-plugin/
+│   ├── plugin.json                <- plugin manifest
+│   └── marketplace.json           <- marketplace catalog
+├── agents/                        <- auto-discovered by plugin system
+│   ├── bootstrap.md
+│   ├── campaign.md
+│   ├── glossary.md
+│   ├── reader.md
+│   ├── researcher.md
+│   ├── tune.md
+│   └── writer.md
+├── commands/                      <- auto-discovered by plugin system
+│   ├── audit.md
+│   ├── bootstrap.md
+│   ├── brief.md
+│   ├── campaign.md
+│   ├── competitor.md
+│   ├── generate.md
+│   ├── glossary.md
+│   ├── investigate.md
+│   ├── persona.md
+│   ├── research.md
+│   ├── scan.md
+│   └── tune.md
+├── templates/                    <- read by bootstrap agent
+│   ├── messaging/                 <- schemas for messaging docs
+│   └── skills/                    <- base skill templates (read-only)
+├── .mcp.json                      <- MCP server config
+├── settings.json                  <- plugin default settings
+├── CLAUDE.md                      <- plugin context
+└── README.md
+```
 
-.claude/
-  agents/              → Symlinks to agents/ for native Claude Code features
-  commands/            → Symlinks to commands/ for native Claude Code features
-  CLAUDE.md              → Plugin context and user guide
-  settings.json          → MCP server configuration
-  skills/
-    messaging/           → Tuned content generation skills
-
-.claude-plugin/
-  plugin.json            → Plugin manifest
-  marketplace.json       → Marketplace manifest
-
-agents/
-  bootstrap.md           → Interactive 6-phase system builder
-  researcher.md          → Messaging intelligence + ad-hoc research
-  writer.md              → Context-resolution content generation
-  campaign.md            → Campaign orchestrator for multi-asset campaigns
-  tune.md                → Skill calibration agent
-  glossary.md            → Terminology extraction and glossary maintenance
-  reader.md              → Content review and quality assessment
-
-commands/
-  bootstrap.md           → /project:bootstrap
-  scan.md                → /project:scan
-  investigate.md         → /project:investigate [topic]
-  research.md            → /project:research [topic]
-  competitor.md          → /project:competitor [name]
-  persona.md             → /project:persona [role]
-  audit.md               → /project:audit
-  generate.md            → /project:generate [skill] [topic]
-  brief.md               → /project:brief [topic]
-  campaign.md            → /project:campaign [type] [topic]
-  tune.md                → /project:tune
-  glossary.md            → /project:glossary
-
-messaging/
-  profile.md             → Company identity, narrative, voice
-  space.md               → Market landscape, positioning, differentiation
-  motion.md              → GTM strategies, campaign playbooks
-  audience.md            → ICP, personas, market segments
-  portfolio.md           → Products, solutions, capabilities
-  proof.md               → Social proof, case studies, evidence
-  glossary.md            → Company-specific terminology definitions
-  categories/            → Market category profiles
-  competitors/           → Competitor profiles
-  personas/              → Persona profiles
-  plays/                 → GTM play profiles
-  products/              → Product detail docs
-  stories/               → Customer stories and proof narratives
-  segments/              → Market segment profiles
-  solutions/             → Solution briefs
-
-input/                   → User-provided source materials for bootstrap
-research/                → Uploaded and agent-generated research
-insights/                → Messaging intelligence (scan digests, tracker, investigations)
-output/                  → Generated content assets (gitignored)
-  campaigns/             → Campaign briefs and generated assets
+**What bootstrap creates in the user's project:**
+```
+user-project/
+├── messaging/                     <- the messaging house
+│   ├── profile.md
+│   ├── space.md
+│   ├── audience.md
+│   ├── portfolio.md
+│   ├── proof.md
+│   ├── motion.md
+│   ├── glossary.md
+│   ├── categories/
+│   ├── competitors/
+│   ├── personas/
+│   ├── plays/
+│   ├── products/
+│   ├── stories/
+│   ├── segments/
+│   └── solutions/
+├── templates/
+│   ├── messaging/                 <- doc schemas (copied from plugin)
+│   └── skills/                    <- base skill templates (copied from plugin)
+├── input/                         <- user-provided source materials
+├── research/                      <- agent-generated research
+├── insights/                      <- scan digests, tracker, investigations
+├── output/                        <- generated content
+│   └── campaigns/
+└── .claude/
+    └── skills/                    <- tuned skills (written by tune agent)
 ```
 
 ## Messaging House
 
 Six pillar docs at the root of `messaging/` cover every strategic dimension. A glossary provides cross-cutting terminology definitions. Collection subdirectories hold detailed profiles that support the pillars.
 
-Pillars build on each other: Profile (who we are) → Space (where we compete) → Audience (who we sell to) → Portfolio (what we sell) → Proof (evidence it works) → Motion (how we go to market).
+Pillars build on each other: Profile (who we are) -> Space (where we compete) -> Audience (who we sell to) -> Portfolio (what we sell) -> Proof (evidence it works) -> Motion (how we go to market).
 
 ### File Conventions
 
@@ -92,7 +94,7 @@ Every messaging doc uses YAML frontmatter for structured metadata and markdown b
 
 - Preserve existing frontmatter fields unless explicitly asked to change them.
 - Use kebab-case for filenames.
-- Follow the schema in `_templates/messaging/` when creating new docs.
+- Follow the schema in `templates/messaging/` when creating new docs.
 - Place collection docs in the appropriate subdirectory.
 - Messaging docs use a three-section structure: `## Messaging Blocks` contains the content sections; `## Writing Guidelines` defines how the document should be interpreted by agents; `## Messaging Rules` captures company-specific constraints for content generation.
 - Pillar docs contain reference tables for their collection profiles. Every table includes a **Description** column — a one-sentence routing signal (~15 words) that enables agents to identify the right profile without loading it. When creating or updating collection profiles, ensure the corresponding pillar table row exists with a Description that differentiates from sibling entries.
@@ -136,7 +138,7 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 **Always load profile.md, space.md, and glossary.md (if present).** Voice, positioning, and terminology consistency apply to all content. Other pillars and collection docs load conditionally based on the task.
 
-**Follow skill templates.** Load the relevant skill from `.claude/skills/messaging/` and use its output format, evaluation criteria, and guidelines.
+**Follow skill templates.** Load the relevant skill from `.claude/skills/` (tuned) or `templates/skills/` (base template) and use its output format, evaluation criteria, and guidelines.
 
 **One asset per file.** Each content piece gets its own markdown file in `output/` with metadata frontmatter tracking the skill used, parameters resolved, and messaging docs loaded.
 
@@ -149,8 +151,8 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 | Directory | Read | Write | Notes |
 |---|---|---|---|
 | `messaging/` | Yes | With user confirmation | Source of truth. Never write without approval. |
-| `_templates/` | Yes | No | Base schemas and skills. Never modify. |
-| `.claude/skills/messaging/` | Yes | Tune agent with approval | Tuned skills. Writer reads, tune agent writes. |
+| `templates/` | Yes | No | Base schemas and skills. Never modify. |
+| `.claude/skills/` | Yes | Tune agent with approval | Tuned skills. Writer reads, tune agent writes. |
 | `input/` | Yes | No | User-provided source materials for bootstrap. |
 | `research/` | Yes | Yes | Agents can write autonomously. |
 | `insights/` | Yes | Yes | Scan agent writes autonomously. |
@@ -160,18 +162,16 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 ### bootstrap
 
-Builds a complete messaging system from scratch through six interactive phases: Profile → Space → Audience → Portfolio → Proof → Motion. Each phase follows a discover → synthesize → validate → draft → write → bridge cycle. Can start from existing materials or pure Q&A.
-
-Invoke: `/project:bootstrap` or `/agents bootstrap`
+Builds a complete messaging system from scratch. Scaffolds the workspace (directories, templates, seed files), then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
 
 ### researcher
 
 Messaging intelligence system. Two modes:
 
-- **Scan** — Automated, cron-compatible. Reads the messaging system, searches for external signals, evaluates findings against specific messaging components, writes digest to `insights/scans/`, updates `insights/tracker.md`. Run with `claude -p "/project:scan" --print`.
+- **Scan** — Automated, non-interactive. Reads the messaging system, searches for external signals, evaluates findings against specific messaging components, writes digest to `insights/scans/`, updates `insights/tracker.md`.
 - **Investigate** — User-directed deep dive on a specific insight or topic. Writes to `insights/investigations/`.
 
-Also handles ad-hoc research: `/project:research`, `/project:competitor`, `/project:persona`.
+Also handles ad-hoc research, competitor profiling, and persona drafting.
 
 ### writer
 
@@ -179,16 +179,14 @@ Context-resolution engine for content generation. Its primary job is deciding wh
 
 1. **Parse** — Extract task parameters: skill type, persona, product, competitor, segment, motion, altitude.
 2. **Resolve** — Pillars-first loading. Always loads `profile.md`, `space.md`, `glossary.md`. Conditionally loads other pillars. Routes via pillar reference tables (Description column) to discover and selectively load only the collection profiles the task requires.
-3. **Load skill** — Read the skill category's routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
+3. **Load skill** — Read tuned skill from `.claude/skills/`, falling back to `templates/skills/`. Read the routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
 4. **Cross-reference** — Check loaded context for consistency. Flag gaps or conflicts to the user before writing.
 5. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
 6. **Evaluate** — Self-assess against skill criteria. Flag weak areas and thin context.
 7. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
 8. **Review** — Invoke the reader agent to review the generated content against persona, glossary, and skill criteria.
 
-The agent never dumps the entire messaging house into context. It surgically selects the docs that matter for this task, this audience, this product, this competitor. A battlecard for Acme targeting CISOs pulls completely different context than a nurture email for DevOps leads about the platform product.
-
-Invoke: `/project:generate [skill-type] [topic]` or `/project:brief [topic]`
+The agent never dumps the entire messaging house into context. It surgically selects the docs that matter for this task, this audience, this product, this competitor.
 
 ### campaign
 
@@ -200,66 +198,57 @@ Campaign orchestrator for multi-asset content campaigns. Three phases:
 
 Supports resuming campaigns and regenerating individual assets.
 
-Invoke: `/project:campaign [type] [topic]` or `/project:campaign --continue [name]`
-
 ### tune
 
 Calibrates content generation skills to the company's messaging house. Reads all six pillars and collection docs, builds a company profile across five dimensions (market dynamics, audience calibration, voice alignment, company stage, motion alignment), and writes tuned skills that encode company-specific guidance into the skill instructions.
 
-Two-layer model: base templates in `_templates/skills/` (read-only) are enriched with company context and written to `.claude/skills/messaging/` (tuned active). Supports drift detection via `--check` mode.
-
-Invoke: `/project:tune` or `/project:tune --check`
+Two-layer model: base templates in `templates/skills/` (read-only) are enriched with company context and written to `.claude/skills/` (tuned active). Supports drift detection via `--check` mode.
 
 ### glossary
 
 Maintains `messaging/glossary.md` — a curated list of terms with company-specific definitions extracted from the messaging house. Runs on demand, scanning all messaging docs to add, update, and remove entries. Flags terminology conflicts.
 
-Invoke: `/project:glossary` or `/project:glossary --check`
-
 ### reader
 
 Reviews generated content assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against five criteria: clarity, consistency, relevance, differentiation, and actionability. Invoked automatically by the writer agent after generating content.
-
-Invoke: Automatically after content generation, or manually with `/agents reader`
 
 ## Commands
 
 | Command | Purpose |
 |---|---|
-| `/project:bootstrap` | Build messaging system from scratch |
-| `/project:scan` | Run messaging intelligence scan |
-| `/project:investigate [topic]` | Deep-dive on an insight or topic |
-| `/project:research [topic]` | Research a topic, write to research/ |
-| `/project:competitor [name]` | Research and profile a competitor |
-| `/project:persona [role]` | Draft or update a persona |
-| `/project:audit` | Audit messaging for gaps and inconsistencies |
-| `/project:generate [skill] [topic]` | Generate content using a skill |
-| `/project:brief [topic]` | Generate a creative brief |
-| `/project:campaign [type] [topic]` | Build a multi-asset content campaign |
-| `/project:tune` | Calibrate skills to the messaging house |
-| `/project:tune --check` | Detect tuning drift without changes |
-| `/project:glossary` | Update glossary from messaging house |
-| `/project:glossary --check` | Check glossary health without changes |
+| `bootstrap` | Build messaging system from scratch |
+| `scan` | Run messaging intelligence scan |
+| `investigate [topic]` | Deep-dive on an insight or topic |
+| `research [topic]` | Research a topic, write to research/ |
+| `competitor [name]` | Research and profile a competitor |
+| `persona [role]` | Draft or update a persona |
+| `audit` | Audit messaging for gaps and inconsistencies |
+| `generate [skill] [topic]` | Generate content using a skill |
+| `brief [topic]` | Generate a creative brief |
+| `campaign [type] [topic]` | Build a multi-asset content campaign |
+| `tune` | Calibrate skills to the messaging house |
+| `tune --check` | Detect tuning drift without changes |
+| `glossary` | Update glossary from messaging house |
+| `glossary --check` | Check glossary health without changes |
 
 ## Skills
 
 Skills use a category/type hierarchy. Each category has a routing `SKILL.md` that dispatches to type-specific instructions:
 
 ```
-.claude/skills/
-  messaging/
-    blog-copywriting/
-      SKILL.md                → Routes to the right blog type
-      blog-types/
-        thought-leadership.md
-        data-study.md
-    email-copywriting/
-      SKILL.md
-      email-types/
-        cold-outreach.md
+templates/skills/
+  blog-copywriting/
+    SKILL.md                -> Routes to the right blog type
+    blog-types/
+      thought-leadership.md
+      data-study.md
+  email-copywriting/
+    SKILL.md
+    email-types/
+      cold-outreach.md
 ```
 
-Base generic templates live in `_templates/skills/` (read-only). The tune agent enriches these with company-specific calibration and writes the tuned versions to `.claude/skills/messaging/`.
+Base templates live in `templates/skills/` (read-only). The tune agent enriches these with company-specific calibration and writes the tuned versions to `.claude/skills/` in the user's project.
 
 When generating content, always read the relevant `SKILL.md` first. It contains the output format, evaluation criteria, and context pointers.
 
@@ -268,8 +257,8 @@ When generating content, always read the relevant `SKILL.md` first. It contains 
 The research agent runs scheduled scans that evaluate external signals against the messaging system. Insights are tracked with a lifecycle in `insights/tracker.md`:
 
 ```
-open → acknowledged → resolved
-         ↓
+open -> acknowledged -> resolved
+         |
        deferred
 ```
 
@@ -279,7 +268,7 @@ Configure scan cadence, focus areas, and MCP sources in `insights/config.md`.
 
 ## MCP Integration
 
-External MCP servers in `.claude/settings.json` provide agents with access to CRM data, call transcripts, analytics, and other signals. Agents reference MCP tools generically — "if CRM data is available, check deal history" — so the plugin works with any tool stack.
+External MCP servers provide agents with access to CRM data, call transcripts, analytics, and other signals. Agents reference MCP tools generically — "if CRM data is available, check deal history" — so the plugin works with any tool stack.
 
 ## Working with Users
 

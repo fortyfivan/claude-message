@@ -9,7 +9,7 @@
                                                              |___/
 ```
 
-Claude Message is a messaging intelligence system built for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging.
+Claude Message is a messaging intelligence plugin for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging.
 
 Built for Product Marketers, Founders, and anyone who cares about messaging quality and taste. Primarily for B2B companies, but the principles may apply to others.
 
@@ -17,28 +17,19 @@ Built for Product Marketers, Founders, and anyone who cares about messaging qual
 
 ## Getting Started
 
-### Fork Mode (Primary)
-
-Clone the repo and make it your messaging workspace:
-
-```bash
-git clone https://github.com/fortyfivan/claude-message.git my-company-messaging
-cd my-company-messaging
-claude
-> /project:bootstrap
-```
-
-The bootstrap agent guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides).
-
-### Plugin Mode
-
-Install the agents, commands, and skills into an existing project:
+Install the plugin:
 
 ```bash
 claude plugin install https://github.com/fortyfivan/claude-message
 ```
 
-Then run `/project:bootstrap` to create the messaging directories in your project.
+Then run the bootstrap command to create the messaging workspace and build your messaging system:
+
+```
+> /claude-message:bootstrap
+```
+
+The bootstrap agent scaffolds all directories and templates in your project, then guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
 
 ## How It Works
 
@@ -49,9 +40,9 @@ The Messaging House is a structured model of your positioning and messaging. Six
 | # | Pillar | Purpose | Absorbs |
 |---|--------|---------|---------|
 | 1 | Profile | Company identity, narrative, voice, mission | purpose, profile, pitch, preferences |
-| 2 | Portfolio | Products, solutions, capabilities | portfolio |
-| 3 | Space | Market landscape, positioning, differentiation | position, proposition |
-| 4 | Audience | ICP, buyer/user personas, market segments | people |
+| 2 | Space | Market landscape, positioning, differentiation | position, proposition |
+| 3 | Audience | ICP, buyer/user personas, market segments | people |
+| 4 | Portfolio | Products, solutions, capabilities | portfolio |
 | 5 | Proof | Social proof, case studies, evidence | proof |
 | 6 | Motion | GTM strategies, campaign playbooks | plays |
 
@@ -70,28 +61,32 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Agent | Purpose |
 |-------|---------|
-| **bootstrap** | Interactive 6-phase system builder. Walks through Profile → Portfolio → Space → Audience → Proof → Motion with a discover → synthesize → validate → draft → write → bridge cycle at each phase. |
+| **bootstrap** | Scaffolds the workspace and builds the messaging system through six interactive phases with a discover, synthesize, validate, draft, write, bridge cycle at each phase. |
 | **researcher** | Messaging intelligence. Runs automated scans to surface insights, handles deep-dive investigations, and performs ad-hoc research on competitors, personas, and topics. |
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
 | **tune** | Skill calibration agent. Reads the messaging house, builds a company profile across five dimensions, and writes tuned skills that encode company-specific guidance into the content generation instructions. |
+| **glossary** | Terminology extraction and maintenance. Scans the messaging house for company-specific terms and maintains a curated glossary. |
+| **reader** | Content review specialist. Adopts the target persona's perspective and scores generated content against quality criteria. |
 
 ### Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/project:bootstrap` | Build messaging system from scratch |
-| `/project:scan` | Run messaging intelligence scan |
-| `/project:investigate [topic]` | Deep-dive on an insight or topic |
-| `/project:research [topic]` | Research a topic, write to research/ |
-| `/project:competitor [name]` | Research and profile a competitor |
-| `/project:persona [role]` | Draft or update a persona |
-| `/project:audit` | Audit messaging for gaps and inconsistencies |
-| `/project:generate [skill] [topic]` | Generate content using a skill |
-| `/project:brief [topic]` | Generate a creative brief |
-| `/project:campaign [type] [topic]` | Build a multi-asset content campaign |
-| `/project:tune` | Calibrate skills to the messaging house |
-| `/project:tune --check` | Detect tuning drift without changes |
+| `bootstrap` | Build messaging system from scratch |
+| `scan` | Run messaging intelligence scan |
+| `investigate [topic]` | Deep-dive on an insight or topic |
+| `research [topic]` | Research a topic, write to research/ |
+| `competitor [name]` | Research and profile a competitor |
+| `persona [role]` | Draft or update a persona |
+| `audit` | Audit messaging for gaps and inconsistencies |
+| `generate [skill] [topic]` | Generate content using a skill |
+| `brief [topic]` | Generate a creative brief |
+| `campaign [type] [topic]` | Build a multi-asset content campaign |
+| `tune` | Calibrate skills to the messaging house |
+| `tune --check` | Detect tuning drift without changes |
+| `glossary` | Update glossary from messaging house |
+| `glossary --check` | Check glossary health without changes |
 
 ### Skills
 
@@ -102,6 +97,7 @@ Skills are dynamically loaded instructions for content generation, organized by 
 | Blog Copywriting | Thought leadership, use case deep dive, threat research, data study, product announcement |
 | Brief Copywriting | Solution brief, industry vertical, persona brief, product datasheet, use case overview, company overview, event companion |
 | Email Copywriting | Single outbound, outbound sequence, inbound sequence, event promotion, product newsletter |
+| Enablement Copywriting | Competitive battlecard, discovery guide, playbook walkthrough |
 | Social Copywriting | LinkedIn post, LinkedIn article, X post, X thread |
 
 ### Insights System
@@ -109,66 +105,20 @@ Skills are dynamically loaded instructions for content generation, organized by 
 The research agent runs scheduled scans that evaluate external signals against the messaging system. Insights follow a lifecycle:
 
 ```
-open → acknowledged → resolved
-         ↓
+open -> acknowledged -> resolved
+         |
        deferred
 ```
 
 Configure scan cadence and focus areas in `insights/config.md`. Run scans on a cron schedule:
 
 ```bash
-0 6 * * 1 cd /path/to/repo && claude -p "/project:scan" --print
-```
-
-## Directory Structure
-
-```
-_templates/
-  messaging/             → Canonical schemas for messaging docs (read-only)
-  skills/                → Base generic skill templates (read-only)
-
-.claude/
-  CLAUDE.md              → Plugin context and user guide
-  settings.json          → MCP server configuration
-  skills/
-    messaging/           → Tuned content generation skills
-
-.claude-plugin/
-  plugin.json            → Plugin manifest
-  marketplace.json       → Marketplace manifest
-
-agents/                  → Agent definitions
-commands/                → Slash command definitions
-
-messaging/
-  profile.md             → Company identity, narrative, voice
-  space.md               → Market landscape, positioning, differentiation
-  motion.md              → GTM strategies, campaign playbooks
-  audience.md            → ICP, personas, market segments
-  portfolio.md           → Products, solutions, capabilities
-  proof.md               → Social proof, case studies, evidence
-  categories/            → Market category profiles
-  competitors/           → Competitor profiles
-  personas/              → Persona profiles
-  stories/               → Customer stories and proof narratives
-  plays/                 → GTM play profiles
-  products/              → Product detail docs
-  segments/              → Market segment profiles
-  solutions/             → Solution briefs
-
-research/                → Uploaded and agent-generated research
-insights/                → Messaging intelligence
-  tracker.md             → Rolling insight tracker
-  config.md              → Scan configuration
-  scans/                 → Scan digests
-  investigations/        → Deep-dive reports
-output/                  → Generated content (gitignored)
-  campaigns/             → Campaign briefs and generated assets
+0 6 * * 1 cd /path/to/project && claude -p "run the scan command" --print
 ```
 
 ## Your Writing Profile
 
-Provide Claude Code with a writing profile in CLAUDE.md to guide its messaging style:
+Provide Claude Code with a writing profile in your project's CLAUDE.md to guide its messaging style:
 
 ```
 You are a {role} at {company}. {company} is a(n) {stage} {type} company in the {market} space.
@@ -195,6 +145,7 @@ I primarily encourage you to take this as-is and make it yours. But I do welcome
 
 ## History
 
+Version 0.4 (2026-03-06) - all-in on plugin mode, workspace scaffolding
 Version 0.3 (2026-03-03) - plugin architecture, 6-pillar consolidation, agent-driven system
 Version 0.2 (2026-02-06) - system bootstrap
 Version 0.1 (2026-01-16) - initial drop

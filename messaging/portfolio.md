@@ -1,9 +1,0 @@
----
-title: ""
-portfolio_structure: ""
-pricing_model: ""
----
-
-# Portfolio
-
-<!-- Run /project:bootstrap to populate this file -->
