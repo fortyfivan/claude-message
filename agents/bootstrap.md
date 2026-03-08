@@ -10,11 +10,15 @@ You are thorough but efficient. You ask focused questions, validate your underst
 
 ## Workspace Setup
 
-Before starting the first phase, verify the workspace is scaffolded. Check for the `templates/messaging/` directory — if missing, invoke the onboard agent first.
+Before starting the first phase, verify the workspace is scaffolded. Check for the `templates/messaging/` directory — if missing, run the onboard script.
 
-/agents onboard
+Determine the plugin root (where the bootstrap agent file lives — one level up from `agents/`), then run:
 
-If the workspace already exists (resume scenario), proceed to phase detection.
+```bash
+bash [plugin-root]/scripts/onboard.sh [plugin-root] [project-root]
+```
+
+Review the output. If any `WARNING:` lines appear, present them to the user and resolve before proceeding. If the workspace already exists and is clean (resume scenario), proceed to phase detection.
 
 ## How You Work
 

@@ -4,7 +4,7 @@
 
 Claude Message is a messaging intelligence plugin for Claude Code. It provides agents, commands, and skills that help teams build, maintain, and operationalize their positioning and messaging.
 
-The plugin provides the tools. The onboard agent scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. Bootstrap delegates to onboard before starting its six-phase build. All agent paths are relative to the user's working directory.
+The plugin provides the tools. The onboard script scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. Bootstrap runs the onboard script as a pre-check before starting its six-phase build. All agent paths are relative to the user's working directory.
 
 The messaging house in `messaging/` is the single source of truth. Agents read it for context, write to it with user approval, and generate content from it. Everything traces back to the messaging house.
 
@@ -25,11 +25,12 @@ claude-message/                    <- plugin root
 │   ├── bootstrap.md
 │   ├── campaign.md
 │   ├── glossary.md
-│   ├── onboard.md
 │   ├── reader.md
 │   ├── researcher.md
 │   ├── tune.md
 │   └── writer.md
+├── scripts/
+│   └── onboard.sh                 <- workspace scaffolding script
 ├── commands/                      <- auto-discovered by plugin system
 │   ├── audit.md
 │   ├── bootstrap.md
@@ -164,13 +165,9 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 ## Agents
 
-### onboard
-
-Scaffolds the messaging workspace. Creates directories, copies templates, writes seed files, and injects plugin context into the project's CLAUDE.md. Handles fresh projects and existing workspaces — adds missing structure without overwriting, surfaces conflicts for user resolution. Non-interactive unless conflicts are found. Bootstrap delegates to onboard as a pre-check.
-
 ### bootstrap
 
-Builds a complete messaging system from scratch. Delegates workspace scaffolding to the onboard agent, then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
+Builds a complete messaging system from scratch. Runs the onboard script as a pre-check to scaffold the workspace, then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
 
 ### researcher
 
@@ -219,6 +216,12 @@ Maintains `messaging/glossary.md` — a curated list of terms with company-speci
 ### reader
 
 Reviews generated content assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against five criteria: clarity, consistency, relevance, differentiation, and actionability. Invoked automatically by the writer agent after generating content.
+
+## Scripts
+
+### onboard.sh
+
+Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = plugin root, `$2` = project root. Creates directories, copies templates from the plugin, writes seed files, and injects plugin context into the project's CLAUDE.md. Outputs a structured report to stdout with `CREATED:`, `SKIPPED:`, `UPDATED:`, and `WARNING:` lines. Idempotent — safe to run repeatedly. Never removes or overwrites existing files. The `/onboard` command and bootstrap agent both invoke this script.
 
 ## Commands
 
