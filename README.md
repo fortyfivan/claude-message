@@ -23,13 +23,15 @@ Install the plugin:
 claude plugin install https://github.com/fortyfivan/claude-message
 ```
 
-Then run the bootstrap command to create the messaging workspace and build your messaging system:
+Build your messaging system:
 
 ```
 > /claude-message:bootstrap
 ```
 
-The bootstrap agent scaffolds all directories and templates in your project, then guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
+Bootstrap scaffolds the workspace automatically, then guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
+
+Need to re-scaffold or repair your workspace? Run `/claude-message:onboard` standalone — it creates directories, copies templates, writes seed files, and injects plugin context. Safe to run repeatedly.
 
 ## How It Works
 
@@ -61,7 +63,7 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Agent | Purpose |
 |-------|---------|
-| **bootstrap** | Scaffolds the workspace and builds the messaging system through six interactive phases with a discover, synthesize, validate, draft, write, bridge cycle at each phase. |
+| **bootstrap** | Runs the onboard script as a pre-check, then builds the messaging system through six interactive phases with a discover, synthesize, validate, draft, write, bridge cycle at each phase. |
 | **researcher** | Messaging intelligence. Runs automated scans to surface insights, handles deep-dive investigations, and performs ad-hoc research on competitors, personas, and topics. |
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
@@ -73,6 +75,7 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Command | Purpose |
 |---------|---------|
+| `onboard` | Scaffold workspace — directories, templates, seed files, project context |
 | `bootstrap` | Build messaging system from scratch |
 | `scan` | Run messaging intelligence scan |
 | `investigate [topic]` | Deep-dive on an insight or topic |
