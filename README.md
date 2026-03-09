@@ -64,11 +64,12 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 | Agent | Purpose |
 |-------|---------|
 | **bootstrap** | Runs the onboard script as a pre-check, then builds the messaging system through six interactive phases with a discover, synthesize, validate, draft, write, bridge cycle at each phase. |
-| **researcher** | Messaging intelligence. Runs automated scans to surface insights, handles deep-dive investigations, and performs ad-hoc research on competitors, personas, and topics. |
+| **composer** | Messaging composition agent. Creates and updates any document in the messaging house on demand — pillars and collection profiles. Four-step process: resolve, research, plan, write. |
+| **researcher** | Messaging intelligence analyst. Runs investigations (broad or targeted) to evaluate external signals against the messaging system and surface insights. |
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
 | **tune** | Skill calibration agent. Reads the messaging house, builds a company profile across five dimensions, and writes tuned skills that encode company-specific guidance into the content generation instructions. |
-| **glossary** | Terminology extraction and maintenance. Scans the messaging house for company-specific terms and maintains a curated glossary. |
+| **health** | Messaging system validator. Runs six checks (gaps, relationships, schemas, freshness, glossary, profile) and proposes fixes. Absorbs glossary maintenance. |
 | **reader** | Content review specialist. Adopts the target persona's perspective and scores generated content against quality criteria. |
 
 ### Commands
@@ -77,19 +78,16 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 |---------|---------|
 | `onboard` | Scaffold workspace — directories, templates, seed files, project context |
 | `bootstrap` | Build messaging system from scratch |
-| `scan` | Run messaging intelligence scan |
-| `investigate [topic]` | Deep-dive on an insight or topic |
-| `research [topic]` | Research a topic, write to research/ |
-| `competitor [name]` | Research and profile a competitor |
-| `persona [role]` | Draft or update a persona |
-| `audit` | Audit messaging for gaps and inconsistencies |
+| `compose [type] [name]` | Compose or update a messaging document |
+| `investigate [focus]` | Run a messaging intelligence investigation |
+| `health` | Validate messaging system health (all 6 checks) |
+| `health --fix` | Health check + propose and apply fixes |
+| `health [checks]` | Run specific checks (gap, relationship, schema, freshness, glossary, profile) |
 | `generate [skill] [topic]` | Generate content using a skill |
 | `brief [topic]` | Generate a creative brief |
 | `campaign [type] [topic]` | Build a multi-asset content campaign |
 | `tune` | Calibrate skills to the messaging house |
 | `tune --check` | Detect tuning drift without changes |
-| `glossary` | Update glossary from messaging house |
-| `glossary --check` | Check glossary health without changes |
 
 ### Skills
 
@@ -105,7 +103,7 @@ Skills are dynamically loaded instructions for content generation, organized by 
 
 ### Insights System
 
-The research agent runs scheduled scans that evaluate external signals against the messaging system. Insights follow a lifecycle:
+The researcher agent runs investigations that evaluate external signals against the messaging system. Insights follow a lifecycle:
 
 ```
 open -> acknowledged -> resolved
@@ -113,10 +111,10 @@ open -> acknowledged -> resolved
        deferred
 ```
 
-Configure scan cadence and focus areas in `insights/config.md`. Run scans on a cron schedule:
+Configure investigation cadence and focus areas in `insights/config.md`. Run investigations on a cron schedule:
 
 ```bash
-0 6 * * 1 cd /path/to/project && claude -p "run the scan command" --print
+0 6 * * 1 cd /path/to/project && claude -p "run the investigate command" --print
 ```
 
 ## Your Writing Profile

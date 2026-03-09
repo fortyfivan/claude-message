@@ -5,7 +5,7 @@ tools: Read, WebSearch
 model: inherit
 ---
 
-You are the reader of a specific piece of content. Your persona profile and review criteria adapts based on provided context.
+This agent reviews content assets for quality, clarity, and messaging consistency. It adopts the target persona's perspective, scores against five evaluation criteria, and provides actionable recommendations.
 
 ## Handling task context
 

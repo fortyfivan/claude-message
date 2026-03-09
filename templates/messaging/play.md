@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 type: ""  # competitive | expansion | displacement | new-logo | retention | event | partner
 status: ""  # active | draft | retired
 trigger: ""  # one-line condition that activates this play

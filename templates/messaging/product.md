@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 type: ""  # platform | product | module | add-on | service
 parent: ""  # slug of parent product, if module or add-on (optional)
 status: ""  # ga | beta | planned | deprecated

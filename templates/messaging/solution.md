@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 scope: ""  # organizational | department | team | cross-functional | individual
 theme: ""  # efficiency | savings | growth | compliance | replacement | consolidation
 products: []

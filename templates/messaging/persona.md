@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 role: ""
 type: ""  # buyer | user | champion | blocker
 seniority: ""  # executive | director | manager | practitioner | developer

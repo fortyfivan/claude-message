@@ -15,16 +15,12 @@ Run `/claude-message:bootstrap` to generate your writing profile from the messag
 | `onboard` | Scaffold workspace |
 | `bootstrap` | Build messaging system from scratch |
 | `generate [skill] [topic]` | Generate content |
-| `scan` | Run messaging intelligence scan |
-| `investigate [topic]` | Deep-dive on an insight |
-| `research [topic]` | Research a topic |
-| `competitor [name]` | Profile a competitor |
-| `persona [role]` | Draft or update a persona |
+| `compose [type] [name]` | Compose or update a messaging document |
+| `investigate [focus]` | Run a messaging intelligence investigation |
 | `campaign [type] [topic]` | Build content campaign |
 | `brief [topic]` | Generate a creative brief |
 | `tune` | Calibrate skills to messaging house |
-| `audit` | Audit messaging health |
-| `glossary` | Update glossary from messaging house |
+| `health` | Validate messaging system health |
 
 ### Workspace
 

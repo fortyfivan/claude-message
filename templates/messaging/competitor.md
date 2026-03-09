@@ -1,8 +1,10 @@
 ---
 title: ""
+description: ""
 type: ""  # vendor | diy | status-quo | adjacent
 tier: ""  # primary | secondary | emerging
 category_overlap: []
+updated: ""
 ---
 
 # Alternative: [Name]

@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 type: ""  # industry | size | region | maturity
 defining_trait: ""
 verticals: []

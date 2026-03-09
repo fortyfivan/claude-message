@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 maturity: ""  # emerging | growing | peak | declining | established
 trajectory: ""  # expanding | consolidating | fragmenting | being-redefined
 related_categories: []

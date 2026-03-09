@@ -1,5 +1,6 @@
 ---
 title: ""
+description: ""
 customer: ""
 industry: ""
 company_size: ""  # smb | mid-market | enterprise

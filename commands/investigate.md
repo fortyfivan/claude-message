@@ -1,5 +1,12 @@
-Investigate an insight or topic in depth: $ARGUMENTS
+Run a messaging intelligence investigation.
 
-If the argument matches an insight ID in insights/tracker.md, read the original scan and related messaging docs. Perform deep research. Write to insights/investigations/[topic].md with background, findings, messaging impact assessment, and recommended changes.
+Broad (all domains):
+  investigate
 
-/agents researcher investigate $ARGUMENTS
+Targeted (specific entity or area):
+  investigate competitor [name]
+  investigate persona [role]
+  investigate segment [name]
+  investigate category [name]
+
+/agents researcher $ARGUMENTS
