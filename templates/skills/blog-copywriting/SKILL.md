@@ -27,6 +27,7 @@ After identifying the blog type, load the corresponding guide:
 - **Threat Research:** See `blog-types/threat-research.md`
 - **Data Study:** See `blog-types/data-study.md`
 - **Product Announcement:** See `blog-types/product-announcement.md`
+- **Company News:** See `blog-types/company-news.md`
 
 ## Messaging House Context
 
@@ -35,11 +36,11 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Context Type       | What to Extract                                     | Source Files                 |
 |--------------------|-----------------------------------------------------|------------------------------|
 | Persona & Audience | Target reader, pain points, technical altitude      | audience.md                  |
-| Voice & Narrative  | Brand voice, story arc, tone guidelines             | profile.md (voice section)   |
+| Voice & Narrative  | Brand voice, story arc, tone guidelines             | profile.md                   |
 | Value Framework    | Core propositions, differentiation, outcomes        | space.md, portfolio.md       |
 | Market Perspective | Industry trends, positioning, competitive landscape | space.md                     |
 | Evidence           | Social proof, customer stories, data points         | proof.md, portfolio.md       |
-| Strategic Context  | Campaign alignment, content themes                  | motion.md                   |
+| Strategic Context  | Campaign alignment, content themes                  | motion.md                    |
 
 ## SEO/GEO Optimization
 

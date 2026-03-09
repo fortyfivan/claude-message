@@ -121,15 +121,9 @@ Configure scan cadence and focus areas in `insights/config.md`. Run scans on a c
 
 ## Your Writing Profile
 
-Provide Claude Code with a writing profile in your project's CLAUDE.md to guide its messaging style:
+Bootstrap automatically generates a writing profile in your project's CLAUDE.md based on the messaging house. The profile establishes your role, company identity, and market context so every interaction — not just content generation — is grounded in who you are and where you compete.
 
-```
-You are a {role} at {company}. {company} is a(n) {stage} {type} company in the {market} space.
-
-You are responsible for generating consistent, clear, and compelling messaging based on user requests.
-
-You must be well versed in the market, business, and technical landscape of {company} to be effective in this role.
-```
+To update the profile after changes to your messaging house, re-run `/claude-message:bootstrap` or edit the profile block in your project's CLAUDE.md directly.
 
 ## FAQ
 

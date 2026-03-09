@@ -6,6 +6,8 @@ headquarters: ""
 company_size: ""
 funding_stage: ""
 stage: ""  # emerging | growth | established
+type: ""   # B2B | B2C | B2B2C | services
+market: "" # security | developer-tools | data-ai | business-software
 website: ""
 updated: ""
 ---
@@ -89,12 +91,12 @@ Set the scene with an attention-grabbing hook that describes the current conditi
 #### The Inflection
 
 [Instructions:
-Define the industry-wide forces and movements that are forming (or about to form) that make it clear it would be a risk to ignore what's happening.]
+Define the shift your customers are experiencing — what changed in their world that makes the old way unsustainable. This isn't an analyst trend report; it's the lived reality of practitioners who can feel the ground moving beneath them.]
 
 #### The Status Quo
 
 [Instructions:
-Explain why existing and alternative approaches are insufficient despite their grand attempts. It's important to call out attempts because it means people care enough, some have taken a swing and a miss, but you're set up to be different.]
+Explain what your customers have tried and why it hasn't worked. Acknowledge their effort — they've invested in solutions, built workarounds, hired consultants. The point isn't that alternatives are bad; it's that the problem has evolved past what existing approaches were designed for.]
 
 #### Our Smart Insight
 
@@ -109,7 +111,7 @@ Describe what you built and why it's different — whether architecture, capabil
 #### Our Proof of Value
 
 [Instructions:
-Share tangible proof points that support the setup and your advantage. This should be aimed at the big opportunity — customer quotes, analyst mentions, or community love.]
+Share tangible proof points from real customer outcomes. Lead with what customers achieved — metrics, time saved, risks avoided, capabilities unlocked. Third-party validation (community adoption, analyst recognition) reinforces but doesn't replace customer evidence.]
 
 #### Your Reason to Believe
 

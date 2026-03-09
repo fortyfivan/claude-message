@@ -132,8 +132,42 @@ if [ -f "$CONTEXT_SRC" ]; then
 
   else
     # CLAUDE.md exists, markers present — replace between markers (inclusive)
+    # Preserve populated writing profile if bootstrap has written one
+    PROFILE_START="<!-- claude-message:profile:start -->"
+    PROFILE_END="<!-- claude-message:profile:end -->"
+    PROFILE_PLACEHOLDER="Run \`/claude-message:bootstrap\` to generate your writing profile from the messaging house."
+
+    TMPPROFILE="$(mktemp)"
+    if grep -qF "$PROFILE_START" "$CLAUDE_MD"; then
+      awk -v ps="$PROFILE_START" -v pe="$PROFILE_END" \
+        'BEGIN { capture=0 }
+         index($0, ps) == 1 { capture=1; next }
+         index($0, pe) == 1 { capture=0; next }
+         capture { print }' "$CLAUDE_MD" > "$TMPPROFILE"
+    fi
+
     TMPINJECT="$(mktemp)"
     printf '%s\n%s\n%s\n' "$MARKER_START" "$CONTEXT_BLOCK" "$MARKER_END" > "$TMPINJECT"
+
+    # If the existing profile is populated (not the placeholder), swap it into the new injection
+    if [ -s "$TMPPROFILE" ] && ! grep -qxF "$PROFILE_PLACEHOLDER" "$TMPPROFILE"; then
+      TMPRESULT="$(mktemp)"
+      awk -v ps="$PROFILE_START" -v pe="$PROFILE_END" -v pfile="$TMPPROFILE" \
+        'index($0, ps) == 1 {
+           print
+           while ((getline pline < pfile) > 0) print pline
+           close(pfile)
+           # skip template placeholder lines until profile end marker
+           skip=1
+           next
+         }
+         index($0, pe) == 1 { skip=0; print; next }
+         skip { next }
+         { print }' "$TMPINJECT" > "$TMPRESULT"
+      mv "$TMPRESULT" "$TMPINJECT"
+    fi
+
+    rm -f "$TMPPROFILE"
 
     awk -v tmpfile="$TMPINJECT" \
         -v ms="$MARKER_START" \

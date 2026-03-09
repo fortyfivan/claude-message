@@ -2,6 +2,12 @@
 
 Messaging intelligence system — agents, commands, and skills for building and maintaining company messaging.
 
+### Writing Profile
+
+<!-- claude-message:profile:start -->
+Run `/claude-message:bootstrap` to generate your writing profile from the messaging house.
+<!-- claude-message:profile:end -->
+
 ### Commands
 
 | Command | Purpose |
