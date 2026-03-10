@@ -39,7 +39,6 @@ messaging/stories
 messaging/segments
 messaging/solutions
 templates/messaging
-templates/skills
 input
 research
 insights
@@ -47,7 +46,6 @@ insights/scans
 insights/investigations
 output
 output/campaigns
-.claude/skills
 "
 
 for dir in $DIRS; do
@@ -77,25 +75,6 @@ if [ -d "$PLUGIN_ROOT/templates/messaging" ]; then
   done
 fi
 
-# Skill templates — preserve category/type hierarchy
-if [ -d "$PLUGIN_ROOT/templates/skills" ]; then
-  SKILL_LIST="$(mktemp)"
-  (cd "$PLUGIN_ROOT/templates/skills" && find . -type f -name '*.md') > "$SKILL_LIST"
-  while read -r relpath; do
-    relpath="${relpath#./}"
-    src="$PLUGIN_ROOT/templates/skills/$relpath"
-    dest="$PROJECT_ROOT/templates/skills/$relpath"
-    destdir="$(dirname "$dest")"
-    if [ -f "$dest" ]; then
-      report "SKIPPED" "templates/skills/$relpath (exists)"
-    else
-      mkdir -p "$destdir"
-      cp "$src" "$dest"
-      report "CREATED" "templates/skills/$relpath"
-    fi
-  done < "$SKILL_LIST"
-  rm -f "$SKILL_LIST"
-fi
 
 # ─── 3. Seed files ──────────────────────────────────────────────────────────
 
@@ -213,16 +192,6 @@ if [ -d "$PROJECT_ROOT/messaging" ]; then
   done
 fi
 
-# Existing .claude/skills/ categories that match plugin skill categories
-if [ -d "$PROJECT_ROOT/.claude/skills" ] && [ -d "$PLUGIN_ROOT/templates/skills" ]; then
-  for plugin_cat in "$PLUGIN_ROOT"/templates/skills/*/; do
-    [ -d "$plugin_cat" ] || continue
-    catname="$(basename "$plugin_cat")"
-    if [ -d "$PROJECT_ROOT/.claude/skills/$catname" ]; then
-      report "WARNING" "existing .claude/skills/$catname/ may conflict with plugin skills"
-    fi
-  done
-fi
 
 # Non-empty messaging/*.md files that already exist
 if [ -d "$PROJECT_ROOT/messaging" ]; then

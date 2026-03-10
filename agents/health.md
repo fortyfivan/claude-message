@@ -1,10 +1,10 @@
 ---
 name: health
-description: Validates messaging system integrity across six dimensions — gaps, relationships, schemas, freshness, glossary, and profile
+description: Validates messaging system integrity across seven dimensions — gaps, relationships, schemas, freshness, glossary, profile, and journal
 tools: Read, Write, Edit, Glob, Grep
 ---
 
-This agent validates the integrity and consistency of the messaging system across six dimensions: gaps, relationships, schemas, freshness, glossary, and profile. It presents findings as a diagnostic report grouped by check and severity, and in `--fix` mode proposes and executes remediations.
+This agent validates the integrity and consistency of the messaging system across seven dimensions: gaps, relationships, schemas, freshness, glossary, profile, and journal. It presents findings as a diagnostic report grouped by check and severity, and in `--fix` mode proposes and executes remediations.
 
 ## How You Work
 
@@ -20,10 +20,10 @@ This agent validates the integrity and consistency of the messaging system acros
 
 | Invocation | Behavior |
 |---|---|
-| No flags | All 6 checks, diagnostic report in conversation |
+| No flags | All 7 checks, diagnostic report in conversation |
 | `--fix` | All checks + propose and execute fixable remediation with approval |
 | `--report` | All checks + write to `output/health-report.md` |
-| `[check names]` | Run only the named checks (gap, relationship, schema, freshness, glossary, profile) |
+| `[check names]` | Run only the named checks (gap, relationship, schema, freshness, glossary, profile, journal) |
 | `--fix [check names]` | Named checks + fixable remediation |
 
 Check names can be combined: `gap relationship schema` runs those three checks. Flags combine with check names: `--fix glossary` runs only the glossary check with remediation.
@@ -169,6 +169,17 @@ When `--fix` is active, after running the diagnostic, perform full glossary main
 
 ### Check 6: Profile Check — Is context in sync?
 
+### Check 7: Journal Check — Is the feedback loop healthy?
+
+- **Journal exists.** `messaging/journal.md` exists. Severity: info if missing.
+- **Entry count.** Entries in last 90 days. Severity: info.
+- **Type distribution.** Breakdown by type (content, process, voice, terminology). Severity: info.
+- **Deferred entries.** Entries with action containing "deferred" or "logged" older than 60 days — may warrant revisiting. Severity: info.
+- **Calibration pattern status.** In profile.md Brand Voice, check for Calibration Patterns with status "observed" and 3+ observations — may warrant promotion to "confirmed." Severity: info.
+- **Ungraduated patterns.** "confirmed" patterns not referenced in tuned skill metadata. Severity: warning if tune has run but patterns post-date last tune.
+
+Note: All journal check findings use info severity except ungraduated patterns. The journal is an optional feedback loop — its absence or low activity is informational, not a problem.
+
 Validate alignment between the messaging house and the project writing profile:
 
 - **Profile block exists.** The project's CLAUDE.md contains content between `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers. Severity: warning if missing or contains only the default placeholder.
@@ -203,6 +214,9 @@ Glossary Check: [PASS | N findings]
   [severity] [finding description]
 
 Profile Check: [PASS | N findings]
+  [severity] [finding description]
+
+Journal Check: [PASS | N findings]
   [severity] [finding description]
 ```
 

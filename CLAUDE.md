@@ -29,6 +29,7 @@ claude-message/                    <- plugin root
 │   ├── composer.md
 │   ├── health.md
 │   ├── reader.md
+│   ├── feedback.md
 │   ├── researcher.md
 │   ├── tune.md
 │   └── writer.md
@@ -36,19 +37,26 @@ claude-message/                    <- plugin root
 │   └── onboard.sh                 <- workspace scaffolding script
 ├── commands/                      <- auto-discovered by plugin system
 │   ├── bootstrap.md
-│   ├── brief.md
 │   ├── campaign.md
 │   ├── compose.md
+│   ├── feedback.md
 │   ├── generate.md
 │   ├── health.md
 │   ├── investigate.md
 │   ├── onboard.md
 │   └── tune.md
+├── skills/                        <- content generation skills (auto-loaded to .claude/skills/)
+│   ├── blog-copywriting/
+│   ├── brief-copywriting/
+│   ├── email-copywriting/
+│   ├── enablement-copywriting/
+│   ├── social-copywriting/
+│   ├── web-copywriting/
+│   ├── paper-copywriting/
 ├── templates/                    <- read by onboard and bootstrap agents
 │   ├── insights/                  <- seed templates for insights system
 │   ├── messaging/                 <- schemas for messaging docs
-│   ├── onboard/                   <- plugin context block for CLAUDE.md injection
-│   └── skills/                    <- base skill templates (read-only)
+│   └── onboard/                   <- plugin context block for CLAUDE.md injection
 ├── .mcp.json                      <- MCP server config
 ├── settings.json                  <- plugin default settings
 ├── CLAUDE.md                      <- plugin context
@@ -75,8 +83,7 @@ user-project/
 │   ├── segments/
 │   └── solutions/
 ├── templates/
-│   ├── messaging/                 <- doc schemas (copied from plugin)
-│   └── skills/                    <- base skill templates (copied from plugin)
+│   └── messaging/                 <- doc schemas (copied from plugin)
 ├── input/                         <- user-provided source materials
 ├── research/                      <- agent-generated research
 ├── insights/                      <- scan digests, tracker, investigations
@@ -147,7 +154,9 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 **Always load profile.md, space.md, and glossary.md (if present).** Voice, positioning, and terminology consistency apply to all content. Other pillars and collection docs load conditionally based on the task.
 
-**Follow skill templates.** Load the relevant skill from `.claude/skills/` (tuned) or `templates/skills/` (base template) and use its output format, evaluation criteria, and guidelines.
+**Scan the journal for recent learnings.** Before generating content, check `messaging/journal.md` (if it exists) for entries from the last 30 days related to the target persona, product, or competitor. Recent learnings may affect messaging guidance that hasn't been fully propagated.
+
+**Follow skill definitions.** Load the relevant skill from `.claude/skills/` and use its output format, evaluation criteria, and guidelines.
 
 **One asset per file.** Each content piece gets its own markdown file in `output/` with metadata frontmatter tracking the skill used, parameters resolved, and messaging docs loaded.
 
@@ -159,9 +168,9 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 | Directory | Read | Write | Notes |
 |---|---|---|---|
-| `messaging/` | Yes | With user confirmation | Source of truth. Never write without approval. |
-| `templates/` | Yes | No | Base schemas and skills. Never modify. |
-| `.claude/skills/` | Yes | Tune agent with approval | Tuned skills. Writer reads, tune agent writes. |
+| `messaging/` | Yes | With user confirmation | Source of truth. Never write without approval. `messaging/journal.md` can be appended autonomously by designated agents after approved changes. |
+| `templates/` | Yes | No | Messaging doc schemas. Never modify. |
+| `.claude/skills/` | Yes | Tune agent with approval | Content generation skills. Auto-loaded from plugin, personalized by tune agent. |
 | `input/` | Yes | No | User-provided source materials for bootstrap. |
 | `research/` | Yes | Yes | Agents can write autonomously. |
 | `insights/` | Yes | Yes | Scan agent writes autonomously. |
@@ -201,12 +210,13 @@ Context-resolution engine for content generation. Its primary job is deciding wh
 
 1. **Parse** — Extract task parameters: skill type, persona, product, competitor, segment, motion, altitude.
 2. **Resolve** — Three-layer loading. Always loads `profile.md`, `space.md`, `glossary.md`. Conditionally loads other pillars. Routes via pillar tables (Layer 1), scans frontmatter to confirm relevance (Layer 2), then loads full profiles for confirmed matches (Layer 3).
-3. **Load skill** — Read tuned skill from `.claude/skills/`, falling back to `templates/skills/`. Read the routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
+3. **Load skill** — Read skill from `.claude/skills/`. Read the routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
 4. **Cross-reference** — Check loaded context for consistency. Flag gaps or conflicts to the user before writing.
-5. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
-6. **Evaluate** — Self-assess against skill criteria. Flag weak areas and thin context.
-7. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
-8. **Review** — Invoke the reader agent to review the generated content against persona, glossary, and skill criteria.
+5. **Present brief** — Show resolved context, key messages, proof, and flags for user approval before generating.
+6. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
+7. **Evaluate** — Self-assess against skill criteria. Flag weak areas and thin context.
+8. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
+9. **Review** — Invoke the reader agent to review the generated content against persona, glossary, and skill criteria.
 
 The agent never dumps the entire messaging house into context. It surgically selects the docs that matter for this task, this audience, this product, this competitor.
 
@@ -214,8 +224,8 @@ The agent never dumps the entire messaging house into context. It surgically sel
 
 Campaign orchestrator for multi-asset content campaigns. Three phases:
 
-- **Intake** — Resolves campaign type (launch, digital, event, outbound, play, abm), profile selections, and asset list with skill mappings.
-- **Brief** — Writes a structured messaging brief to `output/campaigns/[name]/brief.md` with campaign narrative, per-asset specs, and generation sequence. User must approve before production.
+- **Intake** — Resolves campaign type, scenario attributes, profile selections, and asset list with skill mappings. Loads all six pillars for full messaging context.
+- **Brief** — Writes a structured messaging brief to `output/campaigns/[name]/brief.md` with campaign narrative, a "What to Know" enablement section, per-asset specs, and generation sequence. User must approve before production.
 - **Production** — Dispatches writer subagents per asset by wave, respecting dependencies. Tracks progress and surfaces issues between waves.
 
 Supports resuming campaigns and regenerating individual assets.
@@ -224,11 +234,15 @@ Supports resuming campaigns and regenerating individual assets.
 
 Calibrates content generation skills to the company's messaging house. Reads all six pillars and collection docs, builds a company profile across five dimensions (market dynamics, audience calibration, voice alignment, company stage, motion alignment), and writes tuned skills that encode company-specific guidance into the skill instructions.
 
-Two-layer model: base templates in `templates/skills/` (read-only) are enriched with company context and written to `.claude/skills/` (tuned active). Supports drift detection via `--check` mode.
+Reads skills from `.claude/skills/`, enriches with company context from the messaging house, and writes personalized versions back. Tuning is recommended but not required — skills work out of the box. Supports drift detection via `--check` mode.
+
+### feedback
+
+Processes real-world signals (sales feedback, campaign performance, customer language, competitive observations) and proposes specific changes to the messaging system. Traces impact across all affected docs, presents a plan with current -> proposed text and reasoning, and executes after user approval. Appends learnings to the journal. Two modes: full feedback processing, and log-only for recording observations without immediate action.
 
 ### health
 
-Validates messaging system integrity across six dimensions: gaps (missing content), relationships (broken links), schemas (template compliance), freshness (stale docs), glossary (terminology health), and profile (identity sync). Absorbs all glossary maintenance functionality — in `--fix glossary` mode it scans all messaging docs, applies selection criteria, generates definitions, detects conflicts, and writes updates after approval. Supports running individual checks or all at once, with `--fix` for remediation and `--report` for a written report.
+Validates messaging system integrity across seven dimensions: gaps (missing content), relationships (broken links), schemas (template compliance), freshness (stale docs), glossary (terminology health), profile (identity sync), and journal (feedback loop health). Absorbs all glossary maintenance functionality — in `--fix glossary` mode it scans all messaging docs, applies selection criteria, generates definitions, detects conflicts, and writes updates after approval. Supports running individual checks or all at once, with `--fix` for remediation and `--report` for a written report.
 
 ### reader
 
@@ -248,12 +262,13 @@ Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = 
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Compose or update a messaging document |
 | `investigate [focus]` | Run a messaging intelligence investigation |
-| `health` | Validate messaging system health (all 6 checks) |
+| `health` | Validate messaging system health (all 7 checks) |
 | `health --fix` | Health check + propose and apply fixes |
 | `health --report` | Health check + write report to output/ |
-| `health [checks]` | Run specific checks (gap, relationship, schema, freshness, glossary, profile) |
+| `health [checks]` | Run specific checks (gap, relationship, schema, freshness, glossary, profile, journal) |
+| `feedback [input]` | Process feedback into messaging changes |
+| `feedback --log [input]` | Log observation without proposing changes |
 | `generate [skill] [topic]` | Generate content using a skill |
-| `brief [topic]` | Generate a creative brief |
 | `campaign [type] [topic]` | Build a multi-asset content campaign |
 | `tune` | Calibrate skills to the messaging house |
 | `tune --check` | Detect tuning drift without changes |
@@ -263,7 +278,7 @@ Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = 
 Skills use a category/type hierarchy. Each category has a routing `SKILL.md` that dispatches to type-specific instructions:
 
 ```
-templates/skills/
+skills/
   blog-copywriting/
     SKILL.md                -> Routes to the right blog type
     blog-types/
@@ -275,7 +290,7 @@ templates/skills/
       cold-outreach.md
 ```
 
-Base templates live in `templates/skills/` (read-only). The tune agent enriches these with company-specific calibration and writes the tuned versions to `.claude/skills/` in the user's project.
+Skills live in the plugin's `skills/` directory and are auto-loaded to `.claude/skills/` in the user's project. They work without tuning. The tune agent personalizes them with company-specific calibration derived from the messaging house.
 
 When generating content, always read the relevant `SKILL.md` first. It contains the output format, evaluation criteria, and context pointers.
 

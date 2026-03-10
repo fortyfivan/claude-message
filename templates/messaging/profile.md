@@ -213,6 +213,21 @@ Define the controlled vocabulary for your company — specific terms you always 
 |---|---|---|
 | [term] | [rejected alternative] | [when/why] |]
 
+#### Calibration Patterns
+
+[Instructions:
+This section is populated over time by the feedback agent as content editing
+patterns are observed. Patterns capture implicit style preferences that emerge
+from revision patterns and user feedback. Initially empty.
+
+Each pattern follows this format:
+
+**[Pattern Name]**
+- **Observation:** [what the user consistently does]
+- **Examples:** [content types where this was observed]
+- **Frequency:** [once is a preference, three+ is a pattern]
+- **Status:** observed | confirmed | promoted]
+
 ### Boilerplate Statement
 
 [Instructions:
@@ -256,6 +271,8 @@ Describe the company as it should appear in marketplace listings or partner cata
 - Tropes to Avoid takes precedence over all other stylistic guidance
 - Do not introduce stylistic elements that conflict with defined Tone or Theme Pillars
 - Stage (emerging | growth | established) calibrates proof burden and positioning boldness — do not make claims that exceed the company's stage
+- Calibration Patterns with status "confirmed" are soft guidance during content generation — follow them unless they conflict with authored Brand Voice sections
+- Calibration Patterns with status "observed" are informational only — do not enforce them
 - When in doubt, favor clarity, precision, and restraint — let insight and structure carry the message, not stylistic flair
 
 ## Messaging Rules

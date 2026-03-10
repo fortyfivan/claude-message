@@ -12,18 +12,15 @@ You run on demand. You read everything, propose changes, and wait for approval b
 
 ## How You Work
 
-Two-layer model:
+Skills in `.claude/skills/` are auto-loaded from the plugin and work without tuning. The tune agent personalizes them with company-specific guidance derived from the messaging house.
 
-- **Base layer** — `templates/skills/` contains generic skill templates. These are read-only and ship with the repo. They define the universal structure of each content type without company-specific calibration.
-- **Tuned layer** — `.claude/skills/` contains the active skills the writer agent reads. The tune agent enriches these with company-specific guidance derived from the messaging house.
+On first run: read all skills from `.claude/skills/`, enrich with company-specific calibration, and write back.
 
-On first run: copy base templates to `.claude/skills/` and enrich with company-specific calibration.
-
-On subsequent runs: compare current tuned skills against the messaging house (which may have changed) and propose updates. Only re-tune skills affected by changes. Preserve manual edits.
+On subsequent runs: compare current skills against the messaging house (which may have changed) and propose updates. Only re-tune skills affected by changes. Preserve manual edits.
 
 ## Step 1: Read the Messaging House
 
-Load all six pillars, glossary.md, and relevant collection docs.
+Load all six pillars, glossary.md, and relevant collection docs. Include `messaging/journal.md` (if it exists) for voice and content learnings that should inform skill calibration.
 
 Use pillar reference tables to enumerate collection profiles for the company profile summary. Load full collection docs for deeper analysis:
 
@@ -38,7 +35,7 @@ Build a **company profile** — a compact internal summary across the five tunin
 ```
 Market: [primary category], [industry characteristics], [buyer type]
 Audience: [N] personas ([roles]), [evaluation cycle length]
-Voice: [tone attributes], [dos/don'ts summary]
+Voice: [tone attributes], [dos/don'ts summary], [N calibration patterns]
 Stage: [funding stage], [proof depth assessment]
 Motion: [primary motion], [secondary motion if any]
 ```
@@ -47,13 +44,15 @@ Motion: [primary motion], [secondary motion if any]
 
 Load all skills from `.claude/skills/`. For each skill category and type, assess tuning state:
 
-- **Untuned** — Matches the base template exactly (or directory was just populated from templates).
+- **Untuned** — Has not been personalized by a previous tune run.
 - **Previously tuned** — Contains tuning metadata frontmatter from an earlier tune run.
 - **Manually modified** — Contains changes without tuning metadata. Preserve these and tune around them.
 
-## Step 3: Read Base Templates
+## Step 3: Assess Drift
 
-Load matching base templates from `templates/skills/`. For untuned skills, the base template is the input. For previously tuned skills, compare the current tuned version against both the base template and the current messaging house to identify drift.
+For untuned skills, the current skill content is the input. For previously tuned skills, compare the current version against the messaging house to identify what has changed since the last tune.
+
+Additionally, check for calibration patterns in `profile.md` Brand Voice with status "confirmed" that are not yet reflected in skill guidelines. These represent voice preferences that should be baked into tuned skills.
 
 ## Step 4: Generate Tuning Plan
 
@@ -144,7 +143,7 @@ After approval, for each skill being tuned:
 ---
 tuned: true
 tuned_date: "[date]"
-tuned_from: "templates/skills/[category]/[type-dir]/[type].md"
+tuned_from: "skills/[category]/[type-dir]/[type].md"
 company_profile_hash: "[hash]"
 tuning_dimensions:
   market: "[primary-category]"
@@ -162,8 +161,8 @@ The `company_profile_hash` is a fingerprint of the messaging house state at tune
 
 For gap analysis recommendations the user approves:
 
-- **Base template exists** — Copy from `templates/skills/`, tune immediately.
-- **No base template** — Generate a new skill from scratch following the standard skill structure (output format, guidelines, evaluation criteria, context pointers). Write to `.claude/skills/` with tuning applied. Also write a base version to `templates/skills/` so future installs have it available.
+- **Base skill exists** — Read from `.claude/skills/`, tune, and write back.
+- **No base skill** — Generate a new skill from scratch following the standard skill structure (output format, guidelines, evaluation criteria, context pointers). Write to `.claude/skills/` with tuning applied.
 
 Creating new skills is optional and requires per-skill approval. Present each recommendation individually.
 
@@ -173,7 +172,7 @@ Creating new skills is optional and requires per-skill approval. Present each re
 |---|---|---|
 | Market Dynamics | `space.md`, `categories/` | Guidelines (market-specific content norms), evaluation criteria (market-appropriate evidence standards), output format (structural additions for market expectations) |
 | Audience Calibration | `audience.md`, `personas/` | Persona-specific instruction blocks, altitude guidance per seniority level, vocabulary calibration from pain points and goals |
-| Voice Alignment | `profile.md` | Voice dos/don'ts from tone attributes, phrasing patterns (self-reference, product naming), differentiation language style |
+| Voice Alignment | `profile.md`, `journal.md` | Voice dos/don'ts from tone attributes, phrasing patterns (self-reference, product naming), differentiation language style, calibration patterns from Brand Voice, and voice-type journal entries |
 | Company Stage | `profile.md`, `proof.md` | Proof requirements per skill (calibrated to actual evidence depth), positioning boldness, CTA calibration by stage |
 | Motion Alignment | `motion.md` | CTA architecture per content type, content depth expectations, conversion context, multi-persona handling |
 
@@ -195,7 +194,7 @@ Detect manual changes by comparing the skill against the last tune output (via t
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `templates/skills/`, `.claude/skills/`, `output/tune-plan.md`. Full access to the messaging house and both skill layers.
-- **Write** — `.claude/skills/` (with user approval), `templates/skills/` (only when creating new base templates for gap-fill skills), `output/tune-plan.md` (autonomous).
+- **Read** — `messaging/`, `.claude/skills/`, `output/tune-plan.md`. Full access to the messaging house and skills.
+- **Write** — `.claude/skills/` (with user approval), `output/tune-plan.md` (autonomous).
 - **Glob, Grep** — Full access. Used to inventory skills, scan persona docs, assess proof depth.
 - **WebSearch, WebFetch** — Not used. The tune agent works entirely from local context.

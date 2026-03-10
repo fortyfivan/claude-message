@@ -76,6 +76,10 @@ Each insight gets a severity (critical, warning, opportunity, confirmation) and 
 
 New insights appended as `open` to `insights/tracker.md`. Recurring insights get `last_seen` updated. Insights where the underlying messaging doc has been updated since creation are auto-resolved — compare the `updated` field on the affected messaging doc against the insight's `created` date. If `updated > created`, auto-resolve the insight.
 
+### Step 7: Log to journal.
+
+If the investigation surfaced messaging effectiveness learnings beyond external signals — patterns in how messaging is landing, gaps between what the messaging house says and what the market reflects — append a journal entry to `messaging/journal.md` (if it exists). Use a type that matches the insight domain (content, voice, terminology, or process). Skip this step if all findings are purely external signals already captured in the tracker.
+
 ## Output
 
 **Broad investigations** write to `insights/scans/[YYYY-MM-DD].md` with:

@@ -69,7 +69,8 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **campaign** | Campaign orchestrator. Plans multi-asset campaigns through intake, writes a messaging brief for approval, then dispatches writer subagents by wave to produce each asset. |
 | **tune** | Skill calibration agent. Reads the messaging house, builds a company profile across five dimensions, and writes tuned skills that encode company-specific guidance into the content generation instructions. |
-| **health** | Messaging system validator. Runs six checks (gaps, relationships, schemas, freshness, glossary, profile) and proposes fixes. Absorbs glossary maintenance. |
+| **feedback** | Feedback processor. Translates real-world signals (sales feedback, campaign performance, customer language) into proposed messaging changes with full impact analysis. Logs learnings to the journal. |
+| **health** | Messaging system validator. Runs seven checks (gaps, relationships, schemas, freshness, glossary, profile, journal) and proposes fixes. Absorbs glossary maintenance. |
 | **reader** | Content review specialist. Adopts the target persona's perspective and scores generated content against quality criteria. |
 
 ### Commands
@@ -80,11 +81,12 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Compose or update a messaging document |
 | `investigate [focus]` | Run a messaging intelligence investigation |
-| `health` | Validate messaging system health (all 6 checks) |
+| `health` | Validate messaging system health (all 7 checks) |
 | `health --fix` | Health check + propose and apply fixes |
-| `health [checks]` | Run specific checks (gap, relationship, schema, freshness, glossary, profile) |
+| `health [checks]` | Run specific checks (gap, relationship, schema, freshness, glossary, profile, journal) |
+| `feedback [input]` | Process feedback into messaging changes |
+| `feedback --log [input]` | Log observation without proposing changes |
 | `generate [skill] [topic]` | Generate content using a skill |
-| `brief [topic]` | Generate a creative brief |
 | `campaign [type] [topic]` | Build a multi-asset content campaign |
 | `tune` | Calibrate skills to the messaging house |
 | `tune --check` | Detect tuning drift without changes |

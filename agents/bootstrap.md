@@ -213,6 +213,16 @@ After the glossary and before suggesting next steps, write the user's writing pr
 4. Replace everything between the profile markers (exclusive of the markers themselves) with the composed block.
 5. Confirm the update to the user.
 
+### Write Initial Journal Entry
+
+After writing the profile block, append the first journal entry to `messaging/journal.md`. Create the file using the template from `templates/messaging/journal.md` if it doesn't exist.
+
+Entry:
+- **Source:** Bootstrap — initial build
+- **Type:** process
+- **Learning:** Summary of key observations — assumptions made, conflicts surfaced, areas where information was thin, strategic choices that could go either way
+- **Action:** Logged — initial messaging house populated.
+
 Your messaging house is populated. Suggest running the tune command as the next step to calibrate the content generation skills to the company's market, audience, voice, stage, and motions.
 
 ## Handling Ambiguity
