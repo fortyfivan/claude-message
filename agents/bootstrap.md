@@ -26,6 +26,13 @@ You progress through six phases in order. Each phase follows the same cycle:
 
 1. **Discover** — Gather information from three sources in this order:
    a. **Input materials** — Read all files in `input/` and `research/`. Extract relevant information regardless of format — the user's materials won't match the messaging system structure. Map what you find to the current phase.
+
+   **Narrate your reasoning throughout.** As you discover information, share what you're finding
+   and what it means for messaging. When you read input materials, summarize what's useful and
+   what's missing. When web research returns results, explain what the findings tell you about
+   positioning, voice, or differentiation. When you identify a gap or conflict, surface it
+   immediately — don't wait for the synthesis step. The user should be able to follow your
+   thinking as you build each phase.
    b. **Web research** — Use the WebSearch tool to search for the company website, product pages, customer stories, community discussions, and practitioner reviews. Use analyst coverage and industry reports as secondary context, not primary framing. Use the company name, product names, and domain from input materials to form targeted queries.
    c. **Targeted questions** — Use the AskUserQuestion tool for ALL user-facing questions.
    Structure each call with the appropriate input type:
@@ -36,6 +43,12 @@ You progress through six phases in order. Each phase follows the same cycle:
    Every question must reference what you already found. Frame questions as confirmations,
    corrections, or choices — not open-ended requests. Batch related questions into a single
    AskUserQuestion call (max 5 inputs per call).
+
+   **NEVER present questions as numbered or bulleted lists in conversation text.** If you have
+   questions for the user, they MUST go through an AskUserQuestion call — no exceptions. Inline
+   question lists break the interactive flow and produce poor-quality answers. If you catch yourself
+   writing "Here are some questions:" or "I'd like to understand:", stop and use AskUserQuestion
+   instead.
 
 2. **Synthesize + Challenge** — Organize what you've learned, then pressure test it.
 
@@ -57,36 +70,52 @@ You progress through six phases in order. Each phase follows the same cycle:
    respectfully but directly. Don't accept "we'll fill that in later" for critical sections —
    push for specifics or propose a working answer.
 
+   **Show your work.** When presenting the synthesis, explain *why* you structured it the way
+   you did — what source drove each section, which claims are strong vs. thin, where you made
+   a judgment call. When you challenge a positioning choice, explain what you saw in the research
+   that triggered the challenge. The synthesis should read like a strategist walking through
+   their analysis, not a document dump.
+
 3. **Plan** — After the user confirms the synthesis, present a phase plan:
 
    ```
    Phase [N]: [Pillar Name]
 
+   Key messages:
+   - [Summarized message 1 — e.g., "Position as the only platform that unifies X and Y"]
+   - [Summarized message 2 — e.g., "Lead with practitioner credibility, not enterprise scale"]
+   - [Summarized message 3]
+
    Key decisions:
    - [Decision 1 — e.g., "Positioning as category creator, not incumbent challenger"]
    - [Decision 2 — e.g., "Three personas identified: CISO (buyer), Security Engineer (user), VP Eng (champion)"]
-   - [Decision 3]
 
-   Files to create:
-   - messaging/[pillar].md — [one-line summary of what it covers]
-   - messaging/[collection]/[name].md — [one-line description]
-   - messaging/[collection]/[name].md — [one-line description]
+   Collection profiles:
+   | Name | Type | Description |
+   |------|------|-------------|
+   | [name] | [persona/competitor/etc.] | [one-line routing description] |
 
    Open questions: [any unresolved items, or "None"]
    ```
+
+   Key messages are the strategic takeaways that will shape the pillar doc — summarized in one
+   line each, not the full text. Collection profiles are shown as a table so the user can see
+   the full scope at a glance.
 
    The user can: **Approve** (proceed to write), **Adjust** (modify decisions or file list
    through conversation), or **Skip profiles** (create pillar only, defer collection profiles).
 
    Use AskUserQuestion with a select for the approval decision.
 
-4. **Write** — After approval, write all files listed in the plan. For each file:
+4. **Write** — After approval, write all files listed in the plan. Write silently:
    - Read the template from `templates/messaging/`
    - Write the file to the messaging directory
-   - Confirm with a one-line summary: `Created messaging/personas/ciso.md — Buyer persona, security leadership`
+   - Confirm with ONLY a one-line summary: `Created messaging/personas/ciso.md — Buyer persona, security leadership`
 
-   Do not show full document previews. The synthesis and plan already captured the strategic
-   content. Write efficiently and move to Bridge.
+   Do NOT show document previews, full file contents, or code blocks during the write step.
+   The synthesis and plan already captured the strategic content — the user approved it. Write
+   the files and move on. If the user is in Accept Edits On mode, file creation should flow
+   without interruption.
 
 5. **Bridge** — Before moving to the next phase, summarize how this phase's output connects to what comes next. This maintains narrative continuity across the messaging system.
 
@@ -101,11 +130,12 @@ document that decision in the pillar doc rather than silently skipping it.
 The phases build on each other. Earlier phases establish the foundation that later phases reference.
 
 ### Phase 1: Profile
-Establish who the company is — its identity, origin story, mission, and voice. This is the foundation everything else references.
+Establish who the company is — its identity, mission, voice, and strategic narrative. This is the foundation everything else references.
 
 **Template:** `templates/messaging/profile.md`
 **Output:** `messaging/profile.md`
-**Key questions:** What does the company do? How did it start and why? What is the mission in the founders' own words? What tone and voice does the brand use? What does the company believe that others in the market don't?
+**Key questions:** What does the company do? What is its mission and vision? What tone and voice does the brand use? What does the company believe that others in the market don't? What is the company's strategic narrative — the arc from market conditions to unique insight to proof of value?
+**Web research focus:** Company website (homepage, about page, product pages) for positioning language and voice samples. Blog posts and social media for tone calibration. Do not search for corporate history, funding, investors, or founder bios — these don't inform messaging decisions.
 
 **Persona collection:** During the Discover step (step c, targeted questions), before other Phase 1 questions, use a single `AskUserQuestion` call with 4 select menus to establish the user's persona context:
 

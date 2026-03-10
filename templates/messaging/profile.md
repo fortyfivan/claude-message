@@ -21,26 +21,15 @@ This pillar establishes who the company is — its identity, origin, narrative, 
 ### Company Overview
 
 [Instructions:
-Document the core facts about the company — type of business, market space, founders, investors, key customers, revenue/fundraising milestones, supported regions, verticals in focus, regulations in play, and any naming conventions (legal name, brand name, and common references if they differ).]
+Document the core facts about the company that inform messaging — type of business, market space, key customers, supported regions, verticals in focus, regulations in play, and any naming conventions (legal name, brand name, and common references if they differ).]
 
 [Tips:
-- This is a fact sheet, not a narrative — save storytelling for Origin Story and Strategic Narrative
-- Include naming variants if the company's legal name, brand name, and colloquial name differ]
+- This is a messaging fact sheet — include only what agents need to write on-strategy content
+- Include naming variants if the company's legal name, brand name, and colloquial name differ
+- Skip corporate facts (fundraising, investors, founding date) unless they directly inform positioning]
 
 [Format:
 Bulleted list of facts]
-
-### Origin Story
-
-[Instructions:
-Describe how and why the company was founded — the insight, experience, or market gap that led to its creation. This provides narrative depth and authenticity.]
-
-[Tips:
-- Ground in specifics — what the founders saw, what they tried, what didn't exist
-- Connect the origin to the present-day mission without overreaching]
-
-[Format:
-1-2 paragraphs in narrative form]
 
 ### Mission
 
