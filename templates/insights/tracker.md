@@ -18,6 +18,10 @@ open -> acknowledged -> resolved
 
 Insights auto-resolve when the underlying messaging doc's `updated` date is newer than the insight date.
 
+## ID Convention
+
+Insights use sequential IDs: `INS-001`, `INS-002`, etc. The investigate agent reads the tracker to find the highest existing ID before appending new insights.
+
 ## Tracker
 
 | ID | Date | Source | Insight | Messaging Doc | Status | Resolved Date | Resolution |

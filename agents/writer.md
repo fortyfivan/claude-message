@@ -93,6 +93,8 @@ Read the skill from `.claude/skills/[category]/SKILL.md`. Read the routing `SKIL
 - **Guidelines** — Dos and don'ts for this content type
 - **Examples** — If provided, reference examples for tone and structure
 
+If skill files have been tuned (indicated by `tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, evaluation criteria, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
+
 ### Step 4: Cross-reference and Resolve Conflicts
 
 Before writing, check that the loaded context is internally consistent:

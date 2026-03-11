@@ -28,6 +28,7 @@ claude-message/                    <- plugin root
 │   ├── campaign.md
 │   ├── composer.md
 │   ├── health.md
+│   ├── investigate.md
 │   ├── reader.md
 │   ├── feedback.md
 │   ├── researcher.md
@@ -42,10 +43,11 @@ claude-message/                    <- plugin root
 │   ├── feedback.md
 │   ├── generate.md
 │   ├── health.md
+│   ├── insights.md
 │   ├── investigate.md
 │   ├── onboard.md
 │   └── tune.md
-├── skills/                        <- content generation skills (auto-loaded to .claude/skills/)
+├── skills/                        <- skill definitions (copied to .claude/skills/ by onboard)
 │   ├── blog-copywriting/
 │   ├── brief-copywriting/
 │   ├── email-copywriting/
@@ -86,11 +88,12 @@ user-project/
 │   └── messaging/                 <- doc schemas (copied from plugin)
 ├── input/                         <- user-provided source materials
 ├── research/                      <- agent-generated research
-├── insights/                      <- scan digests, tracker, investigations
+├── insights/                      <- findings, tracker, config
+│   └── findings/
 ├── output/                        <- generated content
 │   └── campaigns/
 └── .claude/
-    └── skills/                    <- tuned skills (written by tune agent)
+    └── skills/                    <- skill definitions (customizable, tuned by tune agent)
 ```
 
 ## Messaging House
@@ -173,7 +176,7 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 | `.claude/skills/` | Yes | Tune agent with approval | Content generation skills. Auto-loaded from plugin, personalized by tune agent. |
 | `input/` | Yes | No | User-provided source materials for bootstrap. |
 | `research/` | Yes | Yes | Agents can write autonomously. |
-| `insights/` | Yes | Yes | Scan agent writes autonomously. |
+| `insights/` | Yes | Yes | Investigate agent writes autonomously. |
 | `output/` | Yes | Yes | Generated content. Agents write autonomously. |
 
 ## Agents
@@ -193,16 +196,24 @@ Messaging composition agent. Creates and updates any document in `messaging/` on
 
 For pillar updates, includes downstream impact analysis. For open-ended requests, researches the topic and recommends documents to create or update.
 
+### investigate
+
+Insights orchestrator that manages research tasks, surfaces insights, and maintains the tracker. Three modes:
+
+- **Scan** (`/investigate`) — Broad investigation across all enabled domains. Dispatches the researcher agent, processes findings, writes to `insights/findings/`, updates the tracker, logs to journal.
+- **Targeted** (`/investigate [type] [name]`) — Focused investigation of a specific entity. Same flow as scan but scoped to relevant domains and profiles. Presents wording recommendations and compose command suggestions.
+- **Review** (`/insights`) — Tracker management. Runs auto-resolution, presents dashboard, handles acknowledge/defer/resolve state transitions.
+
+Manages the full insight lifecycle: ID generation, auto-resolution, recurring detection, stale deferral flagging. Never writes to `messaging/` except journal entries. Directs the user to run compose for messaging changes.
+
 ### researcher
 
-Messaging intelligence analyst. One flow — **investigate** — that reads the messaging system, searches external sources, evaluates findings against messaging components, classifies by severity, and surfaces insights.
+Research execution agent that searches external sources and evaluates findings against the messaging system. Two modes:
 
-Two variants of the same process:
+- **Standalone** — Invoked directly for ad-hoc research questions. Writes a research report to `research/`. No tracker, no journal, no insights system.
+- **Sub-agent** — Dispatched by the investigate agent with scope parameters. Returns structured findings without writing output.
 
-- **Broad** — All 5 domains. Writes to `insights/scans/`. Runs on cron or manually.
-- **Targeted** — Specific entity or area (e.g., `investigate competitor Acme`). Writes to `insights/investigations/`.
-
-Never writes to `messaging/`. If findings warrant messaging changes, directs the user to run the compose command.
+Searches across six domains (competitive, market, audience, proof, technology, GTM & channel signals). Classifies findings by severity and type. Never writes to `messaging/` or `insights/`.
 
 ### writer
 
@@ -261,7 +272,10 @@ Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = 
 | `onboard` | Scaffold workspace and inject plugin context |
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Compose or update a messaging document |
-| `investigate [focus]` | Run a messaging intelligence investigation |
+| `investigate` | Run a broad messaging intelligence investigation |
+| `investigate [type] [name]` | Run a targeted investigation of a specific entity |
+| `insights` | Review and manage the insight tracker |
+| `insights acknowledge/defer/resolve [ID]` | Update a specific insight's status |
 | `health` | Validate messaging system health (all 7 checks) |
 | `health --fix` | Health check + propose and apply fixes |
 | `health --report` | Health check + write report to output/ |
@@ -296,7 +310,9 @@ When generating content, always read the relevant `SKILL.md` first. It contains 
 
 ## Insights System
 
-The researcher agent runs investigations that evaluate external signals against the messaging system. Insights are tracked with a lifecycle in `insights/tracker.md`:
+The insights system is split between two agents: the **investigate** agent orchestrates the workflow, and the **researcher** agent executes the research.
+
+The investigate agent dispatches the researcher, processes returned findings, writes them to `insights/findings/`, manages the tracker lifecycle in `insights/tracker.md`, and logs learnings to the journal. Insights are tracked with a lifecycle:
 
 ```
 open -> acknowledged -> resolved
@@ -304,7 +320,7 @@ open -> acknowledged -> resolved
        deferred
 ```
 
-The agent auto-resolves insights when the underlying messaging doc has been updated. Users manage judgment calls (acknowledge, defer, resolve) manually.
+The investigate agent auto-resolves insights when the underlying messaging doc has been updated. Users manage judgment calls (acknowledge, defer, resolve) via the `/insights` command.
 
 Configure investigation cadence, focus areas, and MCP sources in `insights/config.md`.
 

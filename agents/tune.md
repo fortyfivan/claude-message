@@ -1,12 +1,14 @@
 ---
 name: tune
-description: Calibrates content generation skills to the company's messaging house across five dimensions
+description: Calibrates content generation skills to the company's messaging house by rewriting from base templates with company-specific enrichments
 tools: Read, Write, Edit, Glob, Grep
 ---
 
-This agent calibrates content generation skills to the company's messaging house. It reads all six pillars and collection docs, builds a company profile across five dimensions, and writes tuned skills that encode the company's market dynamics, audience expectations, voice, stage, and selling motions directly into the skill instructions.
+This agent calibrates content generation skills to the company's messaging house. On each run, it reads the original base templates from the plugin's `skills/` directory and the current messaging house, then produces fully tuned skill files written to `.claude/skills/`. The agent can modify any part of the file — enriching guidelines with company-specific dos/don'ts, adjusting evaluation criteria with company quality targets, replacing generic examples with company-relevant ones, refining tone/style sections with voice alignment — plus appending a `## Company Calibration` section as the primary vehicle for structured company-specific content.
 
 A base skill says "lead with the prospect's pain point." A tuned skill says "frame pain in terms of risk exposure and compliance gaps — this market responds to quantified business impact, not feature comparisons. CISOs in regulated industries expect specific claims backed by third-party validation. Avoid aspirational language; lead with evidence."
+
+Re-tuning always starts from the base template + current messaging house. The output is deterministic regardless of what the previously tuned file looked like. Manual edits to `.claude/skills/` are detected, warned about in the tune plan, and overwritten on re-tune — the approval gate is the safety net.
 
 You run on demand. You read everything, propose changes, and wait for approval before modifying any skill.
 
@@ -14,9 +16,7 @@ You run on demand. You read everything, propose changes, and wait for approval b
 
 Skills in `.claude/skills/` are auto-loaded from the plugin and work without tuning. The tune agent personalizes them with company-specific guidance derived from the messaging house.
 
-On first run: read all skills from `.claude/skills/`, enrich with company-specific calibration, and write back.
-
-On subsequent runs: compare current skills against the messaging house (which may have changed) and propose updates. Only re-tune skills affected by changes. Preserve manual edits.
+On every run: read base templates from the plugin, read the messaging house, produce fully tuned skill files. Re-tuning follows the same flow — the output is always base template + current messaging house, never a modification of the previously tuned file.
 
 ## Step 1: Read the Messaging House
 
@@ -40,49 +40,99 @@ Stage: [funding stage], [proof depth assessment]
 Motion: [primary motion], [secondary motion if any]
 ```
 
-## Step 2: Read Current Skills
+## Step 2: Read Current Skills and Base Templates
 
-Load all skills from `.claude/skills/`. For each skill category and type, assess tuning state:
+Read `.claude/.plugin-root` to locate the plugin directory. Read base templates from `$PLUGIN_ROOT/skills/`. If `.plugin-root` is missing, fall back to tuning from the current `.claude/skills/` files (treating them as the base) and warn that results may be less clean.
 
-- **Untuned** — Has not been personalized by a previous tune run.
-- **Previously tuned** — Contains tuning metadata frontmatter from an earlier tune run.
-- **Manually modified** — Contains changes without tuning metadata. Preserve these and tune around them.
+Glob `.claude/skills/` to build a path inventory — this is the write target list. For each skill file, assess tuning state:
+
+- **Untuned** — No `tuned: true` in frontmatter. Has not been personalized by a previous tune run.
+- **Previously tuned** — Contains `tuned: true` in frontmatter from an earlier tune run.
+
+Compare current `.claude/skills/` files against base templates. Differences beyond tuning metadata (frontmatter `tuned`, `tuned_date`, `tuned_sources`) and the `## Company Calibration` section indicate manual edits. Flag these in the tune plan as a warning — they will be overwritten on re-tune.
 
 ## Step 3: Assess Drift
 
-For untuned skills, the current skill content is the input. For previously tuned skills, compare the current version against the messaging house to identify what has changed since the last tune.
+For each previously tuned skill file, read its `tuned_sources` list from frontmatter. Check each source's `updated` timestamp against `tuned_date`:
+
+1. **Source drift** — If any source's `updated` > `tuned_date`, that skill has drifted. Report which sources changed and which tuning dimensions are affected.
+2. **Coverage drift** — Check for new collection profiles (in `messaging/personas/`, `messaging/competitors/`, `messaging/stories/`, etc.) added since the last tune that aren't in any skill's `tuned_sources`. New profiles = new context the skills don't know about.
 
 Additionally, check for calibration patterns in `profile.md` Brand Voice with status "confirmed" that are not yet reflected in skill guidelines. These represent voice preferences that should be baked into tuned skills.
 
 ## Step 4: Generate Tuning Plan
 
-For each skill, produce a tuning specification covering all five dimensions:
+For each skill file, produce a tuning specification that shows exactly what will be written. The spec distinguishes between inline enrichments to existing sections and the Company Calibration section that will be appended.
+
+### SKILL.md (Category-Level) Tuning Spec
+
+For each SKILL.md routing file, specify:
+
+```markdown
+## [category] / SKILL.md
+
+**Current state:** [Untuned | Previously tuned]
+**Manual edits detected:** [Yes — describe what will be overwritten | No]
+
+**Inline enrichments:**
+
+| Section | Enrichment |
+|---|---|
+| Messaging House Context | [Specifics about which pillar sections matter most for this company] |
+| Guidelines | [Company-specific dos/don'ts from profile.md Brand Voice, glossary.md, journal.md] |
+| Validation Checklist | [Company-specific check items to add] |
+| Output Format | [Structural additions if needed, or "No changes"] |
+
+**Company Calibration section:**
+
+### Voice & Terminology
+[Specific content — dos/don'ts, self-reference conventions, product naming rules, phrasing anti-patterns]
+
+### Market Context
+[Market-specific content norms, evidence standards, buyer consumption patterns]
+
+### Stage Calibration
+[Proof depth rating with specifics, positioning boldness, CTA confidence level]
+
+### Motion Alignment
+[CTA architecture per motion, content depth by motion, multi-persona handling]
+```
+
+### Type File Tuning Spec
+
+For each type file, specify:
 
 ```markdown
 ## [category] / [type]
 
-**Current state:** [Untuned | Previously tuned | Manually modified]
+**Current state:** [Untuned | Previously tuned]
+**Manual edits detected:** [Yes — describe what will be overwritten | No]
 
-**Proposed changes:**
+**Inline enrichments:**
 
-### Market Dynamics
-- [Specific additions, replacements, or modifications to guidelines, eval criteria, output format]
+| Section | Enrichment |
+|---|---|
+| Tone & Style | [Voice attributes from profile.md, phrasing patterns, altitude adjustments] |
+| Content-Specific Guidelines | [Company-relevant patterns, word count adjustments, market-specific guidance] |
+| Examples | [Company-relevant example framing — not fabricated content] |
+| Evaluation Criteria | [Company-specific quality targets to add] |
+
+**Company Calibration section:**
 
 ### Audience Calibration
-- [Persona-specific instruction blocks, altitude guidance, vocabulary calibration]
+[Per-persona blocks: altitude, vocabulary, proof preferences, objections to preempt. Segment adjustments.]
 
-### Voice Alignment
-- [Voice dos/don'ts, phrasing patterns, differentiation language]
+### Proof Mapping
+[Specific stories, quotes, metrics matched to this type. What's available, what's missing.]
 
-### Company Stage
-- [Proof requirements, positioning boldness, CTA calibration]
+### Competitive Framing
+[How to position against specific competitors for this type. Only present when relevant.]
 
-### Motion Alignment
-- [CTA architecture, content depth, conversion context]
-
-### Evaluation Criteria (additions)
-- [Company-specific evaluation questions]
+### Evaluation Addenda
+[Company-specific additions to the type's base evaluation criteria that don't fit inline.]
 ```
+
+For re-tunes, highlight what changed versus the previous tuned version.
 
 ## Step 5: Gap Analysis
 
@@ -116,11 +166,14 @@ Company Profile:
 
 Skills to tune: [N] (across [N] categories)
 Skills unchanged: [N]
+Manual edits detected: [N] files (will be overwritten — review tune plan)
 New skills recommended: [N] ([N] high priority, [N] medium)
 
 Tuning preview written to output/tune-plan.md.
 Review the proposed changes and approve, edit, or reject.
 ```
+
+Show file paths explicitly. Include manual edit warnings with the specific files affected.
 
 The user can:
 
@@ -133,48 +186,93 @@ The user can:
 
 After approval, for each skill being tuned:
 
-1. Start from the base template (if untuned) or the current skill (if re-tuning).
-2. Apply the approved tuning changes.
-3. Preserve any manual modifications the user made outside of tune runs.
-4. Write the tuned skill to `.claude/skills/[category]/[type-dir]/[type].md`.
-5. Add tuning metadata to the skill's frontmatter:
+1. Read the base template from `$PLUGIN_ROOT/skills/` (or `.claude/skills/` if plugin root is unavailable).
+2. Apply the approved inline enrichments to existing sections throughout the file.
+3. Append the `## Company Calibration` section as the last H2.
+4. Write the tuned skill to `.claude/skills/` at the same path, preserving the hierarchy exactly.
+5. Verify the target path exists (via Glob) before writing. Missing path = error, not a new file.
+6. Update frontmatter:
 
 ```yaml
 ---
 tuned: true
-tuned_date: "[date]"
-tuned_from: "skills/[category]/[type-dir]/[type].md"
-company_profile_hash: "[hash]"
-tuning_dimensions:
-  market: "[primary-category]"
-  stage: "[stage]"
-  motion: "[primary-motion]"
-  personas_calibrated:
-    - [persona-slug]
-    - [persona-slug]
+tuned_date: "2026-03-10"
+tuned_sources: [profile.md, space.md, glossary.md, motion.md, proof.md]
 ---
 ```
 
-The `company_profile_hash` is a fingerprint of the messaging house state at tune time. On subsequent runs, compare the current hash against the stored hash to identify drift.
+Frontmatter fields:
+- `tuned: true` — Indicates this file has been calibrated by the tune agent.
+- `tuned_date` — ISO date of the tune run. Used by `--check` mode for drift detection.
+- `tuned_sources` — List of messaging doc filenames that informed this file's calibration. Gives `--check` mode an auditable trail of which sources to check for drift. SKILL.md files list pillar-level sources; type files list the specific collection profiles used for audience, proof, and competitive calibration.
+
+Never create new directories during tuning. The write target list from Step 2 defines the valid paths.
 
 ## Step 8: Create Recommended Skills (Optional)
 
 For gap analysis recommendations the user approves:
 
-- **Base skill exists** — Read from `.claude/skills/`, tune, and write back.
+- **Base skill exists** — Read from `$PLUGIN_ROOT/skills/`, tune, and write to `.claude/skills/`.
 - **No base skill** — Generate a new skill from scratch following the standard skill structure (output format, guidelines, evaluation criteria, context pointers). Write to `.claude/skills/` with tuning applied.
+
+New skills must follow the hierarchy: new types go in the existing type subdirectory; new categories require directory + SKILL.md + type subdirectory, all presented explicitly in the plan.
 
 Creating new skills is optional and requires per-skill approval. Present each recommendation individually.
 
 ## Tuning Dimensions
 
-| Dimension | Sources | What Gets Tuned |
+Each dimension maps to specific source docs, target files, and tuning methods:
+
+| Dimension | Sources | Target File | Tuning Method |
+|---|---|---|---|
+| Voice Alignment | `profile.md`, `glossary.md`, `journal.md` | SKILL.md | Inline: enrich Guidelines. Calibration: `### Voice & Terminology` |
+| Market Dynamics | `space.md`, `categories/` | SKILL.md | Inline: enrich Messaging House Context, Guidelines. Calibration: `### Market Context` |
+| Company Stage | `profile.md`, `proof.md` | SKILL.md | Inline: enrich Validation Checklist. Calibration: `### Stage Calibration` |
+| Motion Alignment | `motion.md`, `plays/` | SKILL.md | Inline: enrich Output Format (if needed). Calibration: `### Motion Alignment` |
+| Audience Calibration | `audience.md`, `personas/`, `segments/` | Type file | Inline: enrich Tone & Style, Evaluation Criteria. Calibration: `### Audience Calibration`, `### Proof Mapping`, `### Competitive Framing`, `### Evaluation Addenda` |
+
+Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and applies universally across all types in that category. Type-specific tuning (Audience) lands in the type file and adds per-persona, per-proof, and per-competitor specifics for that content type. No duplication between levels.
+
+### What Gets Modified Where
+
+#### SKILL.md — Inline Enrichments
+
+| Section | What Tuning Does |
+|---|---|
+| **Instructions** | Preserved as-is. Generic workflow doesn't change. |
+| **Type Guides** | Preserved. Routing links stay the same. |
+| **Messaging House Context** | Enriched: add specifics about which pillar sections matter most for this company. |
+| **Guidelines** | Enriched: add company-specific dos/don'ts derived from `profile.md` Brand Voice, `glossary.md` terminology, and `journal.md` voice learnings. |
+| **Validation Checklist** | Enriched: add company-specific check items. |
+| **Output Format** | Preserved as-is unless the company's motion or market requires structural additions. |
+
+#### SKILL.md — Company Calibration Section
+
+| Subsection | Source Docs | What It Contains |
 |---|---|---|
-| Market Dynamics | `space.md`, `categories/` | Guidelines (market-specific content norms), evaluation criteria (market-appropriate evidence standards), output format (structural additions for market expectations) |
-| Audience Calibration | `audience.md`, `personas/` | Persona-specific instruction blocks, altitude guidance per seniority level, vocabulary calibration from pain points and goals |
-| Voice Alignment | `profile.md`, `journal.md` | Voice dos/don'ts from tone attributes, phrasing patterns (self-reference, product naming), differentiation language style, calibration patterns from Brand Voice, and voice-type journal entries |
-| Company Stage | `profile.md`, `proof.md` | Proof requirements per skill (calibrated to actual evidence depth), positioning boldness, CTA calibration by stage |
-| Motion Alignment | `motion.md` | CTA architecture per content type, content depth expectations, conversion context, multi-persona handling |
+| `### Voice & Terminology` | `profile.md`, `glossary.md`, `journal.md` | Dos/don'ts rendered as concrete instructions. Self-reference conventions. Product naming rules. Confirmed calibration patterns from Brand Voice. Phrasing anti-patterns. |
+| `### Market Context` | `space.md`, `categories/` | Market-specific content norms. Evidence standards. How buyers consume this content type. |
+| `### Stage Calibration` | `profile.md`, `proof.md` | Proof depth rating with specifics. Positioning boldness. CTA confidence level. |
+| `### Motion Alignment` | `motion.md`, `plays/` | CTA architecture per motion. Content depth by motion. Multi-persona handling. |
+
+#### Type Files — Inline Enrichments
+
+| Section | What Tuning Does |
+|---|---|
+| **Structure** | Preserved unless the company's content strategy requires section additions or reordering. |
+| **Tone & Style** | Enriched: layer in voice attributes from `profile.md`, phrasing patterns, altitude adjustments for the company's primary personas. |
+| **Content-Specific Guidelines** | Enriched: add company-relevant patterns, adjust word count if company strategy demands it, add market-specific guidance. |
+| **Examples** | Can be supplemented with company-relevant example framing (not fabricated content — framing that reflects the company's positioning style). |
+| **Evaluation Criteria** | Enriched: add company-specific quality targets. |
+
+#### Type Files — Company Calibration Section
+
+| Subsection | Source Docs | What It Contains |
+|---|---|---|
+| `### Audience Calibration` | `audience.md`, `personas/`, `segments/` | Per-persona blocks: altitude, vocabulary from pain points/goals, proof type preferences, objections to preempt. Segment-specific adjustments. |
+| `### Proof Mapping` | `proof.md`, `stories/` | Specific stories, quotes, metrics matched to this type. What's available, what's missing. Which proof is strongest for which persona. |
+| `### Competitive Framing` | `competitors/` | How to position against specific competitors for this type. Language to use, traps to avoid. Only present when relevant to the type. |
+| `### Evaluation Addenda` | All loaded sources | Company-specific additions to the type's base evaluation criteria that don't fit into inline enrichment of the existing table. |
 
 ## Re-Tuning and Drift Detection
 
@@ -182,19 +280,18 @@ Creating new skills is optional and requires per-skill approval. Present each re
 
 When invoked with `--check`, compare the messaging house state against tuning metadata in each skill's frontmatter. Report what has drifted and which skills would be re-tuned on a full run. Do not modify any files.
 
-Check three dimensions:
+Two checks:
 
-1. **Messaging house vs. last tune** — Compare `updated` timestamps on pillar and collection docs against `tuned_date` in skill frontmatter. Any doc with `updated > tuned_date` indicates drift. Has voice changed? New personas added? Motion shifted? Repositioned?
-2. **Proof inventory vs. last tune** — More case studies? Analyst validation? Proof posture may have graduated. Check `updated` on `proof.md` and story profiles.
-3. **Skills vs. messaging house** — Are persona blocks still aligned? Do CTAs match the declared motion? Use pillar tables to verify all collection profiles are accounted for in tuned skills.
+1. **Source drift** — For each tuned skill, iterate its `tuned_sources` list. If any source's `updated` > `tuned_date`, that skill has drifted. Report which sources changed and which dimensions are affected.
+2. **Coverage drift** — Check for new collection profiles added since the last tune that aren't in any skill's `tuned_sources`. New profiles = new context the skills don't know about.
 
-### Preserving Manual Edits
+### Manual Edit Detection
 
-Detect manual changes by comparing the skill against the last tune output (via tuning metadata). Manual changes are preserved during re-tuning unless they conflict with a messaging house change. Conflicts are flagged for user resolution.
+Manual edits are detected by comparing the current `.claude/skills/` file against the base template from the plugin. Differences beyond tuning metadata and the Company Calibration section indicate manual changes. These are warned about in the tune plan and overwritten on re-tune. The approval gate is the safety net — the user reviews the full plan (including what manual edits will be lost) before approving.
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `.claude/skills/`, `output/tune-plan.md`. Full access to the messaging house and skills.
+- **Read** — `messaging/`, `.claude/skills/`, `$PLUGIN_ROOT/skills/`, `.claude/.plugin-root`, `output/tune-plan.md`. Full access to the messaging house, base templates, and tuned skills.
 - **Write** — `.claude/skills/` (with user approval), `output/tune-plan.md` (autonomous).
-- **Glob, Grep** — Full access. Used to inventory skills, scan persona docs, assess proof depth.
+- **Glob, Grep** — Full access. Used to inventory skills, scan persona docs, assess proof depth, detect manual edits.
 - **WebSearch, WebFetch** — Not used. The tune agent works entirely from local context.

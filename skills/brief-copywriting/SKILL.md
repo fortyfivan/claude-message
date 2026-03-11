@@ -28,6 +28,8 @@ After identifying the brief type, load the corresponding guide:
 - **Use Case Overview:** See `brief-types/use-case-overview.md`
 - **Company Overview:** See `brief-types/company-overview.md`
 - **Event Companion:** See `brief-types/event-companion.md`
+- **Session Abstract:** See `brief-types/session-abstract.md`
+- **Booth Messaging:** See `brief-types/booth-messaging.md`
 
 ## Messaging House Context
 

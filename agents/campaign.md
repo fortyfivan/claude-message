@@ -101,7 +101,7 @@ Every asset the campaign agent can dispatch, mapped to its skill. Use this catal
 | Data study blog | blog-copywriting | data-study | Requires data/metrics from proof or input |
 | Threat research blog | blog-copywriting | threat-research | Security-specific vertical content |
 | Competitive blog post | blog-copywriting | thought-leadership | Competitive angle — load competitor profile |
-| Press release | blog-copywriting | product-announcement | Press release format: dateline, quotes, boilerplate, media contact. Formal tone. |
+| Press release | blog-copywriting | press-release | Dateline, quotes, boilerplate, media contact. Formal tone. |
 | Cold email sequence | email-copywriting | outbound-sequence | 3-5 emails, progressive value |
 | Nurture email sequence | email-copywriting | inbound-sequence | Content-led follow-up series |
 | Event promotion email | email-copywriting | event-promotion | Pre-event, post-event, or multi-touch variant |
@@ -118,8 +118,8 @@ Every asset the campaign agent can dispatch, mapped to its skill. Use this catal
 | Use case overview | brief-copywriting | use-case-overview | |
 | Industry brief | brief-copywriting | industry-vertical | |
 | Event companion | brief-copywriting | event-companion | Leave-behind or session handout |
-| Session abstract | brief-copywriting | event-companion | 150-word abstract: problem framing, session scope, attendee takeaways. |
-| Booth/session messaging | brief-copywriting | event-companion | Physical-space format: headline, 3 key messages, conversation starters, qualifying questions. |
+| Session abstract | brief-copywriting | session-abstract | 150-word abstract: problem framing, session scope, attendee takeaways. |
+| Booth/session messaging | brief-copywriting | booth-messaging | Physical-space format: headline, 3 key messages, conversation starters, qualifying questions. |
 | LinkedIn post | social-copywriting | linkedin-post | |
 | LinkedIn article | social-copywriting | linkedin-article | Long-form LinkedIn content |
 | X post | social-copywriting | x-post | |

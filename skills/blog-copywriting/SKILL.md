@@ -28,6 +28,7 @@ After identifying the blog type, load the corresponding guide:
 - **Data Study:** See `blog-types/data-study.md`
 - **Product Announcement:** See `blog-types/product-announcement.md`
 - **Company News:** See `blog-types/company-news.md`
+- **Press Release:** See `blog-types/press-release.md`
 
 ## Messaging House Context
 

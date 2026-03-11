@@ -42,10 +42,10 @@ templates/messaging
 input
 research
 insights
-insights/scans
-insights/investigations
+insights/findings
 output
 output/campaigns
+.claude/skills
 "
 
 for dir in $DIRS; do
@@ -57,6 +57,15 @@ for dir in $DIRS; do
     report "CREATED" "$dir/"
   fi
 done
+
+# ─── 1b. Plugin root reference ─────────────────────────────────────────────
+PLUGIN_ROOT_FILE="$PROJECT_ROOT/.claude/.plugin-root"
+if [ -f "$PLUGIN_ROOT_FILE" ]; then
+  report "SKIPPED" ".claude/.plugin-root (exists)"
+else
+  echo "$PLUGIN_ROOT" > "$PLUGIN_ROOT_FILE"
+  report "CREATED" ".claude/.plugin-root"
+fi
 
 # ─── 2. Templates ───────────────────────────────────────────────────────────
 
@@ -75,8 +84,24 @@ if [ -d "$PLUGIN_ROOT/templates/messaging" ]; then
   done
 fi
 
+# ─── 3. Skills ───────────────────────────────────────────────────────────────
 
-# ─── 3. Seed files ──────────────────────────────────────────────────────────
+if [ -d "$PLUGIN_ROOT/skills" ]; then
+  find "$PLUGIN_ROOT/skills" -type f -name "*.md" | while IFS= read -r src; do
+    relpath="${src#"$PLUGIN_ROOT/skills/"}"
+    dest="$PROJECT_ROOT/.claude/skills/$relpath"
+    destdir="$(dirname "$dest")"
+    mkdir -p "$destdir"
+    if [ -f "$dest" ]; then
+      report "SKIPPED" ".claude/skills/$relpath (exists)"
+    else
+      cp "$src" "$dest"
+      report "CREATED" ".claude/skills/$relpath"
+    fi
+  done
+fi
+
+# ─── 4. Seed files ──────────────────────────────────────────────────────────
 
 for seed in config.md tracker.md; do
   src="$PLUGIN_ROOT/templates/insights/$seed"
@@ -89,7 +114,7 @@ for seed in config.md tracker.md; do
   fi
 done
 
-# ─── 4. CLAUDE.md injection ─────────────────────────────────────────────────
+# ─── 5. CLAUDE.md injection ─────────────────────────────────────────────────
 
 CLAUDE_MD="$PROJECT_ROOT/CLAUDE.md"
 CONTEXT_SRC="$PLUGIN_ROOT/templates/onboard/claude-message-context.md"
@@ -170,7 +195,7 @@ if [ -f "$CONTEXT_SRC" ]; then
   fi
 fi
 
-# ─── 5. Warnings ────────────────────────────────────────────────────────────
+# ─── 6. Warnings ────────────────────────────────────────────────────────────
 
 # Unexpected directories inside messaging/
 EXPECTED_SUBDIRS="categories competitors personas plays products stories segments solutions"

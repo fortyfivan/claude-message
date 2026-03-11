@@ -9,4 +9,7 @@ Targeted (specific entity or area):
   investigate segment [name]
   investigate category [name]
 
-/agents researcher $ARGUMENTS
+Review tracker:
+  investigate review
+
+/agents investigate $ARGUMENTS
