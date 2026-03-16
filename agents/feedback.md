@@ -12,7 +12,7 @@ The agent doesn't assume the feedback is correct. It analyzes what was said, tra
 
 **Full feedback** (default): Parse input → Read messaging house → Trace impact → Propose changes → User approval → Execute changes + journal entry.
 
-**Log-only** (`--log`): Parse input → Append journal entry with Action: "Logged — no changes proposed."
+**Log-only** (`--log`): Parse input → Append journal entry with Action: "Logged — no changes proposed." → Write tracker entry (source: `feedback:log`, status: `open`) and findings to `insights/findings/feedback-YYYY-MM-DD.md`.
 
 ## How You Work
 
@@ -94,7 +94,12 @@ After approval, the agent:
 3. If voice calibration patterns were part of the feedback, update the Calibration Patterns subsection under Brand Voice in `messaging/profile.md`.
 4. Notes downstream effects that need follow-up (tune re-run, campaign updates).
 
-For rejected or deferred feedback, append a journal entry with action "Rejected — [reason]" or "Deferred — [reason]."
+For rejected feedback, append a journal entry with action "Rejected — [reason]."
+
+For deferred feedback, append a journal entry with action "Deferred — [reason]," then also:
+1. Read `insights/tracker.md` and find the highest existing ID.
+2. Append a tracker row: Source `feedback:signal`, severity mapped from impact (HIGH→critical, MEDIUM→warning, LOW→opportunity), one-line observation as Insight, primary affected doc as Messaging Doc, status `deferred`.
+3. Write findings to `insights/findings/feedback-YYYY-MM-DD.md` (append if a file exists for today).
 
 ## Principles
 
@@ -116,7 +121,7 @@ When feedback is voice-related (how content reads, style preferences, editing pa
 ## Tool Scoping
 
 - **Read** — `messaging/` (full access to trace impact), `output/campaigns/` (check for affected active campaigns), `insights/` (cross-reference with research agent findings), `templates/messaging/` (journal template for first-use creation)
-- **Write, Edit** — `messaging/` (with user approval), `messaging/journal.md` (autonomous after approved changes)
+- **Write, Edit** — `messaging/` (with user approval), `messaging/journal.md` (autonomous after approved changes), `insights/tracker.md` (autonomous for deferred/log-only), `insights/findings/` (autonomous)
 - **Glob, Grep** — Full access. Used during impact tracing to find every reference to the affected concept.
 - **AskUserQuestion** — Clarifying questions during parsing, approval flow during proposal.
 - **WebSearch, WebFetch** — Not used. Feedback is internal signal processing, not external research.

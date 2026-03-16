@@ -1,0 +1,508 @@
+<!-- template: battlecard | version: 1.0 | updated: 2026-03-13 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battlecard: {{competitor}}</title>
+  <style>
+    :root {
+      --color-primary: {{colors.primary}};
+      --color-secondary: {{colors.secondary}};
+      --color-accent: {{colors.accent}};
+      --color-text: {{colors.text}};
+      --color-text-light: {{colors.text-light}};
+      --color-background: {{colors.background}};
+      --font-heading: {{typography.heading}};
+      --font-body: {{typography.body}};
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-body, 'Inter', 'Helvetica Neue', Arial, sans-serif);
+      color: var(--color-text, #1a1a2e);
+      background: #000;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    section.slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 6vh 6vw;
+      background: var(--color-background, #ffffff);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      overflow-y: auto;
+    }
+
+    section.slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Common slide elements ── */
+    .slide-label {
+      font-size: 1vw;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent, #7c3aed);
+      margin-bottom: 1vh;
+    }
+
+    .slide h2 {
+      font-family: var(--font-heading, 'Inter', 'Helvetica Neue', Arial, sans-serif);
+      font-size: 3vw;
+      font-weight: 700;
+      color: var(--color-primary, #2563eb);
+      margin-bottom: 3vh;
+      line-height: 1.2;
+    }
+
+    /* ── Overview slide ── */
+    .slide-overview {
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-primary, #2563eb), var(--color-secondary, #1e40af));
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+    }
+
+    .slide-overview .competitor-label {
+      font-size: 1.4vw;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 2vh;
+    }
+
+    .slide-overview h2 {
+      color: #ffffff;
+      font-size: 4vw;
+      margin-bottom: 4vh;
+    }
+
+    .quick-read {
+      max-width: 70%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3vh 3vw;
+      border-radius: 8px;
+    }
+
+    .quick-read p {
+      font-size: 1.6vw;
+      line-height: 1.6;
+      margin-bottom: 1vh;
+    }
+
+    .quick-read p:last-child { margin-bottom: 0; }
+
+    .quick-read strong { color: var(--color-accent, #c4b5fd); }
+
+    .quick-read .remember {
+      margin-top: 2vh;
+      padding-top: 2vh;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+      font-size: 1.8vw;
+    }
+
+    /* ── Positioning slide ── */
+    .slide-positioning .their-pitch {
+      background: #f8f9fb;
+      padding: 2.5vh 3vw;
+      border-left: 4px solid var(--color-text-light, #94a3b8);
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 3vh;
+      font-size: 1.8vw;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--color-text-light, #64748b);
+    }
+
+    .strengths-table, .weaknesses-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.5vw;
+    }
+
+    .strengths-table th, .weaknesses-table th {
+      font-family: var(--font-heading, 'Inter', 'Helvetica Neue', Arial, sans-serif);
+      padding: 1.2vh 1.5vw;
+      text-align: left;
+      border-bottom: 2px solid var(--color-primary, #2563eb);
+      font-weight: 600;
+      color: var(--color-primary, #2563eb);
+    }
+
+    .strengths-table td, .weaknesses-table td {
+      padding: 1.2vh 1.5vw;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .strengths-table tr:last-child td,
+    .weaknesses-table tr:last-child td { border-bottom: none; }
+
+    /* ── Objections slide ── */
+    .objection-card {
+      background: #f8f9fb;
+      padding: 2vh 2.5vw;
+      border-radius: 6px;
+      margin-bottom: 2vh;
+    }
+
+    .objection-card .objection-text {
+      font-size: 1.6vw;
+      font-weight: 600;
+      color: var(--color-text, #1a1a2e);
+      margin-bottom: 1vh;
+    }
+
+    .objection-card .reframe {
+      font-size: 1.5vw;
+      color: var(--color-primary, #2563eb);
+      line-height: 1.55;
+      padding-left: 1.5vw;
+      border-left: 3px solid var(--color-primary, #2563eb);
+    }
+
+    /* ── Proof slide ── */
+    .slide-proof-card {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10vh 10vw;
+    }
+
+    .slide-proof-card blockquote {
+      font-size: 2.5vw;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 2vh;
+    }
+
+    .slide-proof-card .attribution {
+      font-size: 1.4vw;
+      color: var(--color-text-light, #64748b);
+      margin-bottom: 2vh;
+    }
+
+    .slide-proof-card .context {
+      font-size: 1.3vw;
+      color: var(--color-text-light, #64748b);
+      max-width: 60%;
+      line-height: 1.5;
+    }
+
+    /* ── Competitive matrix slide ── */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.5vw;
+    }
+
+    .matrix-table th {
+      font-family: var(--font-heading, 'Inter', 'Helvetica Neue', Arial, sans-serif);
+      padding: 1.5vh 1.5vw;
+      text-align: left;
+      border-bottom: 2px solid var(--color-primary, #2563eb);
+      font-weight: 600;
+    }
+
+    .matrix-table td {
+      padding: 1.5vh 1.5vw;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.45;
+    }
+
+    .matrix-table tr:last-child td { border-bottom: none; }
+
+    .advantage-us {
+      color: var(--color-primary, #2563eb);
+      font-weight: 600;
+    }
+
+    .advantage-them {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .advantage-tie {
+      color: var(--color-text-light, #64748b);
+    }
+
+    /* ── Talk track slide ── */
+    .slide-talk-track {
+      justify-content: center;
+    }
+
+    .talk-track-content {
+      font-size: 2vw;
+      line-height: 1.7;
+      max-width: 80%;
+      padding: 4vh 4vw;
+      background: #f8f9fb;
+      border-left: 4px solid var(--color-primary, #2563eb);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ── Killer questions slide ── */
+    .question-list {
+      list-style: none;
+    }
+
+    .question-list li {
+      font-size: 1.8vw;
+      line-height: 1.6;
+      padding: 1.5vh 0;
+      padding-left: 2.5vw;
+      position: relative;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .question-list li:last-child { border-bottom: none; }
+
+    .question-list li::before {
+      content: '?';
+      position: absolute;
+      left: 0;
+      font-family: var(--font-heading, 'Inter', 'Helvetica Neue', Arial, sans-serif);
+      font-size: 2vw;
+      font-weight: 700;
+      color: var(--color-primary, #2563eb);
+    }
+
+    /* ── Speaker notes ── */
+    .speaker-notes { display: none; }
+
+    .speaker-notes-panel {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(0, 0, 0, 0.92); color: #e2e8f0;
+      padding: 2vh 4vw; font-size: 1.4vw; line-height: 1.6;
+      max-height: 25vh; overflow-y: auto; z-index: 100;
+      border-top: 2px solid var(--color-primary, #2563eb);
+    }
+
+    .speaker-notes-panel.visible { display: block; }
+
+    .speaker-notes-panel .notes-label {
+      font-size: 1vw; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--color-primary, #2563eb); margin-bottom: 0.8vh;
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed; bottom: 0; left: 0; height: 3px;
+      background: var(--color-primary, #2563eb); transition: width 0.3s ease; z-index: 101;
+    }
+
+    .slide-counter {
+      position: fixed; bottom: 1.5vh; right: 2vw; font-size: 1.2vw;
+      color: rgba(100, 116, 139, 0.6); z-index: 50;
+    }
+
+    /* ── Print ── */
+    @media print {
+      html, body { width: auto; height: auto; overflow: visible; background: white; }
+      .deck { position: static; }
+      section.slide {
+        position: relative; opacity: 1; pointer-events: auto;
+        page-break-after: always; width: 10in; height: 7.5in; padding: 0.5in 0.6in;
+        overflow: hidden;
+      }
+      .speaker-notes-panel, .progress-bar, .slide-counter { display: none !important; }
+      @page { size: landscape; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- Slide 1: Overview -->
+    <section class="slide slide-overview active" data-slide="1">
+      <div class="competitor-label">Battlecard</div>
+      <h2>{{competitor}}</h2>
+      <div class="quick-read">
+        <p><strong>Who they are:</strong> {{quick_read.who}}</p>
+        <p><strong>Their angle:</strong> {{quick_read.their_angle}}</p>
+        <p><strong>Our angle:</strong> {{quick_read.our_angle}}</p>
+        <p class="remember">{{quick_read.remember}}</p>
+      </div>
+      <div class="speaker-notes">{{slides.overview.speaker_notes}}</div>
+    </section>
+
+    <!-- Slide 2: Positioning (Their Pitch + Strengths) -->
+    <section class="slide slide-positioning" data-slide="2">
+      <div class="slide-label">Their Pitch</div>
+      <h2>What the Prospect Just Heard</h2>
+      <div class="their-pitch">{{their_pitch}}</div>
+      <table class="strengths-table">
+        <thead>
+          <tr>
+            <th>Strength</th>
+            <th>Reality</th>
+            <th>Redirect</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#strengths}}
+          <tr>
+            <td><strong>{{name}}</strong></td>
+            <td>{{reality}}</td>
+            <td>{{redirect}}</td>
+          </tr>
+          {{/strengths}}
+        </tbody>
+      </table>
+      <div class="speaker-notes">{{slides.positioning.speaker_notes}}</div>
+    </section>
+
+    <!-- Slide 3: Objections -->
+    <section class="slide" data-slide="3">
+      <div class="slide-label">Objection Handling</div>
+      <h2>"But They Said..."</h2>
+      {{#objections}}
+      <div class="objection-card">
+        <div class="objection-text">"{{objection}}"</div>
+        <div class="reframe">{{reframe}}</div>
+      </div>
+      {{/objections}}
+      <div class="speaker-notes">{{slides.objections.speaker_notes}}</div>
+    </section>
+
+    <!-- Slide 4: Proof -->
+    <section class="slide slide-proof-card" data-slide="4">
+      <div class="slide-label">Proof Ammunition</div>
+      {{#proof_ammunition}}
+      <blockquote>"{{quote}}"</blockquote>
+      <div class="attribution">{{attribution}}</div>
+      <div class="context">{{context}}</div>
+      {{/proof_ammunition}}
+      <div class="speaker-notes">{{slides.proof.speaker_notes}}</div>
+    </section>
+
+    <!-- Slide 5: Competitive Matrix -->
+    <section class="slide" data-slide="5">
+      <div class="slide-label">Head-to-Head</div>
+      <h2>Competitive Comparison</h2>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Us</th>
+            <th>Them</th>
+            <th>Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#head_to_head}}
+          <tr>
+            <td>{{dimension}}</td>
+            <td>{{us}}</td>
+            <td>{{them}}</td>
+            <td class="advantage-{{advantage}}">{{advantage}}</td>
+          </tr>
+          {{/head_to_head}}
+        </tbody>
+      </table>
+      <div class="speaker-notes">{{slides.matrix.speaker_notes}}</div>
+    </section>
+
+    <!-- Slide 6: Talk Track + Killer Questions -->
+    <section class="slide slide-talk-track" data-slide="6">
+      <div class="slide-label">Talk Track</div>
+      <h2>The 60-Second Differentiation</h2>
+      <div class="talk-track-content">{{talk_track}}</div>
+      <div class="speaker-notes">{{slides.talk_track.speaker_notes}}</div>
+    </section>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="slide-counter" id="slideCounter"></div>
+
+  <div class="speaker-notes-panel" id="notesPanel">
+    <div class="notes-label">Speaker Notes</div>
+    <div id="notesContent"></div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = document.querySelectorAll('.slide');
+      var total = slides.length;
+      var current = 0;
+      var notesPanel = document.getElementById('notesPanel');
+      var notesContent = document.getElementById('notesContent');
+      var progressBar = document.getElementById('progressBar');
+      var slideCounter = document.getElementById('slideCounter');
+
+      function show(index) {
+        if (index < 0 || index >= total) return;
+        slides[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        updateProgress();
+        updateNotes();
+      }
+
+      function next() { show(current + 1); }
+      function prev() { show(current - 1); }
+
+      function updateProgress() {
+        var pct = ((current + 1) / total) * 100;
+        progressBar.style.width = pct + '%';
+        slideCounter.textContent = (current + 1) + ' / ' + total;
+      }
+
+      function updateNotes() {
+        var notes = slides[current].querySelector('.speaker-notes');
+        notesContent.textContent = notes ? notes.textContent : '';
+      }
+
+      function toggleNotes() {
+        notesPanel.classList.toggle('visible');
+      }
+
+      document.addEventListener('keydown', function (e) {
+        switch (e.key) {
+          case 'ArrowRight': case 'ArrowDown': case ' ':
+            e.preventDefault(); next(); break;
+          case 'ArrowLeft': case 'ArrowUp':
+            e.preventDefault(); prev(); break;
+          case 'Escape': show(0); break;
+          case 'n': case 'N': toggleNotes(); break;
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (e.clientX > window.innerWidth / 2) next(); else prev();
+      });
+
+      updateProgress();
+      updateNotes();
+    })();
+  </script>
+</body>
+</html>

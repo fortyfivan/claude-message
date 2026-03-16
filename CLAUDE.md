@@ -4,7 +4,7 @@
 
 Claude Message is a messaging intelligence plugin for Claude Code. It provides agents, commands, and skills that help teams build, maintain, and operationalize their positioning and messaging.
 
-The plugin provides the tools. The onboard script scaffolds the workspace — creating the messaging house, templates, and supporting directories in the user's project. Bootstrap runs the onboard script as a pre-check before starting its six-phase build. All agent paths are relative to the user's working directory.
+The plugin provides the tools. Bootstrap scaffolds the workspace and guides users through an interactive six-phase build of the messaging system. Workspace scaffolding is handled by a co-located script inside the bootstrap skill — it creates the messaging house, templates, and supporting directories in the user's project. All agent paths are relative to the user's working directory.
 
 The messaging house in `messaging/` is the single source of truth. Agents read it for context, write to it with user approval, and generate content from it. Everything traces back to the messaging house.
 
@@ -24,18 +24,16 @@ claude-message/                    <- plugin root
 │   ├── plugin.json                <- plugin manifest
 │   └── marketplace.json           <- marketplace catalog
 ├── agents/                        <- auto-discovered by plugin system
-│   ├── bootstrap.md
 │   ├── campaign.md
 │   ├── composer.md
 │   ├── health.md
 │   ├── investigate.md
+│   ├── producer.md
 │   ├── reader.md
 │   ├── feedback.md
 │   ├── researcher.md
 │   ├── tune.md
 │   └── writer.md
-├── scripts/
-│   └── onboard.sh                 <- workspace scaffolding script
 ├── commands/                      <- auto-discovered by plugin system
 │   ├── bootstrap.md
 │   ├── campaign.md
@@ -45,17 +43,26 @@ claude-message/                    <- plugin root
 │   ├── health.md
 │   ├── insights.md
 │   ├── investigate.md
-│   ├── onboard.md
+│   ├── produce.md
 │   └── tune.md
-├── skills/                        <- skill definitions (copied to .claude/skills/ by onboard)
-│   ├── blog-copywriting/
-│   ├── brief-copywriting/
-│   ├── email-copywriting/
-│   ├── enablement-copywriting/
-│   ├── social-copywriting/
-│   ├── web-copywriting/
-│   ├── paper-copywriting/
-├── templates/                    <- read by onboard and bootstrap agents
+├── skills/                        <- skill definitions (copied to .claude/skills/ by bootstrap)
+│   ├── messaging/
+│   │   └── bootstrap/
+│   │       ├── SKILL.md
+│   │       └── scripts/
+│   │           └── onboard.sh     <- workspace scaffolding script
+│   ├── copywriting/
+│   │   ├── blog/
+│   │   ├── brief/
+│   │   ├── email/
+│   │   ├── social/
+│   │   ├── web/
+│   │   └── paper/
+│   ├── enablement/
+│   └── production/
+├── templates/                    <- read by bootstrap and agents
+│   ├── assets/                    <- HTML asset templates (documents + slides)
+│   ├── content-schemas/           <- writer-to-producer content contracts
 │   ├── insights/                  <- seed templates for insights system
 │   ├── messaging/                 <- schemas for messaging docs
 │   └── onboard/                   <- plugin context block for CLAUDE.md injection
@@ -65,7 +72,7 @@ claude-message/                    <- plugin root
 └── README.md
 ```
 
-**What onboard creates in the user's project:**
+**What bootstrap creates in the user's project:**
 ```
 user-project/
 ├── messaging/                     <- the messaging house
@@ -76,6 +83,8 @@ user-project/
 │   ├── proof.md
 │   ├── motion.md
 │   ├── glossary.md
+│   ├── brand.yml                  <- design tokens (colors, fonts, logos)
+│   ├── brand/                     <- logo files and brand assets
 │   ├── categories/
 │   ├── competitors/
 │   ├── personas/
@@ -85,15 +94,22 @@ user-project/
 │   ├── segments/
 │   └── solutions/
 ├── templates/
-│   └── messaging/                 <- doc schemas (copied from plugin)
+│   ├── messaging/                 <- doc schemas (copied from plugin)
+│   ├── content-schemas/           <- writer-to-producer content contracts
+│   └── assets/                    <- HTML asset templates
 ├── input/                         <- user-provided source materials
 ├── research/                      <- agent-generated research
 ├── insights/                      <- findings, tracker, config
 │   └── findings/
 ├── output/                        <- generated content
-│   └── campaigns/
+│   ├── campaigns/
+│   └── production/                <- finished deliverables
 └── .claude/
-    └── skills/                    <- skill definitions (customizable, tuned by tune agent)
+    └── skills/                    <- skill definitions (copied to .claude/skills/ by bootstrap, tuned by tune agent)
+        ├── messaging/
+        ├── copywriting/
+        ├── enablement/
+        └── production/
 ```
 
 ## Messaging House
@@ -172,18 +188,18 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 | Directory | Read | Write | Notes |
 |---|---|---|---|
 | `messaging/` | Yes | With user confirmation | Source of truth. Never write without approval. `messaging/journal.md` can be appended autonomously by designated agents after approved changes. |
+| `messaging/brand.yml` | Yes | Tune agent with approval | Design tokens for the production system. |
 | `templates/` | Yes | No | Messaging doc schemas. Never modify. |
+| `templates/content-schemas/` | Yes | No | Content schemas. Never modify. |
+| `templates/assets/` | Yes | No | HTML asset templates. Never modify. |
 | `.claude/skills/` | Yes | Tune agent with approval | Content generation skills. Auto-loaded from plugin, personalized by tune agent. |
 | `input/` | Yes | No | User-provided source materials for bootstrap. |
 | `research/` | Yes | Yes | Agents can write autonomously. |
-| `insights/` | Yes | Yes | Investigate agent writes autonomously. |
+| `insights/` | Yes | Yes | Investigate, health, and feedback agents write autonomously. |
 | `output/` | Yes | Yes | Generated content. Agents write autonomously. |
+| `output/production/` | Yes | Yes | Finished deliverables. Agents write autonomously. |
 
 ## Agents
-
-### bootstrap
-
-Builds a complete messaging system from scratch. Runs the onboard script as a pre-check to scaffold the workspace, then walks through six interactive phases: Profile -> Space -> Audience -> Portfolio -> Proof -> Motion. Each phase follows a discover -> synthesize -> validate -> draft -> write -> bridge cycle. Can start from existing materials or pure Q&A.
 
 ### composer
 
@@ -249,27 +265,24 @@ Reads skills from `.claude/skills/`, enriches with company context from the mess
 
 ### feedback
 
-Processes real-world signals (sales feedback, campaign performance, customer language, competitive observations) and proposes specific changes to the messaging system. Traces impact across all affected docs, presents a plan with current -> proposed text and reasoning, and executes after user approval. Appends learnings to the journal. Two modes: full feedback processing, and log-only for recording observations without immediate action.
+Processes real-world signals (sales feedback, campaign performance, customer language, competitive observations) and proposes specific changes to the messaging system. Traces impact across all affected docs, presents a plan with current -> proposed text and reasoning, and executes after user approval. Appends learnings to the journal. Deferred and logged signals are also written to the insights tracker for lifecycle management. Two modes: full feedback processing, and log-only for recording observations without immediate action.
 
 ### health
 
-Validates messaging system integrity across seven dimensions: gaps (missing content), relationships (broken links), schemas (template compliance), freshness (stale docs), glossary (terminology health), profile (identity sync), and journal (feedback loop health). Absorbs all glossary maintenance functionality — in `--fix glossary` mode it scans all messaging docs, applies selection criteria, generates definitions, detects conflicts, and writes updates after approval. Supports running individual checks or all at once, with `--fix` for remediation and `--report` for a written report.
+Validates messaging system integrity across seven dimensions: gaps (missing content), relationships (broken links), schemas (template compliance), freshness (stale docs), glossary (terminology health), profile (identity sync), and journal (feedback loop health). Absorbs all glossary maintenance functionality — in `--fix glossary` mode it scans all messaging docs, applies selection criteria, generates definitions, detects conflicts, and writes updates after approval. Critical and warning findings that require human judgment are written to the insights tracker. Supports running individual checks or all at once, with `--fix` for remediation and `--report` for a written report.
+
+### producer
+
+Creates finished deliverables from approved content. Reads brand tokens, loads asset templates, discovers available platform skills (PDF, PPTX, frontend-slides, revealjs), and produces the file. Falls back to self-contained HTML when no platform skill is available. Never modifies content — formats and designs only.
 
 ### reader
 
 Reviews generated content assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against five criteria: clarity, consistency, relevance, differentiation, and actionability. Invoked automatically by the writer agent after generating content.
 
-## Scripts
-
-### onboard.sh
-
-Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = plugin root, `$2` = project root. Creates directories, copies templates from the plugin, writes seed files, and injects plugin context into the project's CLAUDE.md. Outputs a structured report to stdout with `CREATED:`, `SKIPPED:`, `UPDATED:`, and `WARNING:` lines. Idempotent — safe to run repeatedly. Never removes or overwrites existing files. The `/onboard` command and bootstrap agent both invoke this script.
-
 ## Commands
 
 | Command | Purpose |
 |---|---|
-| `onboard` | Scaffold workspace and inject plugin context |
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Compose or update a messaging document |
 | `investigate` | Run a broad messaging intelligence investigation |
@@ -283,36 +296,51 @@ Bash script that scaffolds the messaging workspace. Takes two arguments: `$1` = 
 | `feedback [input]` | Process feedback into messaging changes |
 | `feedback --log [input]` | Log observation without proposing changes |
 | `generate [skill] [topic]` | Generate content using a skill |
+| `produce [type] [file]` | Produce a finished deliverable |
+| `produce --campaign [name]` | Produce all campaign deliverables |
 | `campaign [type] [topic]` | Build a multi-asset content campaign |
 | `tune` | Calibrate skills to the messaging house |
 | `tune --check` | Detect tuning drift without changes |
 
 ## Skills
 
-Skills use a category/type hierarchy. Each category has a routing `SKILL.md` that dispatches to type-specific instructions:
+Skills are organized into four groups — `messaging`, `copywriting`, `enablement`, `production` — each containing categories with a routing `SKILL.md` that dispatches to type-specific instructions in a `types/` subdirectory:
 
 ```
 skills/
-  blog-copywriting/
-    SKILL.md                -> Routes to the right blog type
-    blog-types/
-      thought-leadership.md
-      data-study.md
-  email-copywriting/
+  copywriting/
+    blog/
+      SKILL.md              -> Routes to the right blog type
+      types/
+        thought-leadership.md
+        data-study.md
+    email/
+      SKILL.md
+      types/
+        single-outbound.md
+  enablement/
     SKILL.md
-    email-types/
-      cold-outreach.md
+    types/
+      competitive-battlecard.md
 ```
 
 Skills live in the plugin's `skills/` directory and are auto-loaded to `.claude/skills/` in the user's project. They work without tuning. The tune agent personalizes them with company-specific calibration derived from the messaging house.
 
 When generating content, always read the relevant `SKILL.md` first. It contains the output format, evaluation criteria, and context pointers.
 
+The production skill routes to type-specific guides for producing finished deliverables (datasheets, one-pagers, executive briefs, slide decks, battlecards). It includes platform skill discovery for PDF, PPTX, and other native format rendering.
+
+The bootstrap skill is a workflow skill, not a content generation skill. It builds the complete messaging system from scratch through six interactive phases: Profile, Space, Audience, Portfolio, Proof, and Motion. Each phase follows a discover, synthesize + challenge, plan, write, bridge cycle. The skill handles workspace setup, gathers profile context and company basics via AskUserQuestion, and manages session state for resuming interrupted builds.
+
 ## Insights System
 
-The insights system is split between two agents: the **investigate** agent orchestrates the workflow, and the **researcher** agent executes the research.
+Three agents contribute to the insights tracker, each surfacing findings from a different angle:
 
-The investigate agent dispatches the researcher, processes returned findings, writes them to `insights/findings/`, manages the tracker lifecycle in `insights/tracker.md`, and logs learnings to the journal. Insights are tracked with a lifecycle:
+- **investigate** — External signals from research scans and targeted investigations. Dispatches the researcher agent, processes findings, writes to `insights/findings/`, and manages the tracker lifecycle. Source: `investigate:scan`, `investigate:targeted`.
+- **health** — Internal system integrity findings. Only `critical` and `warning` findings that require human judgment or composition work are tracked (not `info` or auto-fixable items). Source: `health:check`, `health:fix`.
+- **feedback** — Real-world field signals. Only deferred and log-only signals are tracked (approved changes don't need tracking — docs are already updated). Source: `feedback:signal`, `feedback:log`.
+
+The tracker in `insights/tracker.md` is the single surface for all actionable findings. Each row includes a Source column (`[agent]:[mode]`) and a Severity column (`critical | warning | opportunity | info`) to identify origin and priority. Insights are tracked with a lifecycle:
 
 ```
 open -> acknowledged -> resolved
@@ -320,9 +348,9 @@ open -> acknowledged -> resolved
        deferred
 ```
 
-The investigate agent auto-resolves insights when the underlying messaging doc has been updated. Users manage judgment calls (acknowledge, defer, resolve) via the `/insights` command.
+Auto-resolution works generically across all sources — when the referenced messaging doc's `updated` date is newer than the insight date, the insight resolves automatically. Users manage judgment calls (acknowledge, defer, resolve) via the `/insights` command. The review dashboard groups open insight counts by source agent.
 
-Configure investigation cadence, focus areas, and MCP sources in `insights/config.md`.
+Configure investigation cadence, focus areas, insight source toggles, and MCP sources in `insights/config.md`.
 
 ## MCP Integration
 

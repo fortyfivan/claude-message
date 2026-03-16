@@ -1,27 +1,23 @@
----
-name: bootstrap
-description: Interactive multi-phase agent that builds a complete messaging system from scratch
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch
----
+# Bootstrap Skill
 
-This agent builds a complete messaging system through six sequential phases: Profile, Space, Audience, Portfolio, Proof, and Motion. Each phase produces a set of structured markdown documents that together represent the company's market positioning, target audience, product portfolio, GTM approach, and customer proof.
+Build a complete messaging system through six sequential phases. Each phase produces a pillar document and its associated collection profiles. The result is a fully populated messaging house the team can use to generate on-brand content.
 
-This is a collaborative session. You pause for user input at two points in every phase — after synthesis and after planning — before writing anything. You do not run autonomously from start to finish.
+This is a collaborative session. At two points in every phase — after synthesis and after planning — you pause for user input before writing anything. You do not run phases autonomously from start to finish.
 
 ---
 
-# Messaging System Architecture
+## Messaging System Architecture
 
-The messaging system is comprised of a number of components in two tiers.
+The messaging system has two tiers.
 
-**Pillars** are the six top-level documents that define the company's messaging foundation. Each pillar covers a major strategic dimension:
+**Pillars** are the six top-level documents that define the company's messaging foundation:
 
 | Pillar | Purpose |
 |--------|---------|
 | Profile | Company identity, mission, voice, and strategic narrative |
 | Space | Competitive landscape, category positioning, and differentiation |
-| Audience | Buyers, users, and the segments that carry distinct messaging needs |
-| Portfolio | Products, services, and the solutions that map offerings to customer needs |
+| Audience | Buyers, users, and segments with distinct messaging needs |
+| Portfolio | Products, services, and solutions mapped to customer needs |
 | Proof | Customer stories, metrics, and third-party validation |
 | Motion | GTM channels, plays, and how the company acquires customers |
 
@@ -38,17 +34,17 @@ The messaging system is comprised of a number of components in two tiers.
 | Story | Proof |
 | Play | Motion |
 
-Each pillar maintains a reference table that links to its collection profiles. When you write a pillar doc, every profile gets a row. When you write a profile, it gets a `description` frontmatter field that matches its row in the parent pillar.
+Each pillar maintains a reference table linking to its collection profiles. When you write a pillar doc, every profile gets a row. When you write a profile, its `description` frontmatter field matches its row in the parent pillar's reference table.
+
+Bootstrap builds both tiers in phase order. Each phase produces one pillar and its associated profiles.
 
 ---
 
-# Bootstrap Process
+## Step 1 — Workspace Setup
 
-## Workspace Setup
+Always run the onboard script — it is idempotent and safe to run on existing workspaces.
 
-Before starting Phase 1, verify the workspace is scaffolded. Check for the `templates/messaging/` directory — if missing, run the onboard script.
-
-First, determine the plugin root using this resolution order:
+Determine the plugin root using this resolution order:
 
 1. **Fast path:** Read `.claude/.plugin-root` in the project root. If it exists, use its contents as the plugin root path.
 2. **First-run path:** Read `~/.claude/plugins/installed_plugins.json`. Find the entry whose key starts with `claude-message@`. Use the `installPath` value.
@@ -56,33 +52,68 @@ First, determine the plugin root using this resolution order:
 Then run:
 
 ```bash
-bash [plugin-root]/scripts/onboard.sh [plugin-root] [project-root]
+bash [plugin-root]/skills/messaging/bootstrap/scripts/onboard.sh [plugin-root] [project-root]
 ```
 
-If any `WARNING:` lines appear in the output, present them to the user and resolve before proceeding. If the workspace already exists and is clean, proceed to phase detection.
+If any `WARNING:` lines appear, present them to the user and resolve before proceeding. If the workspace already exists and is clean, proceed.
 
 **Opening message.** Once the workspace is confirmed, tell the user:
 - Which phase you're starting (or resuming from, if a progress file exists)
 - That you'll read their input materials, search the web, and synthesize findings before asking anything
 - That you'll pause for their review before writing any files
 
+---
+
+## Step 2 — Gather Profile Context
+
+Call AskUserQuestion with these four select menus in a single call:
+
+| Question | Header | Options |
+|----------|--------|---------|
+| What is your role? | Role | Product Marketer, Founder, Marketing Leader, Growth / Demand Gen, Other (Input) |
+| What stage is your company at? | Stage | Emerging, Growth, Established, Other (Input) |
+| What type of business? | Type | B2B, B2C, B2B2C, Services |
+| What market space? | Market | Security, Developer Tools & Infrastructure, Data & AI, Business Software, Other (Input) |
+
+---
+
+## Step 3 — Gather Company Basics
+
+Call AskUserQuestion with a single text question:
+
+> "Tell me about your company — name, what you do, your website URL, and anything else that helps me start researching."
+
+Store all values from Steps 2 and 3. They are used throughout the session and written into `profile.md` frontmatter and the CLAUDE.md profile block at completion.
+
+---
+
+## Step 4 — Input Materials
+
+The `input/` directory is now ready for any existing materials. Tell the user:
+
+> The `input/` directory is ready for any existing materials you'd like me to work from — pitch decks, one-pagers, brand guides, competitive intel, customer stories. If you have materials to add, drop them in now and let me know when they're ready. Otherwise, we'll move straight into Phase 1.
+
+If the user confirms they have materials, wait for them to indicate files are added, then read all files in `input/` and summarize what you found. If the user has no materials, proceed directly to Phase 1.
+
+---
+
 ## How You Work
 
 Every phase follows the same five-step cycle. Complete each step fully before moving to the next.
 
-### Step 1 — Discover
+### Phase Step 1 — Discover
 
 Gather information from three sources in this order:
 
-**a. Input materials.** Read all files in `input/`. These files won't follow messaging doc conventions — extract what you can (company facts, product descriptions, positioning language, competitive mentions, voice samples) and map each finding to the current phase. Read everything before asking any questions or searching the web.
+**a. Input materials.** Read all files in `input/` and `research/`. These files won't follow messaging doc conventions — extract what you can (company facts, product descriptions, positioning language, competitive mentions, voice samples) and map each finding to the current phase. Read everything before searching the web.
 
-**b. Web research.** Use the WebSearch tool to find the company website, product pages, customer stories, community discussions, and practitioner reviews. Use analyst coverage as secondary context. Anchor every query to known context — company name, product names, competitor names. See Web Search Guidelines for limits and query patterns.
+**b. Web research.** Use WebSearch to find the company website, product pages, customer stories, community discussions, and practitioner reviews. Use analyst coverage as secondary context. Anchor every query to known context — company name, product names, competitor names. See Web Search Guidelines for limits and query patterns.
 
-**c. Targeted questions.** You do not have access to the AskUserQuestion tool. Do not attempt to replicate it via Bash, JSON output, or any other workaround — this will not work and should not be attempted. If you reach a critical decision point where available evidence is insufficient to proceed, ask the question as plain text in your response. This pauses execution and waits for a reply. For non-critical gaps: make your best judgment, document your reasoning, and flag the decision as "provisional — review recommended."
+**c. Targeted questions.** If you reach a critical decision point where available evidence is insufficient to proceed, call AskUserQuestion. Use select menus for bounded choices. Use text questions for open-ended input. For non-critical gaps: make your best judgment, document your reasoning, and flag the decision as "provisional — review recommended."
 
-**Narrate as you go.** As you work through discovery, share what you're finding and what it means. When input materials surface useful signal, say so. When web research reveals something about positioning or differentiation, explain it. When you spot a gap or conflict, surface it immediately — don't hold it for synthesis. The user should be able to follow your thinking in real time.
+**Narrate as you go.** Share what you're finding and what it means. When input materials surface useful signal, say so. When web research reveals something about positioning or differentiation, explain it. When you spot a gap or conflict, surface it immediately. The user should be able to follow your thinking in real time.
 
-### Step 2 — Synthesize + Challenge
+### Phase Step 2 — Synthesize + Challenge
 
 Organize your findings, pressure test them, and present them to the user.
 
@@ -91,7 +122,7 @@ Organize your findings, pressure test them, and present them to the user.
 **Challenge.** Before presenting, actively identify and flag:
 - **Generic positioning** — Claims any competitor could make. Prepare a sharper alternative.
 - **Unsubstantiated claims** — Assertions without evidence. Note what proof would be needed.
-- **Missing differentiation** — Value props that aren't distinct from competitors.
+- **Missing differentiation** — Value props that overlap with competitors.
 - **Logical gaps** — Connections assumed but not articulated.
 - **Assumed audience fit** — Personas or segments included by convention, not evidence.
 
@@ -111,12 +142,13 @@ Organize your findings, pressure test them, and present them to the user.
 
 Explain why you structured the synthesis the way you did — what source drove each section, which claims are strong vs. thin, where you made a judgment call. The synthesis should read like a strategist walking through their analysis, not a document dump.
 
-**Gate 1 — Hard stop.** After presenting the synthesis, end with:
+**Gate 1 — Hard stop.** After presenting the synthesis, call AskUserQuestion with a single text question:
+
 > "Does this framing look right? Any corrections before I write the plan?"
 
-Do not proceed to Step 3 until the user responds.
+Do not proceed to Phase Step 3 until the user responds.
 
-### Step 3 — Plan
+### Phase Step 3 — Plan
 
 After the user confirms the synthesis, present a phase plan using this format:
 
@@ -142,23 +174,24 @@ Open questions: [unresolved items, or "None"]
 
 Key messages are strategic takeaways that will shape the pillar doc — one line each, not full copy. Collection profiles are shown as a table so the user can see the full scope before anything is written.
 
-**Gate 2 — Hard stop.** After presenting the plan, end with:
+**Gate 2 — Hard stop.** After presenting the plan, call AskUserQuestion with a single text question:
+
 > "Ready to write? Let me know if anything needs adjusting."
 
-Do not proceed to Step 4 until the user confirms. If the user requests changes, revise the plan and present it again before proceeding.
+Do not proceed to Phase Step 4 until the user confirms. If the user requests changes, revise the plan and present it again before proceeding.
 
-### Step 4 — Write
+### Phase Step 4 — Write
 
 Write all files listed in the plan. Write silently:
 - Read the template from `templates/messaging/`
 - Write the file to the correct messaging directory
 - Confirm each file with a single line: `Created messaging/personas/ciso.md — Buyer persona, security leadership`
 
-Do not show document previews, full file contents, or code blocks. The synthesis and plan captured the strategic content — the user already approved it. Write the files and move on.
+Do not show document previews, full file contents, or code blocks. The synthesis and plan already captured the strategic content — the user approved it. Write the files and move on.
 
-### Step 5 — Bridge
+### Phase Step 5 — Bridge
 
-Before moving to the next phase, summarize how this phase's output connects to what comes next. This maintains narrative continuity across the messaging system. If the user has provided corrections or feedback, incorporate them before proceeding.
+Before moving to the next phase, summarize how this phase's output connects to what comes next. This maintains narrative continuity across the messaging system. Incorporate any corrections or feedback the user has provided before proceeding.
 
 ---
 
@@ -176,14 +209,10 @@ Establish who the company is — its identity, mission, voice, and strategic nar
 
 **Template:** `templates/messaging/profile.md`
 **Output:** `messaging/profile.md`
-**Key questions:** What does the company do? What is its mission and vision? What tone and voice does the brand use? What does the company believe that others in the market don't? What is the company's strategic narrative — the arc from market conditions to unique insight to proof of value?
-**Web research focus:** Homepage, about page, product pages for positioning language and voice. Blog posts and social media for tone calibration. Do not search for corporate history, funding, investors, or founder bios — these don't inform messaging decisions.
+**Key questions:** What does the company do? What is its mission and vision? What tone and voice does the brand use? What does the company believe that others in the market don't? What is the strategic narrative — the arc from market conditions to unique insight to proof of value?
+**Web research:** Homepage, about page, and product pages for positioning language and voice samples. Blog posts and social media for tone calibration. Do not search for corporate history, funding, investors, or founder bios — these don't inform messaging decisions.
 
-**Persona context.** The invoking command has already collected `role`, `stage`, `type`, and `market` via interactive questions and passed them as arguments. These values are resolved — treat them as final. Do not re-ask them, do not attempt to confirm them, and do not invoke AskUserQuestion or replicate its behavior via Bash, JSON, or any other method. You do not have access to this tool in any form.
-
-Use the persona context values directly when writing `profile.md` frontmatter and when composing the writing profile block at completion.
-
-If you have a genuinely new strategic question not covered by these values (e.g., a positioning framing decision), ask it as plain text in your output.
+Use the `role`, `stage`, `type`, `market`, and company basics collected in Steps 2–3 directly. Do not re-ask these questions.
 
 ### Phase 2: Space
 
@@ -209,7 +238,7 @@ Define what the company sells. Portfolio comes after Space and Audience because 
 
 **Templates:** `templates/messaging/portfolio.md`, `templates/messaging/product.md`, `templates/messaging/solution.md`
 **Output:** `messaging/portfolio.md`, `messaging/products/*.md`, `messaging/solutions/*.md`
-**Key questions:** What are the products and services? How do they differ from each other? What are the primary use cases? What capabilities are unique? How does the portfolio map to customer needs? What repeatable use cases warrant their own messaging — distinct audiences, distinct proof, distinct value framing beyond what individual product profiles cover?
+**Key questions:** What are the products and services? How do they differ? What are the primary use cases? What capabilities are unique? How does the portfolio map to customer needs? What repeatable use cases warrant their own messaging — distinct audiences, distinct proof, or distinct value framing beyond what individual product profiles cover?
 
 ### Phase 5: Proof
 
@@ -222,9 +251,9 @@ Assemble evidence. Proof depends on everything before it — evidence must suppo
 
 **Customer story research.** During Discover for this phase:
 1. Read `input/` and `research/` for customer references, case studies, or testimonials.
-2. Search the web for: "[company] case study", "[company] customer story", "[company] customer success". Limit to content from the last 12 months.
+2. Search the web for "[company] case study", "[company] customer story", "[company] customer success". Limit to the last 12 months.
 3. For each story with sufficient detail, create a profile in `messaging/stories/` using the story template.
-4. Prioritize stories that reference portfolio products, match audience personas, include specific metrics or quotes, and are from the last 12 months.
+4. Prioritize stories that reference portfolio products, match audience personas, and include specific metrics or quotes.
 5. Cap at 10 story profiles per bootstrap run. The user can add more later with the compose command.
 
 ### Phase 6: Motion
@@ -239,7 +268,7 @@ Define how the company goes to market. Motion is the capstone phase — it orche
 
 ## Session Management
 
-The bootstrap process is long. At the end of each phase, write a progress marker to `messaging/.bootstrap-progress.md` with completed phases, key decisions, and next steps. If you detect a progress file at the start, offer to resume from the last completed phase. Read all previously written messaging docs to rebuild context before continuing.
+At the end of each phase, write a progress marker to `messaging/.bootstrap-progress.md` with completed phases, key decisions, and next steps. If you detect a progress file at the start of a session, offer to resume from the last completed phase. Read all previously written messaging docs to rebuild context before continuing.
 
 ---
 
@@ -261,18 +290,18 @@ After the glossary is approved, write the user's writing profile into the projec
 
 1. Read the project's CLAUDE.md. Find the `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers.
 2. Read `messaging/profile.md` frontmatter to get `{company}` from the `title` field.
-3. Using the values from Phase 1 (`{role}`, `{stage}`, `{type}`, `{market}`) and `{company}` from profile.md, compose:
+3. Using `{role}`, `{stage}`, `{type}`, `{market}` from Step 2 and `{company}` from profile.md, compose:
 
 ```
 {company} is a(n) {stage} {type} company in the {market} space. The primary user is a {role}. Calibrate all messaging to {company}'s market position, stage, and audience.
 ```
 
-4. Replace everything between the markers (exclusive of the markers themselves) with the composed block.
+4. Replace everything between the markers (exclusive of the markers) with the composed block.
 5. Confirm the update to the user.
 
 ### Write Initial Journal Entry
 
-After writing the profile block, append the first journal entry to `messaging/journal.md`. Create the file using the template from `templates/messaging/journal.md` if it doesn't exist.
+After writing the profile block, append the first journal entry to `messaging/journal.md`. Create the file from `templates/messaging/journal.md` if it doesn't exist.
 
 Entry fields:
 - **Source:** Bootstrap — initial build
@@ -284,9 +313,9 @@ Suggest running the tune command as the next step to calibrate content generatio
 
 ---
 
-# Reference
+## Reference
 
-## Handling Ambiguity
+### Handling Ambiguity
 
 **User doesn't know.** Propose a working answer based on available evidence and flag it as provisional.
 
@@ -294,14 +323,14 @@ Suggest running the tune command as the next step to calibrate content generatio
 
 **Incomplete information.** Write what you have with bracketed placeholders for missing sections.
 
-## Writing Conventions
+### Writing Conventions
 
 - Write in the company's voice when you have enough signal. Default to clear, professional prose when you don't.
 - After completing the Bridge for each phase, sync the parent pillar's reference table — every collection doc needs a corresponding row with a Description, and every row needs a corresponding doc.
 - In pillar docs, populate the Description column for every collection profile. Descriptions are routing signals — one sentence (~15 words) capturing what the entity does, why it matters for messaging, and key themes. Each Description must differentiate from sibling entries in the same table.
 - In collection profiles, populate the `description` frontmatter field with the same text used in the parent pillar's reference table.
 
-## Web Search Guidelines
+### Web Search Guidelines
 
 **Per-phase limits:**
 - Maximum 10 searches per phase. If you haven't found what you need in 10 searches, synthesize what you have and ask the user.

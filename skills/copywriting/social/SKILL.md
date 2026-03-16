@@ -1,5 +1,5 @@
 ---
-name: social-copywriting
+name: social
 description: Create authentic, high-engagement social content for LinkedIn and Twitter/X including posts, threads, articles, and newsletters. Optimized for platform algorithms and differentiated from generic AI-generated content.
 ---
 
@@ -10,7 +10,7 @@ description: Create authentic, high-engagement social content for LinkedIn and T
 ## Instructions
 
 1. **Identify Platform & Format:** Determine LinkedIn or Twitter/X, and specific format (post, thread, article, newsletter)
-2. **Load Format Guide:** Read the corresponding file from `post-types/`
+2. **Load Format Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include messaging brief with objective, audience, and key message
 4. **Reference Messaging House:** Extract relevant context from `/messaging`
 5. **Draft Content:** Apply platform-specific guidelines and format requirements
@@ -21,12 +21,12 @@ description: Create authentic, high-engagement social content for LinkedIn and T
 After identifying the platform and format, load the corresponding guide:
 
 **LinkedIn:**
-- **Short-Form Post:** See `post-types/linkedin-post.md`
-- **Article/Newsletter:** See `post-types/linkedin-article.md`
+- **Short-Form Post:** See `types/linkedin-post.md`
+- **Article/Newsletter:** See `types/linkedin-article.md`
 
 **Twitter/X:**
-- **Single Post:** See `post-types/x-post.md`
-- **Thread:** See `post-types/x-thread.md`
+- **Single Post:** See `types/x-post.md`
+- **Thread:** See `types/x-thread.md`
 
 ## Messaging House Context
 

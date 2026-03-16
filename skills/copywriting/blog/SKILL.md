@@ -1,5 +1,5 @@
 ---
-name: blog-copywriting
+name: blog
 description: Create insightful, research-driven blog content including thought leadership, use case guides, threat research, data studies, and product announcements optimized for SEO/GEO and differentiated market positioning
 ---
 
@@ -10,7 +10,7 @@ description: Create insightful, research-driven blog content including thought l
 ## Instructions
 
 1. **Identify Blog Type:** Determine from user input which type applies
-2. **Load Type Guide:** Read the corresponding file from `blog-types/`
+2. **Load Type Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include messaging brief with target audience, thesis, and objectives
 4. **Reference Messaging House:** Extract relevant context from `/messaging` using the table below
 5. **Conduct Research:** Use WebSearch for real-time market intelligence, competitive analysis, data validation
@@ -22,13 +22,13 @@ description: Create insightful, research-driven blog content including thought l
 
 After identifying the blog type, load the corresponding guide:
 
-- **Thought Leadership:** See `blog-types/thought-leadership.md`
-- **Use Case Deep Dive:** See `blog-types/use-case-deep-dive.md`
-- **Threat Research:** See `blog-types/threat-research.md`
-- **Data Study:** See `blog-types/data-study.md`
-- **Product Announcement:** See `blog-types/product-announcement.md`
-- **Company News:** See `blog-types/company-news.md`
-- **Press Release:** See `blog-types/press-release.md`
+- **Thought Leadership:** See `types/thought-leadership.md`
+- **Use Case Deep Dive:** See `types/use-case-deep-dive.md`
+- **Threat Research:** See `types/threat-research.md`
+- **Data Study:** See `types/data-study.md`
+- **Product Announcement:** See `types/product-announcement.md`
+- **Company News:** See `types/company-news.md`
+- **Press Release:** See `types/press-release.md`
 
 ## Messaging House Context
 

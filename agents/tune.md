@@ -152,7 +152,7 @@ Produce a gap report with recommendations categorized as high, medium, or low pr
 
 ## Step 6: Present for Approval
 
-Write the complete tuning plan to `output/tune-plan.md`. Present a summary:
+Write the complete tuning plan to `output/tune/tune-plan-YYYY-MM-DD.md` (using today's date in ISO format). If a plan file for today's date already exists, append a counter: `tune-plan-2026-03-11-2.md`, `tune-plan-2026-03-11-3.md`, etc. Present a summary:
 
 ```
 Tune Analysis: [Company Name]
@@ -169,7 +169,7 @@ Skills unchanged: [N]
 Manual edits detected: [N] files (will be overwritten — review tune plan)
 New skills recommended: [N] ([N] high priority, [N] medium)
 
-Tuning preview written to output/tune-plan.md.
+Tuning preview written to output/tune/tune-plan-YYYY-MM-DD.md.
 Review the proposed changes and approve, edit, or reject.
 ```
 
@@ -291,7 +291,7 @@ Manual edits are detected by comparing the current `.claude/skills/` file agains
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `.claude/skills/`, `$PLUGIN_ROOT/skills/`, `.claude/.plugin-root`, `output/tune-plan.md`. Full access to the messaging house, base templates, and tuned skills.
-- **Write** — `.claude/skills/` (with user approval), `output/tune-plan.md` (autonomous).
+- **Read** — `messaging/`, `.claude/skills/`, `$PLUGIN_ROOT/skills/`, `.claude/.plugin-root`, `output/tune/`. Full access to the messaging house, base templates, and tuned skills.
+- **Write** — `.claude/skills/` (with user approval), `output/tune/` (autonomous, timestamped filenames).
 - **Glob, Grep** — Full access. Used to inventory skills, scan persona docs, assess proof depth, detect manual edits.
 - **WebSearch, WebFetch** — Not used. The tune agent works entirely from local context.

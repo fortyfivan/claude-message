@@ -1,5 +1,5 @@
 ---
-name: email-copywriting
+name: email
 description: Generate high-value, high-converting emails and email sequences for outbound prospecting, inbound nurture, event promotion, and product communications targeting specific personas with personalized, brand-consistent messaging. Use when the user asks for email copy, email sequences, outreach templates, or any email marketing asset.
 ---
 
@@ -10,7 +10,7 @@ description: Generate high-value, high-converting emails and email sequences for
 ## Instructions
 
 1. **Identify Email Type:** Determine which type applies to the request
-2. **Load Type Guide:** Read the corresponding file from `email-types/`
+2. **Load Type Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include messaging brief with target persona, objective, and key message
 4. **Reference Messaging House:** Extract specific messaging blocks from `/messaging`
 5. **Conduct Research (If Needed):** Use WebSearch for real-time market and competitive intelligence
@@ -21,11 +21,11 @@ description: Generate high-value, high-converting emails and email sequences for
 
 After identifying the email type, load the corresponding guide:
 
-- **Single Outbound:** See `email-types/single-outbound.md`
-- **Outbound Sequence:** See `email-types/outbound-sequence.md`
-- **Inbound Sequence:** See `email-types/inbound-sequence.md`
-- **Event Promotion:** See `email-types/event-promotion.md`
-- **Product Newsletter:** See `email-types/product-newsletter.md`
+- **Single Outbound:** See `types/single-outbound.md`
+- **Outbound Sequence:** See `types/outbound-sequence.md`
+- **Inbound Sequence:** See `types/inbound-sequence.md`
+- **Event Promotion:** See `types/event-promotion.md`
+- **Product Newsletter:** See `types/product-newsletter.md`
 
 ## Messaging House Context
 

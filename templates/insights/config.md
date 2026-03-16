@@ -46,3 +46,13 @@ What triggers a new insight in the tracker.
 | Analyst mention | Any | Report, blog, or social mention by industry analyst |
 | Review site trend | 3+ mentions | Recurring theme in customer reviews (positive or negative) |
 | Role/title shift | Pattern | New job titles or role definitions appearing in target accounts |
+
+## Insight Sources
+
+Which agents contribute to the insight tracker.
+
+| Agent | Enabled | Notes |
+|---|---|---|
+| investigate | Yes | External signals from research scans and targeted investigations |
+| health | Yes | System integrity findings (critical + warning only, not auto-fixable items) |
+| feedback | Yes | Deferred and logged signals only (approved changes don't need tracking) |

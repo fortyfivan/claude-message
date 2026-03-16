@@ -1,5 +1,5 @@
 ---
-name: web-copywriting
+name: web
 description: Create high-converting website copy for product pages, solution pages, and other web properties that balance positioning clarity with conversion optimization
 ---
 
@@ -8,7 +8,7 @@ description: Create high-converting website copy for product pages, solution pag
 ## Instructions
 
 1. **Identify Page Type:** Determine from user input which type applies
-2. **Load Type Guide:** Read the corresponding file from `page-types/`
+2. **Load Type Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include target audience, page objective, primary CTA, and SEO requirements
 4. **Reference Messaging House:** Extract relevant context from `/messaging` using the table below
 5. **Load Glossary:** Read `messaging/glossary.md` — web copy is the most terminology-sensitive content type. Naming errors on the website are visible to every prospect
@@ -20,8 +20,8 @@ description: Create high-converting website copy for product pages, solution pag
 
 After identifying the page type, load the corresponding guide:
 
-- **Product Page:** See `page-types/product-page.md`
-- **Solution Page:** See `page-types/solution-page.md`
+- **Product Page:** See `types/product-page.md`
+- **Solution Page:** See `types/solution-page.md`
 
 ## Messaging House Context
 

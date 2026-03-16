@@ -48,6 +48,7 @@ Tracker management and insight state transitions.
 1. Read `insights/tracker.md`.
 2. Run auto-resolution: for each `open` or `acknowledged` insight, compare the referenced messaging doc's `updated` field against the insight Date. If `updated > Date`, mark resolved with Resolution "auto-resolved: [doc] updated [date]."
 3. Present dashboard:
+   - Source breakdown: count open insights by source agent prefix (e.g., `investigate: 3 open | health: 5 open | feedback: 1 open`)
    - Counts by status (open, acknowledged, deferred, resolved)
    - Recent open insights (last 30 days)
    - Stale deferrals (deferred 30+ days with no messaging doc update)
@@ -75,7 +76,7 @@ Sequential IDs: `INS-001`, `INS-002`, etc. Read `insights/tracker.md` to find th
 ### Row Format
 
 ```
-| INS-[NNN] | [YYYY-MM-DD] | [scan/investigation] | [one-line finding] | [messaging doc path] | open | | |
+| INS-[NNN] | [YYYY-MM-DD] | [investigate:scan or investigate:targeted] | [severity] | [one-line finding] | [messaging doc path] | open | | |
 ```
 
 ### Auto-Resolution
@@ -100,7 +101,7 @@ All findings use the same structure regardless of scope:
 ```yaml
 ---
 title: "Scan: 2026-03-10"  # or "Investigation: Competitor Acme Corp"
-type: scan  # or investigation
+source: investigate:scan  # or investigate:targeted
 scope: broad  # or "competitor acme-corp"
 date: 2026-03-10
 domains_searched: [competitive, market, audience, proof, technology, gtm]

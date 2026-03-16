@@ -85,7 +85,7 @@ from. `## Writing Guidelines` contains instructions for how to interpret and use
 
 ### Step 3: Load the Skill
 
-Read the skill from `.claude/skills/[category]/SKILL.md`. Read the routing `SKILL.md`, which will direct you to the specific type definition. Read the type definition for:
+Read the skill from `.claude/skills/copywriting/[category]/SKILL.md` or `.claude/skills/enablement/SKILL.md`. Read the routing `SKILL.md`, which will direct you to the specific type definition. Read the type definition for:
 
 - **Output format** — The template structure for the finished asset
 - **Evaluation criteria** — How to assess quality
@@ -151,7 +151,7 @@ Write the finished asset to `output/` with metadata frontmatter:
 ```yaml
 ---
 title: "Cold Outreach: CISO - Vulnerability Management"
-skill: "email-copywriting/cold-outreach"
+skill: "copywriting/email/cold-outreach"
 persona: "enterprise-ciso"
 product: "vuln-mgmt"
 messaging_docs_loaded:

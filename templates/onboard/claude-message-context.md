@@ -24,6 +24,8 @@ Run `/claude-message:bootstrap` to generate your writing profile from the messag
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Create or update a messaging document |
 | `generate [skill] [topic]` | Generate content from the messaging house |
+| `produce [type] [file]` | Produce a finished deliverable |
+| `produce --campaign [name]` | Produce all campaign deliverables |
 | `investigate [focus]` | Run a messaging intelligence investigation |
 | `campaign [type] [topic]` | Build a multi-asset content campaign |
 | `tune` | Calibrate skills to the messaging house |
@@ -35,11 +37,13 @@ Run `/claude-message:bootstrap` to generate your writing profile from the messag
 
 **Source of truth:** `messaging/` — the messaging house. Six pillar docs at the root, collection profiles in subdirectories.
 
-**Content generation:** `.claude/skills/` — skill definitions for each content type. `output/` — where generated content lands.
+**Content generation:** `.claude/skills/` — skill definitions for each content type. `output/` — where generated content lands. `output/production/` — finished deliverables (PDF, slides, designed documents).
+
+**Production:** `messaging/brand.yml` — design tokens (colors, fonts, logos). `templates/content-schemas/` — structured contracts between writer and producer. `templates/assets/` — HTML asset templates for deliverables.
 
 **Research & insights:** `input/` — source materials for bootstrap. `research/` — agent-generated research. `insights/` — investigation findings and scan digests.
 
-**Reference:** `templates/` — messaging doc schemas used when creating new docs. Do not modify.
+**Reference:** `templates/` — messaging doc schemas, content schemas, and asset templates. Do not modify.
 
 ### Key Conventions
 

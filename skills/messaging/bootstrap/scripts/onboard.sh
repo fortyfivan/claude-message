@@ -38,13 +38,18 @@ messaging/products
 messaging/stories
 messaging/segments
 messaging/solutions
+messaging/brand
 templates/messaging
+templates/content-schemas
+templates/assets
 input
 research
 insights
 insights/findings
 output
 output/campaigns
+output/production
+output/tune
 .claude/skills
 "
 
@@ -84,10 +89,40 @@ if [ -d "$PLUGIN_ROOT/templates/messaging" ]; then
   done
 fi
 
+# Content schema templates
+if [ -d "$PLUGIN_ROOT/templates/content-schemas" ]; then
+  for src in "$PLUGIN_ROOT"/templates/content-schemas/*.md; do
+    [ -f "$src" ] || continue
+    name="$(basename "$src")"
+    dest="$PROJECT_ROOT/templates/content-schemas/$name"
+    if [ -f "$dest" ]; then
+      report "SKIPPED" "templates/content-schemas/$name (exists)"
+    else
+      cp "$src" "$dest"
+      report "CREATED" "templates/content-schemas/$name"
+    fi
+  done
+fi
+
+# Asset templates
+if [ -d "$PLUGIN_ROOT/templates/assets" ]; then
+  for src in "$PLUGIN_ROOT"/templates/assets/*.html; do
+    [ -f "$src" ] || continue
+    name="$(basename "$src")"
+    dest="$PROJECT_ROOT/templates/assets/$name"
+    if [ -f "$dest" ]; then
+      report "SKIPPED" "templates/assets/$name (exists)"
+    else
+      cp "$src" "$dest"
+      report "CREATED" "templates/assets/$name"
+    fi
+  done
+fi
+
 # ─── 3. Skills ───────────────────────────────────────────────────────────────
 
 if [ -d "$PLUGIN_ROOT/skills" ]; then
-  find "$PLUGIN_ROOT/skills" -type f -name "*.md" | while IFS= read -r src; do
+  find "$PLUGIN_ROOT/skills" -type f | while IFS= read -r src; do
     relpath="${src#"$PLUGIN_ROOT/skills/"}"
     dest="$PROJECT_ROOT/.claude/skills/$relpath"
     destdir="$(dirname "$dest")"
@@ -113,6 +148,16 @@ for seed in config.md tracker.md; do
     report "CREATED" "insights/$seed"
   fi
 done
+
+# Brand tokens seed
+BRAND_SRC="$PLUGIN_ROOT/templates/brand.yml"
+BRAND_DEST="$PROJECT_ROOT/messaging/brand.yml"
+if [ -f "$BRAND_DEST" ]; then
+  report "SKIPPED" "messaging/brand.yml (exists)"
+elif [ -f "$BRAND_SRC" ]; then
+  cp "$BRAND_SRC" "$BRAND_DEST"
+  report "CREATED" "messaging/brand.yml"
+fi
 
 # ─── 5. CLAUDE.md injection ─────────────────────────────────────────────────
 
@@ -198,7 +243,7 @@ fi
 # ─── 6. Warnings ────────────────────────────────────────────────────────────
 
 # Unexpected directories inside messaging/
-EXPECTED_SUBDIRS="categories competitors personas plays products stories segments solutions"
+EXPECTED_SUBDIRS="brand categories competitors personas plays products stories segments solutions"
 
 if [ -d "$PROJECT_ROOT/messaging" ]; then
   for entry in "$PROJECT_ROOT"/messaging/*/; do

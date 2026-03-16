@@ -1,5 +1,5 @@
 ---
-name: paper-copywriting
+name: paper
 description: Create long-form research and analysis content including research studies, data findings reports, industry trend analyses, and topic deep dives designed to establish authority, generate leads, and serve as anchor assets for campaigns
 ---
 
@@ -8,7 +8,7 @@ description: Create long-form research and analysis content including research s
 ## Instructions
 
 1. **Identify Paper Type:** Determine from user input which type applies
-2. **Load Type Guide:** Read the corresponding file from `paper-types/`
+2. **Load Type Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include messaging brief with target audience, thesis, research scope, and objectives
 4. **Reference Messaging House:** Extract relevant context from `/messaging` using the table below
 5. **Conduct Research:** Use WebSearch extensively — papers demand more external evidence than blog content
@@ -20,10 +20,10 @@ description: Create long-form research and analysis content including research s
 
 After identifying the paper type, load the corresponding guide:
 
-- **Research Study:** See `paper-types/research-study.md`
-- **Data Findings:** See `paper-types/data-findings.md`
-- **Industry Trend:** See `paper-types/industry-trend.md`
-- **Topic Deep Dive:** See `paper-types/topic-deep-dive.md`
+- **Research Study:** See `types/research-study.md`
+- **Data Findings:** See `types/data-findings.md`
+- **Industry Trend:** See `types/industry-trend.md`
+- **Topic Deep Dive:** See `types/topic-deep-dive.md`
 
 ## Messaging House Context
 

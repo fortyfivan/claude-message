@@ -1,5 +1,5 @@
 ---
-name: enablement-copywriting
+name: enablement
 description: Create internal sales and GTM enablement assets including competitive battlecards, discovery guides, and playbook walkthroughs that arm revenue teams with messaging-aligned, actionable content
 ---
 
@@ -8,7 +8,7 @@ description: Create internal sales and GTM enablement assets including competiti
 ## Instructions
 
 1. **Identify Asset Type:** Determine from user input which enablement type applies
-2. **Load Type Guide:** Read the corresponding file from `enablement-types/`
+2. **Load Type Guide:** Read the corresponding file from `types/`
 3. **Review the Brief:** Session should include messaging brief with target internal audience, scenario context, and objectives
 4. **Reference Messaging House:** Extract relevant context from `/messaging` using the table below
 5. **Load Glossary:** Read `messaging/glossary.md` for term consistency — enablement content is where terminology drift starts
@@ -20,9 +20,9 @@ description: Create internal sales and GTM enablement assets including competiti
 
 After identifying the asset type, load the corresponding guide:
 
-- **Competitive Battlecard:** See `enablement-types/competitive-battlecard.md`
-- **Discovery Guide:** See `enablement-types/discovery-guide.md`
-- **Playbook Walkthrough:** See `enablement-types/playbook-walkthrough.md`
+- **Competitive Battlecard:** See `types/competitive-battlecard.md`
+- **Discovery Guide:** See `types/discovery-guide.md`
+- **Playbook Walkthrough:** See `types/playbook-walkthrough.md`
 
 ## Messaging House Context
 

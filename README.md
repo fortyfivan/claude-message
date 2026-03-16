@@ -9,18 +9,20 @@
                                                              |___/
 ```
 
-Claude Message is a messaging intelligence plugin for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging.
+Claude Message is a dynamic messaging system for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging across the GTM lifecycle.
 
-Built for Product Marketers, Founders, and anyone who cares about messaging quality and taste. Primarily for B2B companies, but the principles may apply to others.
-
-*I said who's house? Your house!*
+Built for Product Marketers, Founders, and anyone who cares about messaging quality and taste. 
 
 ## Getting Started
 
 Install the plugin:
 
 ```bash
-claude plugin install https://github.com/fortyfivan/claude-message
+claude plugin marketplace add https://github.com/fortyfivan/claude-message
+```
+
+```bash
+claude plugin install claude-message@fortyfivan
 ```
 
 Build your messaging system:
@@ -29,9 +31,7 @@ Build your messaging system:
 > /claude-message:bootstrap
 ```
 
-Bootstrap scaffolds the workspace automatically, then guides you through six interactive phases to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
-
-Need to re-scaffold or repair your workspace? Run `/claude-message:onboard` standalone — it creates directories, copies templates, writes seed files, and injects plugin context. Safe to run repeatedly.
+The bootstrap command scaffolds the workspace automatically, then guides you through an interactive workflow to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
 
 ## How It Works
 
@@ -63,7 +63,6 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Agent | Purpose |
 |-------|---------|
-| **bootstrap** | Runs the onboard script as a pre-check, then builds the messaging system through six interactive phases with a discover, synthesize, validate, draft, write, bridge cycle at each phase. |
 | **composer** | Messaging composition agent. Creates and updates any document in the messaging house on demand — pillars and collection profiles. Four-step process: resolve, research, plan, write. |
 | **researcher** | Messaging intelligence analyst. Runs investigations (broad or targeted) to evaluate external signals against the messaging system and surface insights. |
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
@@ -77,7 +76,6 @@ Each pillar uses YAML frontmatter for structured metadata and markdown body for 
 
 | Command | Purpose |
 |---------|---------|
-| `onboard` | Scaffold workspace — directories, templates, seed files, project context |
 | `bootstrap` | Build messaging system from scratch |
 | `compose [type] [name]` | Compose or update a messaging document |
 | `investigate [focus]` | Run a messaging intelligence investigation |

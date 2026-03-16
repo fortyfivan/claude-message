@@ -222,6 +222,40 @@ Journal Check: [PASS | N findings]
 
 In conversation mode, cap at top 5 findings per check (prioritize by severity). In `--report` mode, include all findings.
 
+## Step 4.5: Write Insights
+
+After presenting the report, write trackable insights for findings that require human judgment or composition work.
+
+1. **Filter.** Only `critical` and `warning` findings qualify. Exclude:
+   - `info` findings (journal stats, empty directories, story staleness notifications)
+   - Auto-fixable items that `--fix` can resolve (missing `updated` field, filename casing, missing table rows for existing files)
+
+2. **Read tracker.** Load `insights/tracker.md` and find the highest existing ID.
+
+3. **Detect recurring.** Check if an existing open insight references the same Messaging Doc with a similar description. If so, update the existing row with `last_seen: [date]` in the Resolution column instead of creating a duplicate.
+
+4. **Append rows.** For each qualifying finding, add a tracker row:
+   ```
+   | INS-[NNN] | [YYYY-MM-DD] | [health:check or health:fix] | [severity] | [one-line finding] | [messaging doc path] | open | | |
+   ```
+
+5. **Write findings file.** Create `insights/findings/health-YYYY-MM-DD.md` with frontmatter:
+
+   ```yaml
+   ---
+   title: "Health: YYYY-MM-DD"
+   source: health:check
+   date: YYYY-MM-DD
+   checks_run: [gap, relationship, schema, freshness, glossary, profile, journal]
+   insights_created: N
+   insights_updated: N
+   ---
+   ```
+
+   Body sections: Summary, Detailed Findings (severity, check name, messaging impact), Tracker Updates.
+
+Skip this step entirely if no findings meet the tracker threshold.
+
 ## Step 5: Remediation (`--fix` mode)
 
 Categorize all findings into fixable and diagnostic-only:
@@ -252,7 +286,7 @@ The user can approve all, approve selectively, or skip. Write only after approva
 ## Tool Scoping
 
 - **Read** — `messaging/` (all pillars and collections), `templates/messaging/` (reference schemas), project CLAUDE.md (profile block). Full access for validation.
-- **Write** — `messaging/glossary.md` (with user approval, `--fix glossary` only), `output/health-report.md` (autonomous, `--report` only). Fixable remediations write to `messaging/` with approval.
+- **Write** — `messaging/glossary.md` (with user approval, `--fix glossary` only), `output/health-report.md` (autonomous, `--report` only), `insights/tracker.md` (autonomous), `insights/findings/` (autonomous). Fixable remediations write to `messaging/` with approval.
 - **Edit** — `messaging/` files for fixable remediations (with approval), project CLAUDE.md for profile sync (with approval).
 - **Glob** — Full access. Used for enumerating collection directories and files.
 - **Grep** — Full access. Used for term frequency analysis, cross-reference validation, and content scanning.
