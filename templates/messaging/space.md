@@ -7,7 +7,7 @@ updated: ""
 
 # Market Space
 
-This pillar defines where the company competes — the market landscape, the category it occupies, how it's positioned relative to alternatives, and what makes it different. Every value proposition, every competitive contrast, every "why us" claim should trace back to this pillar.
+This pillar defines where the company competes — the market landscape, the category it occupies, how it's positioned relative to alternatives, and what makes it different. Every competitive contrast, every differentiator, every "why us" claim should trace back to this pillar.
 
 ## Messaging Blocks
 
@@ -64,25 +64,6 @@ The framework below ensures completeness. Fill in each component, then read the 
 - **Only us** (unique approach)
 - **With us** (primary gain)]
 
-### Unique Value Propositions
-
-[Instructions:
-Document the core value propositions that anchor your messaging system. Each proposition describes a differentiated outcome only your company can deliver, tied to a real, timely, and funded customer problem. These should remain consistent across campaigns, assets, and channels.]
-
-[Tips:
-- 3-5 propositions is the right range — more than 5 dilutes focus, fewer than 3 lacks coverage
-- Focus on measurable business and technical outcomes, not features
-- Each proposition should stand on its own as a key message
-- Align propositions to your portfolio messaging for direct mapping]
-
-[Format:
-For each value proposition:
-- **One-Liner:** A concise statement of the differentiated outcome
-- **Supporting Messages:** 3 bullets that expand on the outcome and context
-- **Why It Matters:** The buyer impact or risk addressed
-- **Why We're Different:** What makes this uniquely yours
-- **Portfolio Mapping:** (optional) Specific products or solutions this proposition applies to]
-
 ### Key Differentiators
 
 [Instructions:
@@ -131,8 +112,7 @@ List the alternatives customers evaluate instead of choosing you. This includes 
 - Use Market Landscape to establish relevance and urgency — it provides the "why now" for top-of-funnel content
 - Use Categories in Play to stay accurate and relevant to specific category contexts
 - Use Competitive Landscape to frame contrast and trade-offs — never mention competitors by name in non-competitive content unless the skill explicitly calls for it
-- Value propositions are durable messaging pillars — anchor benefits and outcomes to the closest matching proposition
-- Introduce product capabilities to support a value proposition, not as standalone claims
+- Introduce product capabilities to support a key differentiator, not as standalone claims
 - Every differentiator must be backed by evidence — claims without proof erode trust and violate the company's stage constraints defined in Profile
 - Tailwind trends reinforce urgency and relevance — use them in awareness and thought leadership content
 - Headwind trends require honest acknowledgment — ignoring them creates vulnerability in competitive and evaluation-stage content

@@ -129,6 +129,25 @@ Provide a short, conversational version of the strategic narrative as you would 
 [Format:
 2-4 sentences in natural, spoken language]
 
+### Unique Value Propositions
+
+[Instructions:
+Document the core value propositions that anchor your messaging system. Each proposition describes a differentiated outcome only your company can deliver, tied to a real, timely, and funded customer problem. These should remain consistent across campaigns, assets, and channels.]
+
+[Tips:
+- 3-5 propositions is the right range — more than 5 dilutes focus, fewer than 3 lacks coverage
+- Focus on measurable business and technical outcomes, not features
+- Each proposition should stand on its own as a key message
+- Align propositions to your portfolio messaging for direct mapping]
+
+[Format:
+For each value proposition:
+- **One-Liner:** A concise statement of the differentiated outcome
+- **Supporting Messages:** 3 bullets that expand on the outcome and context
+- **Why It Matters:** The buyer impact or risk addressed
+- **Why We're Different:** What makes this uniquely yours
+- **Portfolio Mapping:** (optional) Specific products or solutions this proposition applies to]
+
 ### Brand Voice
 
 #### Tone
@@ -187,21 +206,6 @@ Explicitly list cliches, buzzwords, patterns, or styles you reject.]
 [Format:
 Bulleted list of terms, phrases, or patterns to never use]
 
-#### Naming and Terminology
-
-[Instructions:
-Define the controlled vocabulary for your company — specific terms you always use, terms you never use, and naming conventions for products, categories, and capabilities. This is different from Tropes to Avoid (which is stylistic) — this is a precise vocabulary reference.]
-
-[Tips:
-- Include product naming rules (capitalization, abbreviations, how to reference)
-- List preferred terms alongside the alternatives you reject
-- Cover category-level terminology (e.g., "exposure management" not "vulnerability scanning")]
-
-[Format:
-| Always use | Never use | Context |
-|---|---|---|
-| [term] | [rejected alternative] | [when/why] |]
-
 #### Calibration Patterns
 
 [Instructions:
@@ -255,8 +259,10 @@ Describe the company as it should appear in marketplace listings or partner cata
 - When in tension with other messaging elements, Vision and Mission set direction, not details
 - Do not repeat the full strategic narrative unless explicitly instructed — preserve the narrative logic, not the exact language
 - Maintain the narrative flow from market perspective (Scenario → Status Quo) to company perspective (Smart Insight → Proof of Value) to buyer perspective (Reason to Believe → Step to Action)
+- Value propositions are durable messaging pillars — anchor benefits and outcomes to the closest matching proposition
+- Introduce product capabilities to support a value proposition, not as standalone claims
 - Brand Voice preferences (Tone, Theme Pillars, Tips & Tricks, Tropes to Avoid) are always-on unless explicitly overridden by a skill
-- Naming and Terminology overrides all other word-choice guidance — if a term is specified here, use it exactly
+- Glossary terms override all other word-choice guidance — if a term is defined in `messaging/glossary.md`, use it exactly as defined
 - Tropes to Avoid takes precedence over all other stylistic guidance
 - Do not introduce stylistic elements that conflict with defined Tone or Theme Pillars
 - Stage (emerging | growth | established) calibrates proof burden and positioning boldness — do not make claims that exceed the company's stage

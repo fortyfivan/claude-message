@@ -1,0 +1,23 @@
+# Brand Design Tokens
+# Machine-readable values for the production system. The producer agent reads
+# these tokens and injects them into asset templates as CSS custom properties.
+#
+# Populate with your brand's colors, typography, and logo paths.
+# The tuner agent can extract these from brand guidelines or your website.
+
+colors:
+  primary: ""
+  secondary: ""
+  accent: ""
+  text: ""
+  text-light: ""
+  background: ""
+
+typography:
+  heading: ""
+  body: ""
+
+logo:
+  primary: "messaging/brand/logo-primary.svg"
+  icon: "messaging/brand/logo-icon.svg"
+  white: "messaging/brand/logo-white.svg"
