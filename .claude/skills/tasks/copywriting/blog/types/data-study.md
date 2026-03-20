@@ -72,7 +72,7 @@ Agent coverage degraded at a consistent 2.3% per month without active remediatio
 | Monthly decay rate | 2.3% | Without remediation |
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

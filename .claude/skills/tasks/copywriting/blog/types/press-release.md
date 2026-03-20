@@ -90,7 +90,7 @@ Risk-Based Vulnerability Prioritization is available today for all Enterprise pl
 **Tone Neutrality:**   [Assessment]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

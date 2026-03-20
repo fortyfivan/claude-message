@@ -66,7 +66,7 @@ The result is a prioritized queue that updates as your environment changes.
 Risk-Based Vulnerability Prioritization is available today for all Enterprise customers. Access it from the Vulnerabilities dashboard or contact your account team for a walkthrough.
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

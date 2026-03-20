@@ -91,16 +91,18 @@ Commands are the stable invocation layer. Each routes to a skill or agent.
 
 | Category | Types |
 |----------|-------|
-| Blog Copywriting | Thought leadership, use case deep dive, threat research, data study, product announcement, press release |
-| Brief Copywriting | Solution brief, industry vertical, persona brief, product datasheet, use case overview, company overview, event companion, session abstract, booth messaging |
+| Assessment | Business value assessment, risk assessment, tech assessment |
+| Blog Copywriting | Thought leadership, use case deep dive, threat research, data study, product announcement, press release, event recap, predictions |
+| Brief Copywriting | Solution brief, industry vertical, persona brief, product datasheet, use case overview, company overview, event companion, session abstract, partner better together |
 | Email Copywriting | Single outbound, outbound sequence, inbound sequence, event promotion, product newsletter |
-| Enablement | Competitive battlecard, discovery guide, playbook walkthrough |
+| Enablement | Competitive battlecard, discovery guide, playbook walkthrough, partner joint solution |
 | Paper Copywriting | Topic deep-dive, research study, industry trend, data findings |
 | Social Copywriting | LinkedIn post, LinkedIn article, X post, X thread |
-| Web Copywriting | Product page, solution page |
+| Story | Customer story, partner story |
+| Web Copywriting | Product page, solution page, comparison page, topic page |
 | Production | Datasheet, one-pager, executive brief, slide deck, battlecard |
 
-**Voice Gate** — Universal quality gate loaded for every content task. Eliminates AI writing patterns, scores across five dimensions.
+**Voice Gate** — Writing rules loaded for every content task. Eliminates AI writing patterns, enforces clean prose rules.
 
 ### Insights System
 

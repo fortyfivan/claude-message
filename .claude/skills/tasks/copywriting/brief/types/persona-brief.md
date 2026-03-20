@@ -79,7 +79,7 @@ Take a self-guided tour of the analyst workflow—no sales call required.
 [Start Interactive Demo →]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

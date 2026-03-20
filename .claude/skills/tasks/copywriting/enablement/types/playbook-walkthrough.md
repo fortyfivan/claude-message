@@ -110,7 +110,7 @@ the prospect's environment, and the technical criteria they'll evaluate on.
    for next cycle.
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

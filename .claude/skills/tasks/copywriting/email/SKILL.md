@@ -15,7 +15,7 @@ description: Generate high-value, high-converting emails and email sequences for
 4. **Reference Messaging House:** Extract specific messaging blocks from `/messaging`
 5. **Conduct Research (If Needed):** Use WebSearch for real-time market and competitive intelligence
 6. **Draft Email Copy:** Apply type-specific guidelines from the loaded guide
-7. **Self-Evaluate:** Review against the validation checklist and type-specific evaluation criteria
+7. **Self-Assess:** Review against quality signals
 
 ## Email Type Guides
 
@@ -111,8 +111,11 @@ Driving registration or attendance for events, webinars, or workshops.
 - Clear date, time, format (virtual/in-person)
 - Low-friction registration
 
-## Evaluation Criteria
-- **Relevance:** Speaks directly to persona pain points using relevant signals 
+## Quality Signals
+
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
+
+- **Relevance:** Speaks directly to persona pain points using relevant signals
 - **Clarity:** Value proposition and CTA immediately understandable, no jargon
 - **Consistency:** Matches brand voice/tone, aligns with positioning
 - **Specificity:** Uses concrete proof, quantified outcomes, named capabilities vs. generic claims

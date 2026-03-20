@@ -14,7 +14,7 @@ description: Create high-converting website copy for product pages, solution pag
 5. **Load Glossary:** Read `messaging/glossary.md` — web copy is the most terminology-sensitive content type. Naming errors on the website are visible to every prospect
 6. **Draft Structure:** Create the page structure following the type-specific wireframe
 7. **Write Copy:** Apply type-specific guidelines with a focus on clarity, scannability, and conversion
-8. **Self-Evaluate:** Review against the validation checklist
+8. **Self-Assess:** Review against quality signals
 
 ## Web Type Guides
 
@@ -22,6 +22,7 @@ After identifying the page type, load the corresponding guide:
 
 - **Product Page:** See `types/product-page.md`
 - **Solution Page:** See `types/solution-page.md`
+- **Topic Page:** See `types/topic-page.md`
 
 ## Messaging House Context
 
@@ -29,13 +30,13 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type       | What to Extract                                          | Source Files                              |
 |--------------------|----------------------------------------------------------|-------------------------------------------|
-| Product Detail     | Capabilities, use cases, architecture, differentiation    | products/[name].md                        |
-| Solution Context   | Use case, approach, components, value delivered           | solutions/[name].md                       |
-| Persona & Audience | Target reader, pain points, decision criteria, altitude   | audience.md, personas/[name].md           |
-| Voice & Naming     | Brand voice, product naming, controlled vocabulary        | profile.md, glossary.md                   |
-| Value Framework    | Propositions, differentiators, positioning                | space.md                                  |
-| Evidence           | Customer stories, quotes, metrics                         | proof.md, stories/[name].md              |
-| Pricing            | Pricing model, CTA implications                           | portfolio.md (pricing_model)              |
+| Product Detail     | Capabilities, use cases, architecture, differentiation   | portfolio.md, products/[name].md          |
+| Solution Context   | Use case, approach, components, value delivered          | solutions/[name].md                       |
+| Persona & Audience | Target reader, pain points, decision criteria, altitude  | audience.md, personas/[name].md           |
+| Voice & Naming     | Brand voice, product naming, controlled vocabulary       | profile.md, glossary.md                   |
+| Value Framework    | Propositions, differentiators, positioning               | space.md                                  |
+| Evidence           | Customer stories, quotes, metrics                        | proof.md, stories/[name].md               |
+| Pricing            | Pricing model, CTA implications                          | portfolio.md                              |
 
 ## Web Writing Principles
 
@@ -48,10 +49,12 @@ Web copy is the most constrained content type. Every word competes for attention
 - **Persona-aware, not persona-exclusive.** Product and solution pages serve multiple personas. Write to the primary buyer persona but don't alienate the technical evaluator or the champion who's forwarding the page.
 - **SEO is structural, not decorative.** Keywords belong in headers, meta descriptions, and first sentences — not forced into body copy where they break the natural voice.
 
-## Validation Checklist
+## Quality Signals
+
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Web Copy Quality Check:
+Web Copy Quality Signals:
 - [ ] Clarity: Page purpose is obvious within 5 seconds
 - [ ] Value Prop: Clear what you do, for whom, and why it matters — above the fold
 - [ ] Scannability: Headers alone tell the full story
@@ -93,11 +96,11 @@ ALWAYS use this exact template structure:
 - **Value Framework:** [space.md sections referenced]
 - **Evidence:** [proof and stories referenced]
 
-## Evaluation
-**Clarity:**        [Assessment]
-**Value Prop:**     [Assessment]
-**Scannability:**   [Assessment]
-**CTA Strength:**   [Assessment]
-**Proof Density:**  [Assessment]
-**SEO Readiness:**  [Assessment]
+## Self-Assessment
+**Clarity:**        [Notes on grounding and context strength]
+**Value Prop:**     [Notes on grounding and context strength]
+**Scannability:**   [Notes on grounding and context strength]
+**CTA Strength:**   [Notes on grounding and context strength]
+**Proof Density:**  [Notes on grounding and context strength]
+**SEO Readiness:**  [Notes on grounding and context strength]
 ```

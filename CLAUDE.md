@@ -35,7 +35,7 @@ claude-message/
 │       │   ├── compose/           <- messaging doc composition
 │       │   └── insights/          <- intelligence, feedback, and health
 │       ├── tasks/
-│       │   ├── copywriting/       <- blog, brief, email, enablement, paper, social, web
+│       │   ├── copywriting/       <- assessment, blog, brief, email, enablement, paper, social, story, web
 │       │   └── production/        <- datasheets, one-pagers, slides, briefs
 │       ├── craft/
 │       │   └── voice/             <- universal writing quality gate
@@ -130,13 +130,13 @@ The `updated` field on all messaging docs tracks the date of last substantive ed
 
 **Scan the journal for recent learnings.** Before generating content, check `messaging/journal.md` (if it exists) for entries from the last 30 days related to the target persona, product, or competitor. Recent learnings may affect messaging guidance that hasn't been fully propagated.
 
-**Follow skill definitions.** Load the relevant skill from `.claude/skills/` and use its output format, evaluation criteria, and guidelines.
+**Follow skill definitions.** Load the relevant skill from `.claude/skills/` and use its output format, quality signals, and guidelines.
 
 **One asset per file.** Each content piece gets its own markdown file in `output/` with metadata frontmatter tracking the skill used, parameters resolved, and messaging docs loaded.
 
 **Ground every claim.** Every substantive claim in generated content must trace to a loaded messaging doc. If you can't ground it, don't write it.
 
-**Include evaluation.** Assess generated content against the skill's evaluation criteria. Flag thin context, missing proof, and altitude mismatches.
+**Include self-assessment.** Note grounding confidence, thin context, missing proof, and altitude mismatches. The reader agent handles formal evaluation.
 
 ## Directory Permissions
 
@@ -164,11 +164,11 @@ Context-resolution engine for content generation. Its primary job is deciding wh
 
 1. **Parse** — Extract task parameters: skill type, persona, product, competitor, segment, motion, altitude.
 2. **Resolve** — Three-layer loading. Always loads `profile.md`, `space.md`, `glossary.md`. Conditionally loads other pillars. Routes via pillar tables (Layer 1), scans frontmatter to confirm relevance (Layer 2), then loads full profiles for confirmed matches (Layer 3).
-3. **Load skill** — Read skill from `.claude/skills/tasks/`. Read the routing `SKILL.md`, then the specific type definition for output format and evaluation criteria.
+3. **Load skill** — Read skill from `.claude/skills/tasks/`. Read the routing `SKILL.md`, then the specific type definition for output format and quality signals.
 4. **Cross-reference** — Check loaded context for consistency. Flag gaps or conflicts to the user before writing.
 5. **Present brief** — Show resolved context, key messages, proof, and flags for user approval before generating.
 6. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
-7. **Evaluate** — Self-assess against skill criteria. Flag weak areas and thin context.
+7. **Self-assess** — Note grounding confidence, thin context, and voice compliance.
 8. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
 9. **Review** — Invoke the reader agent with explicit context (asset path, persona path, skill criteria path, glossary reference) to review the generated content.
 
@@ -185,7 +185,7 @@ Searches across six domains (competitive, market, audience, proof, technology, G
 
 ### reader
 
-Reviews generated content assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against five criteria: clarity, consistency, relevance, differentiation, and actionability. Invoked automatically by the writer agent after generating content.
+The single formal evaluation gate for generated content. Reviews assets for quality, clarity, and messaging consistency. Adopts the target persona's perspective and scores against six dimensions: clarity, consistency, relevance, differentiation, actionability, and authenticity. Invoked automatically by the writer agent after generating content.
 
 ### producer
 
@@ -226,12 +226,14 @@ Skills are organized into four tiers — `workflows`, `tasks`, `craft`, `system`
     insights/SKILL.md
   tasks/
     copywriting/                 <- content generation by category
+      assessment/SKILL.md + types/
       blog/SKILL.md + types/
       brief/SKILL.md + types/
       email/SKILL.md + types/
       enablement/SKILL.md + types/
       paper/SKILL.md + types/
       social/SKILL.md + types/
+      story/SKILL.md + types/
       web/SKILL.md + types/
     production/SKILL.md + types/ <- deliverable production
   craft/
@@ -242,13 +244,13 @@ Skills are organized into four tiers — `workflows`, `tasks`, `craft`, `system`
 
 Skills live in `.claude/skills/` and are auto-loaded by Claude Code. They work without tuning. The `/tune` skill personalizes them in place with company-specific calibration derived from the messaging house. Git preserves the original untuned versions — use `git checkout .claude/skills/` for a full reset.
 
-When generating content, always read the relevant `SKILL.md` first. It contains the output format, evaluation criteria, and context pointers.
+When generating content, always read the relevant `SKILL.md` first. It contains the output format, quality signals, and context pointers.
 
 **Workflows** are multi-step interactive skills with approval gates. Bootstrap builds the messaging system. Campaign and Launch plan multi-asset content sets. Compose handles on-demand messaging doc creation/updates. Insights consolidates intelligence, feedback, and health into a single workflow.
 
 **Tasks** are content generation skills organized by category, each with a routing `SKILL.md` that dispatches to type-specific definitions in `types/`. The production skill routes to deliverable-specific guides.
 
-**Craft** contains the voice gate (`.claude/skills/craft/voice/SKILL.md`) — a universal writing quality gate loaded by the writer agent for every content task. It eliminates AI writing patterns (banned phrases, structural anti-patterns, cadence tropes) and scores content across five dimensions. The gate governs writing mechanics — brand voice and terminology remain in the messaging house (`profile.md`, `glossary.md`).
+**Craft** contains the voice gate (`.claude/skills/craft/voice/SKILL.md`) — writing rules loaded by the writer agent for every content task. It eliminates AI writing patterns (banned phrases, structural anti-patterns, cadence tropes) and enforces clean prose rules. The gate governs writing mechanics — brand voice and terminology remain in the messaging house (`profile.md`, `glossary.md`).
 
 **System** contains the tune skill for calibrating task and craft skills to the messaging house.
 

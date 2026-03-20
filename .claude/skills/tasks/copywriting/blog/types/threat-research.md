@@ -63,7 +63,7 @@ We conducted passive reconnaissance across public cloud ranges, identifying stor
 3. **Long-term:** Establish infrastructure-as-code policies preventing public storage
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

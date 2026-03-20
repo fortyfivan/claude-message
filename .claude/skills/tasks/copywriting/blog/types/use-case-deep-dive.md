@@ -63,7 +63,7 @@ Start by pulling a complete inventory from your cloud provider...
 - [ ] Updated inventory baseline
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

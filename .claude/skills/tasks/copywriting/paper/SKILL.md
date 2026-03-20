@@ -14,7 +14,7 @@ description: Create long-form research and analysis content including research s
 5. **Conduct Research:** Use WebSearch extensively — papers demand more external evidence than blog content
 6. **Draft Outline:** Create detailed outline following the type-specific structure. Papers are long — the outline is the approval gate before investing in the full draft
 7. **Write Paper:** Apply type-specific guidelines, maintaining depth and rigor throughout
-8. **Self-Evaluate:** Review against the validation checklist
+8. **Self-Assess:** Review against quality signals
 
 ## Paper Type Guides
 
@@ -49,10 +49,12 @@ Papers are authority assets. They take longer to produce, generate more trust, a
 - **Positioning through expertise, not pitching.** The company's product should appear naturally in context, not as the conclusion every section builds toward. A paper that reads like a product pitch dressed in research clothing damages the asset and the brand.
 - **Designed for campaign orchestration.** Papers are anchor assets — the thing a digital campaign is built around. Blog posts reference them, emails CTA to them, social promotes them. Write knowing this asset will be the foundation other content builds on.
 
-## Validation Checklist
+## Quality Signals
+
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Paper Quality Check:
+Paper Quality Signals:
 - [ ] Depth: Goes meaningfully deeper than available blog content on this topic
 - [ ] Evidence: Every major claim supported by data, research, or customer proof
 - [ ] Methodology: Research approach is transparent and defensible
@@ -88,11 +90,11 @@ ALWAYS use this exact template structure:
 - **Market Context:** [categories and trends referenced]
 - **Evidence:** [proof.md, stories, and external sources used]
 
-## Evaluation
-**Depth:**          [Assessment]
-**Evidence:**       [Assessment]
-**Methodology:**    [Assessment]
-**Authority:**      [Assessment]
-**Balance:**        [Assessment]
-**Durability:**     [Assessment]
+## Self-Assessment
+**Depth:**          [Notes on grounding and context strength]
+**Evidence:**       [Notes on grounding and context strength]
+**Methodology:**    [Notes on grounding and context strength]
+**Authority:**      [Notes on grounding and context strength]
+**Balance:**        [Notes on grounding and context strength]
+**Durability:**     [Notes on grounding and context strength]
 ```

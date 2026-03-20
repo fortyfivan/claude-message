@@ -74,7 +74,7 @@ Best,
 [Product Team]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

@@ -65,7 +65,7 @@ coverage" to "which platform reduces our actual exposure"...
 [Continues with Current State → Implications → Predictions → Your Move]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

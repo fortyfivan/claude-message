@@ -14,7 +14,7 @@ description: Create internal sales and GTM enablement assets including competiti
 5. **Load Glossary:** Read `messaging/glossary.md` for term consistency — enablement content is where terminology drift starts
 6. **Draft Structure:** Create structured outline following the type-specific template
 7. **Write Asset:** Apply type-specific guidelines with a focus on scannability and in-the-moment usability
-8. **Self-Evaluate:** Review against the validation checklist
+8. **Self-Assess:** Review against quality signals
 
 ## Enablement Type Guides
 
@@ -23,13 +23,14 @@ After identifying the asset type, load the corresponding guide:
 - **Competitive Battlecard:** See `types/competitive-battlecard.md`
 - **Discovery Guide:** See `types/discovery-guide.md`
 - **Playbook Walkthrough:** See `types/playbook-walkthrough.md`
+- **Partner Joint Solution:** See `types/partner-joint-solution.md`
 
 ## Messaging House Context
 
 Look for the following when referencing messaging elements in `/messaging`:
 
-| Context Type          | What to Extract                                          | Source Files                              |
-|-----------------------|----------------------------------------------------------|-------------------------------------------|
+| Context Type          | What to Extract                                           | Source Files                              |
+|-----------------------|-----------------------------------------------------------|-------------------------------------------|
 | Competitor Intel      | Strengths, weaknesses, win/loss patterns, differentiation | competitors/[name].md, space.md           |
 | Persona & Audience    | Pain points, goals, objections, decision criteria, altitude | personas/[name].md, audience.md          |
 | Plays & Motions       | Trigger conditions, play narratives, campaign structure   | plays/[name].md, motions.md              |
@@ -48,10 +49,12 @@ Enablement content is consumed under pressure — mid-call, pre-meeting, between
 - **Scenario-driven over comprehensive.** Organize around situations reps encounter, not abstract categories. "When they bring up [competitor]" is better than "Competitive Landscape."
 - **Messaging-grounded over invented.** Every claim, differentiator, and objection response must trace to the messaging house. Do not introduce positioning that isn't supported by space.md or proof.md.
 
-## Validation Checklist
+## Quality Signals
+
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Enablement Quality Check:
+Enablement Quality Signals:
 - [ ] Scannability: Can a rep find what they need in under 30 seconds?
 - [ ] Actionability: Does every section provide language they can use?
 - [ ] Honesty: Are competitor strengths and limitations acknowledged?
@@ -86,11 +89,11 @@ ALWAYS use this exact template structure:
 - **Proof:** [stories/name.md, proof.md sections used]
 - **Other:** [Additional references]
 
-## Evaluation
-**Scannability:**       [Assessment]
-**Actionability:**      [Assessment]
-**Honesty:**            [Assessment]
-**Grounding:**          [Assessment]
-**Scenario Coverage:**  [Assessment]
-**Terminology:**        [Assessment]
+## Self-Assessment
+**Scannability:**       [Notes on grounding and context strength]
+**Actionability:**      [Notes on grounding and context strength]
+**Honesty:**            [Notes on grounding and context strength]
+**Grounding:**          [Notes on grounding and context strength]
+**Scenario Coverage:**  [Notes on grounding and context strength]
+**Terminology:**        [Notes on grounding and context strength]
 ```

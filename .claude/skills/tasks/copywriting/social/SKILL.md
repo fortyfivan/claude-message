@@ -14,7 +14,7 @@ description: Create authentic, high-engagement social content for LinkedIn and T
 3. **Review the Brief:** Session should include messaging brief with objective, audience, and key message
 4. **Reference Messaging House:** Extract relevant context from `/messaging`
 5. **Draft Content:** Apply platform-specific guidelines and format requirements
-6. **Self-Evaluate:** Review against validation checklist
+6. **Self-Assess:** Review against quality signals
 
 ## Post Type Guides
 
@@ -100,10 +100,12 @@ After identifying the platform and format, load the corresponding guide:
 - Questions that invite genuine debate
 - Vulnerability or admission of uncertainty where authentic
 
-## Validation Checklist
+## Quality Signals
+
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Social Content Check:
+Social Quality Signals:
 - [ ] Platform-native: No external links in body, follows format constraints
 - [ ] Hook strength: First line earns the scroll-stop
 - [ ] Authenticity: Doesn't match common AI patterns
@@ -132,10 +134,10 @@ Social Content Check:
 **Engagement strategy:** [How to respond to comments]
 **Repurpose opportunity:** [Other formats this could become]
 
-## Validation
-- Hook strength: [Assessment]
-- Authenticity: [Assessment]
-- Platform fit: [Assessment]
+## Self-Assessment
+- Hook strength: [Notes on grounding and context strength]
+- Authenticity: [Notes on grounding and context strength]
+- Platform fit: [Notes on grounding and context strength]
 ```
 
 ## Writing Guidelines

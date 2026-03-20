@@ -100,7 +100,7 @@ For pricing, custom requirements, or technical questions:
 **sales@axonius.com** | **axonius.com/demo**
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

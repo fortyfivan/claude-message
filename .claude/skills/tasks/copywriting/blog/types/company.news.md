@@ -48,7 +48,7 @@ The funding arrives as enterprises increasingly consolidate security tooling...
 [Continues with Details → Proof → Looking Ahead → Boilerplate]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

@@ -15,7 +15,7 @@ description: Create sales enablement and marketing collateral including solution
 4. **Reference Messaging House:** Extract specific messaging blocks from `/messaging`
 5. **Conduct Research (If Needed):** Use WebSearch for industry context, competitive positioning, or validation
 6. **Draft Brief Content:** Apply type-specific structure and guidelines from the loaded guide
-7. **Self-Evaluate:** Review against the validation checklist and type-specific evaluation criteria
+7. **Self-Assess:** Review against quality signals
 
 ## Brief Type Guides
 
@@ -29,7 +29,7 @@ After identifying the brief type, load the corresponding guide:
 - **Company Overview:** See `types/company-overview.md`
 - **Event Companion:** See `types/event-companion.md`
 - **Session Abstract:** See `types/session-abstract.md`
-- **Booth Messaging:** See `types/booth-messaging.md`
+- **Partner Better Together:** See `types/partner-better-together.md`
 
 ## Messaging House Context
 
@@ -69,12 +69,12 @@ Look for the following when referencing messaging elements in `/messaging`:
 - Inconsistent altitude within the document
 - Unsubstantiated superlatives
 
-## Validation Checklist
+## Quality Signals
 
-Copy this checklist and verify before finalizing:
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Brief Quality Check:
+Brief Quality Signals:
 - [ ] Problem-First: Opens with reader's challenge, not product
 - [ ] Scannable: Key points visible in 30-second skim
 - [ ] Proof Points: Every section includes evidence
@@ -111,11 +111,11 @@ ALWAYS use this exact template structure:
 - **Proof:** [Link to proof.md]
 - **Other:** [Additional references used]
 
-## Evaluation
-**Problem-First:**    [Assessment]
-**Scannability:**     [Assessment]
-**Proof Points:**     [Assessment]
-**Outcome Focus:**    [Assessment]
-**Altitude Match:**   [Assessment]
-**CTA Clarity:**      [Assessment]
+## Self-Assessment
+**Problem-First:**    [Notes on grounding and context strength]
+**Scannability:**     [Notes on grounding and context strength]
+**Proof Points:**     [Notes on grounding and context strength]
+**Outcome Focus:**    [Notes on grounding and context strength]
+**Altitude Match:**   [Notes on grounding and context strength]
+**CTA Clarity:**      [Notes on grounding and context strength]
 ```

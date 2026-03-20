@@ -1,15 +1,13 @@
 ---
 name: voice
-description: Universal writing quality gate — eliminates AI patterns, enforces clean prose, scores across five dimensions.
+description: Writing rules for clean prose — eliminates AI patterns, enforces specificity and directness.
 ---
 
 # Voice Gate
 
-A universal quality gate for all generated content. This is not a content generation skill — it defines writing mechanics that the writer agent applies during generation and evaluation.
+Writing rules for all generated content. This is not a content generation skill — it defines writing mechanics that the writer agent applies during generation. The reader agent handles formal evaluation.
 
 **Boundary:** The voice gate governs *how to write* — no throat-clearing, no binary contrasts, no AI cadence, no filler. The messaging house governs *what to say and how to sound* — brand voice, tone, terminology, positioning. The writer loads both. They don't overlap.
-
-**Scoring:** Content is scored across five dimensions (1–10 each, 50-point total). Content scoring below 35/50 requires revision before publishing.
 
 ## Rules
 
@@ -172,21 +170,9 @@ Eight patterns that produce recognizable AI cadence. Identify them, then rewrite
 
 **Fix:** Vary sentence length and structure. Cut em-dashes to one per section maximum. Remove hedging — either state the claim or don't.
 
-## Scoring Rubric
-
-Five dimensions, 1–10 each, 50-point total. Content scoring below 35/50 requires revision before publishing.
-
-| Dimension | What it measures | 8+ looks like | 4 or below |
-|-----------|-----------------|---------------|------------|
-| **Directness** | Statements vs. announcements | Claims land without scaffolding. Ledes are in the first sentence, not the third. | Multiple throat-clearers, buried ledes, sentences that announce what's coming instead of saying it. |
-| **Rhythm** | Sentence variety | Natural variation in length and structure. No detectable pattern. Reads aloud without sounding robotic. | Predictable patterns, three-item lists, same sentence structure repeating across paragraphs. |
-| **Trust** | Reader intelligence respected | No hedging, no over-explaining, no "let me tell you why." Facts presented as facts. | "Let me explain why this matters," unnecessary qualifiers, treating the reader as uninformed. |
-| **Authenticity** | Human voice present | Reads like a person with a point of view wrote it. Specific. Opinionated where appropriate. | Recognizable AI cadence. Could have been written by any model about any company. Generic. |
-| **Density** | Eliminable material | Every sentence earns its place. No filler phrases, no redundant emphasis, no padding. | Filler phrases, restating the same point in different words, sentences that exist only for rhythm. |
-
 ## Diagnostic Checklist
 
-Twelve yes/no questions. Run this as a final check. Any "yes" means revise that section.
+Twelve yes/no questions. Run as a quick sanity check before publishing. Any "yes" means revise that section.
 
 1. Any adverbs that can be cut without changing meaning?
 2. Any passive voice constructions?

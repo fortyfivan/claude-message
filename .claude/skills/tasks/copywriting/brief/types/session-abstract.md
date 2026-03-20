@@ -78,7 +78,7 @@ Word count: ~130 words (abstract body, excluding title and bio). Suitable for st
 **No Product Pitch:**      [Assessment]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

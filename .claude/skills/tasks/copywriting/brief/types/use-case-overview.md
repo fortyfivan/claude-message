@@ -103,7 +103,7 @@ See how your vulnerability data looks enriched with asset context.
 [Request a Proof of Value →]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

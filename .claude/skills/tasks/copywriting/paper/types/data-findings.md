@@ -55,7 +55,7 @@ They're defined by everything the organization touches...
 [Continues with The Data → Findings in Depth → Benchmarks → Outlook]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

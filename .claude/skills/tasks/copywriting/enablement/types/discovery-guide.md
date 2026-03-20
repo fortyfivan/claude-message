@@ -159,7 +159,7 @@ Do NOT open with product capabilities, company background, or "tell me about you
 - **VP Eng → CISO call:** "[VP name] walked me through the team capacity constraints and estimated [cost/risk]. They believe [our approach] could recover [metric]. I'd like to show you how that maps to your board reporting requirements."
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

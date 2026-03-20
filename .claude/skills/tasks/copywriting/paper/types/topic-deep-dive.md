@@ -77,7 +77,7 @@ Teams that scramble to "get compliant" before the audit window miss
 the point...
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

@@ -249,7 +249,27 @@ Define how the company goes to market. Motion orchestrates all prior components 
 
 After all six phases:
 
-1. Read all written files and perform a consistency check. Flag contradictions or gaps. Present a brief summary with recommended next steps.
+1. **Consistency check.** Read every file written during the session using the Read tool. Do not use shell commands (grep, awk, etc.) for this step — analyze the content in context.
+
+   Check for:
+   - **Reference table sync** — Every collection profile has a row in its parent pillar's reference table, and every row has a matching profile file. Descriptions match between frontmatter and table.
+   - **Cross-references** — Products, personas, and segments named in one doc exist as profiles. Stories reference real products and personas.
+   - **Contradictions** — Claims in one doc that conflict with another (e.g., a competitor listed as "no direct threat" in space.md but treated as primary in a battlecard).
+   - **Gaps** — Pillars or profiles that are thin, rely heavily on placeholders, or lack key sections.
+
+   Present a single summary:
+
+   ```
+   Consistency Check:
+     ✓ [N] docs written, [N] profiles across [N] pillars
+     ✓ Reference tables synced
+     ⚠ [specific issue — e.g., "story 'acme-corp' references persona 'DevOps Lead' but no persona profile exists"]
+     ⚠ [specific issue]
+
+   Recommended next steps:
+     - [action]
+     - [action]
+   ```
 2. Delete the progress file.
 3. Invoke `/insights fix glossary` to generate the initial glossary from the populated messaging house. Present the proposed glossary for user approval before finalizing.
 

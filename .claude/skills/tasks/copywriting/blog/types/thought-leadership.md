@@ -50,7 +50,7 @@ The spreadsheet era trained us to think in snapshots...
 [Continues with Perspective → Implications → Action structure]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

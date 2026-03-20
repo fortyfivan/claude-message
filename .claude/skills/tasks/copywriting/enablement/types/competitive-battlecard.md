@@ -69,7 +69,7 @@ and a long integration list.
 [Continues with remaining sections...]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

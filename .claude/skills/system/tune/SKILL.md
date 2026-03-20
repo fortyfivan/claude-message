@@ -133,7 +133,7 @@ If the user asks about gap observations from Step 2, expand them into specific r
 For recommendations the user approves:
 
 - **Base skill exists in `.claude/skills/`** — Read, tune, and write back in place.
-- **No base skill** — Generate a new skill from scratch following the standard skill structure (output format, guidelines, evaluation criteria, context pointers). Write to `.claude/skills/` with tuning applied.
+- **No base skill** — Generate a new skill from scratch following the standard skill structure (output format, guidelines, quality signals, context pointers). Write to `.claude/skills/` with tuning applied.
 
 New skills must follow the hierarchy: new types go in the existing type subdirectory; new categories require directory + SKILL.md + type subdirectory. Present each recommendation individually for per-skill approval.
 
@@ -145,9 +145,9 @@ Each dimension maps to specific source docs, target files, and tuning methods:
 |---|---|---|---|
 | Voice Alignment | `profile.md`, `glossary.md`, `journal.md` | SKILL.md | Inline: enrich Guidelines. Calibration: `### Voice & Terminology` |
 | Market Dynamics | `space.md`, `categories/` | SKILL.md | Inline: enrich Messaging House Context, Guidelines. Calibration: `### Market Context` |
-| Company Stage | `profile.md`, `proof.md` | SKILL.md | Inline: enrich Validation Checklist. Calibration: `### Stage Calibration` |
+| Company Stage | `profile.md`, `proof.md` | SKILL.md | Inline: enrich Quality Signals. Calibration: `### Stage Calibration` |
 | Motion Alignment | `motion.md`, `plays/` | SKILL.md | Inline: enrich Output Format (if needed). Calibration: `### Motion Alignment` |
-| Audience Calibration | `audience.md`, `personas/`, `segments/` | Type file | Inline: enrich Tone & Style, Evaluation Criteria. Calibration: `### Audience Calibration`, `### Proof Mapping`, `### Competitive Framing`, `### Evaluation Addenda` |
+| Audience Calibration | `audience.md`, `personas/`, `segments/` | Type file | Inline: enrich Tone & Style, Quality Signals. Calibration: `### Audience Calibration`, `### Proof Mapping`, `### Competitive Framing`, `### Evaluation Addenda` |
 
 Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and applies universally across all types in that category. Type-specific tuning (Audience) lands in the type file and adds per-persona, per-proof, and per-competitor specifics for that content type. No duplication between levels.
 
@@ -161,7 +161,7 @@ Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and appli
 | **Type Guides** | Preserved. Routing links stay the same. |
 | **Messaging House Context** | Enriched: add specifics about which pillar sections matter most for this company. |
 | **Guidelines** | Enriched: add company-specific dos/don'ts derived from `profile.md` Brand Voice, `glossary.md` terminology, and `journal.md` voice learnings. |
-| **Validation Checklist** | Enriched: add company-specific check items. |
+| **Quality Signals** | Enriched: add company-specific check items. |
 | **Output Format** | Preserved as-is unless the company's motion or market requires structural additions. |
 
 #### SKILL.md Company Calibration Section
@@ -181,7 +181,7 @@ Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and appli
 | **Tone & Style** | Enriched: layer in voice attributes from `profile.md`, phrasing patterns, altitude adjustments for the company's primary personas. |
 | **Content-Specific Guidelines** | Enriched: add company-relevant patterns, adjust word count if company strategy demands it, add market-specific guidance. |
 | **Examples** | Can be supplemented with company-relevant example framing (not fabricated content — framing that reflects the company's positioning style). |
-| **Evaluation Criteria** | Enriched: add company-specific quality targets. |
+| **Quality Signals** | Enriched: add company-specific quality targets. |
 
 #### Type File Company Calibration Section
 
@@ -190,7 +190,7 @@ Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and appli
 | `### Audience Calibration` | `audience.md`, `personas/`, `segments/` | Per-persona blocks: altitude, vocabulary from pain points/goals, proof type preferences, objections to preempt. Segment-specific adjustments. |
 | `### Proof Mapping` | `proof.md`, `stories/` | Specific stories, quotes, metrics matched to this type. What's available, what's missing. Which proof is strongest for which persona. |
 | `### Competitive Framing` | `competitors/` | How to position against specific competitors for this type. Language to use, traps to avoid. Only present when relevant to the type. |
-| `### Evaluation Addenda` | All loaded sources | Company-specific additions to the type's base evaluation criteria that don't fit into inline enrichment of the existing table. |
+| `### Evaluation Addenda` | All loaded sources | Company-specific additions to the type's base quality signals that don't fit into inline enrichment of the existing table. |
 
 ## Re-Tuning and Drift Detection
 

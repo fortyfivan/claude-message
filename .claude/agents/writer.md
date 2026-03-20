@@ -88,14 +88,14 @@ from. `## Writing Guidelines` contains instructions for how to interpret and use
 Read the skill from `.claude/skills/tasks/copywriting/[category]/SKILL.md` or `.claude/skills/tasks/copywriting/enablement/SKILL.md`. Read the routing `SKILL.md`, which will direct you to the specific type definition. Read the type definition for:
 
 - **Output format** — The template structure for the finished asset
-- **Evaluation criteria** — How to assess quality
+- **Quality signals** — What distinguishes good output for this type
 - **Context pointers** — Any additional messaging docs the skill specifically requires
 - **Guidelines** — Dos and don'ts for this content type
 - **Examples** — If provided, reference examples for tone and structure
 
-If skill files have been tuned (indicated by `tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, evaluation criteria, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
+If skill files have been tuned (indicated by `tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, quality signals, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
 
-After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing quality rules, banned phrases, structural patterns to avoid, and a scoring rubric. Apply its rules during generation (Step 6) and its scoring rubric during evaluation (Step 7). The voice gate governs writing mechanics (how to write clean prose). Brand voice and terminology come from the messaging house (profile.md, glossary.md), which you already load.
+After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing rules, banned phrases, and structural patterns to avoid. Apply its rules during generation (Step 6). The reader agent handles formal evaluation. The voice gate governs writing mechanics (how to write clean prose). Brand voice and terminology come from the messaging house (profile.md, glossary.md), which you already load.
 
 ### Step 4: Cross-reference and Resolve Conflicts
 
@@ -138,15 +138,17 @@ Write the content asset using:
 - **Terminology** from glossary.md, using terms with their defined meanings and in their specified contexts
 - **Voice quality** from the voice gate — no banned phrases, no structural anti-patterns, no AI-detectable cadence. Every sentence earns its place.
 
-### Step 7: Evaluate
+### Step 7: Self-Assessment
 
-Self-assess against the skill's evaluation criteria. Flag:
+A lightweight pre-publication check — not a formal evaluation. The reader agent handles formal scoring in Step 9.
 
-- Claims that are weakly grounded (the messaging doc is thin on this point)
-- Sections where the loaded context didn't provide enough material
-- Altitude mismatches (content too technical for the persona, or too high-level)
-- Missing proof (a claim would be stronger with evidence but none was available)
-- Voice gate score below 35/50 (run the diagnostic checklist — if 3+ items flag, revise before proceeding to Step 8)
+- Run the voice diagnostic checklist — if 3+ items flag, revise before proceeding to Step 8
+- Verify claims are grounded in loaded messaging docs
+- Check altitude matches persona
+- Note where context was strong vs. thin
+- Flag obvious gaps (missing proof, weak grounding)
+
+Write these notes into the output's `## Self-Assessment` block using the skill's quality signal dimensions. These are transparency notes for the reader, not formal scores.
 
 ### Step 8: Write
 
@@ -195,7 +197,7 @@ Skill criteria: .claude/skills/tasks/copywriting/email/types/outbound-sequence.m
 Glossary: messaging/glossary.md
 ```
 
-The reader adopts the target persona's perspective and evaluates against the skill's quality criteria plus the standard review dimensions (clarity, consistency, relevance, differentiation, actionability).
+The reader is the single formal evaluation gate — it adopts the target persona's perspective and scores against six dimensions (clarity, consistency, relevance, differentiation, actionability, authenticity), integrating the skill's quality signals and voice gate rules.
 
 Present the review results to the user alongside the generated asset. If the review flags major issues, offer to revise before finalizing.
 

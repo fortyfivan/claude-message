@@ -89,7 +89,7 @@ Each type carries a default bill of materials. Defaults are a starting point —
 | Type | Description | Default Assets |
 |---|---|---|
 | **digital** | Inbound content engine | Thought leadership blog (anchor), white paper or research report (alternative anchor), use case blog series (2-3 posts), nurture email sequence (3-5 emails), social post series, product page copy |
-| **event** | Conference, webinar, or field event | Event promotion email (pre-event), booth messaging, session abstract, post-event follow-up email, social post series (pre/during/post) |
+| **event** | Conference, webinar, or field event | Event promotion email (pre-event), event companion, session abstract, post-event follow-up email, event recap blog, social post series (pre/during/post) |
 | **outbound** | Sales-driven prospecting | Cold email sequence (3-5 emails), LinkedIn message sequence, sales one-pager, competitive battlecard |
 | **play** | Competitive or strategic play | Competitive battlecard, competitive blog post, objection handling guide, sales email templates, internal cheat sheet |
 | **abm** | Account-based targeting | Account brief, personalized email sequence, solution page copy, sales talking points, executive summary |
@@ -140,7 +140,6 @@ Every asset the campaign skill can dispatch, mapped to its skill. Use this catal
 | Industry brief | copywriting/brief | industry-vertical | |
 | Event companion | copywriting/brief | event-companion | Leave-behind or session handout |
 | Session abstract | copywriting/brief | session-abstract | 150-word abstract: problem framing, session scope, attendee takeaways. |
-| Booth/session messaging | copywriting/brief | booth-messaging | Physical-space format: headline, 3 key messages, conversation starters, qualifying questions. |
 | LinkedIn post | copywriting/social | linkedin-post | |
 | LinkedIn article | copywriting/social | linkedin-article | Long-form LinkedIn content |
 | X post | copywriting/social | x-post | |
@@ -158,6 +157,17 @@ Every asset the campaign skill can dispatch, mapped to its skill. Use this catal
 | Data findings report | copywriting/paper | data-findings | Data-driven insights and benchmarks |
 | Product page copy | copywriting/web | product-page | Product-focused web/landing page |
 | Solution page copy | copywriting/web | solution-page | Solution-focused web page |
+| Comparison page | copywriting/web | comparison-page | Bottom-funnel competitive page |
+| Topic page | copywriting/web | topic-page | Long-form SEO pillar page |
+| Event recap blog | copywriting/blog | event-recap | Post-event content, SEO fuel |
+| Predictions blog | copywriting/blog | predictions | Forward-looking thought leadership |
+| Partner better together brief | copywriting/brief | partner-better-together | External joint value proposition for co-sell |
+| Partner joint solution guide | copywriting/enablement | partner-joint-solution | Internal partner business case |
+| Business value assessment | copywriting/assessment | business-value | ROI/value case framework |
+| Risk assessment | copywriting/assessment | risk | Risk evaluation framework |
+| Tech assessment | copywriting/assessment | tech | Technical readiness assessment |
+| Customer story | copywriting/story | customer | Published case study |
+| Partner story | copywriting/story | partner | Joint proof asset |
 
 ### Profile Selection
 

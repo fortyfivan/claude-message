@@ -76,7 +76,7 @@ See attack surface management in action with a personalized demo of your environ
 [Request Demo →]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

@@ -97,7 +97,7 @@ Founded by cybersecurity practitioners who lived the asset visibility problem an
 **Offices:** Tel Aviv, London, Austin
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

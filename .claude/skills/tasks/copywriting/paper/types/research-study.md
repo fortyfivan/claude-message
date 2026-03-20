@@ -59,7 +59,7 @@ The uncomfortable truth: they're also fixing them slower...
 [Continues with Methodology → Findings → Analysis → Implications → About]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

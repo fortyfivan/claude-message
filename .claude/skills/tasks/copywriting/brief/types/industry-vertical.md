@@ -80,7 +80,7 @@ Join healthcare security leaders at HIMSS to see how peer organizations are solv
 [Register for Healthcare Security Roundtable →]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

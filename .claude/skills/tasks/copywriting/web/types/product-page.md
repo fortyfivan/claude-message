@@ -79,7 +79,7 @@ Assign, track, and verify fixes without spreadsheet handoffs...
 [Continues with How It Works → Differentiation → Proof → Use Cases → CTA]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

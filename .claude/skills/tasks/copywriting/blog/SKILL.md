@@ -16,7 +16,7 @@ description: Create insightful, research-driven blog content including thought l
 5. **Conduct Research:** Use WebSearch for real-time market intelligence, competitive analysis, data validation
 6. **Draft Outline:** Create structured outline following the type-specific structure
 7. **Write Blog Post:** Apply type-specific guidelines and SEO/GEO best practices
-8. **Self-Evaluate:** Review against the validation checklist
+8. **Self-Assess:** Review against quality signals
 
 ## Blog Type Guides
 
@@ -29,6 +29,8 @@ After identifying the blog type, load the corresponding guide:
 - **Product Announcement:** See `types/product-announcement.md`
 - **Company News:** See `types/company-news.md`
 - **Press Release:** See `types/press-release.md`
+- **Event Recap:** See `types/event-recap.md`
+- **Predictions:** See `types/predictions.md`
 
 ## Messaging House Context
 
@@ -66,12 +68,12 @@ Look for the following when referencing messaging elements in `/messaging`:
 - Meta descriptions optimized for AI summarization (150-160 characters)
 - Alt text for images and data visualizations
 
-## Validation Checklist
+## Quality Signals
 
-Copy this checklist and verify before finalizing:
+Quality signals for this content type. Use during generation as a compass; the reader agent evaluates against these during review.
 
 ```
-Blog Quality Check:
+Blog Quality Signals:
 - [ ] Insightfulness: Adds new perspective (not consensus)
 - [ ] Narrative Flow: Clear beginning, middle, end
 - [ ] Market Relevance: Addresses current pain points
@@ -117,11 +119,11 @@ ALWAYS use this exact template structure:
 - **Market Context:** [Link to space.md]
 - **Other:** [Additional references used]
 
-## Evaluation
-**Insightfulness:**    [Assessment]
-**Narrative Flow:**    [Assessment]
-**Market Relevance:**  [Assessment]
-**Differentiation:**   [Assessment]
-**Credibility:**       [Assessment]
-**SEO/GEO Readiness:** [Assessment]
+## Self-Assessment
+**Insightfulness:**    [Notes on grounding and context strength]
+**Narrative Flow:**    [Notes on grounding and context strength]
+**Market Relevance:**  [Notes on grounding and context strength]
+**Differentiation:**   [Notes on grounding and context strength]
+**Credibility:**       [Notes on grounding and context strength]
+**SEO/GEO Readiness:** [Notes on grounding and context strength]
 ```

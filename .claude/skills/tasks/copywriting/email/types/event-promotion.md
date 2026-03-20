@@ -82,7 +82,7 @@ See you there,
 [Signature]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|

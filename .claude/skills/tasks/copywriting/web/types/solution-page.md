@@ -86,7 +86,7 @@ findings represent real business risk...
 [Continues with Components → Outcomes → Proof → Who It's For → Related → CTA]
 ```
 
-## Evaluation Criteria
+## Quality Signals
 
 | Criterion | Target | Red Flags |
 |-----------|--------|-----------|
