@@ -372,7 +372,7 @@ For each asset, spawn a writer subagent with five pieces of context:
 | Asset-specific messaging docs | Resolved from asset manifest context resolution | Per-asset messaging additions |
 | Dependency assets | File content from previously generated assets in `output/campaigns/[folder]/` | Narrative continuity |
 
-The writer agent runs in campaign mode — using the campaign brief as its primary input rather than resolving context from scratch. It derives its asset brief from the campaign narrative and asset spec, loads the skill, cross-references for consistency, generates, evaluates, writes, and invokes the reader. The writer skips user approval on the asset brief since the campaign brief was already approved. If the writer flags critical gaps or conflicts, it surfaces them rather than blocking.
+The writer agent runs in campaign mode — using the campaign brief as its primary input rather than resolving context from scratch. It derives its asset brief from the campaign narrative and asset spec, loads the skill, cross-references for consistency, generates the draft, validates against the voice gate (max 2 voice passes), writes to disk, dispatches the reader for formal review, and iterates on reader feedback autonomously (max 1 post-reader revision). Only "Major rework" verdicts are surfaced to the campaign orchestrator. The writer skips user approval on the asset brief since the campaign brief was already approved. If the writer flags critical gaps or conflicts, it surfaces them rather than blocking.
 
 Do not override the writer's quality checks. If a writer flags an issue, surface it to the user.
 
@@ -400,7 +400,7 @@ Each asset file includes metadata frontmatter linking back to the campaign (camp
 
 As each wave completes:
 
-1. Update each asset's status in the brief frontmatter (`pending` → `complete` or `needs-revision`).
+1. Update each asset's status in the brief frontmatter (`pending` → `complete` or `needs-revision`). An asset arrives as `complete` when the writer resolved the reader's feedback internally (including "Needs revision" verdicts handled via post-reader revision). An asset arrives as `needs-revision` only when the reader returned "Major rework" and the writer escalated.
 2. Check for writer-flagged issues. If any exist, surface them to the user between waves.
 3. Proceed to the next wave.
 
@@ -448,7 +448,7 @@ If the campaign narrative shifts, the user edits the brief and re-runs productio
 
 **Context window pressure.** Large campaigns (10+ assets) may strain the context window. Track assets by file path rather than holding full content in memory. When dispatching a writer with dependencies, extract key arguments and CTAs from dependency assets rather than passing full content.
 
-**Partial production failure.** If a writer subagent fails or produces poor output, mark that asset as `needs-revision` in the brief and continue with the next wave. Assets in later waves that depend on the failed asset receive a note that their dependency is flagged.
+**Partial production failure.** If a writer subagent fails, produces poor output, or the reader flags it as "Major rework," mark that asset as `needs-revision` in the brief and continue with the next wave. Assets in later waves that depend on the failed asset receive a note that their dependency is flagged.
 
 **Asset not in catalog.** Work with the user to identify the closest skill mapping and add it to the asset manifest with adaptation notes.
 

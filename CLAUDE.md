@@ -167,10 +167,12 @@ Context-resolution engine for content generation. Its primary job is deciding wh
 3. **Load skill** — Read skill from `.claude/skills/tasks/`. Read the routing `SKILL.md`, then the specific type definition for output format and quality signals.
 4. **Cross-reference** — Check loaded context for consistency. Flag gaps or conflicts to the user before writing.
 5. **Present brief** — Show resolved context, key messages, proof, and flags for user approval before generating.
-6. **Generate** — Write using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
-7. **Self-assess** — Note grounding confidence, thin context, and voice compliance.
-8. **Write** — Output to `output/` with metadata frontmatter tracking every messaging doc that was loaded.
-9. **Review** — Invoke the reader agent with explicit context (asset path, persona path, skill criteria path, glossary reference) to review the generated content.
+6. **Generate** — Draft in memory using claims grounded in loaded docs, language calibrated to the persona's altitude, proof filtered by relevance.
+7. **Voice validate** — Scan the draft against the voice gate (banned phrases, structural patterns, diagnostic checklist). PASS/FAIL verdict with max 2 passes.
+8. **Self-assess** — Note grounding confidence, thin context, and voice compliance summary.
+9. **Write** — Output to `output/` with metadata frontmatter tracking messaging docs loaded and revision history.
+10. **Review** — Mandatory reader dispatch with explicit context. Handle verdict: "Ready" → finalize; "Needs revision" → revise and finalize; "Major rework" → escalate to user/orchestrator.
+11. **Finalize** — Update revision history, present results (standalone) or return status (campaign).
 
 The agent never dumps the entire messaging house into context. It surgically selects the docs that matter for this task, this audience, this product, this competitor.
 

@@ -36,13 +36,13 @@ Motion: [primary motion], [secondary motion if any]
 
 **Read current skills.** Glob `.claude/skills/tasks/` and `.claude/skills/craft/` to build a path inventory — this is the write target list. For each skill file, assess tuning state:
 
-- **Untuned** — No `tuned: true` in frontmatter. Has not been personalized by a previous tuner run.
-- **Previously tuned** — Contains `tuned: true` in frontmatter from an earlier run.
+- **Untuned** — No `metadata.tuned: true` in frontmatter. Has not been personalized by a previous tuner run.
+- **Previously tuned** — Contains `metadata.tuned: true` in frontmatter from an earlier run.
 
-**Assess drift.** For each previously tuned skill file, read its `tuned_sources` list from frontmatter. Check each source's `updated` timestamp against `tuned_date`:
+**Assess drift.** For each previously tuned skill file, read its `metadata.tuned_sources` list from frontmatter. Check each source's `updated` timestamp against `metadata.tuned_date`:
 
-1. **Source drift** — If any source's `updated` > `tuned_date`, that skill has drifted. Note which sources changed and which tuning dimensions are affected.
-2. **Coverage drift** — Check for new collection profiles added since the last tune that aren't in any skill's `tuned_sources`. New profiles = new context the skills don't know about.
+1. **Source drift** — If any source's `updated` > `metadata.tuned_date`, that skill has drifted. Note which sources changed and which tuning dimensions are affected.
+2. **Coverage drift** — Check for new collection profiles added since the last tune that aren't in any skill's `metadata.tuned_sources`. New profiles = new context the skills don't know about.
 
 Additionally, check for calibration patterns in `profile.md` Brand Voice with status "confirmed" that are not yet reflected in skill guidelines. These represent voice preferences that should be baked into tuned skills.
 
@@ -99,16 +99,17 @@ After approval, for each skill being tuned:
 
 ```yaml
 ---
-tuned: true
-tuned_date: "2026-03-10"
-tuned_sources: [profile.md, space.md, glossary.md, motion.md, proof.md]
+metadata:
+  tuned: true
+  tuned_date: "2026-03-10"
+  tuned_sources: [profile.md, space.md, glossary.md, motion.md, proof.md]
 ---
 ```
 
-Frontmatter fields:
-- `tuned: true` — Indicates this file has been calibrated by the tune skill.
-- `tuned_date` — ISO date of the tune run. Used by `--check` mode for drift detection.
-- `tuned_sources` — List of messaging doc filenames that informed this file's calibration. Gives `--check` mode an auditable trail of which sources to check for drift. SKILL.md files list pillar-level sources; type files list the specific collection profiles used for audience, proof, and competitive calibration.
+Frontmatter fields (nested under `metadata`):
+- `metadata.tuned: true` — Indicates this file has been calibrated by the tune skill.
+- `metadata.tuned_date` — ISO date of the tune run. Used by `--check` mode for drift detection.
+- `metadata.tuned_sources` — List of messaging doc filenames that informed this file's calibration. Gives `--check` mode an auditable trail of which sources to check for drift. SKILL.md files list pillar-level sources; type files list the specific collection profiles used for audience, proof, and competitive calibration.
 
 Never create new directories during tuning. The write target list from Step 1 defines the valid paths.
 
@@ -200,12 +201,12 @@ When invoked with `--check`, compare the messaging house state against tuning me
 
 Two checks:
 
-1. **Source drift** — For each tuned skill, iterate its `tuned_sources` list. If any source's `updated` > `tuned_date`, that skill has drifted. Report which sources changed and which dimensions are affected.
-2. **Coverage drift** — Check for new collection profiles added since the last tune that aren't in any skill's `tuned_sources`. New profiles = new context the skills don't know about.
+1. **Source drift** — For each tuned skill, iterate its `metadata.tuned_sources` list. If any source's `updated` > `metadata.tuned_date`, that skill has drifted. Report which sources changed and which dimensions are affected.
+2. **Coverage drift** — Check for new collection profiles added since the last tune that aren't in any skill's `metadata.tuned_sources`. New profiles = new context the skills don't know about.
 
 ### Manual Edit Detection
 
-Manual edits are detected by checking if the file has been modified since `tuned_date` (via `git log` or file metadata). If changes exist outside tuning metadata and the Company Calibration section, warn the user that re-tuning will overwrite them. The approval gate is the safety net — the user reviews the scope (including what manual edits will be lost) before approving.
+Manual edits are detected by checking if the file has been modified since `metadata.tuned_date` (via `git log` or file metadata). If changes exist outside tuning metadata and the Company Calibration section, warn the user that re-tuning will overwrite them. The approval gate is the safety net — the user reviews the scope (including what manual edits will be lost) before approving.
 
 ## Tool Scoping
 

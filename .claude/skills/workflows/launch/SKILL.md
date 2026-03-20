@@ -259,13 +259,13 @@ For each asset, spawn a writer subagent with:
 | Input materials | Relevant files from `input/` | Product detail, specs, pricing |
 | Dependency assets | Previously generated assets in `output/launches/[name]/` | Narrative continuity |
 
-The writer skips its own brief approval step — the launch brief was already approved. If the writer flags critical gaps or conflicts, it surfaces them rather than blocking.
+The writer skips its own brief approval step — the launch brief was already approved. The writer generates the draft, validates against the voice gate (max 2 voice passes), writes to disk, dispatches the reader for formal review, and iterates on reader feedback autonomously (max 1 post-reader revision). Only "Major rework" verdicts are surfaced to the launch orchestrator. If the writer flags critical gaps or conflicts, it surfaces them rather than blocking.
 
 ### Progress Tracking
 
 As each wave completes:
 
-1. Update each asset's status in the brief frontmatter (`pending` → `complete` or `needs-revision`).
+1. Update each asset's status in the brief frontmatter (`pending` → `complete` or `needs-revision`). An asset arrives as `complete` when the writer resolved the reader's feedback internally (including "Needs revision" verdicts handled via post-reader revision). An asset arrives as `needs-revision` only when the reader returned "Major rework" and the writer escalated.
 2. Surface writer-flagged issues to the user.
 3. For the internal/external boundary: pause and present internal assets before proceeding to external waves.
 4. Proceed to the next wave after user confirmation at the internal/external boundary.
@@ -343,4 +343,4 @@ Present this list in the brief and again in the completion summary. These are no
 
 **Skill not found for an asset.** Flag during brief generation and suggest the closest alternative.
 
-**Partial production failure.** Mark the asset as `needs-revision` and continue. Assets in later waves that depend on it receive a note that their dependency is flagged.
+**Partial production failure.** If a writer subagent fails, produces poor output, or the reader flags it as "Major rework," mark the asset as `needs-revision` and continue. Assets in later waves that depend on it receive a note that their dependency is flagged.

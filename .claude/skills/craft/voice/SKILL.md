@@ -186,3 +186,19 @@ Twelve yes/no questions. Run as a quick sanity check before publishing. Any "yes
 10. Any meta-commentary about the writing itself?
 11. Any sentence that sounds like an inspirational poster?
 12. Any phrases from the banned list?
+
+## Validation Protocol
+
+Criteria for post-generation voice validation. The writer agent runs this check after drafting content.
+
+**PASS:** 0 banned phrases found, 0 structural anti-pattern matches, fewer than 3 diagnostic checklist flags.
+
+**FAIL:** Any banned phrase present OR any structural anti-pattern match OR 3+ diagnostic checklist flags.
+
+When the writer runs voice validation:
+1. Scan the draft for every phrase in the Banned Phrases section. Record each match with its location.
+2. Scan for each of the 8 Structural Patterns. Record each match with its location.
+3. Run the 12-item Diagnostic Checklist. Record which items flag.
+4. Apply the PASS/FAIL verdict above.
+5. If FAIL: revise the specific violations, then re-scan (max 2 total passes — 1 initial + 1 revision).
+6. If still FAIL after pass 2: document remaining issues and proceed. The reader agent will catch them.

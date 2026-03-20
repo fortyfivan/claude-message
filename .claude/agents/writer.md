@@ -93,9 +93,9 @@ Read the skill from `.claude/skills/tasks/copywriting/[category]/SKILL.md` or `.
 - **Guidelines** — Dos and don'ts for this content type
 - **Examples** — If provided, reference examples for tone and structure
 
-If skill files have been tuned (indicated by `tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, quality signals, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
+If skill files have been tuned (indicated by `metadata.tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, quality signals, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
 
-After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing rules, banned phrases, and structural patterns to avoid. Apply its rules during generation (Step 6). The reader agent handles formal evaluation. The voice gate governs writing mechanics (how to write clean prose). Brand voice and terminology come from the messaging house (profile.md, glossary.md), which you already load.
+After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing rules, banned phrases, and structural patterns to avoid. Apply its rules during generation (Step 6) and validate against them in Step 7. The voice gate governs writing mechanics (how to write clean prose). Brand voice and terminology come from the messaging house (profile.md, glossary.md), which you already load.
 
 ### Step 4: Cross-reference and Resolve Conflicts
 
@@ -126,9 +126,9 @@ Summarize the resolved context before generating:
 
 **Campaign mode:** The asset brief is generated internally for traceability but does not require user approval — the campaign brief was already approved. If Step 4 flagged conflicts or critical gaps, surface them to the campaign orchestrator rather than blocking.
 
-### Step 6: Generate
+### Step 6: Generate (draft in memory)
 
-Write the content asset using:
+Write the content asset draft. Hold the draft in memory — do not write to disk yet.
 
 - **Structure** from the skill template
 - **Claims** from pillar and collection docs (never invented)
@@ -138,19 +138,46 @@ Write the content asset using:
 - **Terminology** from glossary.md, using terms with their defined meanings and in their specified contexts
 - **Voice quality** from the voice gate — no banned phrases, no structural anti-patterns, no AI-detectable cadence. Every sentence earns its place.
 
-### Step 7: Self-Assessment
+### Step 7: Voice Validation
 
-A lightweight pre-publication check — not a formal evaluation. The reader agent handles formal scoring in Step 9.
+Active post-generation enforcement against the voice gate. This is not a suggestion — it is a mechanical check with a PASS/FAIL verdict.
 
-- Run the voice diagnostic checklist — if 3+ items flag, revise before proceeding to Step 8
+Re-read the draft against the voice gate (`.claude/skills/craft/voice/SKILL.md`):
+
+1. **Banned phrases** — Scan every section of the draft against the full banned phrases list. Record each match with its location (section + sentence).
+2. **Structural anti-patterns** — Scan for each of the 8 structural patterns. Record each match with its location.
+3. **Diagnostic checklist** — Run the 12-item diagnostic checklist. Record which items flag and where.
+
+Produce a voice validation report:
+
+```
+Voice Validation (pass [N]):
+  Banned phrases: [count] found — [list with locations]
+  Structural patterns: [count] found — [list with locations]
+  Diagnostic flags: [count]/12 — [list of flagged items]
+  Verdict: PASS / FAIL
+```
+
+Apply the PASS/FAIL verdict from the voice gate's Validation Protocol:
+- **PASS:** 0 banned phrases, 0 structural patterns, fewer than 3 diagnostic flags. Proceed to Step 8.
+- **FAIL (pass 1):** Revise the specific violations in the draft. Re-scan the revised draft (pass 2).
+- **FAIL (pass 2):** Document remaining issues and proceed to Step 8. The reader will catch them.
+
+**Max: 2 voice passes** (1 initial + 1 revision). Do not loop beyond 2.
+
+### Step 8: Self-Assessment
+
+A lightweight pre-publication check — not a formal evaluation. The reader agent handles formal scoring in Step 10.
+
 - Verify claims are grounded in loaded messaging docs
 - Check altitude matches persona
 - Note where context was strong vs. thin
 - Flag obvious gaps (missing proof, weak grounding)
+- Include voice compliance summary (e.g., "Passed on pass 1, 0 banned phrases" or "Passed on pass 2, 1 diagnostic flag remaining")
 
 Write these notes into the output's `## Self-Assessment` block using the skill's quality signal dimensions. These are transparency notes for the reader, not formal scores.
 
-### Step 8: Write
+### Step 9: Write
 
 Write the finished asset to `output/` with metadata frontmatter:
 
@@ -170,20 +197,26 @@ messaging_docs_loaded:
   - messaging/personas/enterprise-ciso.md
   - messaging/products/vuln-mgmt.md
 generated: "2026-03-03"
+revision_history:
+  voice_passes: 1
+  reader_verdict: null
+  post_reader_revision: false
+  total_drafts: 1
 ---
 ```
 
-This metadata makes the asset traceable — you can see exactly what messaging context produced it, and when that context changes, you know which assets may need regeneration.
+This metadata makes the asset traceable — you can see exactly what messaging context produced it, and when that context changes, you know which assets may need regeneration. The `revision_history` tracks the draft-validate-review cycle.
 
-### Step 9: Review
+### Step 10: Reader Review
 
-After writing the asset, invoke the reader agent to review the generated content. Pass explicit context so the reader has everything it needs without re-resolving:
+Dispatching the reader agent is mandatory — not optional, not suggested. Every generated asset goes through formal reader review.
 
 **Dispatch message must include:**
-- **Asset file path** — The file written in Step 8 (e.g., `output/cold-outreach-ciso-vuln-mgmt.md`)
+- **Asset file path** — The file written in Step 9 (e.g., `output/cold-outreach-ciso-vuln-mgmt.md`)
 - **Target persona** — Name and file path from Step 1 (e.g., `enterprise-ciso` at `messaging/personas/enterprise-ciso.md`)
 - **Skill criteria** — File path to the type definition loaded in Step 3 (e.g., `.claude/skills/tasks/copywriting/email/types/outbound-sequence.md`)
 - **Glossary reference** — `messaging/glossary.md`
+- **Revision context** — Current draft number and voice validation summary (e.g., "Draft 1, voice passed on pass 2")
 
 **Example dispatch:**
 
@@ -195,11 +228,46 @@ Review the content asset at `output/cold-outreach-ciso-vuln-mgmt.md`.
 Target persona: enterprise-ciso (messaging/personas/enterprise-ciso.md)
 Skill criteria: .claude/skills/tasks/copywriting/email/types/outbound-sequence.md
 Glossary: messaging/glossary.md
+Revision context: Draft 1, voice validation passed on pass 1
 ```
 
-The reader is the single formal evaluation gate — it adopts the target persona's perspective and scores against six dimensions (clarity, consistency, relevance, differentiation, actionability, authenticity), integrating the skill's quality signals and voice gate rules.
+**Handle the reader's verdict:**
 
-Present the review results to the user alongside the generated asset. If the review flags major issues, offer to revise before finalizing.
+- **"Ready to publish"**: Mark complete. Proceed to Step 11.
+
+- **"Needs revision"**: Apply the reader's revision directives to the draft — each directive specifies a section, what to change, and why. After revising, re-run voice validation (single pass, no revision cycle). Write the updated version to disk. Do NOT re-dispatch the reader. Proceed to Step 11. In standalone mode, present the revised asset alongside the reader's feedback. In campaign mode, mark the asset `complete`.
+
+- **"Major rework"**: In standalone mode — present the reader's feedback (scores, directives, rationale) to the user. Do NOT auto-revise. Ask for guidance on how to proceed. In campaign mode — mark the asset `needs-revision`, include the reader's summary in the asset frontmatter, and return to the orchestrator.
+
+**Revision budget:**
+
+| Stage | Max passes | Trigger |
+|---|---|---|
+| Voice validation | 2 (1 + 1 revision) | Banned phrases, structural patterns, diagnostic flags |
+| Post-reader revision | 1 | Reader "Needs revision" verdict |
+| **Total max drafts** | **3** | |
+
+### Step 11: Finalize
+
+Update `revision_history` in the asset's frontmatter with the final state:
+
+```yaml
+revision_history:
+  voice_passes: 2
+  reader_verdict: "Needs revision"
+  post_reader_revision: true
+  total_drafts: 3
+```
+
+**Standalone mode:** Present the final asset to the user with:
+- Self-assessment summary
+- Reader review scores and verdict
+- Revision history (how many drafts, what changed)
+
+**Campaign mode:** Return status to the orchestrator:
+- `complete` — Asset passed review (with or without post-reader revision)
+- `needs-revision` — Reader returned "Major rework" and the writer escalated
+- Include any flags from the reader's feedback
 
 ## When Parameters Are Ambiguous
 
