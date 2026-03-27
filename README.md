@@ -9,7 +9,7 @@
                                                              |___/
 ```
 
-Claude Message is a dynamic messaging system for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their positioning and messaging across the GTM lifecycle.
+Claude Message is a dynamic messaging system for Claude Code. It combines a structured messaging house with agents, skills, and commands to help teams build, maintain, and operationalize their messaging across the GTM lifecycle.
 
 Built for Product Marketers, Founders, and anyone who cares about messaging quality and taste.
 
@@ -28,22 +28,22 @@ Open in Claude Code and build your messaging system:
 > /bootstrap
 ```
 
-The bootstrap command guides you through an interactive workflow to build your complete messaging system. It can start from scratch or from existing materials (pitch decks, website content, brand guides) placed in the `input/` directory.
+The bootstrap command guides you through an interactive workflow to build your complete messaging system. It can start from scratch or from existing materials placed in the `input/` directory — organized by type into `messaging/`, `docs/`, `research/`, `transcripts/`, and `examples/` subdirectories. See `input/README.md` for details.
 
 ## How It Works
 
 ### Messaging House
 
-The Messaging House is a structured model of your positioning and messaging. Six pillars cover every strategic dimension, built progressively:
+The Messaging House is a structured model of your messaging. Six pillars cover every strategic dimension, built progressively:
 
-| # | Pillar | Purpose | Absorbs |
-|---|--------|---------|---------|
-| 1 | Profile | Company identity, narrative, voice, mission | purpose, profile, pitch, preferences |
-| 2 | Space | Market landscape, positioning, differentiation | position, proposition |
-| 3 | Audience | ICP, buyer/user personas, market segments | people |
-| 4 | Portfolio | Products, solutions, capabilities | portfolio |
-| 5 | Proof | Social proof, case studies, evidence | proof |
-| 6 | Motion | GTM strategies, campaign playbooks | plays |
+| # | Pillar | Purpose | 
+|---|--------|---------|
+| 1 | Profile | Company identity, narrative, voice, mission | 
+| 2 | Space | Market landscape, positioning, differentiation | 
+| 3 | Audience | ICP, buyer/user personas, market segments | 
+| 4 | Portfolio | Products, solutions, capabilities | 
+| 5 | Proof | Social proof, case studies, evidence |
+| 6 | Motion | GTM strategies, campaign playbooks | 
 
 Each pillar uses YAML frontmatter for structured metadata and markdown body for narrative content. Collection subdirectories hold detailed profiles:
 
@@ -63,7 +63,7 @@ Four subagents handle execution — dispatched by workflow skills and the user.
 | Agent | Purpose |
 |-------|---------|
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
-| **researcher** | Research execution agent. Searches external sources and evaluates findings against the messaging system. Dispatched standalone or by the insights workflow. |
+| **researcher** | Research execution agent. Searches external sources and evaluates findings against the messaging system. Dispatched standalone or by the investigate workflow. |
 | **reader** | Content review specialist. Adopts the target persona's perspective and scores generated content against quality criteria. |
 | **producer** | Deliverable production agent. Creates finished files from approved content — applies brand tokens and asset templates. |
 

@@ -161,7 +161,7 @@ For each vendor:
 - **Analyst standing:** [Gartner/Forrester positioning if applicable]
 - **Group deviations:** [where this vendor breaks from the group pattern — specific strengths, weaknesses, or positioning that differ from the shared profile above]]
 
-## Rules and Guidelines
+## Writing Guidelines
 
 - This profile is a messaging tool, not a competitive intelligence database — focus on what affects content, campaigns, and sales conversations
 - Be honest about competitor strengths — understating them damages credibility with buyers who've done their research
@@ -173,3 +173,10 @@ For each vendor:
 - The messaging sections (Their Approach through Differentiation Messages) describe the group. Vendor Specifics carry individual vendor facts. Enablement skills should pull from both — group messaging for the narrative, vendor data for accuracy
 - Group deviations are the most important field in Vendor Specifics — they tell the writer where to break from the group narrative for a specific vendor
 - For status-quo and DIY alternatives, Strengths/Weaknesses frame around organizational inertia and switching cost, not product capabilities. Vendor Specifics may be minimal or absent for these alternative types
+
+## Messaging Rules
+
+[Instructions:
+This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

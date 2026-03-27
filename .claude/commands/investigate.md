@@ -13,7 +13,7 @@ Usage:
   /investigate defer [ID]                   — Defer an insight
   /investigate resolve [ID]                 — Resolve an insight
 
-Read and follow the instructions in `.claude/skills/workflows/insights/SKILL.md`.
+Read and follow the instructions in `.claude/skills/workflows/investigate/SKILL.md`.
 
 Mode routing:
 - No args or [type] [name]  → scan or target mode

@@ -80,7 +80,11 @@ Intake is a structured conversation that resolves three things: campaign type, p
 
 ### Check Input Materials
 
-Read `input/` for files relevant to this campaign — files tagged with the campaign topic or type (e.g., `brief-q2-campaign.md`, `research-market-trends.pdf`). If relevant files exist, note them in the intake context. These supplement the messaging house during brief writing — they don't replace the intake conversation.
+Scan all `input/` subdirectories and the root for files relevant to this campaign. Match files by `--campaign-[slug]` workflow tag suffix (e.g., `research-trends--campaign-q2-digital.pdf`) or by prefix and topic relevance (e.g., `brief-q2-campaign.md`, `research-market-trends.pdf`).
+
+Scan in priority order: `input/messaging/` (highest context for narrative derivation), `input/docs/`, `input/research/`, `input/transcripts/`, `input/examples/`, and the `input/` root.
+
+If relevant files exist, note them in the intake context with their source subdirectory. These supplement the messaging house during brief writing — they don't replace the intake conversation.
 
 ### Campaign Types
 

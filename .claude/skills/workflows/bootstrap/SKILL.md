@@ -1,8 +1,8 @@
 # Bootstrap Skill
 
-Build a complete messaging system through a guided, collaborative session. The result is a fully populated messaging house — six pillar documents and their associated collection profiles — that the team uses as the foundation for all product marketing.
+Build a complete messaging system through a guided, collaborative session. The result is a fully populated messaging house of core pillar documents and their associated collection profiles that the team uses as the foundation for all product marketing.
 
-You are not a scribe. Your job is to find the sharpest, most defensible position this company can own. Generic is failure. Borrowed language is failure. If a claim could appear on a competitor's website, it doesn't belong here. Every synthesis you produce should be identifiable as belonging to this company and no other.
+It's critical to treat this task as a strategist, not a scribe. Your job is to find the sharpest, most defensible position this company can own. If a claim could appear on a competitor's website, it doesn't belong here. Every synthesis you produce should be identifiable as belonging to this company and no other.
 
 ---
 
@@ -50,19 +50,45 @@ Call AskUserQuestion to collect the response. If resuming, read all previously w
 
 ### Step 2: Read input materials
 
-Read every file in `input/`. Do not ask the user if they have materials — read what's there and report what you found.
+Scan all `input/` subdirectories and the root in priority order. Do not ask the user if they have materials — read what's there and report what you found.
 
-**If files exist:** Produce a coverage map — which phases each file informs, what's well-covered, what's thin. Be specific. "Found a pitch deck covering company positioning and three competitor mentions. Thin on persona detail and GTM motion." Then proceed to Step 3.
+**Priority order:**
+1. `input/messaging/` — Brand guides, positioning decks, messaging frameworks (highest weight)
+2. `input/docs/` — PRDs, release notes, specs, pricing
+3. `input/research/` — Market research, analyst reports, competitive intel
+4. `input/transcripts/` — Sales calls, customer interviews, feedback logs
+5. `input/examples/` — Content references, competitor samples (lowest weight)
+6. `input/` root — Backward compat; prefix determines effective category
+
+**If files exist:** Produce a structured coverage map grouped by subdirectory — which phases each file informs, what's well-covered, what's thin. Be specific:
+
+```
+Coverage Map:
+  input/messaging/ (2 files):
+    - brand-guide-2026.pdf — Company voice, positioning language [Phases 1-2]
+    - deck-positioning.pptx — Competitive framing, narrative [Phases 1-3]
+  input/docs/ (1 file):
+    - prd-platform-v3.pdf — Product capabilities, use cases [Phase 4]
+  input/research/: empty
+  input/transcripts/: empty
+  input/examples/: empty
+
+Well-covered: Company positioning, product detail
+Thin: Persona detail, competitive intel, GTM motion
+```
+
+Then proceed to Step 3.
 
 **If `input/` is empty:** Tell the user what belongs there and give them a chance to add materials before continuing:
 
-> "The `input/` directory is empty. The more existing material you bring, the less I need to ask and the sharper the output. Drop files directly and tag the filename so I know what it is:
-> - `deck-` — Pitch decks or one-pagers
-> - `brand-guide-` — Brand or messaging guides
-> - `battlecard-` — Competitive intel or battlecards
-> - `case-study-` — Customer stories or case studies
-> - `prd-` or `release-notes-` — Product docs or release notes
-> - `research-` — Market or audience research
+> "The `input/` directory is empty. The more existing material you bring, the less I need to ask and the sharper the output. Organize files by type:
+> - `input/messaging/` — Brand guides, positioning decks, messaging frameworks
+> - `input/docs/` — PRDs, release notes, specs, pricing sheets
+> - `input/research/` — Market research, analyst reports, competitive intel
+> - `input/transcripts/` — Sales calls, customer interviews, feedback logs
+> - `input/examples/` — Content references, competitor samples
+>
+> Files in the root `input/` folder also work — tag the filename with a prefix (`deck-`, `prd-`, `brand-guide-`, etc.) so I know what it is. See `input/README.md` for the full naming guide.
 >
 > Copy anything relevant into `input/` now, or let me know if you'd like to proceed without materials."
 
@@ -118,7 +144,7 @@ Every phase follows the same three-step cycle.
 
 Draw from sources in strict priority order:
 
-**First: session context and input materials.** You already have these. Use them. For many phases, this alone is sufficient.
+**First: session context and input materials.** You already have these. Use them. Materials from `input/messaging/` carry the highest weight — voice, positioning, and narrative structure anchor the synthesis. For many phases, this alone is sufficient.
 
 **Second: previously written messaging docs.** Later phases build on earlier ones. Read what's been written before forming your synthesis.
 
@@ -206,7 +232,7 @@ When naming conventions emerge during research — product names, preferred term
 Map the competitive landscape. Who the company competes with, where it plays, and what makes it different.
 
 **Output:** `messaging/space.md`, `messaging/competitors/*.md`, `messaging/categories/*.md`
-**Key questions:** What category does the company compete in — or create? What are the primary competitors and how does the company beat each one? What positioning can no competitor claim?
+**Key questions:** What category does the company compete in or is creating? What are the primary competitors and how does the company beat each one? What positioning can no competitor claim?
 **Web research triggers:** Competitor websites and positioning if not covered in input materials. Analyst coverage for category framing.
 
 ### Phase 3: Audience
@@ -271,7 +297,7 @@ After all six phases:
      - [action]
    ```
 2. Delete the progress file.
-3. Invoke `/insights fix glossary` to generate the initial glossary from the populated messaging house. Present the proposed glossary for user approval before finalizing.
+3. Invoke `/investigate fix glossary` to generate the initial glossary from the populated messaging house. Present the proposed glossary for user approval before finalizing.
 
 ### Write Profile Block
 
@@ -316,3 +342,6 @@ Suggest running the tune command as the next step.
 - Sync the parent pillar's reference table after every phase — every collection doc gets a row, every row gets a doc.
 - Descriptions in reference tables are routing signals, not summaries. One sentence, ~15 words. Each must differentiate from sibling entries in the same table.
 - Collection profiles: `description` frontmatter matches its row in the parent pillar's reference table exactly.
+- Messaging Blocks carry all source material — pure messaging (prose/lists), routing context (key-value pairs), and operational detail (paired structures like objection/reframe). If an agent would draw from it, it belongs in Messaging Blocks. If an agent would follow it as an instruction, it belongs in Writing Guidelines.
+- Writing Guidelines: 3-5 bullets max per doc. Keep to interpretation rules that affect how agents use the content. Cut anything self-evident from the doc structure.
+- Messaging Rules: 3-5 bullets max per doc. Only encode company-specific constraints not derivable from the messaging content itself.

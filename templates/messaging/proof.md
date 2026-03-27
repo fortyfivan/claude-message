@@ -85,17 +85,16 @@ For each pattern:
 ## Writing Guidelines
 
 - Evidence basis matters — proven metrics can be stated as fact; projected metrics must be hedged ("customers typically see" or "expected to reduce")
-- Match proof type to journey stage — trends and insights for awareness, stories and metrics for consideration, ROI and analyst validation for decision
-- Match proof type to persona — executives respond to business metrics and analyst validation; practitioners respond to technical benchmarks and peer evidence
-- Increase proof density as the buyer journey progresses — early content can make a single proof reference; late-stage content should layer multiple proof types
-- Company stage constrains proof expectations — emerging companies should not be held to the proof standards of established companies. Acknowledge gaps honestly rather than overclaiming
-- Prefer specificity over logos — "reduced MTTR from 45 days to 72 hours" beats "trusted by Fortune 500 companies"
+- Match proof type to journey stage and persona — earlier stages need trends and insights, later stages need metrics and validation; executives respond to business outcomes, practitioners to technical benchmarks
+- Company stage constrains proof expectations — don't overclaim beyond what the company can demonstrate
 - Customer evidence beats analyst validation — when both are available, lead with the customer story
-- Story profiles are the primary proof source for content generation — quotes embedded in stories are preferred over paraphrasing from the pillar summaries
+- Story profiles are the primary proof source for content generation — prefer embedded quotes over paraphrasing from the pillar summaries
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

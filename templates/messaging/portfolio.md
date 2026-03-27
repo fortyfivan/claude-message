@@ -1,7 +1,5 @@
 ---
 title: ""
-portfolio_structure: ""  # platform | product-suite | single-product | product-and-services
-pricing_model: ""     # freemium | per-seat | platform | usage | contact-sales
 updated: ""
 ---
 
@@ -69,20 +67,17 @@ Document repeatable, outcome-oriented solutions. Solutions may span multiple pro
 
 ## Writing Guidelines
 
-- Portfolio defines altitude — use it to speak broadly about the offering when product specifics aren't needed
-- Products define scope — introduce them only when specificity is required by the persona, scenario, or skill
-- Solutions define application — they are the preferred entry point for outcome-led messaging
 - Default to solution-level or portfolio-level messaging — drop to product level only when the content requires specific capabilities, architecture, or differentiation
-- For platform + module architectures, always reference the parent platform when messaging a module — the module's value is contextual to the platform it extends
-- Pricing model informs CTA — freemium products lead with self-serve activation ("try it free"), platform-priced products lead with sales engagement ("request a demo"), per-seat products lead with team evaluation ("start a trial for your team")
 - Capabilities justify value — use them to explain why outcomes are achievable, not as standalone claims
-- Technical details support credibility — include them selectively, after establishing value
-- Avoid long feature lists — introduce capabilities sparingly when they're additive to a value-led narrative
+- Pricing model informs CTA — freemium products lead with self-serve activation, platform-priced products lead with sales engagement, per-seat products lead with team evaluation
+- For platform + module architectures, always reference the parent platform when messaging a module — the module's value is contextual to the platform it extends
 - Prefer buyer outcomes and use cases over product mechanics
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

@@ -2,10 +2,6 @@
 title: ""
 description: ""
 type: ""  # industry | size | region | maturity
-defining_trait: ""
-verticals: []
-regions: []
-company_size: ""
 updated: ""
 ---
 
@@ -26,7 +22,12 @@ Define conditions specific to this segment that materially affect messaging. The
 - If you can't articulate what's different from the ICP baseline, this segment may not need its own profile]
 
 [Format:
-- [characteristic specific to this segment]]
+- **Defining trait:** [the single characteristic that most differentiates this segment]
+- **Verticals:** [industries within this segment, if applicable]
+- **Regions:** [geographies, if applicable]
+- **Company size:** [size range, if applicable]
+
+- [additional characteristic specific to this segment]]
 
 ### Segment Behaviors
 

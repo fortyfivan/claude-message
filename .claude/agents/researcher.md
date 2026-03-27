@@ -10,10 +10,10 @@ This agent is a focused research execution engine. It reads the messaging system
 
 | Mode | Trigger | Output |
 |---|---|---|
-| Standalone | Invoked directly (e.g., "research what analysts say about our category") | Writes report to `research/[topic].md` |
-| Sub-agent | Dispatched by the insights workflow skill with scope parameters | Returns structured findings to the caller |
+| Standalone | Invoked directly (e.g., "research what analysts say about our category") | Writes report to `output/research/[topic].md` |
+| Sub-agent | Dispatched by the investigate workflow skill with scope parameters | Returns structured findings to the caller |
 
-In standalone mode, the agent writes a research report. In sub-agent mode, it performs the same research steps but does not write output — the insights skill handles findings files, tracker, and journal.
+In standalone mode, the agent writes a research report. In sub-agent mode, it performs the same research steps but does not write output — the investigate skill handles findings files, tracker, and journal.
 
 ## Research Process
 
@@ -23,7 +23,7 @@ Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/a
 
 For targeted research: also load the specific collection profile(s) matching the focus entity.
 
-When dispatched as a sub-agent, the insights skill may pass open insights context. Use this to avoid surfacing duplicate findings.
+When dispatched as a sub-agent, the investigate skill may pass open insights context. Use this to avoid surfacing duplicate findings.
 
 ### Step 2: Search external sources.
 
@@ -42,7 +42,7 @@ Queries are derived from the messaging system, not generic. Use specific company
 
 For targeted research: narrow searches to the focus entity and its relevant domains. A competitor investigation focuses on competitive moves and technology landscape. A persona investigation focuses on audience signals. A motion investigation focuses on GTM & channel signals and competitive GTM shifts.
 
-When dispatched as a sub-agent, the insights skill specifies which domains to search. Only search the provided domains.
+When dispatched as a sub-agent, the investigate skill specifies which domains to search. Only search the provided domains.
 
 ### Step 3: Read MCP sources (if available).
 
@@ -81,7 +81,7 @@ Each finding gets a severity (critical, warning, opportunity, confirmation) and 
 
 ### Standalone mode
 
-Write a research report to `research/[topic].md` with:
+Write a research report to `output/research/[topic].md` with:
 
 ```yaml
 ---
@@ -101,7 +101,7 @@ No tracker interaction. No journal logging.
 
 ### Sub-agent mode
 
-Return structured findings to the insights skill. Each finding includes:
+Return structured findings to the investigate skill. Each finding includes:
 - One-line summary
 - Severity (critical, warning, opportunity, confirmation)
 - Type (competitive, market, audience, portfolio, proof, motion, internal)
@@ -109,12 +109,12 @@ Return structured findings to the insights skill. Each finding includes:
 - Specific messaging impact description
 - Sources
 
-Do not write files in sub-agent mode — the insights skill handles all output.
+Do not write files in sub-agent mode — the investigate skill handles all output.
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `research/`
-- **Write** — `research/` only (standalone mode)
+- **Read** — `messaging/`, `output/research/`
+- **Write** — `output/research/` only (standalone mode)
 - **WebSearch, WebFetch** — Unrestricted
 - **Glob, Grep** — Full access
 - **MCP tools** — All configured servers, read-only

@@ -37,7 +37,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Market Perspective | Category dynamics, trends, competitive landscape          | space.md, categories/[name].md        |
 | Evidence           | Customer stories, metrics, analyst recognition            | proof.md, stories/[name].md           |
 | Product Context    | Capabilities, architecture, use cases                     | products/[name].md, solutions/[name].md |
-| Terminology        | Controlled vocabulary, naming conventions                 | glossary.md, profile.md               |
+| Terminology        | Glossary terms, naming conventions                        | glossary.md, profile.md               |
 
 ## Paper Writing Principles
 

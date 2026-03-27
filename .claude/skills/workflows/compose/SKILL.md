@@ -35,7 +35,7 @@ Load the always-load pillars (profile.md, space.md, glossary.md).
 
 - Read the template from `templates/messaging/[type].md` to understand the schema and sections to populate.
 - Check `messaging/[collection]/` for an existing file if updating.
-- Check `input/` and `research/` for existing material relevant to this document.
+- Check all `input/` subdirectories (`input/messaging/`, `input/docs/`, `input/research/`, `input/transcripts/`, `input/examples/`) and the `input/` root for existing material relevant to this document. Prioritize `input/messaging/` for positioning context. Also check `output/research/` for agent-generated reports.
 
 ### Step 2: Research
 
@@ -86,7 +86,7 @@ After user approval:
 1. **Write or update the file(s).** Follow the template schema. Populate YAML frontmatter and all markdown sections.
 2. **Set `updated` to today's date** (ISO format) in frontmatter.
 3. **Update the parent pillar reference table.** Ensure the corresponding row exists with a Description column entry (~15 words) that differentiates from sibling entries. The profile's frontmatter `description` and the table Description must match — if updating one, update both.
-4. **Note glossary impact.** If new terms were introduced or existing terms retired, note: "Glossary may need updating — run `/insights fix glossary` to sync."
+4. **Note glossary impact.** If new terms were introduced or existing terms retired, note: "Glossary may need updating — run `/investigate fix glossary` to sync."
 5. **Confirm each file** with a one-line summary: `Created messaging/competitors/acme-corp.md — Primary competitor, enterprise security platform`
 
 ## Pillar Updates
@@ -115,8 +115,8 @@ Bootstrap builds the full messaging system from scratch in 7 ordered phases. Com
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `templates/messaging/`, `input/`, `research/`, `insights/`
-- **Write, Edit** — `messaging/` (user confirmation required), `research/` (autonomous)
+- **Read** — `messaging/`, `templates/messaging/`, `input/`, `output/research/`, `insights/`
+- **Write, Edit** — `messaging/` (user confirmation required), `output/research/` (autonomous)
 - **WebSearch, WebFetch** — Bounded by task (max 10 searches)
 - **Glob, Grep** — Full access
 - **AskUserQuestion** — Interactive composition workflow: presenting findings, proposing plans, collecting decisions

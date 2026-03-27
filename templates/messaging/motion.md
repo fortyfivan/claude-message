@@ -1,7 +1,5 @@
 ---
 title: ""
-primary_motion: ""  # sales-led | product-led | partner-led | community-led | event-led
-secondary_motions: []
 updated: ""
 ---
 
@@ -29,25 +27,6 @@ Describe the primary go-to-market approach — how the company acquires, convert
 
 1-2 paragraphs expanding on how these work together]
 
-### Channel Strategy
-
-[Instructions:
-Describe how messaging is distributed across channels. For each channel, define its role in the GTM motion, the content types that live there, the audience it reaches, and any constraints that affect content creation.]
-
-[Tips:
-- Distinguish between primary channels (where you invest most) and supporting channels
-- Constraints matter for the tune agent — LinkedIn has character limits and algorithmic preferences, email has deliverability considerations, blog has SEO requirements
-- Cadence helps the campaign agent plan — weekly blog, daily social, monthly webinar, etc.]
-
-[Format:
-For each channel:
-- **Channel:** [name]
-- **Role:** [primary | supporting | experimental]
-- **Audience:** [who you reach here]
-- **Content types:** [what lives on this channel]
-- **Cadence:** [frequency of publishing or engagement]
-- **Constraints:** [character limits, format requirements, algorithmic preferences, deliverability rules]]
-
 ### Plays
 
 Plays are reusable messaging narratives tied to specific buyer situations, competitive scenarios, or strategic initiatives. Each play explains when the motion applies, why it matters, and how value is created. When specific plays are related to your task, extract the respective profile in `messaging/plays/`.
@@ -69,13 +48,13 @@ Document plays as discrete profiles in `messaging/plays/[play-name].md`. The tab
 - Content depth follows motion — sales-led content tends longer and more comprehensive (the reader is evaluating), product-led content tends shorter and more action-oriented (get to the "try it" moment fast)
 - Plays are the most targeted form of messaging — load the relevant play profile when content is tied to a specific buyer scenario or competitive situation
 - Plays should not be loaded for broad awareness or thought leadership content — those should draw from Space and Profile, not motion-specific narratives
-- Channel constraints are hard rules — do not generate content that violates the character limits, format requirements, or deliverability rules defined in Channel Strategy
-- Campaign playbooks are starting points, not mandates — the campaign agent uses them as defaults but the user can customize the asset list and sequence
 - When motions conflict with persona preferences (e.g., a sales-led motion targeting a developer persona who prefers self-serve), defer to persona — adapt the CTA and engagement model to the audience while maintaining the motion's overall structure
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

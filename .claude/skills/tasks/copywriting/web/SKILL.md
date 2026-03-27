@@ -33,7 +33,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Product Detail     | Capabilities, use cases, architecture, differentiation   | portfolio.md, products/[name].md          |
 | Solution Context   | Use case, approach, components, value delivered          | solutions/[name].md                       |
 | Persona & Audience | Target reader, pain points, decision criteria, altitude  | audience.md, personas/[name].md           |
-| Voice & Naming     | Brand voice, product naming, controlled vocabulary       | profile.md, glossary.md                   |
+| Voice & Naming     | Brand voice, product naming, glossary terms              | profile.md, glossary.md                   |
 | Value Framework    | Propositions, differentiators, positioning               | space.md                                  |
 | Evidence           | Customer stories, quotes, metrics                        | proof.md, stories/[name].md               |
 | Pricing            | Pricing model, CTA implications                          | portfolio.md                              |

@@ -1,20 +1,20 @@
-# Insights Skill
+# Investigate Skill
 
 Unified intelligence and system health workflow. Consolidates external research, field feedback processing, system health validation, and insight lifecycle management into a single skill.
 
-Invoked via `/insights [mode]`.
+Invoked via `/investigate [mode]`.
 
 ## Modes
 
 | Mode | Invocation | Purpose |
 |---|---|---|
-| Scan | `/insights scan` | Broad investigation across all enabled domains |
-| Target | `/insights target [type] [name]` | Focused investigation of a specific entity |
-| Feedback | `/insights feedback [input]` or `--log` | Process field signals into messaging changes |
-| Review | `/insights review` or `/insights` | Tracker dashboard + health check summary |
-| Fix | `/insights fix [check]` | Health check remediation |
-| Report | `/insights report` | Full health report to output/ |
-| State mgmt | `/insights acknowledge/defer/resolve [ID]` | Direct insight state transitions |
+| Scan | `/investigate scan` | Broad investigation across all enabled domains |
+| Target | `/investigate target [type] [name]` | Focused investigation of a specific entity |
+| Feedback | `/investigate feedback [input]` or `--log` | Process field signals into messaging changes |
+| Review | `/investigate review` or `/investigate` | Tracker dashboard + health check summary |
+| Fix | `/investigate fix [check]` | Health check remediation |
+| Report | `/investigate report` | Full health report to output/ |
+| State mgmt | `/investigate acknowledge/defer/resolve [ID]` | Direct insight state transitions |
 
 ---
 
@@ -30,6 +30,21 @@ Broad investigation across all enabled domains.
 6. Update tracker: append new insights as `open`, update recurring insights with `last_seen`, auto-resolve stale insights.
 7. Log to journal if findings include messaging effectiveness learnings (see Journal Logging below).
 8. Present summary to user with key findings, tracker updates, and recommended actions.
+9. **Artifact drift summary.** If `artifacts/` exists, check each artifact for drift:
+   - Read each `artifacts/[slug]/manifest.md` frontmatter (`title`, `format`, `version`, `last_updated`).
+   - For each manifest, compare dependency `updated` dates against `last_updated`. An empty `last_updated` means "not yet produced."
+   - Append a summary table to the scan output:
+
+   ```
+   ## Artifact Drift
+
+   | Artifact | Version | Last Updated | Status |
+   |---|---|---|---|
+   | [title] | [version] | [date or "Never"] | [N dependencies changed / Current / Not yet produced] |
+   ```
+
+   - For artifacts with detected drift, note: "Run `/update [slug]` to review and apply changes."
+   - This is read-only — the scan does not modify artifacts or their manifests.
 
 ## Target Mode
 
@@ -167,7 +182,7 @@ Tracker management, health check summary, and insight state transitions.
 2. Run auto-resolution: for each `open` or `acknowledged` insight, compare the referenced messaging doc's `updated` field against the insight Date. If `updated > Date`, mark resolved with Resolution "auto-resolved: [doc] updated [date]."
 3. Run all 7 health checks (see Health Checks below). Collect findings.
 4. Present dashboard:
-   - Source breakdown: count open insights by source prefix (e.g., `insights:scan: 3 open | insights:health: 5 open | insights:feedback: 1 open`)
+   - Source breakdown: count open insights by source prefix (e.g., `investigate:scan: 3 open | investigate:health: 5 open | investigate:feedback: 1 open`)
    - Counts by status (open, acknowledged, deferred, resolved)
    - Recent open insights (last 30 days)
    - Stale deferrals (deferred 30+ days with no messaging doc update)
@@ -181,9 +196,9 @@ Single insight state transition without the full review flow:
 
 | Command | Action |
 |---|---|
-| `/insights acknowledge [ID]` | Move insight from open to acknowledged |
-| `/insights defer [ID]` | Move insight to deferred |
-| `/insights resolve [ID]` | Move insight to resolved |
+| `/investigate acknowledge [ID]` | Move insight from open to acknowledged |
+| `/investigate defer [ID]` | Move insight to deferred |
+| `/investigate resolve [ID]` | Move insight to resolved |
 
 Read the tracker, find the insight by ID, update its Status, Resolved Date (if resolving), and Resolution. Write the updated tracker.
 
@@ -191,7 +206,7 @@ Read the tracker, find the insight by ID, update its Status, Resolved Date (if r
 
 ## Health Checks
 
-Seven checks validate messaging system integrity. Run automatically during Review mode, or standalone via `/insights fix [check]` and `/insights report`.
+Seven checks validate messaging system integrity. Run automatically during Review mode, or standalone via `/investigate fix [check]` and `/investigate report`.
 
 ### Reading the Messaging House
 
@@ -248,8 +263,8 @@ Validate cross-references between documents:
 
 Validate structural compliance:
 
-- **Required frontmatter.** All required fields from the template are present. Severity: warning if missing.
-- **Enum validation.** Fields with constrained values use valid options (e.g., `stage: emerging|growth|established`, `type: buyer|user|champion|blocker`, persona `altitude`, story `status`). Severity: critical if invalid.
+- **Required frontmatter.** All required fields from the template are present. Templates define the minimal set — identity, freshness, routing filters, and relationship arrays. Severity: warning if missing.
+- **Enum validation.** Fields with constrained values — in frontmatter or body format lines — use valid options (e.g., `stage: emerging|growth|established`, `type: buyer|user|champion|blocker`, story `status`, category `maturity`/`trajectory`, solution `scope`/`theme`). Severity: critical if invalid.
 - **Updated field.** `updated` field is present and contains a valid ISO date (YYYY-MM-DD). Severity: warning if missing or invalid.
 - **Filename convention.** All files in `messaging/` follow kebab-case naming. Severity: warning if non-kebab.
 - **Array fields.** Fields that should be arrays (per template) are arrays, not strings. Severity: warning if wrong type.
@@ -274,9 +289,8 @@ Validates terminology health and, in fix mode, proposes and writes glossary upda
 - **Stale entries.** Glossary terms that no longer appear in the messaging house or whose usage has shifted significantly. Severity: info.
 - **Definition drift.** Glossary definitions that no longer match how terms are used in current messaging docs. Severity: warning.
 - **Terminology conflicts.** Same concept referred to by different terms in different docs, or same term used with different meanings. Severity: critical.
-- **Naming alignment.** Check that glossary entries align with the Controlled Vocabulary section in `messaging/glossary.md`. The Controlled Vocabulary governs word choice; the Terminology section defines meaning. They should not contradict. Severity: warning if misaligned.
 
-**Fix mode (`/insights fix glossary`):**
+**Fix mode (`/investigate fix glossary`):**
 
 When fix is active, after running the diagnostic, perform full glossary maintenance:
 
@@ -309,7 +323,7 @@ When fix is active, after running the diagnostic, perform full glossary maintena
 
 **Selection Criteria**
 
-- **Include:** Terms and phrases unique to the company's messaging — coined terms, proprietary concepts, company-specific definitions that differ from standard industry usage, and terms from the Controlled Vocabulary table that benefit from a definitional companion.
+- **Include:** Terms and phrases unique to the company's messaging — coined terms, proprietary concepts, and company-specific definitions that differ from standard industry usage.
 - **Exclude:** Standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in space.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms, messaging system structural terms (section headers, framework labels, template instructions — e.g., "Walk Away Feeling," "Theme Pillars," "Messaging Blocks," "Value Messages," "Key Differentiators," "Positioning Statement," "Internal Selling," "Primary Goal," "Best Proof"), generic marketing and sales concepts that carry no company-specific meaning (e.g., "value proposition," "use case," "differentiation," "go-to-market," "buying committee").
 - **Litmus test:** Would a new writer joining the team encounter this term in customer-facing content and need to understand the company's specific definition to use it correctly?
 - **Target range:** 15-40 well-defined terms for most companies. More than 50 suggests standard terms are being included.
@@ -320,7 +334,6 @@ When fix is active, after running the diagnostic, perform full glossary maintena
 - Definitions are 1-3 sentences. Longer definitions suggest the term needs its own messaging section.
 - Write in present tense, declarative voice. "[Term] is..." not "[Term] refers to..."
 - Ground in the company's context. "[Term] is [Company]'s approach to..." not "[Term] is an industry practice that..."
-- Do not duplicate Controlled Vocabulary entries — the Controlled Vocabulary table governs word choice (always use / never use), while the Terminology table provides definitions. They serve different purposes within the same glossary document.
 - Entries sorted alphabetically. Each entry follows the standard format: definition, context, see also.
 
 **Conflict Resolution**
@@ -354,7 +367,7 @@ Note: All journal check findings use info severity except ungraduated patterns. 
 
 ## Fix Mode
 
-Standalone remediation via `/insights fix [check]`. Runs the named check(s) and categorizes findings.
+Standalone remediation via `/investigate fix [check]`. Runs the named check(s) and categorizes findings.
 
 **Fixable (with user approval):**
 - Add missing pillar table rows for existing collection files
@@ -383,7 +396,7 @@ The user can approve all, approve selectively, or skip. Write only after approva
 
 ## Report Mode
 
-Full health report via `/insights report`. Runs all 7 checks and writes results to `output/health-report.md`.
+Full health report via `/investigate report`. Runs all 7 checks and writes results to `output/health-report.md`.
 
 Format:
 
@@ -434,7 +447,7 @@ After any health check run, write trackable insights for findings that require h
 
 4. **Append rows.** For each qualifying finding, add a tracker row:
    ```
-   | INS-[NNN] | [YYYY-MM-DD] | [insights:health or insights:fix] | [severity] | [one-line finding] | [messaging doc path] | open | | |
+   | INS-[NNN] | [YYYY-MM-DD] | [investigate:health or investigate:fix] | [severity] | [one-line finding] | [messaging doc path] | open | | |
    ```
 
 5. **Write findings file.** Create `insights/findings/health-YYYY-MM-DD.md` with frontmatter:
@@ -442,7 +455,7 @@ After any health check run, write trackable insights for findings that require h
    ```yaml
    ---
    title: "Health: YYYY-MM-DD"
-   source: insights:health
+   source: investigate:health
    date: YYYY-MM-DD
    checks_run: [gap, relationship, schema, freshness, glossary, profile, journal]
    insights_created: N
@@ -465,7 +478,7 @@ Sequential IDs: `INS-001`, `INS-002`, etc. Read `insights/tracker.md` to find th
 ### Row Format
 
 ```
-| INS-[NNN] | [YYYY-MM-DD] | [insights:scan or insights:targeted or insights:health or insights:feedback] | [severity] | [one-line finding] | [messaging doc path] | open | | |
+| INS-[NNN] | [YYYY-MM-DD] | [investigate:scan or investigate:targeted or investigate:health or investigate:feedback] | [severity] | [one-line finding] | [messaging doc path] | open | | |
 ```
 
 ### Auto-Resolution
@@ -492,7 +505,7 @@ All findings use the same structure regardless of scope:
 ```yaml
 ---
 title: "Scan: 2026-03-10"  # or "Investigation: Competitor Acme Corp" or "Health: 2026-03-10"
-source: insights:scan  # or insights:targeted, insights:health, insights:feedback
+source: investigate:scan  # or investigate:targeted, investigate:health, investigate:feedback
 scope: broad  # or "competitor acme-corp" or "health:gap,relationship"
 date: 2026-03-10
 domains_searched: [competitive, market, audience, proof, technology, gtm]

@@ -1,9 +1,5 @@
 ---
 title: ""
-icp_industries: []
-icp_company_size: ""
-icp_geography: []
-icp_signals: []
 updated: ""
 ---
 
@@ -26,6 +22,11 @@ Define the structural traits that make a company a strong fit right now — cond
 - Mark each trait as Required or Preferred]
 
 [Format:
+- **Industries:** [target verticals]
+- **Company size:** [employee count, revenue range, or tier]
+- **Geography:** [target regions]
+- **Signals:** [observable indicators of ICP fit]
+
 **Required**
 - [trait]
 - [trait]
@@ -166,23 +167,17 @@ List segments that carry particular messaging considerations. Only create segmen
 
 ## Writing Guidelines
 
-- ICP defines eligibility — if ICP conditions are not met, assume no fit, urgency, or budget
-- Validate ICP fit before refining to specific segments and personas
-- Do not invent personas or segments beyond those defined
-- Required characteristics are hard filters — missing required traits should have a corresponding Disqualifying Condition
-- Negative behavioral signals indicate bad timing, not bad fit — treat them as temporal disqualifiers
-- Environment context grounds messaging in operational reality — it changes how you talk about value, not the value itself
-- Maturity level adjusts messaging angle and urgency framing — it does not change the fundamental value proposition
+- ICP defines eligibility — validate fit before refining to specific segments and personas
+- Personas influence tone and emphasis, not positioning — positioning comes from Space
 - Customer journey stages determine proof type and emotional register — earlier stages require framing and insight, later stages require confidence and validation
-- Walk Away Feeling is the primary success metric for stage-specific content — if the reader doesn't feel the intended shift, the content hasn't done its job
-- Use ICP signals to determine whether urgency is inferred or needs to be established
-- Personas influence tone, direction, and value emphasis — not positioning. Positioning comes from Space
 - Segments adapt context and emphasis, not redefine value propositions — segment adjustments layer on top of persona messaging
-- Buying committee patterns inform multi-persona campaign sequencing — target personas in the order and through the influence chain documented above
+- Do not invent personas or segments beyond those defined
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

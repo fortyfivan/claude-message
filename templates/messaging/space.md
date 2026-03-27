@@ -1,7 +1,5 @@
 ---
 title: ""
-primary_category: ""
-adjacent_categories: []
 updated: ""
 ---
 
@@ -109,18 +107,16 @@ List the alternatives customers evaluate instead of choosing you. This includes 
 ## Writing Guidelines
 
 - The positioning statement is authoritative but not meant to be used as explicit copy — it's the internal anchor that external messaging derives from
-- Use Market Landscape to establish relevance and urgency — it provides the "why now" for top-of-funnel content
-- Use Categories in Play to stay accurate and relevant to specific category contexts
-- Use Competitive Landscape to frame contrast and trade-offs — never mention competitors by name in non-competitive content unless the skill explicitly calls for it
-- Introduce product capabilities to support a key differentiator, not as standalone claims
+- Never mention competitors by name in non-competitive content unless the skill explicitly calls for it
 - Every differentiator must be backed by evidence — claims without proof erode trust and violate the company's stage constraints defined in Profile
-- Tailwind trends reinforce urgency and relevance — use them in awareness and thought leadership content
-- Headwind trends require honest acknowledgment — ignoring them creates vulnerability in competitive and evaluation-stage content
 - When positioning conflicts with proof, defer to proof — do not make claims that exceed what the company can demonstrate
+- Tailwind trends reinforce urgency; headwind trends require honest acknowledgment — ignoring headwinds creates vulnerability in competitive and evaluation-stage content
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

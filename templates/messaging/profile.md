@@ -1,14 +1,8 @@
 ---
 title: ""
-tagline: ""
-founded: ""
-headquarters: ""
-company_size: ""
-funding_stage: ""
 stage: ""  # emerging | growth | established
 type: ""   # B2B | B2C | B2B2C | services
 market: "" # security | developer-tools | data-ai | business-software
-website: ""
 updated: ""
 ---
 
@@ -29,7 +23,14 @@ Document the core facts about the company that inform messaging — type of busi
 - Skip corporate facts (fundraising, investors, founding date) unless they directly inform positioning]
 
 [Format:
-Bulleted list of facts]
+- **Tagline:** [one-liner company description]
+- **Website:** [public-facing URL]
+- **Founded:** [year]
+- **Headquarters:** [location]
+- **Company size:** [employee count or range]
+- **Funding stage:** [bootstrapped | seed | series-A | series-B | growth | public]
+
+Bulleted list of additional facts]
 
 ### Mission
 
@@ -250,29 +251,17 @@ Describe the company as it should appear in marketplace listings or partner cata
 
 ## Writing Guidelines
 
-- Use Company Overview when company facts are required — it's a fact sheet, not a narrative
-- Use Boilerplate Statement for formal or press-style introductions
-- Use Marketplace Statement for listings, catalogs, and partner directories
-- Use Vision to shape aspirational framing, narrative arc, and industry-level language
-- Use Mission to ground claims in practicality and credibility
-- Do not restate Vision or Mission verbatim unless explicitly instructed
-- When in tension with other messaging elements, Vision and Mission set direction, not details
-- Do not repeat the full strategic narrative unless explicitly instructed — preserve the narrative logic, not the exact language
-- Maintain the narrative flow from market perspective (Scenario → Status Quo) to company perspective (Smart Insight → Proof of Value) to buyer perspective (Reason to Believe → Step to Action)
-- Value propositions are durable messaging pillars — anchor benefits and outcomes to the closest matching proposition
-- Introduce product capabilities to support a value proposition, not as standalone claims
 - Brand Voice preferences (Tone, Theme Pillars, Tips & Tricks, Tropes to Avoid) are always-on unless explicitly overridden by a skill
-- Glossary terms override all other word-choice guidance — if a term is defined in `messaging/glossary.md`, use it exactly as defined
-- Tropes to Avoid takes precedence over all other stylistic guidance
-- Do not introduce stylistic elements that conflict with defined Tone or Theme Pillars
 - Stage (emerging | growth | established) calibrates proof burden and positioning boldness — do not make claims that exceed the company's stage
-- Calibration Patterns with status "confirmed" are soft guidance during content generation — follow them unless they conflict with authored Brand Voice sections
-- Calibration Patterns with status "observed" are informational only — do not enforce them
-- When in doubt, favor clarity, precision, and restraint — let insight and structure carry the message, not stylistic flair
+- Value propositions are durable messaging pillars — anchor benefits and outcomes to the closest matching proposition
+- Do not repeat the full strategic narrative unless explicitly instructed — preserve the narrative logic, not the exact language
+- Glossary terms override all other word-choice guidance — if a term is defined in `messaging/glossary.md`, use it exactly as defined
 
 ## Messaging Rules
 
 [Instructions:
 This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+
+Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
 
 Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]

@@ -35,7 +35,7 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Persona & Audience    | Pain points, goals, objections, decision criteria, altitude | personas/[name].md, audience.md          |
 | Plays & Motions       | Trigger conditions, play narratives, campaign structure   | plays/[name].md, motions.md              |
 | Value Framework       | Propositions, differentiators, product capabilities       | profile.md, space.md, products/[name].md |
-| Voice & Terminology   | Brand voice, naming conventions, controlled vocabulary    | profile.md, glossary.md                  |
+| Voice & Terminology   | Brand voice, naming conventions, glossary terms           | profile.md, glossary.md                  |
 | Evidence              | Customer stories, quotes, metrics, analyst recognition    | proof.md, stories/[name].md             |
 | Solutions             | Use cases, outcomes, components                           | solutions/[name].md, portfolio.md        |
 

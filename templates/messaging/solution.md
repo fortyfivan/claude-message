@@ -1,8 +1,6 @@
 ---
 title: ""
 description: ""
-scope: ""  # organizational | department | team | cross-functional | individual
-theme: ""  # efficiency | savings | growth | compliance | replacement | consolidation
 products: []
 updated: ""
 ---
@@ -23,6 +21,8 @@ Establish the problem this solution addresses and the primary outcome it deliver
 - Primary Outcome should be something a customer could verify after deployment — "reduced mean time to remediation from 45 days to under 72 hours" not "improved security posture"]
 
 [Format:
+- **Scope:** [organizational | department | team | cross-functional | individual]
+- **Theme:** [efficiency | savings | growth | compliance | replacement | consolidation]
 - **Problem Space:** [the specific operational or business challenge this addresses]
 - **Primary Outcome:** [the measurable result customers achieve]]
 

@@ -4,8 +4,6 @@ description: ""
 type: ""  # platform | product | module | add-on | service
 parent: ""  # slug of parent product, if module or add-on (optional)
 status: ""  # ga | beta | planned | deprecated
-category: ""  # primary market category slug
-pricing_model: ""  # per-product model if different from portfolio default (optional)
 updated: ""
 ---
 
@@ -27,6 +25,7 @@ Establish the essential identity of this product — what it is in one sentence,
 [Format:
 - **Tagline:** [one-liner description]
 - **Category:** [market category it fits]
+- **Pricing model:** [per-product model if different from portfolio default — freemium | per-seat | platform | usage | contact-sales]
 - **Web:** [public-facing product page]
 - **Docs:** [public-facing documentation]]
 

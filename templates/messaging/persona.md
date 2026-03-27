@@ -1,12 +1,9 @@
 ---
 title: ""
 description: ""
-role: ""
 type: ""  # buyer | user | champion | blocker
 seniority: ""  # executive | director | manager | practitioner | developer
-department: ""
 priority: ""  # primary | secondary | tertiary
-product_role: ""  # owner | administrator | end-user | observer
 updated: ""
 ---
 
@@ -26,6 +23,8 @@ Define who this person is in the organization and in the buying process. Job tit
 - Responsibilities should map to pain points — if a responsibility doesn't connect to a challenge your solution addresses, it's noise]
 
 [Format:
+- **Department:** [functional area — e.g., Security, Engineering, IT Operations]
+
 **Job Titles**
 [Relevant title variants]
 

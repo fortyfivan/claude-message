@@ -1,8 +1,6 @@
 ---
 title: ""
 description: ""
-maturity: ""  # emerging | growing | peak | declining | established
-trajectory: ""  # expanding | consolidating | fragmenting | being-redefined
 related_categories: []
 updated: ""
 ---
@@ -25,12 +23,14 @@ Provide the industry-standard definition of this category and its source. If ana
 [Format:
 - **Definition:** [what this category means]
 - **Source:** [who defines it — analyst firm, industry convention, or company-defined]
+- **Maturity:** [emerging | growing | peak | declining | established]
+- **Trajectory:** [expanding | consolidating | fragmenting | being-redefined]
 - **Our definition differs:** (optional) [how and why]]
 
 ### Category Narrative
 
 [Instructions:
-What's happening in this category right now — how it's defined, who the players are, where it's headed, and why that matters to the company's positioning. This is the category's own momentum, distinct from how the company positions within it. The frontmatter `trajectory` field captures the direction as an enum; this section provides the story behind it.]
+What's happening in this category right now — how it's defined, who the players are, where it's headed, and why that matters to the company's positioning. This is the category's own momentum, distinct from how the company positions within it. The maturity and trajectory fields in the Definition section capture the direction; this section provides the story behind it.]
 
 [Tips:
 - Include the forces driving the trajectory — technology shifts, buyer behavior changes, regulatory pressure, vendor consolidation

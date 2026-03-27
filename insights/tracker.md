@@ -5,12 +5,6 @@ updated: 2026-03-06
 
 ## Lifecycle
 
-```
-open -> acknowledged -> resolved
-         |
-       deferred
-```
-
 **open** — New insight from a scan, health check, or logged signal. Not yet reviewed.
 **acknowledged** — Reviewed and accepted as relevant. Action pending.
 **deferred** — Relevant but not actionable now. Will resurface on next review.
@@ -28,9 +22,7 @@ Source uses `[agent]:[mode]` format to identify the contributing agent and its o
 
 | Agent | Source values |
 |---|---|
-| investigate | `investigate:scan`, `investigate:targeted` |
-| health | `health:check`, `health:fix` |
-| feedback | `feedback:signal`, `feedback:log` |
+| investigate | `investigate:scan`, `investigate:targeted`, `investigate:health`, `investigate:fix`, `investigate:feedback`, `investigate:log` |
 
 ## Severity Scale
 

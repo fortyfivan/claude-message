@@ -56,30 +56,37 @@ If no brief exists, proceed to Phase 1.
 
 ### Read Input Materials
 
-Read every file in `input/`. Look for files relevant to this launch — files tagged with the launch name (e.g., `prd-[launch-name].pdf`) or general product materials (`prd-`, `release-notes-`, `npi-`, `pricing-`, `brief-`).
+Scan all `input/` subdirectories and the root for files relevant to this launch. Check `input/docs/` first — launch materials (PRDs, release notes, specs, pricing) are most likely there. Then scan remaining subdirectories in priority order: `input/messaging/`, `input/research/`, `input/transcripts/`, `input/examples/`, and the `input/` root.
+
+Look for files tagged with the launch name using the workflow tag suffix (e.g., `prd-acme-v3--launch-acme-v3.pdf`) or general product materials matching relevant prefixes (`prd-`, `release-notes-`, `npi-`, `pricing-`, `brief-`).
 
 **If relevant files exist:** Report what you found and produce a coverage map:
 
 ```
-Found [N] files in input/ relevant to [launch-name]:
-  - [filename] — [what it covers]
-  - [filename] — [what it covers]
+Found [N] files relevant to [launch-name]:
+  input/docs/:
+    - prd-acme-v3--launch-acme-v3.pdf — Product requirements [what it covers]
+    - pricing-acme-v3.pdf — Packaging and pricing [what it covers]
+  input/messaging/:
+    - brand-guide--launch-acme-v3.pdf — Voice and positioning context
+  input/ (root):
+    - release-notes-q1.md — General release context
 
 Coverage: [what's well-covered]
-Gaps: [what's missing — e.g., no pricing info, no release notes]
+Gaps: [what's missing — e.g., no NPI docs, no beta feedback]
 ```
 
 Proceed to Phase 1. Use Launch Context Questions to fill gaps the input materials don't cover.
 
 **If no relevant files exist:** Tell the user what would help and give them a chance to add materials:
 
-> "No input materials found for this launch. The more context you provide, the less I need to ask. Good candidates — tag the filename so I know what it is:
-> - `prd-` — PRDs or feature specs
-> - `release-notes-` — Release notes or changelogs
-> - `npi-` — NPI or launch procedure docs
-> - `pricing-` — Pricing or packaging sheets
-> - `brief-` — Existing positioning drafts or one-pagers
-> - `research-` — Beta customer feedback
+> "No input materials found for this launch. The more context you provide, the less I need to ask. Organize files by type:
+> - `input/docs/` — PRDs, release notes, NPI docs, pricing sheets, feature specs
+> - `input/messaging/` — Existing positioning drafts or brand guides
+> - `input/research/` — Beta customer feedback, market research
+> - `input/transcripts/` — Customer interview notes, sales call logs
+>
+> Tag files for this launch with a workflow suffix: `prd-acme-v3--launch-acme-v3.pdf`. Files in the root `input/` folder also work with prefix tags. See `input/README.md` for the full naming guide.
 >
 > Add files to `input/` now, or proceed without — I'll gather what I need through questions."
 

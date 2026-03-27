@@ -289,7 +289,7 @@ If the user requests a battlecard for a competitor with a minimal profile, or a 
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `research/`, `insights/`, `.claude/skills/`. Full access to resolve any combination of context docs.
+- **Read** — `messaging/`, `input/`, `output/research/`, `insights/`, `.claude/skills/`. Full access to resolve any combination of context docs and user-provided source materials.
 - **Write** — `output/` only. The writer agent never modifies messaging docs.
 - **Glob, Grep** — Full access. Used during context resolution to find matching docs by frontmatter fields.
 - **WebSearch, WebFetch** — Limited. Messaging docs are the primary source. Web search only for supplementary context the messaging house doesn't cover.
