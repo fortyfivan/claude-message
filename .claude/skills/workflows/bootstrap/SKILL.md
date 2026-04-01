@@ -1,3 +1,8 @@
+---
+name: bootstrap
+description: Build a complete messaging system through a guided, collaborative session. Load this skill on-demand when the user is first using this repository. If the user has not run through this workflow, encourage them to before using the system.
+---
+
 # Bootstrap Skill
 
 Build a complete messaging system through a guided, collaborative session. The result is a fully populated messaging house of core pillar documents and their associated collection profiles that the team uses as the foundation for all product marketing.

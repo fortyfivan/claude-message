@@ -8,23 +8,35 @@ description: Produce finished deliverables from approved content. Routes to the 
 ## Instructions
 
 1. **Identify Production Type:** Determine which type applies from the content file's `schema` frontmatter field or from the user's request
-2. **Load Type Guide:** Read the corresponding file from `types/`
-3. **Load Brand Tokens:** Read `messaging/brand.yml` for design tokens
-4. **Load Asset Template:** Read the matching template from `templates/assets/`
-5. **Parse Content:** Validate the content file against the schema from `templates/schemas/`
+2. **Route to Track:** Check if a type guide exists in `types/` for this production type. If yes, use the **template track** (steps 3-5). If no, use the **model track** (skip to step 6).
+3. **Load Type Guide (template track):** Read the corresponding file from `types/`
+4. **Load Brand Tokens:** Read `messaging/brand.yml` for design tokens
+5. **Load Asset Template (template track):** Read the matching template from `templates/assets/` and validate the content file against the schema from `templates/schemas/`
 6. **Discover Platform Skills:** Check for available rendering skills using the discovery table below
-7. **Produce:** Follow the type guide's design conventions to assemble the deliverable
+7. **Produce:** Template track — follow the type guide's design conventions to assemble the deliverable. Model track — generate self-contained HTML directly from the content markdown + brand tokens.
 8. **Write Manifest:** Track provenance alongside the produced file
 
-## Production Type Guides
+## Production Type Guides (Template Track)
 
-After identifying the production type, load the corresponding guide:
+If a type guide exists for the production type, load it and follow the template track. These types have predefined templates and schemas:
 
 - **Datasheet:** See `types/datasheet.md`
 - **One-Pager:** See `types/one-pager.md`
 - **Executive Brief:** See `types/executive-brief.md`
 - **Slide Deck:** See `types/slide-deck.md`
 - **Battlecard:** See `types/battlecard.md`
+
+## Model-Driven Production
+
+When no type guide matches the production type, the model track activates. Instead of loading a predefined template, the producer generates a self-contained HTML deliverable directly from the content:
+
+1. Read the full content file (markdown with frontmatter)
+2. Load brand tokens from `messaging/brand.yml`
+3. Generate complete, self-contained HTML with inline CSS using brand token CSS custom properties
+4. Infer the appropriate layout for the asset type — clean, professional design suited to the content
+5. The output is fully self-contained with no external dependencies
+
+The model track extends production to any asset type — blog posts, emails, social content, enablement guides, or any other content the system generates. Predefined templates are optional accelerators, not requirements.
 
 ## Platform Skill Discovery
 
@@ -76,8 +88,8 @@ Write a manifest file alongside each produced deliverable:
 asset: "[asset-name]"
 type: "[production-type]"
 format: "[.html | .pdf | .pptx]"
-template: "[template-name]"
-template_version: "[version from template comment]"
+template: "[template-name] or model-generated"
+template_version: "[version from template comment] or n/a"
 brand_tokens: "messaging/brand.yml"
 brand_defaults_used: [list of tokens that used defaults]
 content_source: "[path to content file]"
@@ -92,6 +104,7 @@ status: "draft"
 
 - **Standalone production:** `output/assets/`
 - **Campaign production:** `output/campaigns/[campaign-name]/assets/`
+- **Launch production:** `output/launches/[launch-name]/assets/`
 
 ## Evaluation Criteria
 

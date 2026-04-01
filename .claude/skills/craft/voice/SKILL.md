@@ -1,6 +1,6 @@
 ---
 name: voice
-description: Writing rules for clean prose — eliminates AI patterns, enforces specificity and directness.
+description: Writing rules for clean prose — eliminates AI patterns, enforces specificity and directness. Invoked by the writer subagent when content is being generated. 
 ---
 
 # Voice Gate

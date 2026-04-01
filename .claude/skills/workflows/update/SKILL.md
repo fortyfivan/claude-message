@@ -1,77 +1,138 @@
+---
+name: update
+description: Manages the lifecycle of produced assets and artifacts. Invoked via command. Load if the user wants to edit, refresh, or update existing content — artifacts, campaign assets, launch assets, or standalone assets.
+---
+
 # Update Skill
 
-Detect drift in living artifacts, propose changes, get human approval, and version the result. This is a maintenance workflow — it handles everything after an artifact's initial production.
+Detect drift in produced assets, propose changes, get human approval, and refresh or version the result. This skill handles everything after an asset's initial production.
 
-Invoked via `/update [artifact-slug]`.
+Covers four asset locations:
+- **Artifacts** (`artifacts/[slug]/`) — Living, versioned assets with manifests, changelogs, and version archives.
+- **Campaign assets** (`output/campaigns/[folder]/`) — Briefs and per-asset content files produced by the campaign workflow.
+- **Launch assets** (`output/launches/[name]/`) — Briefs and per-asset content files produced by the launch workflow.
+- **Standalone assets** (`output/assets/`) — Individually produced content files.
+
+Invoked via `/update [target]`.
+
+```
+/update                                    — Unified drift discovery across all locations
+/update [slug]                             — Update a living artifact (backward compatible)
+/update campaign [folder]                  — Refresh drifted assets in a campaign
+/update campaign [folder] [asset-id]       — Refresh a single campaign asset
+/update launch [name]                      — Refresh drifted assets in a launch
+/update launch [name] [asset-id]           — Refresh a single launch asset
+/update asset [filename]                   — Refresh a standalone asset
+```
 
 ## How You Work
 
-Four phases with a hard approval gate between diff and update.
+Four phases with a hard approval gate between diff and refresh. Versioning (Phase 4) applies only to artifacts.
 
 ```
-Pre-flight → Diff → Approval (human gate) → Update → Version & Log
+Pre-flight → Diff → Approval (human gate) → Refresh/Update
+                                                    ↓
+                                            [Artifacts only] Version & Log
 ```
 
 ---
 
 ## Step 0: Pre-flight
 
-Resolve which artifact to update and verify it's ready for maintenance.
+Resolve what to update, verify it exists, and determine the asset type.
 
-**If a slug is provided:**
+### Routing
 
-1. Verify `artifacts/[slug]/manifest.md` exists. If not, inform the user: "No artifact found at `artifacts/[slug]/`. Check the slug or create the artifact directory with a manifest first."
-2. Read the manifest.
-3. Check if `artifacts/[slug]/current.[format]` exists. If not, inform the user: "This artifact hasn't been produced yet — `current.[format]` doesn't exist. Use the campaign or writer workflow to produce the initial version, then run `/update` to maintain it."
+1. Parse arguments for a type keyword (`campaign`, `launch`, `asset`) and target identifier.
+2. **No arguments** → unified discovery (scan all four locations).
+3. **Bare slug** (no type keyword) → check `artifacts/[slug]/manifest.md`. If found, route to the artifact flow. If not, inform the user: "No artifact found at `artifacts/[slug]/`. Check the slug or use a type keyword (`campaign`, `launch`, `asset`)."
+4. **`campaign [folder]`** → verify `output/campaigns/[folder]/brief.md` exists. If not, inform the user.
+5. **`campaign [folder] [asset-id]`** → verify the brief exists and the asset file `output/campaigns/[folder]/[asset-id].md` exists.
+6. **`launch [name]`** → verify `output/launches/[name]/brief.md` exists. If not, inform the user.
+7. **`launch [name] [asset-id]`** → verify the brief exists and the asset file exists.
+8. **`asset [filename]`** → verify the file exists in `output/assets/`. Check for frontmatter with `messaging_docs_loaded`.
 
-**If no slug is provided:**
+### Unified Discovery (no arguments)
 
-1. Scan `artifacts/` for subdirectories containing `manifest.md`.
-2. For each artifact, read the manifest frontmatter (`title`, `slug`, `format`, `version`, `last_updated`).
-3. Run a lightweight drift check: compare each dependency's `updated` frontmatter field against the manifest's `last_updated`. Flag any where `updated > last_updated` or where `last_updated` is empty.
-4. Present an artifact overview table:
+Scan all four locations and present a grouped drift overview.
+
+**1. Artifacts.** Scan `artifacts/` for subdirectories containing `manifest.md`. For each, read manifest frontmatter (`title`, `slug`, `format`, `version`, `last_updated`). Run a lightweight drift check: compare each dependency's `updated` field against `last_updated`. Flag any where `updated > last_updated` or where `last_updated` is empty.
+
+**2. Campaigns.** Scan `output/campaigns/` for subdirectories containing `brief.md`. For each, read brief frontmatter (`campaign_name`, `created`, `status`). Skip campaigns with `status: in-progress` — they're still being initially produced. Extract `messaging_docs_loaded` from `shared_context`. Compare each doc's `updated` field against the brief's `created` date. Count drifted docs and affected assets.
+
+**3. Launches.** Same as campaigns but in `output/launches/`. Read brief frontmatter (`launch_name`, `created`, `status`). Skip `status: in-progress`.
+
+**4. Standalone assets.** Scan `output/assets/` for `.md` files with `messaging_docs_loaded` in frontmatter. For each, compare doc `updated` fields against the asset's `generated` date.
+
+Present the unified overview:
 
 ```
-Living Artifacts
+Produced Asset Drift Status
 
-| Artifact | Format | Version | Last Updated | Drift Status |
+ARTIFACTS
+
+| Artifact | Format | Version | Last Updated | Drift |
 |---|---|---|---|---|
-| [title] | [format] | [version] | [date or "Never"] | [N changes detected / No drift / Not yet produced] |
+| [title] | [format] | [version] | [date or "Never"] | [N dependencies changed / No drift / Not yet produced] |
+
+CAMPAIGNS
+
+| Campaign | Created | Assets | Drift |
+|---|---|---|---|
+| [folder] | [date] | [count] | [N assets affected (M messaging docs changed) / No drift] |
+
+LAUNCHES
+
+| Launch | Created | Assets | Drift |
+|---|---|---|---|
+| [name] | [date] | [count] | [N assets affected (M messaging docs changed) / No drift] |
+
+STANDALONE ASSETS
+
+| Asset | Type | Generated | Drift |
+|---|---|---|---|
+| [filename] | [skill] | [date] | [N messaging docs changed / No drift] |
 ```
 
-5. Use AskUserQuestion to ask which artifact to update.
-6. After selection, check for `current.[format]` as above.
+Omit any section where the directory doesn't exist or contains no assets. Use AskUserQuestion to ask which item to update.
+
+### Artifact Pre-flight (after routing)
+
+1. Read the manifest.
+2. Check if `artifacts/[slug]/current.[format]` exists. If not, inform the user: "This artifact hasn't been produced yet — `current.[format]` doesn't exist. Use the campaign or writer workflow to produce the initial version, then run `/update` to maintain it."
 
 ---
 
 ## Phase 1: Diff
 
-Identify what has changed upstream since the artifact was last updated.
+Identify what has changed upstream since the asset was last produced or updated. The core operation is the same across types: compare the `updated` field of each referenced messaging doc against the asset's baseline date. The output format differs by type.
 
-### Read Dependencies
+### Artifact Diff
+
+Full dependency and insight analysis with section mapping.
+
+#### Read Dependencies
 
 1. Read the manifest's Dependencies section. Parse each dependency path and any filters.
 2. For each dependency, read the file's YAML frontmatter and extract the `updated` field.
 3. Compare each dependency's `updated` date against the manifest's `last_updated` date.
 4. For dependencies that are directories (e.g., `messaging/competitors/`), check all files in the directory. Apply any filters declared in the manifest (e.g., `tier: primary`).
 
-### Check Insights
+#### Check Insights
 
 1. Read `insights/tracker.md`.
 2. Find open or acknowledged insights where the Messaging Doc column matches any dependency path.
 3. Note matching insights with their ID, severity, and description.
 
-### Map Changes to Sections
+#### Map Changes to Sections
 
 For each changed dependency or relevant insight, use the manifest's Structure table to identify which artifact sections are affected.
 
-### Read Current Artifact
+#### Read Current Artifact
 
 Read `artifacts/[slug]/current.[format]` to understand existing content. For binary formats (pptx, pdf), note that the current file exists but content comparison will be text-based via the drift report.
 
-### Produce Drift Report
-
-Generate a plain-language drift report:
+#### Produce Artifact Drift Report
 
 ```
 ## Drift Report — [Title] (v[VERSION])
@@ -104,26 +165,132 @@ Checking against: [today's date]
 
 If no changes are found across any dependencies or insights, inform the user: "No drift detected — [title] is current as of [last_updated]." and exit.
 
+### Campaign / Launch Diff
+
+Two-layer drift check: brief-level (shared context) and asset-level (per-asset context).
+
+#### Brief-Level Drift
+
+1. Read the brief's full frontmatter. Extract `messaging_docs_loaded` from `shared_context` and `created` date.
+2. For each messaging doc in the shared list, read its `updated` field.
+3. Flag docs where `updated > created` (or `updated > generated` of the most recent asset, whichever is later).
+
+#### Asset-Level Drift
+
+1. For each asset file in the campaign/launch directory, read its frontmatter (`messaging_docs_loaded`, `generated`).
+2. Compare each doc's `updated` against the asset's `generated` date.
+3. Identify per-asset docs that drifted independently of the shared context.
+
+If targeting a single asset (`/update campaign [folder] [asset-id]`), only check that asset's drift plus the brief-level context.
+
+#### Produce Campaign/Launch Drift Report
+
+```
+## Drift Report — [Campaign/Launch Name]
+
+Created: [date]
+Checking against: [today's date]
+
+### Brief-level drift (affects all assets)
+
+**[messaging doc path]** (updated [date], was [original date])
+  [One-line description of what changed]
+
+### Asset-level drift
+
+**[asset-id].md** — [N] additional doc(s) changed
+  [messaging doc path] (updated [date]) — per-asset context
+
+### Affected assets
+
+| Asset | Brief Drift | Asset Drift | Total Changed Docs |
+|---|---|---|---|
+| [asset-id] | [N] | [N] | [N] |
+
+### Proposed approach
+
+[Brief-level drift detected — recommend refreshing the campaign narrative first, then regenerating affected assets with updated context.]
+[or: Asset-level drift only — regenerate affected assets directly.]
+```
+
+If no changes are found, inform the user: "No drift detected — [name] is current as of [date]." and exit.
+
+### Standalone Asset Diff
+
+1. Read the asset's `messaging_docs_loaded` frontmatter and `generated` date.
+2. For each messaging doc, read its `updated` field and compare against `generated`.
+3. Check for a `.manifest.md` sibling in `output/assets/` (produced deliverable). If it exists, note it will be stale after refresh.
+
+#### Produce Standalone Drift Report
+
+```
+## Drift Report — [Asset Title]
+
+Generated: [date]
+Checking against: [today's date]
+
+### Changes found
+
+**[messaging doc path]** (updated [date])
+  [One-line description of what changed]
+
+### No changes found
+
+[messaging doc path] — unchanged
+
+### Proposed refresh
+
+[Description of what will change in the regenerated asset]
+
+### Production note
+
+[If .manifest.md exists: "A produced deliverable exists — it will need re-production after refresh. Run `/produce` to regenerate."]
+```
+
 ---
 
 ## Phase 2: Approval
 
-Present the drift report to the user. Use AskUserQuestion with four options:
+Present the drift report to the user. Nothing is written until the user approves.
+
+### Artifact Approval
+
+Use AskUserQuestion with four options:
 
 - **Approve** — Proceed with proposed updates as written.
 - **Approve with edits** — User modifies the proposed changes before proceeding. Collect their edits and update the drift report accordingly.
 - **Reject** — No update. Optionally log a note in the changelog: `## [next version] — [today] / **Trigger:** [trigger] / **Scope:** Rejected / **Changes:** Review triggered but changes rejected. [optional reason]`. Exit.
 - **Defer** — No update now. Log a note in the changelog: `## [next version] — [today] / **Trigger:** [trigger] / **Scope:** Deferred / **Changes:** Review deferred. [optional reason]`. Exit.
 
-Nothing is written until the user approves.
+### Campaign / Launch Approval
+
+Use AskUserQuestion with five options:
+
+- **Approve all** — Refresh brief narrative (if brief-level drift exists) and regenerate all affected assets.
+- **Approve selective** — User picks which assets to regenerate. If brief-level drift exists, the brief narrative is always refreshed first.
+- **Skip brief, update assets only** — Keep the brief narrative as-is, regenerate selected assets with current messaging context. Use when brief drift is minor and the user judges the narrative still holds.
+- **Reject** — No updates.
+- **Defer** — No updates now.
+
+### Standalone Asset Approval
+
+Use AskUserQuestion with three options:
+
+- **Approve** — Regenerate the asset with updated messaging context.
+- **Reject** — No refresh.
+- **Defer** — No refresh now.
 
 ---
 
-## Phase 3: Update
+## Phase 3: Refresh / Update
 
-After approval, dispatch agents based on the artifact's `format` field.
+Execute the approved changes. Branching by asset type.
 
-### Markdown artifacts (`format: md`)
+### Artifact Update
+
+Dispatch agents based on the artifact's `format` field.
+
+#### Markdown artifacts (`format: md`)
 
 Dispatch a **writer agent** with:
 
@@ -136,22 +303,70 @@ Dispatch a **writer agent** with:
 
 Instruct the writer to make surgical edits — modify only the sections identified in the drift report. Unchanged sections must be preserved exactly.
 
-### Binary artifacts (`format: pptx` or `pdf`)
+#### Binary artifacts (`format: pptx` or `pdf`)
 
 Two-stage dispatch:
 
 1. **Writer agent** — Produces an updated content draft in markdown. Receives the same context as markdown artifacts. The draft follows the Structure table layout, marking which sections changed and which are preserved verbatim.
 2. **Producer agent** — Renders the approved markdown draft to the target binary format using brand tokens and asset templates. The producer never modifies content.
 
-This matches the campaign workflow's two-stage pattern for non-markdown deliverables.
-
-### Writing the Updated File
+#### Writing the Updated File
 
 Write the updated content to `artifacts/[slug]/current.[format]`, replacing the previous version. The previous version is archived in Phase 4 before this write occurs.
 
+### Campaign / Launch Refresh
+
+Two-stage process.
+
+#### Stage 1: Brief Narrative Refresh (if approved)
+
+Only runs when brief-level drift exists and the user approved it (not "Skip brief").
+
+1. Read the full brief.
+2. Read the changed messaging docs (those in `shared_context.messaging_docs_loaded` with `updated > created`).
+3. Dispatch a **writer agent** to regenerate the Campaign Narrative / Launch Narrative section and the "What to Know" section with updated messaging context.
+4. Preserve the Asset Manifest structure — do not change asset specs, skill mappings, wave ordering, or dependency graphs.
+5. Update the `messaging_docs_loaded` list in the brief's `shared_context` to reflect current doc dates.
+6. Write the updated brief.
+
+#### Stage 2: Asset Regeneration
+
+For each approved asset:
+
+1. Dispatch a **writer agent** with:
+   - The updated brief (if refreshed) or original brief
+   - The asset spec from the brief's Asset Manifest
+   - Full content of changed messaging docs
+   - The original asset file as reference (for tone and structural continuity)
+2. The writer generates a fresh draft following the same pipeline as initial production: context resolution from the brief, skill loading, voice gate, reader review.
+3. Write the regenerated asset to the same path, replacing the original.
+4. Update the asset's frontmatter:
+   - Set `generated` to today's date.
+   - Update `messaging_docs_loaded` to reflect current doc versions.
+   - Append a `refresh_history` entry:
+     ```yaml
+     refresh_history:
+       - date: "YYYY-MM-DD"
+         trigger: "messaging drift: [changed doc paths]"
+         docs_changed: [N]
+     ```
+5. If a produced deliverable exists (check for a matching file in the `assets/` subdirectory with a `.manifest.md`), inform the user: "The produced version of [asset] is now stale. Run `/produce` to regenerate the finished deliverable."
+
+### Standalone Asset Refresh
+
+1. Dispatch a **writer agent** with:
+   - The original asset file as reference
+   - Full content of changed messaging docs
+   - The same skill and persona from the original asset's frontmatter
+2. Write the regenerated asset to the same path.
+3. Update frontmatter: `generated` date, `messaging_docs_loaded`, and append `refresh_history` entry.
+4. If a `.manifest.md` sibling exists, inform the user: "The produced version is now stale. Run `/produce` to regenerate."
+
 ---
 
-## Phase 4: Version & Log
+## Phase 4: Version & Log (Artifacts Only)
+
+This phase runs only for artifacts. Campaigns, launches, and standalone assets skip this phase — their refresh is complete after Phase 3.
 
 ### Archive Previous Version
 
@@ -198,10 +413,36 @@ If the drift report included insights from `insights/tracker.md`, and the update
 
 ---
 
+## Metadata Contract
+
+The skill reads existing traceability metadata. No new required fields are introduced — only the optional `refresh_history` array is appended during campaign/launch/standalone refresh.
+
+| Location | Date Field | Messaging Docs Field |
+|---|---|---|
+| `artifacts/[slug]/manifest.md` | `last_updated` | Dependencies section (file paths with optional filters) |
+| `output/campaigns/[folder]/brief.md` | `created` | `shared_context.messaging_docs_loaded` |
+| `output/campaigns/[folder]/asset-*.md` | `generated` | `messaging_docs_loaded` |
+| `output/launches/[name]/brief.md` | `created` | `shared_context.messaging_docs_loaded` |
+| `output/launches/[name]/asset-*.md` | `generated` | `messaging_docs_loaded` |
+| `output/assets/*.md` | `generated` | `messaging_docs_loaded` |
+
+---
+
+## Edge Cases
+
+- **In-progress campaigns/launches** (`status: in-progress`) — Skip during unified discovery. They're still being initially produced.
+- **Asset not yet produced** — Report "Not yet produced" status in the overview. Do not attempt to update.
+- **Missing messaging doc** — If a doc listed in `messaging_docs_loaded` no longer exists (deleted or renamed), flag it as a broken reference: "Warning: [path] is referenced but does not exist. This may indicate a renamed or removed doc."
+- **Large campaigns (10+ assets)** — Present the full affected assets table but recommend selective refresh rather than regenerating all.
+- **No drift detected** — Inform the user and exit cleanly, same as current artifact behavior.
+- **Produced deliverable stale after content refresh** — Flag but do not auto-regenerate. The user runs `/produce` separately.
+
+---
+
 ## Tool Scoping
 
-- **Read** — `artifacts/` (manifests, current files, changelogs), `messaging/` (dependency content), `insights/tracker.md` (drift detection), `templates/artifacts/` (reference)
-- **Write, Edit** — `artifacts/` (manifests, changelogs, current files, version archives), `insights/tracker.md` (resolve insights)
-- **Glob** — `artifacts/` (discover artifact directories), `messaging/` (enumerate collection files for directory dependencies)
-- **AskUserQuestion** — Artifact selection (no-slug mode), approval flow, version bump confirmation
-- **Agent** — Writer agent (content updates), producer agent (binary format rendering)
+- **Read** — `artifacts/` (manifests, current files, changelogs), `output/campaigns/` (briefs, asset files, production manifests), `output/launches/` (briefs, asset files, production manifests), `output/assets/` (content files, production manifests), `messaging/` (dependency content), `insights/tracker.md` (drift detection), `templates/artifacts/` (reference)
+- **Write, Edit** — `artifacts/` (manifests, changelogs, current files, version archives), `output/campaigns/` (briefs, asset files — refresh only), `output/launches/` (briefs, asset files — refresh only), `output/assets/` (content files — refresh only), `insights/tracker.md` (resolve insights)
+- **Glob** — `artifacts/` (discover artifact directories), `output/campaigns/`, `output/launches/`, `output/assets/` (discover produced assets), `messaging/` (enumerate collection files for directory dependencies)
+- **AskUserQuestion** — Target selection (unified discovery), approval flow, version bump confirmation (artifacts only)
+- **Agent** — Writer agent (content updates and asset regeneration), producer agent (binary format rendering for artifacts)

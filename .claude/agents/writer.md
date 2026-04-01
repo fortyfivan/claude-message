@@ -263,6 +263,8 @@ revision_history:
 - Self-assessment summary
 - Reader review scores and verdict
 - Revision history (how many drafts, what changed)
+- Offer production: "Would you like to produce this as a finished deliverable? You can also run `/produce` later."
+- If the user accepts, invoke the producer agent with the asset file path.
 
 **Campaign mode:** Return status to the orchestrator:
 - `complete` — Asset passed review (with or without post-reader revision)

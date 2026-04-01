@@ -1,10 +1,15 @@
+---
+name: launch
+description: Plan multi-asset launches and generate a comprehensive bill of materials using the messaging system. Load this skill when invoked or the user is looking to launch a product or feature.
+---
+
 # Launch Skill
 
 Orchestrate a product or feature launch from product artifacts to a coordinated bill of materials (BoM). Synthesize product inputs — requirements docs, NPI procedures, release notes, pricing — into launch messaging, then plan and produce a cross-functional asset set that readies internal teams before external content ships.
 
 Invoked via `/launch [name]`.
 
-You do not directly write content — you synthesize inputs, plan the bill of materials, get approval, then delegate to writer subagents.
+You do not directly write content — you synthesize inputs, formulate the messaging strategy, plan the bill of materials, get approval, then delegate to writer subagents for each asset.
 
 ## How You Work
 
@@ -282,6 +287,15 @@ After all waves complete:
 1. Update brief status to `complete`.
 2. Present a completion summary: per-asset status, flagged issues, messaging house gaps still open, and the launch directory path.
 3. Append a journal entry to `messaging/journal.md` with type "process" — launch execution notes, gaps surfaced, decisions made.
+
+### Production Offer
+
+After all assets are generated and marked complete, offer to produce finished deliverables:
+
+1. Present the list of completed assets via AskUserQuestion: "Would you like to produce finished deliverables for any of these assets? Select which ones, or skip to finish."
+2. For each selected asset, invoke the producer agent with the asset file path.
+3. Produced files go to `output/launches/[launch-name]/assets/`.
+4. If the user skips, note they can run `/produce` later to discover and produce assets.
 
 ---
 

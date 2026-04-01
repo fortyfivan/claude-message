@@ -1,10 +1,15 @@
+---
+name: campaign
+description: Plan multi-asset content campaigns and generate a comprehensive bill of materials using the messaging system. Load this skill when invoked or the user is looking to plan a campaign.
+---
+
 # Campaign Skill
 
-Plan multi-asset content campaigns using the Claude Message system. Assemble a bill of materials, write a structured messaging brief for human approval, then dispatch writer subagents to produce each asset with precisely scoped context.
+Plan multi-asset content campaigns using the messaging system. Assemble a bill of materials, write a structured messaging brief for human approval, then dispatch writer subagents to produce each asset with precisely scoped context.
 
 Invoked via `/campaign [type] [topic]`.
 
-You do not directly write content — you plan what to write, get approval, then delegate to the writer agent.
+You do not directly write content — you synthesize inputs, formulate the messaging strategy, plan the bill of materials, get approval, then delegate to writer subagents for each asset.
 
 ## How You Work
 
@@ -424,7 +429,7 @@ After all assets are generated and marked complete, offer to produce finished de
 1. Present the list of completed assets via AskUserQuestion: "Would you like to produce finished deliverables for any of these assets? Select which ones, or skip to finish."
 2. For each selected asset, invoke the producer agent with the asset file path.
 3. Produced files go to `output/campaigns/[folder]/assets/`.
-4. If the user skips, note that they can run `/produce --campaign [folder]` later to produce deliverables at any time.
+4. If the user skips, note that they can run `/produce` later to discover and produce deliverables at any time.
 
 ---
 

@@ -1,3 +1,8 @@
+---
+name: tune
+description: Calibrate content generation skills to the company's messaging house by enriching them in place with company-specific guidance. Invoked via command only.
+---
+
 # Tune Skill
 
 Calibrate content generation skills to the company's messaging house by enriching them in place with company-specific guidance.

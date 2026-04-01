@@ -1,3 +1,8 @@
+---
+name: compose
+description: Create and edit messaging documents across the messaging system. Load this skill when interacting directly with files in the messaging directory.
+---
+
 # Compose Skill
 
 Create and update any document in `messaging/` on demand — pillar docs and any collection profile type. Research informs composition but is not an end in itself.

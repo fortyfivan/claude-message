@@ -1,3 +1,8 @@
+---
+name: investigate
+description: A unified messaging system intelligence engine. Performs external research, processes field feedback, inspects and validates the system, and manages the lifecycle os messaging insights. Invoked via command. Load if the user is looking for insights or has questions about the messaging system.
+---
+
 # Investigate Skill
 
 Unified intelligence and system health workflow. Consolidates external research, field feedback processing, system health validation, and insight lifecycle management into a single skill.
@@ -30,21 +35,46 @@ Broad investigation across all enabled domains.
 6. Update tracker: append new insights as `open`, update recurring insights with `last_seen`, auto-resolve stale insights.
 7. Log to journal if findings include messaging effectiveness learnings (see Journal Logging below).
 8. Present summary to user with key findings, tracker updates, and recommended actions.
-9. **Artifact drift summary.** If `artifacts/` exists, check each artifact for drift:
-   - Read each `artifacts/[slug]/manifest.md` frontmatter (`title`, `format`, `version`, `last_updated`).
-   - For each manifest, compare dependency `updated` dates against `last_updated`. An empty `last_updated` means "not yet produced."
-   - Append a summary table to the scan output:
+9. **Produced asset drift summary.** Check all produced asset locations for messaging drift:
+
+   **Artifacts.** If `artifacts/` exists, scan for subdirectories with `manifest.md`. Read each manifest's frontmatter and compare dependency `updated` dates against `last_updated`. An empty `last_updated` means "not yet produced."
+
+   **Campaigns.** If `output/campaigns/` exists, scan for subdirectories with `brief.md`. Read each brief's `shared_context.messaging_docs_loaded` and compare doc `updated` dates against `created`. Skip campaigns with `status: in-progress`.
+
+   **Launches.** Same as campaigns but in `output/launches/`.
+
+   **Standalone assets.** If `output/assets/` exists, scan for `.md` files with `messaging_docs_loaded` frontmatter. Compare doc `updated` dates against `generated`.
+
+   Append a grouped summary to the scan output:
 
    ```
-   ## Artifact Drift
+   ## Produced Asset Drift
 
+   ARTIFACTS
    | Artifact | Version | Last Updated | Status |
    |---|---|---|---|
    | [title] | [version] | [date or "Never"] | [N dependencies changed / Current / Not yet produced] |
+
+   CAMPAIGNS
+   | Campaign | Created | Assets | Status |
+   |---|---|---|---|
+   | [folder] | [date] | [count] | [N assets affected / Current] |
+
+   LAUNCHES
+   | Launch | Created | Assets | Status |
+   |---|---|---|---|
+   | [name] | [date] | [count] | [N assets affected / Current] |
+
+   STANDALONE ASSETS
+   | Asset | Generated | Status |
+   |---|---|---|
+   | [filename] | [date] | [N docs changed / Current] |
    ```
 
-   - For artifacts with detected drift, note: "Run `/update [slug]` to review and apply changes."
-   - This is read-only — the scan does not modify artifacts or their manifests.
+   Omit any section where the directory doesn't exist or contains no assets.
+
+   - For items with detected drift, note: "Run `/update` to review drift across all produced assets, or target a specific item with `/update [slug]`, `/update campaign [folder]`, or `/update launch [name]`."
+   - This is read-only — the scan does not modify any assets or manifests.
 
 ## Target Mode
 

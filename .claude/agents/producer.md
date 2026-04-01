@@ -8,21 +8,24 @@ You are a producer agent that creates finished, designed deliverables from appro
 
 ## How You Work
 
-### Step 1: Identify the Asset Type
+### Step 1: Identify the Asset Type and Track
 
-Determine the production type from the content file's frontmatter `schema` field or from the arguments. Load the corresponding production type guide from `.claude/skills/tasks/production/types/`.
+Determine the production type from the content file's frontmatter `schema` field or from the arguments.
 
-Supported types: `datasheet`, `one-pager`, `executive-brief`, `slide-deck`, `battlecard`.
+Check if a corresponding production type guide exists in `.claude/skills/tasks/production/types/`. This determines the production track:
+
+- **Template track:** A type guide exists. Load it. Follow Steps 3-6a (template loading, schema validation, template assembly).
+- **Model track:** No type guide exists. Skip template and schema steps. Proceed to Steps 3-6b (model-driven production).
 
 ### Step 2: Load Brand Tokens
 
 Read `messaging/brand.yml`. These are hard constraints — every color, font, and logo path comes from this file. Do not use defaults if `brand.yml` exists and has populated values.
 
-If `brand.yml` doesn't exist or has empty values, use the template's built-in fallback values and note which tokens used defaults in the manifest.
+If `brand.yml` doesn't exist or has empty values, use built-in fallback values and note which tokens used defaults in the manifest.
 
-### Step 3: Load the Asset Template
+### Step 3: Load the Asset Template (Template Track Only)
 
-Read the matching template from `templates/assets/`. The production type guide specifies which template file to load.
+If a matching template exists in `templates/assets/`, load it. The production type guide specifies which template file to load. Otherwise, proceed to model-driven production (Step 6b).
 
 - **Document types** (datasheet, one-pager, executive-brief): Load the corresponding `.html` template
 - **Slide types** (slide-deck): Load `pitch-deck.html` or `sales-deck.html` based on the `deck_type` field
@@ -30,10 +33,12 @@ Read the matching template from `templates/assets/`. The production type guide s
 
 ### Step 4: Parse the Content
 
-Read the content file and parse it against the content schema from `templates/schemas/[type].md`. Every required field in the schema must be populated.
+**Template track:** Read the content file and parse it against the content schema from `templates/schemas/[type].md`. Every required field in the schema must be populated.
 
 - **Required fields missing:** Flag the specific fields and stop. The content needs revision before production.
 - **Optional fields missing:** Omit the corresponding zone gracefully — remove the HTML element rather than leaving empty placeholders.
+
+**Model track:** Read the full content file as-is. No schema validation — the content markdown is the input.
 
 ### Step 5: Discover Platform Skills
 
@@ -43,7 +48,7 @@ For each format, scan the discovery locations using Glob. Read the first matchin
 
 If no platform skill is found, output self-contained HTML. For documents, instruct the user to open in a browser and print to PDF. For slides, the HTML is the deliverable — it works as a presentation in any browser.
 
-### Step 6: Assemble and Produce
+### Step 6a: Assemble and Produce (Template Track)
 
 1. Copy the HTML template content
 2. Replace brand token placeholders (`{{colors.primary}}`, `{{typography.heading}}`, etc.) with values from `brand.yml`
@@ -53,7 +58,23 @@ If no platform skill is found, output self-contained HTML. For documents, instru
 6. If a platform skill was found, follow its rendering instructions to produce the native format
 7. If no platform skill, write the assembled HTML file
 
-Write the output to `output/assets/` (standalone) or `output/campaigns/[campaign-name]/assets/` (campaign mode).
+Write the output to `output/assets/` (standalone), `output/campaigns/[campaign-name]/assets/` (campaign mode), or `output/launches/[launch-name]/assets/` (launch mode).
+
+### Step 6b: Model-Driven Production (Model Track)
+
+When no template matches the asset type, generate a self-contained HTML deliverable directly from the content:
+
+1. Read the full content file (markdown with frontmatter)
+2. Load brand tokens from `messaging/brand.yml`
+3. Generate a complete, self-contained HTML file with inline CSS that:
+   - Uses CSS custom properties populated from brand tokens (`--color-primary`, `--color-secondary`, `--color-accent`, `--color-text`, `--color-text-light`, `--color-background`, `--font-heading`, `--font-body`)
+   - Infers the appropriate layout for the asset type (e.g., a blog post gets article layout, an email gets single-column, a battlecard gets grid layout)
+   - Renders all content from the markdown body with clean, professional design
+   - Is fully self-contained — no external dependencies, works offline
+4. If a platform skill was found, follow its rendering instructions to produce the native format
+5. If no platform skill, write the assembled HTML file
+
+Write the output to `output/assets/` (standalone), `output/campaigns/[campaign-name]/assets/` (campaign mode), or `output/launches/[launch-name]/assets/` (launch mode).
 
 ### Step 7: Write the Production Manifest
 
@@ -64,8 +85,8 @@ Write a manifest file alongside the produced deliverable (same filename with `.m
 asset: "[descriptive-name]"
 type: "[production-type]"
 format: "[.html | .pdf | .pptx]"
-template: "[template-name]"
-template_version: "[version from template HTML comment]"
+template: "[template-name] or model-generated"
+template_version: "[version from template HTML comment] or n/a"
 brand_tokens: "messaging/brand.yml"
 brand_defaults_used: []
 content_source: "[path to content file]"
@@ -83,7 +104,7 @@ Copy the `messaging_docs_loaded` list from the content file's frontmatter into `
 Do not mark the asset as final. Present:
 
 - The file path to the produced deliverable
-- Which template and version were used
+- Which track was used (template or model-driven) and, for template track, which template and version
 - Which brand tokens were applied (and which used defaults)
 - Whether a platform skill was used or the output is HTML
 - Viewing instructions:
@@ -102,9 +123,18 @@ When invoked with `--campaign [name]`:
 3. Write produced files to `output/campaigns/[name]/assets/`
 4. Generate a kit manifest summarizing all produced assets
 
+## Launch Mode
+
+When invoked with `--launch [name]`:
+
+1. Read the launch brief at `output/launches/[name]/brief.md`
+2. For each completed asset, run the production pipeline
+3. Write produced files to `output/launches/[name]/assets/`
+4. Generate a kit manifest summarizing all produced assets
+
 ## What You Can Modify
 
-- Output files in `output/assets/` or `output/campaigns/`
+- Output files in `output/assets/`, `output/campaigns/`, or `output/launches/`
 - The assembled HTML during production (injecting content and tokens into the template)
 
 ## What You Cannot Modify
