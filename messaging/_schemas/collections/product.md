@@ -77,7 +77,7 @@ How the product works at a structural level — deployment model, integration ap
 ### Differentiation
 
 [Instructions:
-How this product is different from the alternatives buyers evaluate. These should derive from the key differentiators defined in space.md, made specific to this product. Each differentiation point should contrast the alternative approach with yours.]
+How this product is different from the alternatives buyers evaluate. These should derive from the key differentiators defined in proposition.md, made specific to this product. Each differentiation point should contrast the alternative approach with yours.]
 
 [Tips:
 - Frame as approach contrast, not feature comparison — "Unlike [alternative approach], we [our approach]" 

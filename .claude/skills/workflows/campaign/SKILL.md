@@ -46,36 +46,19 @@ If neither resume flag is present, proceed to Phase 1: Intake.
 
 ## Messaging Context Resolution
 
-Load the full messaging house during intake to plan the brief — positioning, audience, portfolio scope, proof, and motion context. During production, writer subagents load docs per-asset for content generation.
+Campaign planning matches the Campaign Orchestration reference pattern in `/MESSAGE.md` (Reference Patterns) — load the full messaging house during intake to plan the brief, then writer subagents load docs per-asset for content generation. See MESSAGE.md (Progressive Loading) for the loading principles, (Routing) for the canonical pillar→collection routing.
 
-### Core Pillars
+Load `/MESSAGE.md` (spec), `/DESIGN.md` (brand tokens), `messaging/glossary.md` and all 8 pillars (`profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`) at the start of every campaign intake. Campaign planning requires the full house for identity, narrative, positioning, audience, portfolio, value, proof, and motion alignment.
 
-Load all six pillars (`profile.md`, `space.md`, `audience.md`, `portfolio.md`, `proof.md`, `motion.md`) and `glossary.md` at the start of every campaign intake. Campaign planning requires the full messaging house for positioning, audience context, portfolio scope, proof matching, and motion alignment.
-
-### Profile Table Routing
-
-Pillar tables are the routing layer — they tell you what collection profiles exist without loading them. During intake, use these tables to present options to the user. Load full profiles only after the user confirms selections or when the campaign type requires specific profile context.
-
-| Pillar Table | Collection Directory | Key Columns | When to Load Full Profiles |
-|---|---|---|---|
-| Personas table (`audience.md`) | `messaging/personas/` | Name, Description, Role | After user selects target persona(s). Always load at least one — persona is the only required profile. |
-| Segments table (`audience.md`) | `messaging/segments/` | Name, Description | After user specifies a segment, or when campaign type implies segment targeting (ABM, industry-specific). Skip if campaign is segment-agnostic. |
-| Products table (`portfolio.md`) | `messaging/products/` | Name, Description | After user specifies a product. Load for value props, capabilities, and use cases. |
-| Solutions table (`portfolio.md`) | `messaging/solutions/` | Name, Description, Products | When campaign spans multiple products or the user references a solution rather than a single product. |
-| Categories table (`space.md`) | `messaging/categories/` | Name, Description | When campaign needs category-level framing — positioning within or across market categories. |
-| Competitive Landscape (`space.md`) | `messaging/competitors/` | Name, Description | When campaign is competitive (play type) or user names a competitor. Load each named competitor's profile. |
-| Stories table (`proof.md`) | `messaging/stories/` | Name, Description, Products, Personas, Segments | After profile selections are confirmed. Match stories by the campaign's product-persona-segment intersection. |
-| Plays table (`motion.md`) | `messaging/plays/` | Name, Description | When campaign supports a specific GTM play. Load the named play's profile. |
-
-When tables have many rows, read frontmatter of candidate profiles to enrich intake options — adding `type`, `status`, `priority`, and `description` to help the user select before loading full profiles.
+Pillar tables are the routing layer. During intake, use them to present options to the user via AskUserQuestion. Load full collection profiles only after the user confirms selections or when the campaign type requires specific profile context. When tables have many rows, read frontmatter of candidate profiles to enrich intake options — adding `type`, `status`, `priority`, and `description` — before loading full profiles.
 
 ### Using Messaging Across Campaign Phases
 
-**Intake** — Load all pillars. Present pillar tables for profile selection using AskUserQuestion. Route through tables before loading any collection profiles.
+**Intake** — All pillars loaded. Present pillar tables for profile selection. Route through tables before loading any collection profiles.
 
-**Brief writing** — Derive the positioning statement from `profile.md` (identity) + `space.md` (positioning) + the selected product/solution doc (value prop). Extract key messages from loaded docs, each citing its source. Match proof to key messages via the Stories table cross-references (Products, Personas, Segments columns). Check glossary for term consistency across the narrative and asset specs.
+**Brief writing** — Derive the positioning statement from `profile.md` (identity) + `pitch.md` (narrative) + `position.md` (positioning) + `proposition.md` (UVPs) + the selected product/solution doc. Extract key messages from loaded docs, each citing its source. Match proof to key messages via the `proof.md` Stories table cross-references (products, personas, segments). Check the glossary in messaging/glossary.md for term consistency.
 
-**Asset manifest** — Each asset entry specifies its context resolution: shared campaign context (inherited by all assets) plus per-asset additions (extra profiles this specific asset needs). Writer subagents load these docs during production — the campaign skill resolves what to load, not the content itself.
+**Asset manifest** — Each asset entry specifies its context resolution: shared campaign context (inherited by all assets) plus per-asset additions (extra profiles this specific asset needs). Writer subagents apply per-asset loading patterns from MESSAGE.md (Reference Patterns).
 
 ---
 
@@ -195,7 +178,7 @@ All parameters are optional except Persona. Resolve what the task implies — do
 
 For each parameter, load the relevant pillar and present the collection reference table with Descriptions for user selection rather than asking open-ended questions. Example: "I found 4 personas in the messaging house: [table rows with Descriptions]. Which should this campaign target?"
 
-If the user names a specific entity, match against the table. If the user gives a descriptive reference, match against the Description column. If no match exists, flag it: "There's no CISO persona in the messaging house. Want me to create one first with the compose command, or proceed using the audience-level context from `audience.md`?"
+If the user names a specific entity, match against the table. If the user gives a descriptive reference, match against the Description column. If no match exists, flag it: "There's no CISO persona in the messaging house. Want me to create one first with the compose command, or proceed using the pillar-level context from `people.md`?"
 
 Some campaigns target multiple personas across different assets. A launch campaign might have a CISO email, a DevOps blog post, and an executive press quote. Each asset gets its own persona assignment — this is resolved in the asset manifest, not at the campaign level. But the campaign-level persona list defines the universe of personas this campaign addresses.
 
@@ -263,7 +246,7 @@ Write YAML frontmatter with:
 
 The through-line that unifies every asset. Derive from the messaging house using the Messaging Context Resolution section.
 
-**Positioning statement** — 2-3 sentences. The core argument. Derived from `profile.md` (identity) + `space.md` (positioning and differentiation) + the relevant product/solution doc (value prop). This is not invented — it is assembled from existing messaging components.
+**Positioning statement** — 2-3 sentences. The core argument. Derived from `profile.md` (identity) + `position.md` (positioning) + `proposition.md` (UVPs and differentiation) + the relevant product/solution doc (value prop). This is not invented — it is assembled from existing messaging components.
 
 **Key messages** — 3-5 specific claims the campaign makes. Not taglines — grounded assertions. Each key message follows this structure:
 
@@ -272,13 +255,13 @@ The through-line that unifies every asset. Derive from the messaging house using
 3. **Note supporting proof** — Matching stories from `proof.md` via the Stories table cross-references, or flag "No proof available — consider adding a customer story."
 4. **Indicate asset emphasis** — Which assets in the manifest emphasize this message.
 
-Load `messaging/glossary.md` when writing the campaign narrative. Key terms used in the narrative should align with glossary definitions. If the campaign introduces terms not in the glossary, note them for the user — the glossary may need updating after the campaign is produced.
+The glossary lives in `messaging/glossary.md`. Key terms used in the narrative should align with glossary definitions. If the campaign introduces terms not in the glossary, note them for the user — `/investigate fix glossary` updates messaging/glossary.md.
 
 ```markdown
 ## Campaign Narrative
 
 **Positioning:**
-[Core argument derived from profile.md, space.md, and product doc]
+[Core argument derived from profile.md, position.md, proposition.md, and product doc]
 
 **Key Messages:**
 
@@ -308,7 +291,7 @@ A shareable internal primer that synthesizes the campaign for anyone who needs t
 
 **What we're saying** — The 3-5 key messages distilled into conversational language. Not taglines — what you'd say in a meeting. Each grounded in the messaging house.
 
-**How we're different** — The competitive angle in 2-3 sentences. What alternatives the audience is considering and why our approach wins. Drawn from `space.md` and competitor profiles if loaded.
+**How we're different** — The competitive angle in 2-3 sentences. What alternatives the audience is considering and why our approach wins. Drawn from `position.md`, `proposition.md`, and competitor profiles if loaded.
 
 **Proof we can point to** — The matched customer stories, metrics, and evidence. What to reference when asked "who else does this?" Drawn from `proof.md` and loaded stories.
 
@@ -400,7 +383,6 @@ output/campaigns/
     asset-01-[slug].md
     asset-02-[slug].md
     ...
-    assets/              <- produced deliverables (if any)
 ```
 
 Each asset file includes metadata frontmatter linking back to the campaign (campaign_name, campaign_folder, asset_id, type, skill, persona, altitude, key_messages, messaging_docs_loaded, dependency_assets, generated date, status).
@@ -420,16 +402,11 @@ After all waves complete:
 
 ### Post-Campaign Learning
 
-After all assets are generated and the campaign is marked complete, review the execution for process learnings. Append a journal entry to `messaging/journal.md` with type "process." Create the file from `templates/messaging/journal.md` if it doesn't exist.
+After all assets are generated and the campaign is marked complete, review the execution for process learnings. Append a journal entry to `messaging/journal.md` with type "process."
 
-### Production Offer
+### Handoff
 
-After all assets are generated and marked complete, offer to produce finished deliverables:
-
-1. Present the list of completed assets via AskUserQuestion: "Would you like to produce finished deliverables for any of these assets? Select which ones, or skip to finish."
-2. For each selected asset, invoke the producer agent with the asset file path.
-3. Produced files go to `output/campaigns/[folder]/assets/`.
-4. If the user skips, note that they can run `/produce` later to discover and produce deliverables at any time.
+Campaign assets land in `output/campaigns/[folder]/` as markdown content. Rendering happens externally — open the assets alongside `/DESIGN.md` in Claude Design (or another rendering tool) for production.
 
 ---
 
@@ -453,7 +430,7 @@ If the campaign narrative shifts, the user edits the brief and re-runs productio
 
 **Skill not found for an asset.** During brief generation, check that every asset's specified skill exists in `.claude/skills/`. If missing, flag it and suggest alternatives.
 
-**Persona not in messaging house.** Flag during intake. Suggest running the compose command first. If the user wants to proceed, fall back to pillar-level audience context from `audience.md` and note the limitation in the brief.
+**Persona not in messaging house.** Flag during intake. Suggest running the compose command first. If the user wants to proceed, fall back to pillar-level audience context from `people.md` and note the limitation in the brief.
 
 **Context window pressure.** Large campaigns (10+ assets) may strain the context window. Track assets by file path rather than holding full content in memory. When dispatching a writer with dependencies, extract key arguments and CTAs from dependency assets rather than passing full content.
 

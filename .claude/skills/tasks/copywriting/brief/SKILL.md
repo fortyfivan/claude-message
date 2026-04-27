@@ -37,12 +37,12 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type    | What to Extract                                     | Source                         |
 |-----------------|-----------------------------------------------------|--------------------------------|
-| Persona & Pain  | ICP signals, personas, value messages               | audience.md                    |
+| Persona & Pain  | ICP signals, personas, value messages               | people.md                    |
 | Voice & Tone    | Narrative, brand voice, style guidelines            | profile.md (voice section)     |
-| Value Messaging | Core propositions, products, solutions              | space.md, portfolio.md         |
-| Market Context  | Industry trends, positioning, competitive landscape | space.md                       |
+| Value Messaging | Core propositions, products, solutions              | position.md, portfolio.md         |
+| Market Context  | Industry trends, positioning, competitive landscape | position.md                       |
 | Credibility     | Social proof, customer wins, use cases              | proof.md                       |
-| GTM Alignment   | Campaign strategy, motion-specific messaging        | motion.md                     |
+| GTM Alignment   | Campaign strategy, motion-specific messaging        | play.md                     |
 
 ## Design Principles
 
@@ -106,8 +106,8 @@ ALWAYS use this exact template structure:
 [Suggestions for visual elements, callout boxes, charts, or imagery]
 
 ## Messaging References
-- **Audience:** [Link to audience.md section]
-- **Value Framework:** [Link to space.md]
+- **Audience:** [Link to people.md section]
+- **Value Framework:** [Link to position.md]
 - **Proof:** [Link to proof.md]
 - **Other:** [Additional references used]
 

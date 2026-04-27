@@ -46,16 +46,16 @@ Describe the scenario from the buyer's perspective — where they are today, wha
 ### Unique Approach
 
 [Instructions:
-How this solution works and what makes it different from alternative approaches to the same problem. This should connect to specific product capabilities and trace back to differentiators in space.md.]
+How this solution works and what makes it different from alternative approaches to the same problem. This should connect to specific product capabilities and trace back to differentiators in position.md.]
 
 [Tips:
 - Lead with the approach, not the product — "we solve this by [method]" not "our product has [feature]"
 - If this solution spans multiple products, explain how they compose — the integration is often the differentiator
-- Connect to at least one key differentiator from space.md]
+- Connect to at least one key differentiator from proposition.md]
 
 [Format:
 1-2 paragraphs describing the approach, followed by:
-- **Key differentiator:** [which space.md differentiator this solution makes tangible]
+- **Key differentiator:** [which proposition.md differentiator this solution makes tangible]
 - **Enabling capabilities:** [specific capabilities from product profiles that power this approach]]
 
 ### Components

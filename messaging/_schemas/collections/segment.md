@@ -44,7 +44,7 @@ Observable company-level signals indicating messaging should be adapted for this
 ### Buying Dynamics
 
 [Instructions:
-How the buying process differs in this segment compared to the baseline documented in audience.md. Cycle length, committee structure, budget authority, procurement involvement, and decision-making patterns.]
+How the buying process differs in this segment compared to the baseline documented in people.md. Cycle length, committee structure, budget authority, procurement involvement, and decision-making patterns.]
 
 [Tips:
 - Mid-market often has shorter cycles, fewer stakeholders, and the champion may also be the decision-maker
@@ -103,8 +103,8 @@ For each objection:
 
 ## Writing Guidelines
 
-- Segment characteristics and behaviors are deltas from the ICP baseline — do not repeat what's already in audience.md
-- If buying dynamics don't differ from the baseline, omit the Buying Dynamics section rather than restating audience.md
+- Segment characteristics and behaviors are deltas from the ICP baseline — do not repeat what's already in people.md
+- If buying dynamics don't differ from the baseline, omit the Buying Dynamics section rather than restating people.md
 - Value messages reframe existing claims for segment context — they do not introduce new value propositions
 - Objections here are segment-specific — persona-level objections live in the persona profile, not here
 - When content targets a specific persona within a specific segment, load both profiles — persona determines altitude and tone, segment determines emphasis and proof selection

@@ -44,44 +44,15 @@ Not every parameter applies to every task. A blog post might only need persona +
 
 **Campaign mode:** The campaign brief is your primary context source. Load the messaging docs listed in the brief's `shared_context.messaging_docs_loaded` and the asset spec's context resolution field. The campaign narrative provides the positioning, key messages, and proof — don't re-derive these. Load additional messaging docs only when the asset needs specific detail not captured in the brief (e.g., a particular product's technical capabilities for a deep-dive blog).
 
-**Standalone mode:** Use the pillars-first loading pattern. Pillars are the routing layer — their reference tables tell you which collection profiles to load.
+**Standalone mode:** Resolve loading via `/MESSAGE.md`. Read it first — it carries the 8P architecture, frontmatter contracts, and progressive loading guidance. Brand tokens live in `/DESIGN.md`; the glossary in `messaging/glossary.md`. Apply the three layers (spec / domain / profile) from (Progressive Loading), the frontmatter filter cascade, and the reference patterns in (Reference Patterns). The pillar-table → collection routing in (Routing) is canonical. The writer is the primary applier of these principles.
 
-Load the always-load pillars (profile.md, space.md, glossary.md) for voice, positioning, and terminology consistency. Note that profile.md's Calibration Patterns (if populated) under Brand Voice provide additional style guidance for generation — follow "confirmed" patterns unless they conflict with authored Brand Voice sections.
+The reference patterns in MESSAGE.md (Reference Patterns) cover persona-targeted, competitive, compelling-event driven, product launch, campaign orchestration, composing-a-collection-profile, system-audit, and skill-tuning scenarios. Match the pattern that fits the parsed task parameters and adapt — don't conform rigidly. Profile and Pitch are the typical voice + narrative load floor; load other pillars when their domain shapes the task.
+
+Note that profile.md's Calibration Patterns (if populated) under Brand Voice provide additional style guidance for generation — follow "confirmed" patterns unless they conflict with authored Brand Voice sections.
 
 Before generating, scan `messaging/journal.md` (if it exists) for recent entries (last 30 days) related to the persona, product, or competitor being targeted. Note relevant learnings in the asset brief (Step 5) as context flags.
 
-**Conditionally load based on task type:**
-
-| Pillar | Why |
-|---|---|
-| `messaging/audience.md` | ICP context, buying process, persona/segment tables |
-| `messaging/portfolio.md` | Product ecosystem, product/solution tables |
-| `messaging/proof.md` | Evidence inventory, story table |
-| `messaging/motion.md` | GTM framing, play table |
-
-**Route via pillar tables to discover collection profiles:**
-
-| Pillar table | Routes to | Key columns for matching |
-|---|---|---|
-| `audience.md` → Personas table | `messaging/personas/` | Type, Seniority, Priority, Description |
-| `audience.md` → Segments table | `messaging/segments/` | Type, Defining Trait, Description |
-| `portfolio.md` → Products table | `messaging/products/` | Type, Status, Parent, Description |
-| `portfolio.md` → Solutions table | `messaging/solutions/` | Scope, Products, Description |
-| `space.md` → Categories table | `messaging/categories/` | Description |
-| `space.md` → Competitors table | `messaging/competitors/` | Tier, Description |
-| `proof.md` → Stories table | `messaging/stories/` | Customer, Products, Personas, Segments, Description |
-| `motion.md` → Plays table | `messaging/plays/` | Type, Status, Description |
-
-**Matching rules:**
-- When the user names a specific entity (e.g., "CISO", "Acme Corp"), match against the entity name and File columns. Go directly to full load.
-- When the user gives a descriptive reference (e.g., "security leaders", "our main competitor"), match against the Description column.
-- If multiple candidates match, read only the frontmatter of each candidate. Use `description`, `type`, `tier`, `status`, `priority`, and relationship fields to narrow the set before loading full documents. Present remaining ambiguity to the user.
-- If no match is found, flag the gap.
-
-**Load only confirmed profiles.** Read the full content of selected profiles for claims, proof, and messaging guidance.
-
-When reading messaging docs, `## Messaging Blocks` contains the content to draw claims and context
-from. `## Writing Guidelines` contains instructions for how to interpret and use the doc. `## Messaging Rules` contains company-specific constraints to follow when generating content.
+When reading messaging docs, `## Messaging Blocks` contains the content to draw claims and context from. `## Writing Guidelines` contains instructions for how to interpret and use the doc. `## Messaging Rules` contains company-specific constraints to follow when generating content.
 
 ### Step 3: Load the Skill
 
@@ -95,14 +66,14 @@ Read the skill from `.claude/skills/tasks/copywriting/[category]/SKILL.md` or `.
 
 If skill files have been tuned (indicated by `metadata.tuned: true` in frontmatter), they contain company-specific enrichments throughout — in guidelines, quality signals, tone, and examples — plus a `## Company Calibration` section with structured company context. Use all of this as authoritative guidance. Category-level calibration (in SKILL.md) applies universally. Type-level calibration (in the type file) adds audience, proof, and competitive specifics for the content being generated.
 
-After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing rules, banned phrases, and structural patterns to avoid. Apply its rules during generation (Step 6) and validate against them in Step 7. The voice gate governs writing mechanics (how to write clean prose). Brand voice and terminology come from the messaging house (profile.md, glossary.md), which you already load.
+After loading the content skill, always load the voice gate from `.claude/skills/craft/voice/SKILL.md`. The voice gate is mandatory for all content generation — it defines universal writing rules, banned phrases, and structural patterns to avoid. Apply its rules during generation (Step 6) and validate against them in Step 7. The voice gate governs writing mechanics (how to write clean prose). Brand voice comes from `messaging/profile.md` and terminology from messaging/glossary.md, both already loaded.
 
 ### Step 4: Cross-reference and Resolve Conflicts
 
 Before writing, check that the loaded context is internally consistent:
 
 - Do the persona's pain points align with the product's use cases?
-- Does the competitive positioning in space.md match the differentiators in the competitor profile?
+- Does the competitive positioning in position.md and the differentiators in proposition.md match the competitor profile?
 - Are the proof points relevant to this persona and this product?
 - Is the altitude appropriate for the persona's seniority?
 
@@ -134,8 +105,8 @@ Write the content asset draft. Hold the draft in memory — do not write to disk
 - **Claims** from pillar and collection docs (never invented)
 - **Language** calibrated to the persona's altitude and the brand voice from profile.md
 - **Proof** from proof.md, filtered to what's relevant for this persona+product combination
-- **Differentiation** from profile.md (value propositions) and space.md (differentiators, competitor profiles), focused on what matters to this persona
-- **Terminology** from glossary.md, using terms with their defined meanings and in their specified contexts
+- **Differentiation** from proposition.md (UVPs, differentiators) and position.md (competitive landscape, competitor profiles), focused on what matters to this persona
+- **Terminology** from messaging/glossary.md, using terms with their defined meanings and in their specified contexts
 - **Voice quality** from the voice gate — no banned phrases, no structural anti-patterns, no AI-detectable cadence. Every sentence earns its place.
 
 ### Step 7: Voice Validation
@@ -188,10 +159,10 @@ skill: "copywriting/email/cold-outreach"
 persona: "enterprise-ciso"
 product: "vuln-mgmt"
 messaging_docs_loaded:
+  - MESSAGE.md
   - messaging/profile.md
-  - messaging/space.md
-  - messaging/glossary.md
-  - messaging/audience.md
+  - messaging/pitch.md
+  - messaging/people.md
   - messaging/portfolio.md
   - messaging/proof.md
   - messaging/personas/enterprise-ciso.md
@@ -263,8 +234,7 @@ revision_history:
 - Self-assessment summary
 - Reader review scores and verdict
 - Revision history (how many drafts, what changed)
-- Offer production: "Would you like to produce this as a finished deliverable? You can also run `/produce` later."
-- If the user accepts, invoke the producer agent with the asset file path.
+- File path of the written asset for downstream rendering (e.g., open in Claude Design with `/DESIGN.md` for production).
 
 **Campaign mode:** Return status to the orchestrator:
 - `complete` — Asset passed review (with or without post-reader revision)
@@ -286,7 +256,7 @@ Keep questions focused. Present what you found, then ask what's missing. Never a
 If the user requests a battlecard for a competitor with a minimal profile, or a persona-specific email where the persona doc is mostly placeholders:
 
 1. Write with what's available.
-2. Call out the thin areas explicitly: "The competitor profile for Acme doesn't include product comparison details. The 'How We Win' section below is based on general positioning from space.md rather than specific competitive intelligence."
+2. Call out the thin areas explicitly: "The competitor profile for Acme doesn't include product comparison details. The 'How We Win' section below is based on general positioning from position.md rather than specific competitive intelligence."
 3. Suggest follow-up: "Running `compose competitor acme-corp` would fill in the gaps and improve future content targeting this competitor."
 
 ## Tool Scoping

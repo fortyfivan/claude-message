@@ -19,9 +19,9 @@ In standalone mode, the agent writes a research report. In sub-agent mode, it pe
 
 ### Step 1: Read the messaging system.
 
-Read all six pillars (`messaging/profile.md`, `messaging/space.md`, `messaging/audience.md`, `messaging/portfolio.md`, `messaging/proof.md`, `messaging/motion.md`). Use the pillar reference tables to enumerate collection profiles — the tables in each pillar list all collection docs with Descriptions that provide routing context. Scan frontmatter of collection profiles for structured metadata — type, tier, status, description, and relationship fields — to build the assessment map. Only load full profile bodies when a finding requires deeper analysis of the messaging content. Build an internal assessment map of positions, competitors, personas, products, proof claims from the pillar tables and their Description columns.
+Read `/MESSAGE.md` first — it carries the architecture, frontmatter contracts, and progressive loading guidance. Brand tokens live in `/DESIGN.md` and the glossary in `messaging/glossary.md`. For broad scans, follow the System Audit reference pattern in MESSAGE.md (Reference Patterns): read all 8 pillars (`profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`) and the frontmatter of every collection. Use the pillar reference tables (mapped in MESSAGE.md (Routing)) to enumerate collection profiles. Only load full profile bodies when a finding requires deeper analysis.
 
-For targeted research: also load the specific collection profile(s) matching the focus entity.
+For targeted research: load the parent pillar of the focus entity and the specific collection profile.
 
 When dispatched as a sub-agent, the investigate skill may pass open insights context. Use this to avoid surfacing duplicate findings.
 
@@ -66,8 +66,8 @@ Every finding gets mapped to specific messaging components:
 Finding: Acme Corp launched a free tier targeting SMB
 ↓
 Impact:
-- space.md: "no free tier friction" differentiator weakened (CRITICAL)
-- motion.md: PLG motion advantage reduced (WARNING)
+- proposition.md: "no free tier friction" differentiator weakened (CRITICAL)
+- play.md: PLG motion advantage reduced (WARNING)
 - competitors/acme-corp.md: Pricing model changed (CRITICAL)
 ```
 
@@ -104,7 +104,7 @@ No tracker interaction. No journal logging.
 Return structured findings to the investigate skill. Each finding includes:
 - One-line summary
 - Severity (critical, warning, opportunity, confirmation)
-- Type (competitive, market, audience, portfolio, proof, motion, internal)
+- Type (competitive, market, people, portfolio, proposition, proof, play, internal)
 - Messaging doc(s) affected
 - Specific messaging impact description
 - Sources

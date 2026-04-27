@@ -11,10 +11,10 @@ Invoked via `/compose [type] [name]`.
 
 ## Document Types
 
-You handle all 14 document types with templates in `templates/messaging/`:
+You handle all 18 document types defined in `/MESSAGE.md` (8P Messaging System):
 
-**6 pillars:** profile, space, audience, portfolio, proof, motion
-**8 collection types:** competitor, category, persona, segment, product, solution, story, play
+**8 pillars:** profile, pitch, position, people, portfolio, proposition, proof, play
+**10 collection types:** persona, segment, competitor, category, product, solution, story, report, play (collection), signal
 
 ## How You Work
 
@@ -24,21 +24,22 @@ Four steps: Resolve → Research → Plan → Write.
 
 Parse the user's request for document type and whether this is a create or update.
 
-Load the always-load pillars (profile.md, space.md, glossary.md).
+Loading: see `/MESSAGE.md` (Progressive Loading) (principles) and (8P Messaging System) (pillar→collection structure). For a collection profile, load the parent pillar (per the (8P Messaging System) mapping below) plus the always-load Profile for voice and identity. For a pillar update, load the pillar plus the frontmatter of all collections under it.
 
-**For collection profiles, also load the parent pillar:**
+**Collection → parent pillar (from MESSAGE.md (8P Messaging System)):**
 
 | Collection Type | Parent Pillar |
 |---|---|
-| competitor, category | `messaging/space.md` (already loaded) |
-| persona, segment | `messaging/audience.md` |
+| persona, segment | `messaging/people.md` |
+| competitor, category | `messaging/position.md` |
 | product, solution | `messaging/portfolio.md` |
-| story | `messaging/proof.md` |
-| play | `messaging/motion.md` |
+| story, report | `messaging/proof.md` |
+| play, signal | `messaging/play.md` |
 
 **Then:**
 
-- Read the template from `templates/messaging/[type].md` to understand the schema and sections to populate.
+- For pillar updates: read the schema from `messaging/_schemas/pillars/[pillar].md` for instructions, then overwrite `messaging/[pillar].md`. **Strip the bootstrap disclaimer block** (the `> **Not yet populated.**` blockquote) when populating.
+- For collection profiles: copy the schema from `messaging/_schemas/collections/[type].md` for the frontmatter contract and body sections to populate.
 - Check `messaging/[collection]/` for an existing file if updating.
 - Check all `input/` subdirectories (`input/messaging/`, `input/docs/`, `input/research/`, `input/transcripts/`, `input/examples/`) and the `input/` root for existing material relevant to this document. Prioritize `input/messaging/` for positioning context. Also check `output/research/` for agent-generated reports.
 
@@ -52,7 +53,7 @@ Maximum 10 web searches per task. Each query must include a specific company nam
 - Competitors: "[name] product", "[name] pricing", "[name] vs [our company]", "[name] funding"
 - Personas: "[role] responsibilities", "[role] buying criteria", "[role] pain points [industry]"
 - Products: "[company] [product] features", "[company] [product] reviews"
-- General: "[company] [topic]", "[topic] [industry/category from space.md]"
+- General: "[company] [topic]", "[topic] [industry/category from position.md]"
 
 **Present findings and gaps to the user.** Show what you found, where it came from, and what's missing. This sets up the plan step.
 
@@ -90,8 +91,8 @@ After user approval:
 
 1. **Write or update the file(s).** Follow the template schema. Populate YAML frontmatter and all markdown sections.
 2. **Set `updated` to today's date** (ISO format) in frontmatter.
-3. **Update the parent pillar reference table.** Ensure the corresponding row exists with a Description column entry (~15 words) that differentiates from sibling entries. The profile's frontmatter `description` and the table Description must match — if updating one, update both.
-4. **Note glossary impact.** If new terms were introduced or existing terms retired, note: "Glossary may need updating — run `/investigate fix glossary` to sync."
+3. **Update the parent pillar reference table.** Ensure the corresponding row exists with a Description column entry (~15 words) that differentiates from sibling entries. The profile's frontmatter `description` and the table Description must match — if updating one, update both. (See MESSAGE.md (Cross-Reference Rules) description-sync rule.)
+4. **Note glossary impact.** If new terms were introduced or existing terms retired, note: "Glossary may need updating — run `/investigate fix glossary` to sync messaging/glossary.md."
 5. **Confirm each file** with a one-line summary: `Created messaging/competitors/acme-corp.md — Primary competitor, enterprise security platform`
 
 ## Pillar Updates
@@ -102,7 +103,7 @@ When updating a pillar doc, read downstream pillars that reference it. Include i
 - Which collection profiles might be affected
 - What specific claims or positioning might need revision
 
-After writing, note downstream drift: "Updated space.md positioning. The following docs may need review: [list of affected downstream docs]."
+After writing, note downstream drift: "Updated position.md positioning. The following docs may need review: [list of affected downstream docs]."
 
 ## Open-Ended Requests
 
@@ -120,7 +121,7 @@ Bootstrap builds the full messaging system from scratch in 7 ordered phases. Com
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `templates/messaging/`, `input/`, `output/research/`, `insights/`
+- **Read** — `MESSAGE.md`, `DESIGN.md`, `messaging/`, `messaging/_schemas/pillars/`, `messaging/_schemas/collections/`, `input/`, `output/research/`, `insights/`
 - **Write, Edit** — `messaging/` (user confirmation required), `output/research/` (autonomous)
 - **WebSearch, WebFetch** — Bounded by task (max 10 searches)
 - **Glob, Grep** — Full access

@@ -31,10 +31,10 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type          | What to Extract                                           | Source Files                              |
 |-----------------------|-----------------------------------------------------------|-------------------------------------------|
-| Competitor Intel      | Strengths, weaknesses, win/loss patterns, differentiation | competitors/[name].md, space.md           |
-| Persona & Audience    | Pain points, goals, objections, decision criteria, altitude | personas/[name].md, audience.md          |
+| Competitor Intel      | Strengths, weaknesses, win/loss patterns, differentiation | competitors/[name].md, position.md           |
+| Persona & Audience    | Pain points, goals, objections, decision criteria, altitude | personas/[name].md, people.md          |
 | Plays & Motions       | Trigger conditions, play narratives, campaign structure   | plays/[name].md, motions.md              |
-| Value Framework       | Propositions, differentiators, product capabilities       | profile.md, space.md, products/[name].md |
+| Value Framework       | Propositions, differentiators, product capabilities       | profile.md, position.md, products/[name].md |
 | Voice & Terminology   | Brand voice, naming conventions, glossary terms           | profile.md, glossary.md                  |
 | Evidence              | Customer stories, quotes, metrics, analyst recognition    | proof.md, stories/[name].md             |
 | Solutions             | Use cases, outcomes, components                           | solutions/[name].md, portfolio.md        |
@@ -47,7 +47,7 @@ Enablement content is consumed under pressure — mid-call, pre-meeting, between
 - **Actionable over informational.** "Say this" beats "understand this." Provide exact language, not background reading.
 - **Honest over optimistic.** Reps lose trust in enablement content the first time it fails them in a live conversation. If a competitor is strong somewhere, say so and provide the redirect.
 - **Scenario-driven over comprehensive.** Organize around situations reps encounter, not abstract categories. "When they bring up [competitor]" is better than "Competitive Landscape."
-- **Messaging-grounded over invented.** Every claim, differentiator, and objection response must trace to the messaging house. Do not introduce positioning that isn't supported by space.md or proof.md.
+- **Messaging-grounded over invented.** Every claim, differentiator, and objection response must trace to the messaging house. Do not introduce positioning that isn't supported by position.md or proof.md.
 
 ## Quality Signals
 
@@ -85,7 +85,7 @@ ALWAYS use this exact template structure:
 - **Competitor:** [competitors/name.md sections used]
 - **Persona:** [personas/name.md sections used]
 - **Play:** [plays/name.md sections used]
-- **Space:** [space.md sections used]
+- **Space:** [position.md sections used]
 - **Proof:** [stories/name.md, proof.md sections used]
 - **Other:** [Additional references]
 

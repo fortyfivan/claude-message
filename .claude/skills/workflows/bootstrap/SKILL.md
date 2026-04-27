@@ -13,31 +13,10 @@ It's critical to treat this task as a strategist, not a scribe. Your job is to f
 
 ## Architecture
 
-The messaging system has two tiers.
+The messaging system follows the 8P pillar architecture defined in `/MESSAGE.md`. This skill creates that structure from scratch.
 
-**Pillars** are the six top-level documents that define the company's messaging foundation:
-
-| Pillar | Purpose |
-|--------|---------|
-| Profile | Company identity, mission, voice, and strategic narrative |
-| Space | Competitive landscape, category positioning, and differentiation |
-| Audience | Buyers, users, and segments with distinct messaging needs |
-| Portfolio | Products, services, and solutions mapped to customer needs |
-| Proof | Customer stories, metrics, and third-party validation |
-| Motion | GTM channels, plays, and how the company acquires customers |
-
-**Profiles** are collection documents that live under their parent pillar:
-
-| Profile | Parent Pillar |
-|---------|--------------|
-| Persona | Audience |
-| Segment | Audience |
-| Competitor | Space |
-| Category | Space |
-| Product | Portfolio |
-| Solution | Portfolio |
-| Story | Proof |
-| Play | Motion |
+**Pillars** (8) — Profile, Pitch, Position, People, Portfolio, Proposition, Proof, Play.
+**Collections** (10) — persona, segment, competitor, category, product, solution, story, report, play, signal.
 
 Each pillar maintains a reference table linking to its collection profiles. When you write a pillar doc, every profile gets a row. When you write a profile, its `description` frontmatter matches its row in the parent pillar's reference table.
 
@@ -123,7 +102,7 @@ Store everything as your **session context** — it applies to every phase. You 
 ### Step 4: Extract brand tokens
 
 Fetch the company homepage using the URL from session context. Extract:
-- Primary, secondary, and accent colors (from CSS or meta tags)
+- Primary, secondary, tertiary, and neutral colors (from CSS or meta tags)
 - Heading and body fonts
 - Logo URL
 
@@ -132,12 +111,13 @@ Present what you found via AskUserQuestion for confirmation:
 > "Here's what I found from your website. Please confirm or correct:"
 > - Primary color: [value or "not found"]
 > - Secondary color: [value or "not found"]
-> - Accent color: [value or "not found"]
+> - Tertiary/accent color: [value or "not found"]
+> - Neutral color: [value or "not found"]
 > - Heading font: [value or "not found"]
 > - Body font: [value or "not found"]
 > - Logo URL: [value or "not found"]
 
-Write confirmed values to `messaging/brand.yml`. Create `messaging/brand/` and download any discovered logo files.
+Write confirmed values into the YAML frontmatter in `/DESIGN.md` (`colors`, `typography`, plus the `name`/`description` fields). Populate the prose sections — Overview, Colors, Typography, Logo, Do's and Don'ts — based on what was extracted plus session context. Create `messaging/brand/` and download any discovered logo files.
 
 ---
 
@@ -200,8 +180,8 @@ Incorporate the user's choices before proceeding. **Do not write until challenge
 ### 3. Write
 
 After the user confirms the synthesis, write all files for the phase silently:
-- Read the template from `templates/messaging/`
-- Write the file to the correct messaging directory
+- For pillar files: read the schema from `messaging/_schemas/pillars/[pillar].md` for section structure and bracketed instructions, then overwrite `messaging/[pillar].md` with company-specific content. **Strip the bootstrap disclaimer block** (the `> **Not yet populated.**` blockquote near the top) when populating — it stays only on empty pillars.
+- For collection profiles: copy the schema from `messaging/_schemas/collections/[type].md` and write to the correct collection directory.
 - Confirm each file with one line: `Created messaging/personas/ciso.md — Buyer persona, security leadership`
 
 No previews. No code blocks. The synthesis captured the strategy — the user approved it. Write and move on.
@@ -222,70 +202,86 @@ Complete in sequence. Each phase builds on the last.
 
 ### Phase 1: Profile
 
-Establish who the company is. Every later phase references this foundation — voice, narrative, mission, belief.
+Establish who the company is. Identity, voice, marketplace statement. Every later phase references this foundation.
 
 **Output:** `messaging/profile.md`
-**Key questions:** What does the company believe that others in the market don't? What is the narrative arc — from market conditions to unique insight to proof of value? What does the voice sound like?
-**Web research triggers:** Homepage and product pages if input materials don't contain positioning language. Blog and social if voice is unclear.
+**Key questions:** What does the company stand for? What does the voice sound like? What is the canonical boilerplate and marketplace listing?
+**Web research triggers:** Homepage and product pages if input materials don't contain identity language. Blog and social if voice is unclear.
 
 Use stage, market, and company basics from session context directly. Do not re-ask.
 
 When naming conventions emerge during research — product names, preferred terms, rejected terms — record them in the progress file for glossary generation at completion.
 
-### Phase 2: Space
+### Phase 2: Pitch
 
-Map the competitive landscape. Who the company competes with, where it plays, and what makes it different.
+Construct the strategic narrative — the structured arc from market conditions to inflection to undeniable advantage.
 
-**Output:** `messaging/space.md`, `messaging/competitors/*.md`, `messaging/categories/*.md`
-**Key questions:** What category does the company compete in or is creating? What are the primary competitors and how does the company beat each one? What positioning can no competitor claim?
+**Output:** `messaging/pitch.md`
+**Key questions:** What does the company believe that others in the market don't? What is the narrative arc — scenario, inflection, status quo, smart insight, unique approach, proof of value, reason to believe, undeniable gain, step to action? What's the elevator version?
+**Web research triggers:** Homepage hero copy and blog posts for narrative voice if input materials don't carry it.
+
+### Phase 3: Position
+
+Map the competitive landscape and positioning. Where the company plays and how it frames its category.
+
+**Output:** `messaging/position.md`, `messaging/competitors/*.md`, `messaging/categories/*.md`
+**Key questions:** What category does the company compete in or is creating? What are the primary competitors and where do they fit? What's the positioning statement?
 **Web research triggers:** Competitor websites and positioning if not covered in input materials. Analyst coverage for category framing.
 
-### Phase 3: Audience
+### Phase 4: People
 
 Define who the company sells to and why they buy.
 
-**Output:** `messaging/audience.md`, `messaging/personas/*.md`, `messaging/segments/*.md`
-**Key questions:** Who is the economic buyer vs. the end user? What does each persona care about that the others don't? Which segments carry genuinely distinct messaging needs — not just different sizes or industries, but different problems, language, or buying motion?
+**Output:** `messaging/people.md`, `messaging/personas/*.md`, `messaging/segments/*.md`
+**Key questions:** Who is the economic buyer vs. the end user? What does each persona care about that the others don't? Which segments carry genuinely distinct messaging needs?
 **Web research triggers:** Role and buying process research only if personas aren't grounded in input materials or prior discovery.
 
-### Phase 4: Portfolio
+### Phase 5: Portfolio
 
 Define what the company sells and how it maps to audience needs.
 
 **Output:** `messaging/portfolio.md`, `messaging/products/*.md`, `messaging/solutions/*.md`
-**Key questions:** What capabilities are genuinely unique? How does the portfolio address the pain points established in Audience? What use cases warrant their own solution messaging?
+**Key questions:** What capabilities are genuinely unique? How does the portfolio address the pain points established in People? What use cases warrant their own solution messaging?
 **Web research triggers:** Product feature comparisons only if competitive differentiation is unclear from input materials.
 
-### Phase 5: Proof
+### Phase 6: Proposition
 
-Assemble the evidence that makes claims credible.
+Articulate the differentiated value — UVPs and defensible differentiators. Each UVP carries its own quantitative and qualitative measures inline (no separate Measures collection).
 
-**Output:** `messaging/proof.md`, `messaging/stories/*.md`
-**Key questions:** What customer stories demonstrate real outcomes? What metrics exist? What third-party validation is available?
-**Web research triggers:** "[company] case study", "[company] customer story", "[company] review" — limit to the last 12 months. Cap at 10 story profiles.
+**Output:** `messaging/proposition.md`
+**Key questions:** What 3-5 unique value propositions anchor messaging? What differentiators can no competitor replicate? For each UVP, what quantitative outcomes (time saved, cost reduced, risk avoided) and qualitative outcomes (observable behavioral changes) evidence the claim?
+**Web research triggers:** Industry benchmarks for UVP measure baselines if internal data is thin.
 
-Prioritize stories that name a product, match a persona, and include a specific metric or quote. A story without evidence is not a proof point.
+### Phase 7: Proof
 
-### Phase 6: Motion
+Assemble the customer evidence and external validation that makes claims credible.
 
-Define how the company goes to market. Motion orchestrates all prior components into actionable GTM approaches.
+**Output:** `messaging/proof.md`, `messaging/stories/*.md`, `messaging/reports/*.md`
+**Key questions:** What customer stories demonstrate real outcomes? What third-party reports (analyst research, market studies, surveys, benchmarks) do we cite? What community evidence patterns exist?
+**Web research triggers:** "[company] case study", "[company] customer story", "[company] review" — limit to the last 12 months. For Reports: search analyst coverage of the category, recent industry surveys, and benchmark studies relevant to UVPs. Cap at 10 story profiles and 8 report profiles.
 
-**Output:** `messaging/motion.md`, `messaging/plays/*.md`
-**Key questions:** What are the primary acquisition channels? What triggers a specific play — what situation, what buyer, what moment? How does messaging shift by channel and motion?
-**Web research triggers:** Rarely needed. Motion is synthesized from prior phases, not researched independently.
+Prioritize stories that name a product, match a persona, and include a specific metric or quote. Prioritize Reports that the buyer would already trust (recognized analyst firms, well-cited surveys) over self-published research. A story or report without evidence is not a proof point.
+
+### Phase 8: Play
+
+Define how the company goes to market — the motion, the plays, and the signals that trigger them.
+
+**Output:** `messaging/play.md`, `messaging/plays/*.md`, `messaging/signals/*.md`
+**Key questions:** What are the primary acquisition channels? What plays exist (competitive, expansion, displacement, etc.) and when does each apply? What signals (compelling events) trigger which plays?
+**Web research triggers:** Rarely needed for plays. Signals may need light research if compelling-event categories aren't documented in input materials.
 
 ---
 
 ## Completion
 
-After all six phases:
+After all eight phases:
 
 1. **Consistency check.** Read every file written during the session using the Read tool. Do not use shell commands (grep, awk, etc.) for this step — analyze the content in context.
 
    Check for:
    - **Reference table sync** — Every collection profile has a row in its parent pillar's reference table, and every row has a matching profile file. Descriptions match between frontmatter and table.
    - **Cross-references** — Products, personas, and segments named in one doc exist as profiles. Stories reference real products and personas.
-   - **Contradictions** — Claims in one doc that conflict with another (e.g., a competitor listed as "no direct threat" in space.md but treated as primary in a battlecard).
+   - **Contradictions** — Claims in one doc that conflict with another (e.g., a competitor listed as "no direct threat" in position.md but treated as primary in a battlecard).
    - **Gaps** — Pillars or profiles that are thin, rely heavily on placeholders, or lack key sections.
 
    Present a single summary:
@@ -302,25 +298,25 @@ After all six phases:
      - [action]
    ```
 2. Delete the progress file.
-3. Invoke `/investigate fix glossary` to generate the initial glossary from the populated messaging house. Present the proposed glossary for user approval before finalizing.
+3. Invoke `/investigate fix glossary` to generate the initial glossary from the populated messaging house. The glossary populates `messaging/glossary.md`; **strip the bootstrap disclaimer block** (the `> **Not yet populated.**` blockquote) when populating. Present the proposed glossary for user approval before finalizing.
 
 ### Write Profile Block
 
-After glossary approval, write the user's profile into CLAUDE.md:
+After glossary approval, write the user's profile into `/MESSAGE.md` (Writing Profile Block):
 
-1. Find `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers.
+1. Find `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers in MESSAGE.md.
 2. Read `messaging/profile.md` frontmatter for `{company}`.
 3. Using session context values and `{company}`, compose:
 
 ```
-{company} is a(n) {stage} company in the {market} space. Calibrate all messaging to {company}'s market position, stage, and audience.
+Craft messaging and content for {company}, a {stage} company in the {market} space. Calibrate tone, claims, proof, voice, and positioning to its market position, stage, and audience.
 ```
 
 4. Replace everything between the markers with the composed block.
 
 ### Write Initial Journal Entry
 
-Append the first entry to `messaging/journal.md` (create from template if needed):
+Append the first entry to `messaging/journal.md`:
 
 - **Source:** Bootstrap — initial build
 - **Type:** process

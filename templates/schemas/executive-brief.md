@@ -18,7 +18,7 @@ optional_fields:
 
 ## Situation
 
-[3-4 sentences describing the market condition, industry shift, or organizational challenge that creates urgency. Frame at the business level — revenue, risk, competitive position, regulatory pressure. Ground in space.md market dynamics and audience.md executive-level pain points.]
+[3-4 sentences describing the market condition, industry shift, or organizational challenge that creates urgency. Frame at the business level — revenue, risk, competitive position, regulatory pressure. Ground in position.md market dynamics and people.md executive-level pain points.]
 
 ## Risk of Inaction
 

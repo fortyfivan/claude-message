@@ -126,9 +126,9 @@ For each objection:
 
 ## Writing Guidelines
 
-- This persona's messaging must be consistent with the ICP defined in audience.md — if the account isn't ICP-fit, persona-level messaging doesn't apply
+- This persona's messaging must be consistent with the ICP defined in people.md — if the account isn't ICP-fit, persona-level messaging doesn't apply
 - Messaging Guidance overrides default tone assumptions — when this persona is the target, Altitude, Lead with, and Language cues take precedence
-- Objection reframes should be grounded in messaging docs — don't invent claims not supported by proof.md, space.md, or product profiles
+- Objection reframes should be grounded in messaging docs — don't invent claims not supported by proof.md, position.md, or product profiles
 - Internal Selling applies primarily to champion and evaluator types — for decision-makers and blockers, focus on Key Messages and Objections instead
 - Do not merge or generalize across personas — each profile is a distinct individual with distinct messaging. When content targets multiple personas, load each profile separately and address them in distinct sections or separate assets
 

@@ -3,9 +3,9 @@ title: ""
 updated: ""
 ---
 
-# Motion
+# Play
 
-This pillar defines how the company goes to market — the selling motion, the channels, the plays, and the repeatable campaign patterns that turn messaging into pipeline. The primary motion shapes everything downstream. A sales-led company produces different content at different depths with different CTAs than a product-led company. 
+This pillar defines how the company goes to market — the selling motion, the channels, the plays that turn messaging into pipeline, and the signals that trigger them. The primary motion shapes everything downstream. A sales-led company produces different content at different depths with different CTAs than a product-led company.
 
 ## Messaging Blocks
 
@@ -42,12 +42,28 @@ Document plays as discrete profiles in `messaging/plays/[play-name].md`. The tab
 - Type: competitive | expansion | displacement | new-logo | retention | event | partner
 - Status: active | draft | retired]
 
+### Signals
+
+Signals are the compelling events that trigger plays — regulatory changes, competitor moves, industry incidents, account-level behavioral shifts, news cycles. Each signal classifies an event pattern and suggests which plays to deploy in response. When a signal fires for an account or moment, extract the respective profile in `messaging/signals/`.
+
+| Signal | File | Type | Description |
+|---|---|---|---|
+| | | | |
+
+[Instructions:
+Document signals as discrete profiles in `messaging/signals/[signal-name].md`. The table serves as a reference index. Description should lead with the event pattern and what it indicates — one sentence (~15 words).]
+
+[Tips:
+- Type: regulatory | competitive | incident | behavioral | news | partner | seasonal
+- Pair signals with plays explicitly via the `plays[]` relationship array — a signal without a recommended play has no operational use]
+
 ## Writing Guidelines
 
 - Primary motion determines CTA defaults across the system — sales-led leads with demo/conversation, product-led leads with trial/self-serve, partner-led leads with joint engagement, event-led leads with registration/meeting
 - Content depth follows motion — sales-led content tends longer and more comprehensive (the reader is evaluating), product-led content tends shorter and more action-oriented (get to the "try it" moment fast)
 - Plays are the most targeted form of messaging — load the relevant play profile when content is tied to a specific buyer scenario or competitive situation
-- Plays should not be loaded for broad awareness or thought leadership content — those should draw from Space and Profile, not motion-specific narratives
+- Plays should not be loaded for broad awareness or thought leadership content — those should draw from Position and Pitch, not play-specific narratives
+- Signals trigger plays — when content responds to a compelling event, load the matching signal profile and the plays it references via `plays[]`
 - When motions conflict with persona preferences (e.g., a sales-led motion targeting a developer persona who prefers self-serve), defer to persona — adapt the CTA and engagement model to the audience while maintaining the motion's overall structure
 
 ## Messaging Rules

@@ -58,97 +58,6 @@ Describe the future world your company is driving towards. This is the North Sta
 [Format:
 1-2 sentences describing a changed future state]
 
-### Strategic Narrative
-
-[Instructions:
-Document the full strategic narrative in a structured format. This covers the arc from market conditions to inflection points to your undeniable advantage. The structure below is guidance to ensure completeness, not a script that must be followed rigidly.
-
-The narrative shifts perspective deliberately — the first half (Scenario through Proof of Value) is told from the company's point of view. The second half (Reason to Believe through Step to Action) shifts to the buyer's perspective. Preserve this transition.]
-
-[Tips:
-- Your narrative is more about your audience than it is about you
-- The stronger the inflection, the greater the urgency
-- Even with structure, write in a conversational tone to give it a natural flow]
-
-[Format:
-Use the following narrative components as structural guidance. Each component should be 1-2 paragraphs unless otherwise noted.]
-
-#### The Scenario
-
-[Instructions:
-Set the scene with an attention-grabbing hook that describes the current conditions your target audience is facing that indicate change is afoot.]
-
-#### The Inflection
-
-[Instructions:
-Define the shift your customers are experiencing — what changed in their world that makes the old way unsustainable. This isn't an analyst trend report; it's the lived reality of practitioners who can feel the ground moving beneath them.]
-
-#### The Status Quo
-
-[Instructions:
-Explain what your customers have tried and why it hasn't worked. Acknowledge their effort — they've invested in solutions, built workarounds, hired consultants. The point isn't that alternatives are bad; it's that the problem has evolved past what existing approaches were designed for.]
-
-#### Our Smart Insight
-
-[Instructions:
-Describe the one thing you figured out that others didn't, or got wrong when they tried. This isn't to gloat — it's to gain trust that you're on to something different.]
-
-#### Our Unique Approach
-
-[Instructions:
-Describe what you built and why it's different — whether architecture, capabilities, delivery, or experience-driven. Be explicit — there's a lot of setup to get to this point.]
-
-#### Our Proof of Value
-
-[Instructions:
-Share tangible proof points from real customer outcomes. Lead with what customers achieved — metrics, time saved, risks avoided, capabilities unlocked. Third-party validation (community adoption, analyst recognition) reinforces but doesn't replace customer evidence.]
-
-#### Your Reason to Believe
-
-[Instructions:
-Give your audience something to advocate for — a realization that a better world is within grasp. This comes from recognizing the pain in the scenario and agreeing with the insight. *The perspective shifts to the buyer here.*]
-
-#### Your Undeniable Gain
-
-[Instructions:
-Articulate the realized value in embracing change in the direction you've set. These should be quantitative and qualitative measures that speak directly to what your audience is on the hook for and investing in.]
-
-#### Your Step to Action
-
-[Instructions:
-Close with tangible steps forward. This isn't a CTA on a website — this is your strategic narrative, so make it tied to embracing trends.]
-
-#### Elevator Pitch
-
-[Instructions:
-Provide a short, conversational version of the strategic narrative as you would deliver it in an elevator, at a booth, or early in a call.]
-
-[Tips:
-- All bangers, no filler — keep it tight
-- Assume no context like you're starting a new conversation]
-
-[Format:
-2-4 sentences in natural, spoken language]
-
-### Unique Value Propositions
-
-[Instructions:
-Document the core value propositions that anchor your messaging system. Each proposition describes a differentiated outcome only your company can deliver, tied to a real, timely, and funded customer problem. These should remain consistent across campaigns, assets, and channels.]
-
-[Tips:
-- 3-5 propositions is the right range — more than 5 dilutes focus, fewer than 3 lacks coverage
-- Focus on measurable business and technical outcomes, not features
-- Each proposition should stand on its own as a key message
-- Align propositions to your portfolio messaging for direct mapping]
-
-[Format:
-For each value proposition:
-- **One-Liner:** A concise statement of the differentiated outcome
-- **Supporting Messages:** 3 bullets that expand on the outcome and context
-- **Why It Matters:** The buyer impact or risk addressed
-- **Why We're Different:** What makes this uniquely yours
-- **Portfolio Mapping:** (optional) Specific products or solutions this proposition applies to]
-
 ### Brand Voice
 
 #### Tone
@@ -253,9 +162,9 @@ Describe the company as it should appear in marketplace listings or partner cata
 
 - Brand Voice preferences (Tone, Theme Pillars, Tips & Tricks, Tropes to Avoid) are always-on unless explicitly overridden by a skill
 - Stage (emerging | growth | established) calibrates proof burden and positioning boldness — do not make claims that exceed the company's stage
-- Value propositions are durable messaging pillars — anchor benefits and outcomes to the closest matching proposition
-- Do not repeat the full strategic narrative unless explicitly instructed — preserve the narrative logic, not the exact language
-- Glossary terms override all other word-choice guidance — if a term is defined in `messaging/glossary.md`, use it exactly as defined
+- The strategic narrative lives in `messaging/pitch.md` — load it for any narrative-led content. Identity statements (mission, vision, marketplace) live here.
+- Value propositions live in `messaging/proposition.md` — anchor benefits and outcomes to the closest matching proposition
+- Glossary terms override all other word-choice guidance — see `messaging/glossary.md` for the canonical glossary
 
 ## Messaging Rules
 

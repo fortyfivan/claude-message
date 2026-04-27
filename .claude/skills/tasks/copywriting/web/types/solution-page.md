@@ -31,8 +31,8 @@ Solution pages should be the highest-empathy content on the website. The Challen
 | `solutions/[name].md` | Overview, use case (before/problem/after), unique approach, components, value delivered, personas aligned |
 | `products/[name].md` | Capabilities referenced in the components section |
 | `personas/[name].md` | Pain points, language cues, altitude — for the Challenge section voice |
-| `audience.md` | ICP environment context, maturity level for framing |
-| `space.md` | Positioning and differentiation context |
+| `people.md` | ICP environment context, maturity level for framing |
+| `position.md` | Positioning and differentiation context |
 | `stories/[name].md` | Solution-specific customer proof |
 | `glossary.md` | Terminology — especially for the problem space naming |
 

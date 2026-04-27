@@ -7,7 +7,7 @@ A report built around a specific dataset or analysis — product telemetry, cust
 | Section | Purpose | Guidance |
 |---------|---------|----------|
 | Key Findings | The headlines | 5-7 data points that tell the story. Each should be a standalone quotable statistic with context. This is the section that gets shared |
-| Context | Why this data matters now | The market moment, industry challenge, or operational trend that makes these findings relevant. Connect to space.md market trends |
+| Context | Why this data matters now | The market moment, industry challenge, or operational trend that makes these findings relevant. Connect to position.md market trends |
 | The Data | What we looked at | Data source, scope, time period. Not a full methodology section — just enough for the reader to trust the numbers |
 | Findings in Depth | Pattern by pattern | Each major finding gets its own section: the data point, what it means, why it's surprising or significant, and what the reader should do about it |
 | Benchmarks | Where you stand | If the data supports it, provide benchmarks the reader can compare against. "If your MTTR is above X, you're in the bottom quartile" — this makes the report a tool, not just a read |

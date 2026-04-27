@@ -31,7 +31,7 @@ Write in the second person. "When they bring up X, redirect to Y." "Ask the pros
 | Source | What to Extract |
 |--------|----------------|
 | `competitors/[name].md` | Their approach, strengths, weaknesses, win/loss patterns, differentiation messages |
-| `space.md` | Key differentiators, competitive advantages, positioning |
+| `position.md` | Key differentiators, competitive advantages, positioning |
 | `personas/[name].md` | Objections, decision criteria, language cues for the buyer in this deal |
 | `stories/[name].md` | Quotes and outcomes filtered for this competitive matchup |
 | `products/[name].md` | Capability comparison data, unique vs. core capabilities |

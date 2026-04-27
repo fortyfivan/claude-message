@@ -32,40 +32,54 @@ The bootstrap command guides you through an interactive workflow to build your c
 
 ## How It Works
 
+Three files anchor the system:
+
+- `MESSAGE.md` — the messaging design system. Architecture, frontmatter contracts, progressive loading rules, and your writing profile.
+- `DESIGN.md` — the visual identity. Brand tokens (colors, typography, logos) consumed by downstream rendering tools.
+- `messaging/` — the messaging house. Eight pillar files plus collection profiles for personas, competitors, products, stories, and more.
+
 ### Messaging House
 
-The Messaging House is a structured model of your messaging. Six pillars cover every strategic dimension, built progressively:
+The Messaging House is a structured model of your messaging. Eight pillars cover every strategic dimension (the 8P system):
 
-| # | Pillar | Purpose | 
-|---|--------|---------|
-| 1 | Profile | Company identity, narrative, voice, mission | 
-| 2 | Space | Market landscape, positioning, differentiation | 
-| 3 | Audience | ICP, buyer/user personas, market segments | 
-| 4 | Portfolio | Products, solutions, capabilities | 
-| 5 | Proof | Social proof, case studies, evidence |
-| 6 | Motion | GTM strategies, campaign playbooks | 
+| # | Pillar      | Purpose                                   |
+|---|-------------|-------------------------------------------|
+| 1 | Profile     | Identity, voice, marketplace statement    |
+| 2 | Pitch       | Strategic narrative                       |
+| 3 | Position    | Category and competitive landscape        |
+| 4 | People      | ICP, personas, segments                   |
+| 5 | Portfolio   | Products and solutions                    |
+| 6 | Proposition | UVPs, differentiators, value claims       |
+| 7 | Proof       | Customer evidence and external validation |
+| 8 | Play        | GTM motion, plays, signals                |
 
 Each pillar uses YAML frontmatter for structured metadata and markdown body for narrative content. Collection subdirectories hold detailed profiles:
 
-- `categories/` — Market category profiles
-- `competitors/` — Competitor profiles
-- `personas/` — Persona profiles
-- `plays/` — GTM play profiles
-- `products/` — Product detail docs
-- `stories/` — Customer stories and proof narratives
-- `segments/` — Market segment profiles
-- `solutions/` — Solution briefs
+- `categories/` — Market categories the company aligns with or competes in
+- `competitors/` — Alternatives buyers evaluate (vendor, DIY, status quo)
+- `personas/` — Buyer or user roles with altitude and pain points
+- `plays/` — GTM motion narratives for buyer situations
+- `products/` — Products, modules, platforms in the portfolio
+- `reports/` — Third-party research, analyst reports, surveys, benchmarks
+- `segments/` — Industry, size, region, or maturity slices
+- `signals/` — Compelling events that trigger one or more plays
+- `solutions/` — Use-case bundles composed of one or more products
+- `stories/` — Customer evidence — outcome, quote, and proof
+
+Two operational files round out the house:
+
+- `glossary.md` — Custom terminology used in messaging. Once defined, terms override all other word-choice guidance.
+- `journal.md` — Longitudinal log of learnings, decisions, and process notes.
 
 ### Agents
 
-Four subagents handle execution — dispatched by workflow skills and the user.
+Three subagents handle execution — dispatched by workflow skills and the user.
 
 | Agent | Purpose |
 |-------|---------|
 | **writer** | Context-resolution content engine. Resolves the exact messaging docs a task requires, loads the appropriate skill, generates content grounded in the messaging house, and self-evaluates. |
 | **researcher** | Research execution agent. Searches external sources and evaluates findings against the messaging system. Dispatched standalone or by the investigate workflow. |
 | **reader** | Content review specialist. Adopts the target persona's perspective and scores generated content against quality criteria. |
-| **producer** | Deliverable production agent. Creates finished files from approved content — applies brand tokens and asset templates. |
 
 ### Commands
 
@@ -83,7 +97,8 @@ Commands are the stable invocation layer. Each routes to a skill or agent.
 | `/investigate health` | Validate messaging system health |
 | `/investigate review` | Tracker dashboard + health summary |
 | `/generate [skill] [topic]` | Generate content using a skill |
-| `/produce [type] [file]` | Produce a finished deliverable |
+| `/update` | Detect drift across artifacts, campaigns, launches, and standalone assets |
+| `/update [slug]` | Refresh and version a specific living artifact |
 | `/review [file]` | Review a content asset |
 | `/tune` | Calibrate skills to the messaging house |
 
@@ -100,9 +115,24 @@ Commands are the stable invocation layer. Each routes to a skill or agent.
 | Social Copywriting | LinkedIn post, LinkedIn article, X post, X thread |
 | Story | Customer story, partner story |
 | Web Copywriting | Product page, solution page, comparison page, topic page |
-| Production | Datasheet, one-pager, executive brief, slide deck, battlecard |
 
 **Voice Gate** — Writing rules loaded for every content task. Eliminates AI writing patterns, enforces clean prose rules.
+
+### Living Artifacts
+
+Artifacts are versioned, continuously maintained content sources (decks, collateral, roadmaps) that stay current with the messaging house. Each artifact lives in `artifacts/[slug]/` with three files:
+
+- `manifest.md` — Dependencies on the messaging house, trigger conditions, and section-to-source mapping
+- `current.md` — The canonical content
+- `changelog.md` — Version history
+
+Run `/update [slug]` to detect drift, review proposed changes, and version the result. Run `/update` with no arguments for a unified drift overview across all artifacts and produced content.
+
+### Production Handoff
+
+Claude Message authors messaging-grounded markdown content. Schemas in `templates/schemas/` define structure for each deliverable type (datasheet, one-pager, battlecard, executive brief, slide deck) so writers compose consistently.
+
+Rendering happens externally — open content alongside `/DESIGN.md` in Claude Design or Claude Artifacts to produce finished decks, PDFs, and web pages. The repo's job is content + structure; downstream tools handle pixels.
 
 ### Insights System
 
@@ -118,9 +148,9 @@ Configure investigation cadence and focus areas in `insights/config.md`.
 
 ## Your Writing Profile
 
-Bootstrap automatically generates a writing profile in CLAUDE.md based on the messaging house. The profile establishes your role, company identity, and market context so every interaction — not just content generation — is grounded in who you are and where you compete.
+Bootstrap generates a writing profile in `MESSAGE.md` based on your messaging house. The profile is the always-loaded context for every messaging or content task — voice, identity, market position, stage. It calibrates tone, claims, and proof to where the company actually sits in the market.
 
-To update the profile after changes to your messaging house, re-run `/bootstrap` or edit the profile block in CLAUDE.md directly.
+To update the profile after changes to your messaging house, re-run `/bootstrap` or edit the profile block in `MESSAGE.md` directly.
 
 ## Pulling Upstream Updates
 

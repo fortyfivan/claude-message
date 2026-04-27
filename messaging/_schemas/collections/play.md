@@ -114,7 +114,7 @@ Which personas and segments this play targets, and their role in the play's exec
 - Solution set determines which product and solution profiles to load when generating play content
 - Campaign structure is a starting point — the campaign agent uses it as defaults but the user customizes asset list, personas, and sequencing per campaign
 - Value measures should be tracked — if a play isn't producing measurable company value, consider retiring it
-- When a play targets multiple personas, the campaign structure should sequence assets by the buying committee influence chain defined in audience.md
+- When a play targets multiple personas, the campaign structure should sequence assets by the buying committee influence chain defined in people.md
 
 ## Messaging Rules
 

@@ -33,7 +33,7 @@ Write in imperative voice. "Send the competitive comparison email." "Wait 48 hou
 | `competitors/[name].md` | If competitive play — strengths, weaknesses, killer questions, differentiation messages |
 | `stories/[name].md` | Proof points to embed at specific stages — quote-level fragments the rep can paste |
 | `motions.md` | Channel strategy context — which channels support this play's execution |
-| `audience.md` | Buying committee for multi-persona sequencing, journey stage alignment |
+| `people.md` | Buying committee for multi-persona sequencing, journey stage alignment |
 
 ## Example
 

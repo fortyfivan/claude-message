@@ -87,7 +87,7 @@ The scenarios, evaluation criteria, and buyer conditions where we consistently b
 
 [Tips:
 - Be specific about the conditions — "we win in enterprise" is too broad; "we win in enterprise deals where the buyer has 3+ existing security tools and is consolidating" is actionable
-- Connect winning scenarios to specific differentiators from space.md]
+- Connect winning scenarios to specific differentiators from proposition.md]
 
 [Format:
 Bulleted list of scenarios with conditions and the differentiator or advantage that drives the win]
@@ -124,12 +124,12 @@ For each pattern:
 ### Differentiation Messages
 
 [Instructions:
-2-3 messaging statements that frame the competitive contrast. These should derive from differentiators defined in space.md, adapted for this specific competitor.]
+2-3 messaging statements that frame the competitive contrast. These should derive from differentiators defined in proposition.md, adapted for this specific competitor.]
 
 [Tips:
 - Frame as "Unlike [alternative's approach], we [our approach]" — contrast approaches, not features
 - Each message should connect to a specific weakness or win scenario above
-- Do not introduce new differentiation claims here that aren't grounded in space.md]
+- Do not introduce new differentiation claims here that aren't grounded in position.md]
 
 [Format:
 Numbered list of 2-3 contrast statements]
@@ -165,7 +165,7 @@ For each vendor:
 
 - This profile is a messaging tool, not a competitive intelligence database — focus on what affects content, campaigns, and sales conversations
 - Be honest about competitor strengths — understating them damages credibility with buyers who've done their research
-- Differentiation messages must trace back to differentiators defined in space.md — do not introduce competitive claims here that aren't supported elsewhere in the messaging system
+- Differentiation messages must trace back to differentiators defined in proposition.md — do not introduce competitive claims here that aren't supported elsewhere in the messaging system
 - Win/Loss Patterns are the most actionable section for strategic planning — prioritize keeping them current over general Strengths/Weaknesses updates
 - When generating competitive content (battlecards, objection handling, competitive blog posts), load this profile alongside the relevant persona profile — the competitive argument changes depending on who you're talking to
 - "When They Win" scenarios should inform campaign targeting exclusions and counter-play development, not be hidden or minimized

@@ -1,7 +1,7 @@
 ---
 title: ""
 slug: ""
-format: ""  # md | pptx | pdf
+format: ""  # informational: target downstream rendering (e.g., md, deck, pdf, web)
 owner: ""
 version: 0.0.0
 last_updated: ""

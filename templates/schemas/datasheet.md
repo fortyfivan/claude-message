@@ -19,7 +19,7 @@ optional_fields:
 
 ## Problem
 
-[2-3 sentences describing the pain the persona faces. Grounded in the persona's pain points from audience.md. Frame the cost of inaction — what happens if they don't solve this.]
+[2-3 sentences describing the pain the persona faces. Grounded in the persona's pain points from people.md. Frame the cost of inaction — what happens if they don't solve this.]
 
 ## Capabilities
 
@@ -41,7 +41,7 @@ optional_fields:
 - **Unlike:** [How alternatives approach this]
 - **We:** [How we approach it differently and why it matters]
 
-[2-3 points. Draw from space.md competitive positioning and competitor profiles. Frame as buyer-relevant distinctions, not feature comparisons.]
+[2-3 points. Draw from position.md competitive positioning and competitor profiles. Frame as buyer-relevant distinctions, not feature comparisons.]
 
 ## Proof
 

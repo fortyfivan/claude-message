@@ -21,7 +21,7 @@ optional_fields:
 
 ## Challenge
 
-[2-3 sentences describing the problem from the persona's perspective. Lead with the business impact, not the technical gap. Ground in persona pain points from audience.md.]
+[2-3 sentences describing the problem from the persona's perspective. Lead with the business impact, not the technical gap. Ground in persona pain points from people.md.]
 
 ## Solution
 

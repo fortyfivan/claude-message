@@ -45,7 +45,7 @@ The compelling event, inflection point, or initiative that moved them from "we k
 
 [Tips:
 - Good triggers: audit finding, board mandate, security incident, compliance deadline, contract renewal, team scaling
-- This connects to the Maturity section in audience.md — the "what moves them forward" at whatever level this customer was at]
+- This connects to the Maturity section in people.md — the "what moves them forward" at whatever level this customer was at]
 
 [Format:
 1 paragraph describing the trigger]

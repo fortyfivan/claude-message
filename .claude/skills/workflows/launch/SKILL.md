@@ -119,10 +119,12 @@ Look for:
 
 Report the coverage map: what you found, what phase of the launch it informs, and what's missing. Be specific.
 
-Then load the messaging house for context:
-- All six pillars (`profile.md`, `space.md`, `audience.md`, `portfolio.md`, `proof.md`, `motion.md`)
+Then load the messaging house for context, following the Product Launch reference pattern in `/MESSAGE.md` (Reference Patterns):
+- `/MESSAGE.md` (spec), `/DESIGN.md` (brand tokens), `messaging/glossary.md`
+- All 8 pillars (`profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`)
 - The product profile being launched, if it exists in `messaging/products/`
 - Relevant persona profiles based on the target audience for this launch
+- Supporting Stories from `messaging/stories/` and Reports from `messaging/reports/` for proof and external validation
 
 ### Launch Context Questions
 
@@ -147,13 +149,13 @@ From the input materials and messaging house context, synthesize a launch messag
 
 **Why it matters** — The customer problem it solves and the outcome it enables. Grounded in persona pain points from the messaging house.
 
-**What's different** — The differentiated capability or approach. Must trace to `space.md` or product messaging — not invented.
+**What's different** — The differentiated capability or approach. Must trace to `position.md` or product messaging — not invented.
 
 **Who it's for** — Primary persona(s) and segment(s). If this launch targets a new audience not in the messaging house, flag it.
 
 **Key proof** — Any metrics, beta customer outcomes, or validation available at launch. Flag "No proof available at launch" if none exists — this is common and should be noted rather than papered over.
 
-**Messaging house gaps** — Which docs need to be created or updated as a result of this launch. Common gaps: new product profile needed, solution profile needs updating, space.md competitive section needs revision. These are flagged for the user to address after launch assets are produced.
+**Messaging house gaps** — Which docs need to be created or updated as a result of this launch. Common gaps: new product profile needed, solution profile needs updating, position.md competitive section needs revision. These are flagged for the user to address after launch assets are produced.
 
 Present the synthesis and call AskUserQuestion:
 
@@ -288,14 +290,9 @@ After all waves complete:
 2. Present a completion summary: per-asset status, flagged issues, messaging house gaps still open, and the launch directory path.
 3. Append a journal entry to `messaging/journal.md` with type "process" — launch execution notes, gaps surfaced, decisions made.
 
-### Production Offer
+### Handoff
 
-After all assets are generated and marked complete, offer to produce finished deliverables:
-
-1. Present the list of completed assets via AskUserQuestion: "Would you like to produce finished deliverables for any of these assets? Select which ones, or skip to finish."
-2. For each selected asset, invoke the producer agent with the asset file path.
-3. Produced files go to `output/launches/[launch-name]/assets/`.
-4. If the user skips, note they can run `/produce` later to discover and produce assets.
+Launch assets land in `output/launches/[launch-name]/` as markdown content. Rendering happens externally — open the assets alongside `/DESIGN.md` in Claude Design (or another rendering tool) for production.
 
 ---
 
@@ -345,7 +342,7 @@ When Launch introduces new products, capabilities, or positioning not yet reflec
 Messaging House Gaps:
 - messaging/products/[product-slug].md — does not exist, needs to be created
 - messaging/solutions/[solution-slug].md — needs updating to include new capability
-- messaging/space.md — competitive section may need revision given new differentiation
+- messaging/position.md — competitive section may need revision given new differentiation; messaging/proposition.md — UVP/differentiator updates
 ```
 
 Present this list in the brief and again in the completion summary. These are not blocking — launch assets can be produced without them — but they represent debt that should be resolved before the next campaign draws from the messaging house.
@@ -356,7 +353,7 @@ Present this list in the brief and again in the completion summary. These are no
 
 **No input materials.** If no relevant files exist in `input/`, AskUserQuestion to collect the minimum needed for synthesis: what is launching, what problem it solves, what's differentiated, who it's for. This is a slower path — launch works best when product artifacts are available.
 
-**Launch conflicts with existing messaging.** If the launch introduces positioning that contradicts `space.md` or an existing product profile, flag the conflict explicitly. Do not resolve it silently. Surface it to the user and note it in the messaging house gaps section.
+**Launch conflicts with existing messaging.** If the launch introduces positioning that contradicts `position.md` or an existing product profile, flag the conflict explicitly. Do not resolve it silently. Surface it to the user and note it in the messaging house gaps section.
 
 **Beta or limited availability.** Adjust external messaging to reflect availability constraints. Flag any assets where GA language needs to be softened (e.g., "coming soon," "available to select customers").
 

@@ -38,12 +38,12 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type       | What to Extract                                     | Source Files                 |
 |--------------------|-----------------------------------------------------|------------------------------|
-| Persona & Audience | Target reader, pain points, technical altitude      | audience.md                  |
+| Persona & Audience | Target reader, pain points, technical altitude      | people.md                  |
 | Voice & Narrative  | Brand voice, story arc, tone guidelines             | profile.md                   |
-| Value Framework    | Core propositions, differentiation, outcomes        | space.md, portfolio.md       |
-| Market Perspective | Industry trends, positioning, competitive landscape | space.md                     |
+| Value Framework    | Core propositions, differentiation, outcomes        | position.md, portfolio.md       |
+| Market Perspective | Industry trends, positioning, competitive landscape | position.md                     |
 | Evidence           | Social proof, customer stories, data points         | proof.md, portfolio.md       |
-| Strategic Context  | Campaign alignment, content themes                  | motion.md                    |
+| Strategic Context  | Campaign alignment, content themes                  | play.md                    |
 
 ## SEO/GEO Optimization
 
@@ -114,9 +114,9 @@ ALWAYS use this exact template structure:
 [Full formatted blog post with headers, sections, and SEO optimization]
 
 ## Messaging References
-- **Audience:** [Link to audience.md section]
-- **Value Framework:** [Link to space.md]
-- **Market Context:** [Link to space.md]
+- **Audience:** [Link to people.md section]
+- **Value Framework:** [Link to position.md]
+- **Market Context:** [Link to position.md]
 - **Other:** [Additional references used]
 
 ## Self-Assessment

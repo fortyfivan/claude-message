@@ -26,7 +26,7 @@ The skill determines the mode from the input. If the user specifies one persona,
 
 | Section | Purpose | Guidance |
 |---------|---------|----------|
-| Committee Map | Who's involved and their dynamics | Visual or table showing each persona, their committee role, influence chain, and when they typically engage. Pull from audience.md buying committee patterns |
+| Committee Map | Who's involved and their dynamics | Visual or table showing each persona, their committee role, influence chain, and when they typically engage. Pull from people.md buying committee patterns |
 | Engagement Sequence | Who to talk to first and why | Ordered list of personas with rationale. Usually starts with the champion or evaluator and works toward the decision-maker |
 | Per-Persona Discovery Blocks | What to learn from each person | For each persona in the committee: snapshot, opening framework, 3-5 key questions, signals to listen for, and what this conversation should unlock for the next one |
 | Cross-Persona Signals | Patterns that emerge across conversations | Signals that only become visible when you talk to multiple stakeholders — alignment or misalignment between what different personas say. "If the CISO says X but the DevOps lead says Y, the deal is at risk because..." |
@@ -49,7 +49,7 @@ Questions should be written as the rep would actually ask them — conversationa
 | Source | What to Extract |
 |--------|----------------|
 | `personas/[name].md` | Pain points, goals, objections, decision criteria, messaging guidance (altitude, lead with, language cues) |
-| `audience.md` | Buying committee patterns (committee mode), customer journey stage context, ICP signals |
+| `people.md` | Buying committee patterns (committee mode), customer journey stage context, ICP signals |
 | `products/[name].md` | Capabilities to probe for need alignment — framed as questions, not pitches |
 | `solutions/[name].md` | Use cases to validate during discovery — does their scenario match? |
 | `glossary.md` | Terms each persona uses and expects to hear |

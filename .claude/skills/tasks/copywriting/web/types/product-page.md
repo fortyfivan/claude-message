@@ -28,7 +28,7 @@ Don't open with the company name. Don't open with the product category. Open wit
 | Source | What to Extract |
 |--------|----------------|
 | `products/[name].md` | Tagline, capabilities (unique and core), architecture, differentiation, use cases, value messages |
-| `space.md` | Positioning context, key differentiators to reference |
+| `position.md` | Positioning context, key differentiators to reference |
 | `personas/[name].md` | The primary buyer persona — pain points, goals, altitude for framing |
 | `stories/[name].md` | Product-specific customer quotes and metrics |
 | `portfolio.md` | Pricing model for CTA alignment |

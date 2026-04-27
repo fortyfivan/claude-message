@@ -114,7 +114,7 @@ If the input is ambiguous, ask clarifying questions before proceeding — but ke
 
 ### Step 2: Trace the Impact
 
-Read the messaging house — all six pillars (`profile.md`, `space.md`, `audience.md`, `portfolio.md`, `proof.md`, `motion.md`), `glossary.md`, and `messaging/journal.md` (if it exists). Use pillar reference tables to identify every collection profile the feedback touches. Load full profiles for confirmed matches.
+Read the messaging house — `/MESSAGE.md` (spec), `/DESIGN.md` (brand tokens), `messaging/glossary.md` and all 8 pillars (`profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`) plus `messaging/journal.md` (if it exists). Use pillar reference tables (mapping in MESSAGE.md (Routing)) to identify every collection profile the feedback touches. Load full profiles for confirmed matches.
 
 The impact trace must be exhaustive across the messaging house — every doc that references the affected concept. The user needs to see the full blast radius before approving changes.
 
@@ -174,7 +174,7 @@ The user can:
 After approval, the skill:
 
 1. Makes the approved changes to each messaging doc. Set `updated` to today's date on each modified file.
-2. Appends a journal entry to `messaging/journal.md` documenting the feedback, the learning, and the actions taken. Create the file from `templates/messaging/journal.md` if it doesn't exist.
+2. Appends a journal entry to `messaging/journal.md` documenting the feedback, the learning, and the actions taken.
 3. If voice calibration patterns were part of the feedback, update the Calibration Patterns subsection under Brand Voice in `messaging/profile.md`.
 4. Notes downstream effects that need follow-up (skill re-tune, campaign updates).
 
@@ -198,7 +198,7 @@ When feedback is voice-related (how content reads, style preferences, editing pa
 - Feedback is a signal, not a directive. Analyze it critically. One rep's anecdote is different from a pattern across five deals.
 - Trace the full impact before proposing changes. A change to a persona's Lead With affects every skill that targets that persona and every campaign that includes them.
 - Propose specific text changes, not vague directions. "Update the CISO messaging" is not a proposal. "Change Lead With from X to Y" is.
-- When feedback contradicts established messaging, surface the tension explicitly. "The feedback says X, but space.md positions us as Y. Changing this would affect our core differentiation. Are you sure?"
+- When feedback contradicts established messaging, surface the tension explicitly. "The feedback says X, but position.md frames us as Y and proposition.md claims Z. Changing this would affect our core differentiation. Are you sure?"
 - Log everything. Even rejected feedback gets a journal entry — it's a data point that may matter later when more evidence accumulates.
 - Do not modify messaging docs without explicit user approval. Present the plan, get the green light, then execute.
 
@@ -240,10 +240,10 @@ Seven checks validate messaging system integrity. Run automatically during Revie
 
 ### Reading the Messaging House
 
-Load all files in `messaging/`:
-- Read the six pillar files: `profile.md`, `space.md`, `audience.md`, `portfolio.md`, `proof.md`, `motion.md`
-- Read `glossary.md` if it exists
-- Enumerate all collection directories: `categories/`, `competitors/`, `personas/`, `plays/`, `products/`, `stories/`, `segments/`, `solutions/`
+Load via `/MESSAGE.md` (Progressive Loading) using the System Audit reference pattern:
+- Read `/MESSAGE.md` itself (spec + Writing Profile Block), `/DESIGN.md` (brand tokens), and `messaging/glossary.md`
+- Read the 8 pillar files: `profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`
+- Enumerate all collection directories: `categories/`, `competitors/`, `personas/`, `plays/`, `products/`, `reports/`, `segments/`, `signals/`, `solutions/`, `stories/`
 - For each collection file, read frontmatter (you do not need to read the full body for most checks — frontmatter and section headers suffice)
 
 Build an index of:
@@ -252,25 +252,28 @@ Build an index of:
 - Pillar reference tables (parsed from markdown table syntax) with their Name, Description, and other columns
 - Cross-reference fields from collection frontmatter
 
-### Reading Templates
+### Reading Schemas
 
-Load template files from `templates/messaging/` to determine:
-- Required frontmatter fields per document type
+Load schema files from `messaging/_schemas/pillars/` and `messaging/_schemas/collections/` to determine:
+- Required frontmatter fields per collection type
 - Valid enum values for constrained fields
 - Expected sections within `## Messaging Blocks`
 - Three-section structure requirements
+
+The frontmatter contracts are also defined canonically in `/MESSAGE.md` (Frontmatter Contracts). The schemas are the operational form; MESSAGE.md is the spec.
 
 ### Check 1: Gap Check — What's missing?
 
 Evaluate completeness of the messaging system:
 
-- **Pillar existence.** All 6 pillar files exist and are non-empty. Severity: critical if missing.
+- **Pillar existence.** All 8 pillar files exist and are non-empty. Severity: critical if missing.
 - **Three-section structure.** Each pillar has `## Messaging Blocks`, `## Writing Guidelines`, and `## Messaging Rules`. Severity: warning if missing.
-- **Template subsections.** Every subsection defined in the corresponding template exists in the pillar doc. Compare the `## Messaging Blocks` subsections in the template against the actual file. Severity: warning if missing.
+- **Pillar subsections.** Every subsection defined in the corresponding scaffold exists in the pillar doc. Compare the `## Messaging Blocks` subsections of the original scaffold against the actual file. Severity: warning if missing.
 - **Collection population.** At least one file exists in `personas/`, `products/`, and `competitors/`. Severity: warning if empty.
-- **Glossary existence.** `messaging/glossary.md` exists. Severity: warning if missing.
+- **Glossary populated.** `messaging/glossary.md` has at least one row in the glossary table. Severity: warning if empty.
+- **Brand tokens populated.** `/DESIGN.md` colors, typography, and logo paths are non-empty. Severity: warning if any value is empty (per MESSAGE.md Drift Signals).
 - **Reference table rows.** Pillar reference tables have at least one data row. Severity: warning if empty.
-- **Substantive content.** Sections contain more than just template placeholder text or instructions. Look for bracketed instructions (`[Instructions:]`, `[Tips:]`) that were never replaced with real content. Severity: warning if placeholder only.
+- **Substantive content.** Sections contain more than just scaffold placeholder text or instructions. Look for bracketed instructions (`[Instructions:]`, `[Tips:]`) that were never replaced with real content. Severity: warning if placeholder only.
 
 ### Check 2: Relationship Check — Do all links resolve?
 
@@ -293,7 +296,7 @@ Validate cross-references between documents:
 
 Validate structural compliance:
 
-- **Required frontmatter.** All required fields from the template are present. Templates define the minimal set — identity, freshness, routing filters, and relationship arrays. Severity: warning if missing.
+- **Required frontmatter.** All required fields from the schema are present. Frontmatter contracts are defined in MESSAGE.md (Frontmatter Contracts) and operationalized in `messaging/_schemas/collections/[type].md` — identity, freshness, routing filters, and relationship arrays. Severity: warning if missing.
 - **Enum validation.** Fields with constrained values — in frontmatter or body format lines — use valid options (e.g., `stage: emerging|growth|established`, `type: buyer|user|champion|blocker`, story `status`, category `maturity`/`trajectory`, solution `scope`/`theme`). Severity: critical if invalid.
 - **Updated field.** `updated` field is present and contains a valid ISO date (YYYY-MM-DD). Severity: warning if missing or invalid.
 - **Filename convention.** All files in `messaging/` follow kebab-case naming. Severity: warning if non-kebab.
@@ -354,7 +357,7 @@ When fix is active, after running the diagnostic, perform full glossary maintena
 **Selection Criteria**
 
 - **Include:** Terms and phrases unique to the company's messaging — coined terms, proprietary concepts, and company-specific definitions that differ from standard industry usage.
-- **Exclude:** Standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in space.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms, messaging system structural terms (section headers, framework labels, template instructions — e.g., "Walk Away Feeling," "Theme Pillars," "Messaging Blocks," "Value Messages," "Key Differentiators," "Positioning Statement," "Internal Selling," "Primary Goal," "Best Proof"), generic marketing and sales concepts that carry no company-specific meaning (e.g., "value proposition," "use case," "differentiation," "go-to-market," "buying committee").
+- **Exclude:** Standard industry terms (even if used frequently), product names (belong in portfolio.md), category names (belong in position.md), single-document terms that are self-explanatory, internal jargon not in external-facing content, universally understood acronyms, messaging system structural terms (section headers, framework labels, template instructions — e.g., "Walk Away Feeling," "Theme Pillars," "Messaging Blocks," "Value Messages," "Key Differentiators," "Positioning Statement," "Internal Selling," "Primary Goal," "Best Proof"), generic marketing and sales concepts that carry no company-specific meaning (e.g., "value proposition," "use case," "differentiation," "go-to-market," "buying committee").
 - **Litmus test:** Would a new writer joining the team encounter this term in customer-facing content and need to understand the company's specific definition to use it correctly?
 - **Target range:** 15-40 well-defined terms for most companies. More than 50 suggests standard terms are being included.
 - Every definition must trace to at least one messaging doc.
@@ -377,7 +380,7 @@ When fix is active, after running the diagnostic, perform full glossary maintena
 
 Validate alignment between the messaging house and the project writing profile:
 
-- **Profile block exists.** The project's CLAUDE.md contains content between `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers. Severity: warning if missing or contains only the default placeholder.
+- **Profile block exists.** `/MESSAGE.md` (Writing Profile Block) contains content between `<!-- claude-message:profile:start -->` and `<!-- claude-message:profile:end -->` markers. Severity: warning if missing or contains only the default placeholder.
 - **Profile-frontmatter sync.** Values in the writing profile (`stage`, `market`, `company`) match `profile.md` frontmatter. Compare `stage`, `market` fields and the company name from the `title` field. Severity: warning if out of sync.
 - **Company name consistency.** Company name in `profile.md` `title` matches usage across other messaging docs. Severity: warning if inconsistent.
 - **Stage-proof alignment.** An emerging-stage company shouldn't claim established-level proof (e.g., analyst leadership, large enterprise logos). Check `proof.md` claims against `profile.md` stage. Severity: warning if mismatched.
@@ -404,7 +407,7 @@ Standalone remediation via `/investigate fix [check]`. Runs the named check(s) a
 - Glossary add/update/remove terms (see Glossary Check fix mode above)
 - Add missing `updated` field (set to today's date)
 - Fix filename casing (rename to kebab-case)
-- Sync profile block in project CLAUDE.md from profile.md frontmatter
+- Sync profile block in MESSAGE.md (Writing Profile Block) from profile.md frontmatter
 
 **Diagnostic-only (require human judgment):**
 - Missing pillar content or thin sections
@@ -560,7 +563,7 @@ Every findings file ends with a tracker updates section:
 ## Tracker Updates
 - Created: INS-005, INS-006, INS-007
 - Updated: INS-002 (recurring — last_seen updated)
-- Auto-resolved: INS-001 (space.md updated 2026-03-09)
+- Auto-resolved: INS-001 (position.md updated 2026-03-09)
 - Stale deferrals: INS-003 (deferred 30+ days, no doc update)
 ```
 
@@ -579,7 +582,7 @@ Read `insights/config.md` for:
 
 ## Tool Scoping
 
-- **Read** — `messaging/` (full access to trace impact), `output/campaigns/` (check for affected active campaigns), `insights/` (cross-reference with research findings), `templates/messaging/` (reference schemas, journal template for first-use creation)
+- **Read** — `MESSAGE.md` (spec), `DESIGN.md` (brand tokens), `messaging/glossary.md`, `messaging/` (full access to trace impact), `messaging/_schemas/pillars/` and `messaging/_schemas/collections/` (reference schemas), `output/campaigns/` (check for affected active campaigns), `insights/` (cross-reference with research findings)
 - **Write, Edit** — `messaging/` (with user approval for feedback changes), `messaging/journal.md` (autonomous after approved changes), `insights/tracker.md` (autonomous), `insights/findings/` (autonomous), `output/health-report.md` (autonomous for report mode)
 - **Glob, Grep** — Full access. Used during impact tracing, health checks, glossary analysis, and cross-reference validation.
 - **AskUserQuestion** — Clarifying questions during feedback parsing, approval flow during feedback proposals, insight state management during review.

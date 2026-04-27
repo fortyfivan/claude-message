@@ -65,8 +65,8 @@ This session examines the root causes of asset visibility gaps and presents a pr
 Word count: ~130 words (abstract body, excluding title and bio). Suitable for standard conference submission forms.
 
 ## Messaging References
-- **Audience:** audience.md — security practitioner persona
-- **Value Framework:** space.md — asset visibility positioning
+- **Audience:** people.md — security practitioner persona
+- **Value Framework:** position.md — asset visibility positioning
 - **Proof:** proof.md — visibility gap statistics
 - **Other:** stories/ — Fortune 500 deployment reference
 

@@ -31,10 +31,10 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Context Type          | What to Extract                                             | Source Files                              |
 |-----------------------|-------------------------------------------------------------|-------------------------------------------|
 | Value Evidence        | Outcome metrics used to anchor ROI and value claims         | proof.md (Value Evidence section)         |
-| Persona & Pain        | What the target audience measures, cares about, and fears   | personas/[name].md, audience.md           |
-| Problem Framing       | How the company defines the problem space                   | space.md                                  |
+| Persona & Pain        | What the target audience measures, cares about, and fears   | personas/[name].md, people.md             |
+| Problem Framing       | How the company defines the problem space                   | position.md                               |
 | Product Capabilities  | What the solution addresses in the assessment dimensions    | products/[name].md, solutions/[name].md   |
-| Voice & Terminology   | Category language, naming conventions                        | profile.md, glossary.md                   |
+| Voice & Terminology   | Category language, naming conventions                        | profile.md, messaging/glossary.md                 |
 | Customer Proof        | Benchmarks and outcomes to anchor scoring interpretation     | proof.md, stories/[name].md              |
 
 ## Assessment Writing Principles
@@ -106,7 +106,7 @@ ALWAYS use this exact template structure:
 ## Messaging References
 - **Value Evidence:** [proof.md metrics used to anchor scoring]
 - **Persona:** [personas referenced]
-- **Problem Framing:** [space.md sections used]
+- **Problem Framing:** [position.md sections used]
 - **Product Context:** [products/solutions docs referenced]
 
 ## Self-Assessment

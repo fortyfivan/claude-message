@@ -24,7 +24,7 @@ After identifying the email type, load the corresponding guide:
 - **Single Outbound:** See `types/single-outbound.md`
 - **Outbound Sequence:** See `types/outbound-sequence.md`
 - **Inbound Sequence:** See `types/inbound-sequence.md`
-- **Event Promotion:** See `types/event-promotion.md`
+- **Event Promotion:** See `types/event-proplay.md`
 - **Product Newsletter:** See `types/product-newsletter.md`
 
 ## Messaging House Context
@@ -33,12 +33,12 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type    | What to Extract                                    | Source Files                 |
 |-----------------|----------------------------------------------------|------------------------------|
-| Persona & Pain  | ICP signals, personas and segments, value messages | audience.md                  |
+| Persona & Pain  | ICP signals, personas and segments, value messages | people.md                  |
 | Voice & Tone    | Narrative, brand voice, style guidelines           | profile.md (voice section)   |
 | Value Messaging | Core value propositions, products and solutions    | profile.md, portfolio.md     |
-| Market Context  | Industry trends, positioning, narrative hooks      | space.md                     |
+| Market Context  | Industry trends, positioning, narrative hooks      | position.md                     |
 | Credibility     | Social proof, customer wins, use cases             | proof.md, portfolio.md       |
-| GTM Alignment   | Campaign strategy, motion-specific messaging       | motion.md                   |
+| GTM Alignment   | Campaign strategy, motion-specific messaging       | play.md                   |
 
 
 ## Email Copy Guidelines

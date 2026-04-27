@@ -78,9 +78,9 @@ Risk-Based Vulnerability Prioritization is available today for all Enterprise pl
 ###
 
 ## Messaging References
-- **Value Framework:** space.md — vulnerability management positioning
+- **Value Framework:** position.md — vulnerability management positioning
 - **Proof:** proof.md — customer remediation metrics
-- **Market Context:** space.md — alert fatigue and prioritization trends
+- **Market Context:** position.md — alert fatigue and prioritization trends
 
 ## Evaluation
 **Newsworthiness:**    [Assessment]

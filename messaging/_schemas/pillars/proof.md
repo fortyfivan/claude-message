@@ -43,25 +43,22 @@ Document customer stories as discrete profiles in `messaging/stories/[story-name
 
 Tag each story in the reference table with products, personas, and segments so the writer can filter by relevance without opening every file. Description should capture the proof arc in one sentence (~15 words) — the problem domain and the measurable outcome.]
 
-### Analyst Recognition
+### Reports
+
+External validation lives in `messaging/reports/` — analyst research, market studies, surveys, benchmarks, and trend reports the company cites in messaging. Reports differ from Stories: Stories are our customer evidence; Reports are third-party authority. When specific reports are related to your task, extract the respective profile in `messaging/reports/`.
+
+| Report | File | Source | Type | Description |
+|---|---|---|---|---|
+| | | | | |
 
 [Instructions:
-Document relevant analyst recognition, coverage, or mentions that support market credibility. Include the date and note recency — a current mention carries more weight than one from two years ago, but an older mention may still be the best available.]
+Document reports as discrete profiles in `messaging/reports/[report-name].md`. The table serves as a reference index. Description should capture what the report covers and why it's load-bearing for our messaging — one sentence (~15 words).]
 
 [Tips:
-- Provide research context — avoid cherry-picked quotes
-- Focus on what the recognition implies for your positioning, not just the logo
-- If you're not in analyst coverage yet, say so — this is common for emerging-stage companies and affects how proof is framed in content
-- Include quotable takeaways inline — these serve the same role as story quotes for analyst-sourced proof]
-
-[Format:
-For each mention:
-- **Firm:** [analyst firm or publication]
-- **Report:** [name, type, and date]
-- **Our position:** [where we were placed or how we were characterized]
-- **Key takeaway:** [what this recognition means for messaging]
-- **Quotable:** (optional) [a specific analyst statement that can be embedded in content]
-- **Recency:** [current | aging | historical]]
+- Type: analyst | research | survey | benchmark | trend
+- Source is the publishing organization (Gartner, Forrester, IDC, McKinsey, internal team) — not a person
+- If you're not in analyst coverage yet, say so in the pillar — this is common for emerging-stage companies and affects how proof is framed
+- Reports have shelf lives — note the published date in each report profile and watch for expiration]
 
 ### Community Evidence
 
@@ -87,8 +84,9 @@ For each pattern:
 - Evidence basis matters — proven metrics can be stated as fact; projected metrics must be hedged ("customers typically see" or "expected to reduce")
 - Match proof type to journey stage and persona — earlier stages need trends and insights, later stages need metrics and validation; executives respond to business outcomes, practitioners to technical benchmarks
 - Company stage constrains proof expectations — don't overclaim beyond what the company can demonstrate
-- Customer evidence beats analyst validation — when both are available, lead with the customer story
+- Customer evidence beats third-party validation — when both are available, lead with the customer story; pair with a Report when the buyer is in evaluation and external authority adds weight
 - Story profiles are the primary proof source for content generation — prefer embedded quotes over paraphrasing from the pillar summaries
+- Reports require attribution — every cited stat or quote from a Report must carry its source and date in the published asset
 
 ## Messaging Rules
 

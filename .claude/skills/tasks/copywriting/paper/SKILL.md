@@ -31,13 +31,13 @@ Look for the following when referencing messaging elements in `/messaging`:
 
 | Context Type       | What to Extract                                           | Source Files                          |
 |--------------------|-----------------------------------------------------------|---------------------------------------|
-| Persona & Audience | Target reader, technical altitude, information depth      | audience.md, personas/[name].md       |
-| Voice & Narrative  | Brand voice, strategic narrative, theme pillars           | profile.md                            |
-| Value Framework    | Core propositions, differentiation, unique approach       | space.md, portfolio.md                |
-| Market Perspective | Category dynamics, trends, competitive landscape          | space.md, categories/[name].md        |
+| Persona & Audience | Target reader, technical altitude, information depth      | people.md, personas/[name].md       |
+| Voice & Narrative  | Brand voice, strategic narrative, theme pillars           | profile.md, pitch.md                  |
+| Value Framework    | Core propositions, differentiation, unique approach       | proposition.md, portfolio.md          |
+| Market Perspective | Category dynamics, trends, competitive landscape          | position.md, categories/[name].md     |
 | Evidence           | Customer stories, metrics, analyst recognition            | proof.md, stories/[name].md           |
 | Product Context    | Capabilities, architecture, use cases                     | products/[name].md, solutions/[name].md |
-| Terminology        | Glossary terms, naming conventions                        | glossary.md, profile.md               |
+| Terminology        | Glossary terms, naming conventions                        | messaging/glossary.md, profile.md             |
 
 ## Paper Writing Principles
 
@@ -86,7 +86,7 @@ ALWAYS use this exact template structure:
 
 ## Messaging References
 - **Audience:** [personas and segments referenced]
-- **Value Framework:** [space.md and product docs referenced]
+- **Value Framework:** [proposition.md and product docs referenced]
 - **Market Context:** [categories and trends referenced]
 - **Evidence:** [proof.md, stories, and external sources used]
 

@@ -33,8 +33,8 @@ Look for the following when referencing messaging elements in `/messaging`:
 | Story Profile      | Customer/partner facts, scenario, outcome data, quotes       | stories/[name].md                         |
 | Product Context    | Capabilities, use cases, architecture details                | products/[name].md                        |
 | Solution Context   | Use case framing, approach, components, outcomes             | solutions/[name].md                       |
-| Persona & Audience | Which buyer this story resonates with, pain point alignment  | personas/[name].md, audience.md           |
-| Value Framework    | Propositions this story validates, outcome claims            | space.md, proof.md                        |
+| Persona & Audience | Which buyer this story resonates with, pain point alignment  | personas/[name].md, people.md           |
+| Value Framework    | Propositions this story validates, outcome claims            | position.md, proof.md                        |
 | Voice & Naming     | Brand voice, product naming, glossary terms                  | profile.md, glossary.md                   |
 
 ## Story Writing Principles

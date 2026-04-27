@@ -23,11 +23,13 @@ On every run: read current skills from `.claude/skills/`, read the messaging hou
 
 Read the messaging house and current skills in one pass. Build a company profile and assess tuning state.
 
-**Read the messaging house.** Load all six pillars, glossary.md, and relevant collection docs. Include `messaging/journal.md` (if it exists) for voice and content learnings that should inform skill calibration. Use pillar reference tables to enumerate collection profiles. Load full collection docs for deeper analysis:
+**Read the messaging house.** Load via `/MESSAGE.md` (Progressive Loading) using the Skill Tuning reference pattern in (Reference Patterns): all 8 pillars (`profile.md`, `pitch.md`, `position.md`, `people.md`, `portfolio.md`, `proposition.md`, `proof.md`, `play.md`) plus `messaging/journal.md` (if it exists). Glossary at messaging/glossary.md informs terminology calibration. Load full collection docs for deeper analysis:
 
 - Persona docs in `messaging/personas/` — frontmatter for type, seniority, pain points, goals
 - Category docs in `messaging/categories/` — market dynamics
 - Competitor docs in `messaging/competitors/` — frontmatter for tier, threat level, differentiators
+
+Pitch (narrative voice) and Proposition (value language) are particularly load-bearing for voice and value calibration.
 
 **Build a company profile** — a compact internal summary across the five tuning dimensions:
 
@@ -107,7 +109,7 @@ After approval, for each skill being tuned:
 metadata:
   tuned: true
   tuned_date: "2026-03-10"
-  tuned_sources: [profile.md, space.md, glossary.md, motion.md, proof.md]
+  tuned_sources: [profile.md, pitch.md, position.md, proposition.md, play.md, proof.md, MESSAGE.md]
 ---
 ```
 
@@ -130,7 +132,7 @@ Tuned [N] skills:
 
 If the user asks about gap observations from Step 2, expand them into specific recommendations:
 
-- **Missing skills for declared motions.** If `motion.md` describes a motion but no matching skills exist, flag it.
+- **Missing skills for declared motions.** If `play.md` describes a motion but no matching skills exist, flag it.
 - **Missing skills for active personas.** If personas exist but skills lack persona-specific guidance for some of them, flag the gap.
 - **Missing skills for competitive plays.** If competitors are profiled but no battlecard or competitive content skill exists, flag it.
 - **Missing skills for proof leverage.** If `proof.md` has strong evidence but no skill formats it for distribution, flag it.
@@ -149,11 +151,11 @@ Each dimension maps to specific source docs, target files, and tuning methods:
 
 | Dimension | Sources | Target File | Tuning Method |
 |---|---|---|---|
-| Voice Alignment | `profile.md`, `glossary.md`, `journal.md` | SKILL.md | Inline: enrich Guidelines. Calibration: `### Voice & Terminology` |
-| Market Dynamics | `space.md`, `categories/` | SKILL.md | Inline: enrich Messaging House Context, Guidelines. Calibration: `### Market Context` |
-| Company Stage | `profile.md`, `proof.md` | SKILL.md | Inline: enrich Quality Signals. Calibration: `### Stage Calibration` |
-| Motion Alignment | `motion.md`, `plays/` | SKILL.md | Inline: enrich Output Format (if needed). Calibration: `### Motion Alignment` |
-| Audience Calibration | `audience.md`, `personas/`, `segments/` | Type file | Inline: enrich Tone & Style, Quality Signals. Calibration: `### Audience Calibration`, `### Proof Mapping`, `### Competitive Framing`, `### Evaluation Addenda` |
+| Voice Alignment | `profile.md`, `pitch.md`, messaging/glossary.md, `journal.md` | SKILL.md | Inline: enrich Guidelines. Calibration: `### Voice & Terminology` |
+| Market Dynamics | `position.md`, `categories/` | SKILL.md | Inline: enrich Messaging House Context, Guidelines. Calibration: `### Market Context` |
+| Company Stage | `profile.md`, `proposition.md`, `proof.md` | SKILL.md | Inline: enrich Quality Signals. Calibration: `### Stage Calibration` |
+| Motion Alignment | `play.md`, `plays/`, `signals/` | SKILL.md | Inline: enrich Output Format (if needed). Calibration: `### Motion Alignment` |
+| Audience Calibration | `people.md`, `personas/`, `segments/` | Type file | Inline: enrich Tone & Style, Quality Signals. Calibration: `### Audience Calibration`, `### Proof Mapping`, `### Competitive Framing`, `### Evaluation Addenda` |
 
 Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and applies universally across all types in that category. Type-specific tuning (Audience) lands in the type file and adds per-persona, per-proof, and per-competitor specifics for that content type. No duplication between levels.
 
@@ -174,10 +176,10 @@ Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and appli
 
 | Subsection | Source Docs | What It Contains |
 |---|---|---|
-| `### Voice & Terminology` | `profile.md`, `glossary.md`, `journal.md` | Dos/don'ts rendered as concrete instructions. Self-reference conventions. Product naming rules. Confirmed calibration patterns from Brand Voice. Phrasing anti-patterns. |
-| `### Market Context` | `space.md`, `categories/` | Market-specific content norms. Evidence standards. How buyers consume this content type. |
-| `### Stage Calibration` | `profile.md`, `proof.md` | Proof depth rating with specifics. Positioning boldness. CTA confidence level. |
-| `### Motion Alignment` | `motion.md`, `plays/` | CTA architecture per motion. Content depth by motion. Multi-persona handling. |
+| `### Voice & Terminology` | `profile.md`, `pitch.md`, messaging/glossary.md, `journal.md` | Dos/don'ts rendered as concrete instructions. Self-reference conventions. Product naming rules. Confirmed calibration patterns from Brand Voice. Phrasing anti-patterns. |
+| `### Market Context` | `position.md`, `categories/` | Market-specific content norms. Evidence standards. How buyers consume this content type. |
+| `### Stage Calibration` | `profile.md`, `proposition.md`, `proof.md` | Proof depth rating with specifics. Positioning boldness. CTA confidence level. |
+| `### Motion Alignment` | `play.md`, `plays/`, `signals/` | CTA architecture per motion. Content depth by motion. Multi-persona handling. Signal-driven response calibration. |
 
 #### Type File Enrichments
 
@@ -193,7 +195,7 @@ Category-level tuning (Voice, Market, Stage, Motion) lands in SKILL.md and appli
 
 | Subsection | Source Docs | What It Contains |
 |---|---|---|
-| `### Audience Calibration` | `audience.md`, `personas/`, `segments/` | Per-persona blocks: altitude, vocabulary from pain points/goals, proof type preferences, objections to preempt. Segment-specific adjustments. |
+| `### Audience Calibration` | `people.md`, `personas/`, `segments/` | Per-persona blocks: altitude, vocabulary from pain points/goals, proof type preferences, objections to preempt. Segment-specific adjustments. |
 | `### Proof Mapping` | `proof.md`, `stories/` | Specific stories, quotes, metrics matched to this type. What's available, what's missing. Which proof is strongest for which persona. |
 | `### Competitive Framing` | `competitors/` | How to position against specific competitors for this type. Language to use, traps to avoid. Only present when relevant to the type. |
 | `### Evaluation Addenda` | All loaded sources | Company-specific additions to the type's base quality signals that don't fit into inline enrichment of the existing table. |
@@ -215,7 +217,7 @@ Manual edits are detected by checking if the file has been modified since `metad
 
 ## Tool Scoping
 
-- **Read** — `messaging/`, `.claude/skills/`. Full access to the messaging house and skills.
+- **Read** — `MESSAGE.md`, `messaging/`, `.claude/skills/`. Full access to the spec, messaging house, and skills.
 - **Write** — `.claude/skills/` (with user approval).
 - **Glob, Grep** — Full access. Used to inventory skills, scan persona docs, assess proof depth, detect manual edits.
 - **WebSearch, WebFetch** — Not used. The tune skill works entirely from local context.

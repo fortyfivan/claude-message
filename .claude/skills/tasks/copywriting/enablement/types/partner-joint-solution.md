@@ -51,7 +51,7 @@ Example:
 
 ## Partner Economics Section
 
-Be explicit. The partner is running a P&L calculation. If deal registration and margin details are available from `motion.md` or partner program documentation, include them. If not, frame the economics at the level available:
+Be explicit. The partner is running a P&L calculation. If deal registration and margin details are available from `play.md` or partner program documentation, include them. If not, frame the economics at the level available:
 
 - Revenue per joint deal (average or range)
 - Services attach rate (implementation, training, managed services)
