@@ -64,14 +64,14 @@ The always-on foundation. Loaded on every session as the altitude-setter for eve
 
 Six pillars in `messaging/pillars/`, each a narrative anchor for its respective domain:
 
-| Pillar | Purpose |
-|---|---|
-| **Profile** | Identity, voice, lexicon, marketplace statement |
-| **Pitch** | Strategic narrative, UVPs, differentiators |
-| **Position** | Category claim and competitive landscape |
-| **People** | Audience framing, persona altitude, buying considerations |
-| **Portfolio** | Product ecosystem and capability map |
-| **Proof** | Customer evidence and external validation |
+| Pillar        | Purpose                                                   |
+|---------------|-----------------------------------------------------------|
+| **Profile**   | Identity, voice, lexicon, marketplace statement           |
+| **Pitch**     | Strategic narrative, UVPs, differentiators                |
+| **Position**  | Category claim and competitive landscape                  |
+| **People**    | Audience framing, persona altitude, buying considerations |
+| **Portfolio** | Product ecosystem and capability map                      |
+| **Proof**     | Customer evidence and external validation                 |
 
 Pillars are stable. They change when strategy changes, not when individual personas or competitors update.
 
@@ -79,12 +79,12 @@ Pillars are stable. They change when strategy changes, not when individual perso
 
 Eight collection types in `messaging/collections/`, each holding the specific instances a pillar references:
 
-| Pillar | Collections |
-|---|---|
-| Position | categories, competitors |
-| People | personas, segments |
-| Portfolio | products, solutions |
-| Proof | stories, reports |
+| Pillar    | Collections             |
+|-----------|-------------------------|
+| Position  | categories, competitors |
+| People    | personas, segments      |
+| Portfolio | products, solutions     |
+| Proof     | stories, reports        |
 
 A pillar's Collection Tables list what exists; the collection files carry the detail. A persona file describes one persona — their role, behaviors, messaging guidance, what proof resonates with them. A competitor file profiles one competitor — their positioning, differentiation against them, where they're vulnerable.
 
