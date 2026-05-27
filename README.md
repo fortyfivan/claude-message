@@ -24,6 +24,7 @@ Product Marketers, this is your time to shine. Be the durable context layer for 
 ​```bash
 git clone https://github.com/fortyfivan/claude-message.git my-company-messaging
 cd my-company-messaging
+
 ​```
 
 Then open the folder in **Claude Code** (`claude`) or **Claude Cowork** (Customize → Add folder). Both tools discover the skills, agents, and commands in `.claude/` automatically.
