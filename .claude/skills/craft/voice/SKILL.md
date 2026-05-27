@@ -7,7 +7,33 @@ description: Writing rules for clean prose — eliminates AI patterns, enforces 
 
 Writing rules for all generated content. This is not a content generation skill — it defines writing mechanics that the writer agent applies during generation. The reader agent handles formal evaluation.
 
-**Boundary:** The voice gate governs *how to write* — no throat-clearing, no binary contrasts, no AI cadence, no filler. The messaging house governs *what to say and how to sound* — brand voice, tone, terminology, positioning. The writer loads both. They don't overlap.
+## Messaging System Reference
+
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, ICP, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+
+## Architecture
+
+**Two layers.** Layer 1 (Brand voice) pulls dynamic content from the messaging system — Brand Guardrails, Glossary, voice attributes from the profile pillar — and applies it as the company-specific gate. Layer 2 (AI cliché patterns) is the static gate against AI-recognizable cadence: banned phrases, structural patterns, diagnostic checks. Both layers apply to every generation.
+
+**Boundary:** The voice gate governs *how to write* — no throat-clearing, no binary contrasts, no AI cadence, no filler, plus the company's specific brand constraints. The messaging house governs *what to say* — positioning, claims, key messages, proof. The writer loads both. They don't overlap.
+
+---
+
+## Layer 1: Brand voice (dynamic)
+
+Load at validation time from the messaging system:
+
+- **Brand Guardrails** — 4-8 testable absolute rules. Any violation → FAIL.
+- **Glossary** — cross-cutting term definitions, capitalization rules, prohibited terms with replacements. Mis-uses → record; FAIL when the term has a "prohibited; use X instead" rule.
+- **Brand voice attributes** from the profile pillar — tone attribute pairs ("we are X but not Y"), default altitude, brand pillars. Scan for register/tone contradictions.
+
+Layer 1 violations are higher-severity than Layer 2 — they're company-specific commitments.
+
+---
+
+## Layer 2: AI cliché patterns (static)
+
+The rules below are constant across deployments. They catch AI-recognizable cadence regardless of which company is running the gate.
 
 ## Rules
 
@@ -189,16 +215,27 @@ Twelve yes/no questions. Run as a quick sanity check before publishing. Any "yes
 
 ## Validation Protocol
 
-Criteria for post-generation voice validation. The writer agent runs this check after drafting content.
+Criteria for post-generation voice validation. The writer agent runs both layers after drafting content.
 
-**PASS:** 0 banned phrases found, 0 structural anti-pattern matches, fewer than 3 diagnostic checklist flags.
+**Layer 1 (Brand voice):**
+1. Load Brand Guardrails + Glossary from the messaging system (or use Extracted Context's inlined subset when present).
+2. For each guardrail rule, run the test. Record violations with location.
+3. For each glossary term in the draft, check capitalization + usage against the glossary rule. Record violations with location.
+4. Load Brand Voice attributes from the profile pillar. Scan for register/tone contradictions against the declared attribute pairs.
 
-**FAIL:** Any banned phrase present OR any structural anti-pattern match OR 3+ diagnostic checklist flags.
-
-When the writer runs voice validation:
+**Layer 2 (AI cliché patterns):**
 1. Scan the draft for every phrase in the Banned Phrases section. Record each match with its location.
 2. Scan for each of the 8 Structural Patterns. Record each match with its location.
 3. Run the 12-item Diagnostic Checklist. Record which items flag.
-4. Apply the PASS/FAIL verdict above.
-5. If FAIL: revise the specific violations, then re-scan (max 2 total passes — 1 initial + 1 revision).
-6. If still FAIL after pass 2: document remaining issues and proceed. The reader agent will catch them.
+
+**Combined verdict:**
+
+**PASS:** 0 Layer 1 violations AND 0 banned phrases AND 0 structural anti-pattern matches AND fewer than 3 diagnostic checklist flags.
+
+**FAIL:** Any Layer 1 violation OR any banned phrase OR any structural anti-pattern OR 3+ diagnostic flags.
+
+When the writer runs voice validation:
+1. Run both layers per the steps above.
+2. Apply the PASS/FAIL verdict.
+3. If FAIL: revise the specific violations (prioritize Layer 1 — company commitments are stricter), then re-scan (max 2 total passes — 1 initial + 1 revision).
+4. If still FAIL after pass 2: document remaining issues and proceed. The reader agent will catch them.

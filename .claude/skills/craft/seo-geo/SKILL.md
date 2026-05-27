@@ -7,6 +7,10 @@ description: Apply search and AI discovery strategy to content intended to rank 
 
 This is a craft skill. It is the canonical source for SEO and GEO guidance in the content system. The copywriting skill handles content structure and output format. This skill handles how the piece gets found: keyword selection, search intent alignment, topic cluster positioning, and GEO optimization for AI engine retrieval. Load it whenever a piece has a search or AI discovery objective.
 
+## Messaging System Reference
+
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, ICP, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+
 ---
 
 ## Keyword Research Before Writing

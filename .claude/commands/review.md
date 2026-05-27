@@ -1,8 +1,8 @@
-Review a content asset for quality, clarity, and messaging consistency.
+Comprehensive messaging-alignment evaluation of a content asset — voice, terminology, pitch, positioning, audience appropriateness, persona alignment, proof support, and format conformance. Use to evaluate any draft: internal output, external content, partner deliverables, or sales drafts against the messaging house.
 
 Usage:
-  /review [file]                    — Review a specific content asset
+  /review [file-path]
 
-The reader adopts the target persona's perspective and scores against six criteria: clarity, consistency, relevance, differentiation, actionability, and authenticity.
+The evaluation framework lives in `.claude/skills/craft/review/SKILL.md`. The command dispatches the reader subagent (running on Haiku for cost efficiency) which loads that skill, adopts the target persona's perspective, scores each dimension, and returns a verdict with revision directives.
 
-/agents reader $ARGUMENTS
+Read and follow the instructions in `.claude/skills/craft/review/SKILL.md`. Pass the file path as the argument.
