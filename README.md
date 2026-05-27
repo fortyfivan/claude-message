@@ -21,11 +21,10 @@ Product Marketers, this is your time to shine. Be the durable context layer for 
 
 ## Get started
 
-​```bash
+```
 git clone https://github.com/fortyfivan/claude-message.git my-company-messaging
 cd my-company-messaging
-
-​```
+```
 
 Then open the folder in **Claude Code** (`claude`) or **Claude Cowork** (Customize → Add folder). Both tools discover the skills, agents, and commands in `.claude/` automatically.
 
@@ -111,13 +110,12 @@ Three types of actions cover most of what you'll do with this system:
 
 ### Design
 
-​```
+```
 /design pillar profile
 /design persona ciso
 /design competitor servicenow --research
 /design message glossary
-
-​```
+```
 
 Design commands edit the messaging house. `/design pillar` updates voice, narrative, positioning, or any pillar content. `/design [collection-type] [slug]` creates or updates a collection item (personas, products, competitors, segments, solutions, stories, categories, reports). `/design asset [slug]` defines a new asset type and its variants. `/design message [section]` edits a MESSAGE.md section directly. Append `--research` to dispatch the researcher subagent for external research before the interview; append `--remove` to delete with forced approval.
 
@@ -125,14 +123,13 @@ Each command runs a focused interview for what's changing, shows a diff, and wri
 
 ### Build
 
-​```
+```
 /build campaign "AI readiness for CISOs"
 /build launch "container security feature"
 /build play "ServiceNow displacement"
 /build event "RSA 2026"
 /generate blog-post "what AI buyers actually evaluate"
-
-​```
+```
 
 Build commands produce content. `/build campaign` orchestrates a multi-asset campaign around a topic or theme. `/build launch` builds a release-driven launch program. `/build play` builds a competitive or account-targeted sales play. `/build event` builds a phase-distinct event program (brief + pre-event + on-site + post-event waves). `/generate` produces a single asset.
 
@@ -142,12 +139,11 @@ Each asset emerges as both `.md` (for review) and `.json` (for downstream toolin
 
 ### Run
 
-​```
+```
 /run health
 /run investigation "ServiceNow positioning shift"
 /review output/campaigns/q1-launch/cisos-perspective.md
-
-​```
+```
 
 Run commands operate on the system. `/run health` checks structural integrity, cross-references, and calibration of the messaging house. `/run investigation` dispatches the researcher subagent for deep external research on a topic — useful when you need market intelligence before a campaign or want to scan for competitive shifts. `/review` runs the reader subagent against a draft for messaging-alignment evaluation, independent of any build workflow.
 
@@ -173,21 +169,20 @@ What the skill surface deliberately doesn't include: generic writing skills. The
 
 Drop materials into `input/` and the system uses them as primary source material. 
 
-​```
+```
 input/
 ├── messaging/          # existing brand guides, positioning decks, messaging frameworks
 ├── docs/               # PRDs, release notes, specs, pricing
 ├── research/           # market research, analyst reports, competitive intel
 ├── transcripts/        # sales calls, customer interviews, feedback
 └── examples/           # content references, competitor samples
-
-​```
+```
 
 Inputs are used when bootstrapping the system, but you can also directly reference during any session as additional context.
 
 ### Outputs
 
-​```
+```
 output/
 ├── campaigns/[name]/
 │   ├── brief.md            ← the Bill of Messaging
@@ -198,8 +193,7 @@ output/
 ├── launches/[name]/        # organized by wave
 ├── plays/[name]/           # organized by motion
 └── single-assets/          # one-off generations
-
-​```
+```
 
 Every asset emerges in multiple shapes for multiple consumers:
 
