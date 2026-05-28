@@ -90,6 +90,7 @@ When the user's request matches one of these intents, read the named skill and f
 | Intent (trigger phrasings) | Skill |
 |---|---|
 | "bootstrap the messaging system," "start from scratch," "set up messaging" | `.claude/skills/system/bootstrap/SKILL.md` |
+| "clone a brand from a website," "build brand/ from our site," "extract design tokens from [url]," "set up the brand folder from our homepage" | `.claude/skills/system/clone/SKILL.md` |
 | "build a campaign," "plan an outbound campaign," "ABM campaign for..." | `.claude/skills/workflows/build-campaign/SKILL.md` |
 | "launch our product," "orchestrate a launch," "prep the launch BoM" | `.claude/skills/workflows/build-launch/SKILL.md` |
 | "build a play," "competitive displacement play," "expansion play for..." | `.claude/skills/workflows/build-play/SKILL.md` |

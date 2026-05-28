@@ -20,8 +20,8 @@ In campaign mode, the orchestrator pre-loads shared resources and hands them inl
 | `scenario` | 5-dimension scenario block. Apply Content lens for posture; Strategic shape for emphasis. |
 | `extracted_context` | Pre-extracted positioning + key messages + glossary subset + proof passages. Use instead of re-reading shared pillars. |
 | `voice_gate` | Voice craft skill, inlined (Layer 1 brand + Layer 2 AI cliché patterns). |
-| `asset_inline` | Asset envelope: content-keys, array-keys, Conventions, Frontmatter requirements (plus Structure + CTA for atomic assets). |
-| `variant_inline` | Variant: When to use, Voice notes, Structure, CTA conventions. Absent for atomic assets. |
+| `asset_inline` | Asset envelope: content-keys, array-keys, Conventions, Frontmatter requirements (plus Structure + CTA + Writing checks for atomic assets). |
+| `variant_inline` | Variant: When to use, Voice notes, Structure, CTA conventions, Writing checks. Absent for atomic assets. |
 | `asset_specific_docs` | Paths to additional docs to read fresh. |
 | `dependency_paths` | Previously generated files in the campaign — read for narrative continuity. |
 | `reader_mode` | `inline` (self-evaluate) or `subagent` (dispatch reader). |
@@ -38,14 +38,14 @@ In campaign mode, the orchestrator pre-loads shared resources and hands them inl
    - Content fields mapped to `content-keys` (markdown frontmatter + JSON keys; `array-keys` serialize as arrays).
    - Claims from pillars + `extracted_context` — never invented.
    - Language calibrated to persona altitude + profile voice. Terminology from the glossary.
-6. **Voice validation.** Run the voice gate. PASS: 0 banned phrases, 0 structural patterns, <3 diagnostic flags. FAIL: revise once, re-scan. Hard cap: 2 passes.
+6. **Generation gates.** Run two gates against the draft: (a) the **voice gate** — PASS: 0 banned phrases, 0 structural patterns, <3 diagnostic flags; (b) the variant's **`## Writing checks`** (or the atomic envelope's, when present) — every testable check must pass. FAIL on either → revise once, re-scan. Hard cap: 2 passes. If the variant/envelope has no Writing checks, only the voice gate applies.
 7. **Write.** Three artifacts:
    - `output/[workflow]/[folder]/[id]-[slug].md` (or `output/single-assets/[slug].md` standalone) — frontmatter from `content-keys`, body per Structure.
    - `.json` sibling — one key per `content-key`; `array-keys` as JSON arrays.
    - `_meta/[id]-[slug].md` — audit trail with brief excerpt, messaging refs, revision history.
 8. **Reader review.** If `reader_mode: subagent`, dispatch the reader with: asset path, persona slug, variant (asset/variant), glossary source, revision context. If `inline`, self-evaluate against the review craft skill. Handle verdict:
    - **Ready to publish** — append to `_meta/`; complete.
-   - **Needs revision** — apply directives, re-run voice validation (1 pass), update outputs, append to `_meta/`. Do not re-dispatch.
+   - **Needs revision** — apply directives, re-run the generation gates (1 pass), update outputs, append to `_meta/`. Do not re-dispatch.
    - **Major rework** — standalone: surface to user; campaign: mark `needs-revision`, surface to orchestrator.
    - Revision budget: max 3 total drafts (2 voice passes + 1 post-reader revision).
 9. **Finalize.** Update `revision_history` in `_meta/`. Standalone: present self-assessment + scores + paths. Campaign: return `complete` or `needs-revision` + paths. If standalone mode received `--produce [target]`, after revision_history is finalized dispatch the producer subagent (see `.claude/agents/producer.md`) with target, asset_slug, variant_slug, the written `.md` + `.json` paths, an `output_destination` of the `.md` path with `.html` (web), `.email.html` (email), or `.print.html` (print) suffix, and `asset_metadata` extracted from the writer JSON (title, excerpt, publishing). Surface the producer's output path + warnings alongside the writer's. Campaign mode does NOT dispatch the producer — the orchestrator handles producer dispatch.

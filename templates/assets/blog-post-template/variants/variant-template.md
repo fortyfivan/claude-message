@@ -66,6 +66,21 @@ Cover:
 - Specific destinations beat generic. "Schedule a 15-min walkthrough" beats "Schedule a demo."
 - Match CTA to the variant's persona altitude — executive content gets exec-friendly CTAs (peer reference, analyst report), operator content gets operator CTAs (interactive demo, docs).]
 
+## Writing checks
+
+[Instructions:
+Testable, variant-specific checks the writer must satisfy at generation time — a first writing gate on top of the global voice gate. Capture format-specific tells the global voice gate doesn't already catch; don't restate global banned phrases or Brand Guardrails. Each check must be observable, not vague.
+
+Examples (blog):
+- No "in today's fast-paced / ever-evolving world" scene-setting openers
+- No empty hedges ("it's important to note", "it's worth noting")
+- No "In conclusion / In summary" closer that just restates the intro
+- No listicle padding — every section earns its place with a distinct point
+- Opening paragraph makes a claim, not a definition of the topic
+]
+
+[Format: testable bullet rules. Omit this section if the variant has no tells beyond the global voice gate.]
+
 ## Examples
 
 [Instructions: Optional. Link or cite 1-3 reference assets that exemplify this variant — internal or external. URLs preferred; brief descriptions if URLs aren't available.]

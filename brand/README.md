@@ -14,6 +14,8 @@ Visual identity foundation for `claude-message`. Parallel to `messaging/`: where
 
 ## Setup
 
+**Fast path:** run `/clone <your-website-url>` to auto-populate `brand/DESIGN.md` and download logo/font/image assets from your site, then review before it commits. Or set up manually:
+
 The repo ships with `brand/` empty. To enable HTML production:
 
 1. Copy `templates/DESIGN-template.md` → `brand/DESIGN.md`.

@@ -56,6 +56,7 @@ Folder `messaging/assets/[slug]/` does not exist → proceed.
 - What frontmatter fields does it require? (Populates `content-keys` array; flag which serialize as JSON arrays into `array-keys`.)
 - What are the company-wide conventions for this asset type — length norms, image cadence, sign-off style, platform quirks? (Populates Conventions section.)
 - For **atomic** assets only (Phase A signaled no variants): Structural section sequence + CTA conventions. (Populates `## Structure` and `## CTA conventions` in asset.md.)
+- For **atomic** assets only: any generation-time writing tells to avoid for this asset — testable checks the writer must pass on top of the global voice gate (e.g., AI giveaways specific to this format). Optional; skip if none beyond the global gate. (Populates `## Writing checks` in asset.md.)
 
 For variant-likely assets, Phase B asks only Conventions + Frontmatter requirements. Structure and CTA conventions move to Phase C (per-variant) — these vary by editorial intent.
 
@@ -70,6 +71,7 @@ Only if Phase A signaled variants. Single round of questions for the default var
 - What's the voice register specific to this variant? (Populates `## Voice notes` — variant-specific shifts on top of MESSAGE.md Brand Guardrails + profile.md voice.)
 - Full structural section sequence for this variant? (Populates `## Structure` — variants own this; the envelope doesn't.)
 - CTA placement, destination, and button text patterns for this variant? (Populates `## CTA conventions` — variants own this too; CTAs vary by editorial intent.)
+- Any variant-specific writing tells to avoid at generation time? Testable checks the writer must pass on top of the global voice gate — e.g., AI giveaways particular to this platform (LinkedIn engagement-bait, broetry). Optional; skip if none beyond the global gate. (Populates `## Writing checks` section.)
 - Reference examples? (Populates `## Examples` section.)
 
 Sets `default-variant: [slug]` in asset frontmatter. Adds a row to asset.md's `## Variants` table with `✓` in the Default column and a one-line description derived from the variant's When to use.
@@ -85,8 +87,8 @@ For atomic assets (Phase A signaled no variants), skip Phase C entirely. `defaul
 
 Files generated atomically:
 
-1. **Asset file** at `messaging/assets/[slug]/asset.md` — frontmatter populated including `default-variant`; body populated from Phase B answers. For variant-likely assets, body has `## Conventions`, `## Frontmatter requirements`, `## Variants` (with the default variant row). For atomic assets, body adds `## Structure` and `## CTA conventions`.
-2. **Variant file** (if Phase C ran) at `messaging/assets/[slug]/variants/[variant].md` — populated from Phase C answers (When to use, Voice notes, Structure, CTA conventions, Examples).
+1. **Asset file** at `messaging/assets/[slug]/asset.md` — frontmatter populated including `default-variant`; body populated from Phase B answers. For variant-likely assets, body has `## Conventions`, `## Frontmatter requirements`, `## Variants` (with the default variant row). For atomic assets, body adds `## Structure`, `## CTA conventions`, and `## Writing checks` (when tells were provided).
+2. **Variant file** (if Phase C ran) at `messaging/assets/[slug]/variants/[variant].md` — populated from Phase C answers (When to use, Voice notes, Structure, CTA conventions, Writing checks, Examples).
 3. **MESSAGE.md `## Assets` row** — add a row mapping the content type to this slug (default or alternative per Phase A). Row columns: `Content type | Asset | Default variant | Available variants`. For atomic assets, Default variant is `—` and Available variants is `—`.
 
 ### Step 6: Diff + approve

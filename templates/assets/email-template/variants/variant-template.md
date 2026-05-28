@@ -71,6 +71,20 @@ Cover:
 - Calendar links mid-funnel nurture are premature. Reserve for late-funnel.
 - One asset reference per email — multiple links dilute conversion.]
 
+## Writing checks
+
+[Instructions:
+Testable, variant-specific checks the writer must satisfy at generation time — a first writing gate on top of the global voice gate. Capture format-specific tells the global voice gate doesn't already catch; don't restate global banned phrases or Brand Guardrails. Each check must be observable, not vague.
+
+Examples (email):
+- No "I hope this email finds you well" / "Just circling back" / "Just following up" openers
+- No clickbait subject lines or false urgency ("Act now", "Don't miss out")
+- No "I wanted to reach out" throat-clearing — open on the reason
+- One clear ask; the CTA isn't buried under preamble
+]
+
+[Format: testable bullet rules. Omit this section if the variant has no tells beyond the global voice gate.]
+
 ## Examples
 
 [Instructions: Optional. Link or cite 1-3 reference emails that exemplify this variant. Internal sent-folder references work too.]

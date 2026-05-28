@@ -76,6 +76,20 @@ Cover:
 - For gated whitepapers, the form IS the CTA — the rest of the page sells the gate
 - Author availability for follow-up briefings is a strong secondary CTA across all variants]
 
+## Writing checks
+
+[Instructions:
+Testable, variant-specific checks the writer must satisfy at generation time — a first writing gate on top of the global voice gate. Capture format-specific tells the global voice gate doesn't already catch; don't restate global banned phrases or Brand Guardrails. Each check must be observable, not vague.
+
+Examples (whitepaper):
+- No "in today's rapidly changing landscape" framing to open a section
+- No length padding — sections exist to advance the argument, not hit a page count
+- No passive hedging where a direct claim belongs ("it could be argued that")
+- Conclusion advances beyond the introduction, doesn't restate it
+]
+
+[Format: testable bullet rules. Omit this section if the variant has no tells beyond the global voice gate.]
+
 ## Examples
 
 [Instructions: Optional. Link or cite 1-3 reference whitepapers that exemplify this variant — internal or external. URLs preferred.]

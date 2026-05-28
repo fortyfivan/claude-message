@@ -69,6 +69,24 @@ Cover:
 - Avoid generic "Learn more" — it's dead weight on every platform
 - Match CTA intensity to platform norms (LinkedIn tolerates more direct asks than Reddit)]
 
+## Writing checks
+
+[Instructions:
+Testable, variant-specific checks the writer must satisfy at generation time — a first writing gate on top of the global voice gate. Capture platform/format-specific tells the global voice gate doesn't already catch; don't restate global banned phrases or Brand Guardrails. Each check must be observable, not vague.
+
+Examples (LinkedIn):
+- No engagement-bait closers ("Agree?", "Thoughts?", "Who else has seen this?")
+- No broetry — one-sentence paragraphs stacked for scroll-bait
+- Hook lands in the first 120 chars, before the "see more" fold
+- CTA reads native to the feed, not like a promo banner
+
+Examples (Twitter/X post):
+- Single idea; no thread-bait ("a 🧵") on a standalone post
+- No hashtag stuffing (0–1 hashtag, not 3+)
+]
+
+[Format: testable bullet rules. Omit this section if the variant has no tells beyond the global voice gate.]
+
 ## Examples
 
 [Instructions: Optional. Link or cite 1-3 reference posts that exemplify this variant. URLs preferred.]

@@ -58,3 +58,18 @@ Document fields the distribution platform requires. PR Newswire/Business Wire ma
 
 [Instructions:
 Press releases don't carry marketing CTAs. The "next step" is media contact info. Hyperlinks in the body point to source materials (product page, customer story, analyst report) rather than conversion endpoints. Document any exceptions.]
+
+## Writing checks
+
+[Instructions:
+Testable, asset-specific checks the writer must satisfy at generation time — a first writing gate on top of the global voice gate. Atomic assets have no variant file, so the checks live here. Capture format-specific tells the global voice gate doesn't already catch; don't restate global banned phrases or Brand Guardrails. Each check must be observable, not vague.
+
+Examples (press release):
+- No hype adjectives anywhere ("revolutionary", "groundbreaking", "best-in-class"), not just the lede
+- No "is proud / thrilled / excited to announce" filler — open on the news
+- Quotes sound like a named human said them, not like marketing copy
+- Every significance claim is attributed or backed by a fact, not asserted
+- Boilerplate matches profile.md verbatim; not paraphrased
+]
+
+[Format: testable bullet rules. Omit this section if the asset has no tells beyond the global voice gate.]
