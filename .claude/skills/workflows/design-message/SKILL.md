@@ -9,7 +9,7 @@ Update behavior only. MESSAGE.md is the always-on foundation; sections are requi
 
 ## Messaging System Reference
 
-This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, ICP, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
 
 Invoked via `/design message [section]`. The skill loads the existing section, runs a focused update interview, generates the revised content, shows a diff, and writes after approval.
 
@@ -19,12 +19,13 @@ Invoked via `/design message [section]`. The skill loads the existing section, r
 |---|---|---|
 | Attributes | `attributes` | Company type, stage, market, position, regions, business model |
 | Facts | `facts` | Founded, HQ, employees, funding, customers |
-| ICP | `icp` | Characteristics, Behaviors, Environmental subsections |
 | Glossary | `glossary` | Cross-cutting terminology with usage rules |
 | Brand Guardrails | `brand-guardrails` | 4–8 testable absolute output rules |
 | Scenarios | `scenarios` | Dimensions table (customizable rows: compelling-event, market-moment) |
 
 Other catalog sections (Pillars, Collections, Assets) are maintained by their respective `/design` skills or are spec-fixed. Company name + intro live at the top of MESSAGE.md and are edited there directly.
+
+**ICP is not a MESSAGE.md section.** ICP (Characteristics, Behaviors, Environmental) lives in the People pillar — route ICP edits to `/design pillar people`.
 
 ## Modes
 
@@ -32,7 +33,8 @@ Other catalog sections (Pillars, Collections, Assets) are maintained by their re
 |---|---|
 | `/design message [section]` | Update flow. Loads existing section → interview → generate → diff → approve → write. |
 | `/design message [section] --remove` | **Refused.** "MESSAGE.md sections are structural and cannot be removed. Edit the section to change content." |
-| `/design message [section]` for unknown section | **Refused with section list.** "Section `[section]` doesn't exist. Editable: attributes, facts, icp, glossary, brand-guardrails, scenarios." |
+| `/design message icp` | **Redirected.** "ICP now lives in the People pillar. Use `/design pillar people` to edit it." |
+| `/design message [section]` for unknown section | **Refused with section list.** "Section `[section]` doesn't exist. Editable: attributes, facts, glossary, brand-guardrails, scenarios." |
 
 ## Update flow
 
@@ -49,8 +51,6 @@ Read MESSAGE.md and extract the named section's current content. Present it to t
 For Glossary: enumerate current entries (term + usage rule) with index numbers so the user can reference specific rows.
 
 For Brand Guardrails: enumerate current rules with index numbers.
-
-For ICP: present the three subsections (Characteristics, Behaviors, Environmental) separately; the user may want to edit only one.
 
 ### Step 3: Update interview
 

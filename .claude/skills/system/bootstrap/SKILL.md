@@ -13,7 +13,7 @@ The skill is consultative in three dimensions: it asks the right questions (not 
 
 ## Messaging System Reference
 
-This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, ICP, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
 
 Note: this skill *creates* the messaging system when it doesn't exist yet. The blurb above describes runtime behavior; bootstrap itself is the genesis flow.
 
@@ -21,19 +21,22 @@ Note: this skill *creates* the messaging system when it doesn't exist yet. The b
 
 ## What bootstrap produces
 
-A complete messaging house: six pillars, their collection profiles, optional customized asset definitions, and a synthesized MESSAGE.md as the always-on foundation. Pillars and collections write first in dependency order; MESSAGE.md generates next as the distilled altitude-setter; optional assets follow last.
+A complete messaging house: six pillars, their collection profiles, optional customized asset definitions, and a synthesized MESSAGE.md as the always-on foundation. The discovery and sharpening converge on an approved **messaging plan** — the resolved blueprint for every pillar and collection. Generation then fans out from that plan: pillars and collections write in parallel waves, MESSAGE.md generates next as the distilled altitude-setter, and optional assets follow last.
 
 ---
 
-## Three phases
+## Four phases
 
-Bootstrap runs three phases:
+Bootstrap runs four phases:
 
 1. **Discover** — read input materials, run the workshop, surgical web research for gaps
 2. **Sharpen** — present strategic synthesis, surface tensions, resolve through user confirmations
-3. **Generate** — write pillars and collections in dependency order, then MESSAGE.md as synthesis, then optional assets
+3. **Plan** — compose the messaging plan (resolved per-pillar decisions + a collection manifest + cross-cutting blocks), run an integrity check, get explicit approval
+4. **Generate** — fan out parallel `designer` subagents (pillars, then collections) from the approved plan, reconcile Collection Tables, synthesize MESSAGE.md, then optional assets
 
-The phases are sequential and gated. Phase 2 cannot start until Phase 1 produces complete discovery notes. Phase 3 cannot start until Phase 2 closes all open tensions.
+The phases are sequential and gated. Phase 2 cannot start until Phase 1 produces complete discovery notes. Phase 3 cannot start until Phase 2 closes all open tensions. Phase 4 cannot start until the plan is approved.
+
+The plan is the consistency contract. Because one agent resolves the whole strategic picture in the plan — every claim, differentiator, and cross-reference — the parallel writers in Phase 4 transcribe their slice rather than re-deriving coherence from each other. Coherence is resolved once, upfront, instead of reconstructed five times during sequential writing.
 
 ---
 
@@ -45,7 +48,7 @@ Check for `messaging/.bootstrap-progress.md`. If it exists, offer to resume:
 
 > "A previous bootstrap session exists. Resume from [last completed phase], or start fresh?"
 
-If resuming, read previously written discovery notes and any committed messaging docs. If starting fresh, proceed.
+If resuming, read the discovery notes, the plan (`messaging/.bootstrap-plan.md`) if it exists, the progress manifest, and any committed messaging docs. If a plan exists and generation was interrupted, resume from Phase 4 and re-dispatch any target not marked `complete` (see Progress markers). If starting fresh, proceed.
 
 ### Step 2: Read input materials
 
@@ -104,7 +107,7 @@ This populates the eventual MESSAGE.md Facts section and gives the workshop open
 
 ## Phase 1: Discover
 
-Run the strategic workshop. Nine essential questions in four batches; agent skips covered questions per the coverage assessment. Produces `messaging/.bootstrap-discovery.md` as the private working document for Phase 2 and Phase 3.
+Run the strategic workshop. Nine essential questions in four batches; agent skips covered questions per the coverage assessment. Produces `messaging/.bootstrap-discovery.md` as the private working document for the sharpening and planning phases.
 
 ### The nine essential questions
 
@@ -225,7 +228,7 @@ After the workshop completes, write `messaging/.bootstrap-discovery.md`:
 - [What we still don't know that may need user input or research]
 ```
 
-This is the working document for Phase 2 (sharpening) and Phase 3 (generation). It gets deleted at completion.
+This is the working document for Phase 2 (sharpening) and Phase 3 (planning) — the plan is composed from it. It gets deleted at completion.
 
 ---
 
@@ -283,61 +286,204 @@ User confirms, refines, or replaces. Either way, the burden is on the agent to d
 
 ### Closing Phase 2
 
-After all tensions are resolved and inferences are confirmed, update `messaging/.bootstrap-discovery.md` with final answers. The discovery notes are now the source of truth for generation.
+After all tensions are resolved and inferences are confirmed, update `messaging/.bootstrap-discovery.md` with final answers. The discovery notes are now complete enough to compose the plan.
 
-> "I have a clear picture. I'll generate your messaging house now — pillars and collections first, then MESSAGE.md as the always-on synthesis, then optional assets. About 5-10 minutes; I'll narrate as I go."
+> "I have a clear picture. I'll compose the messaging plan now — the resolved blueprint we'll generate from. You'll review it before I write any files."
 
 Then proceed to Phase 3.
 
 ---
 
-## Phase 3: Generate
+## Phase 3: Plan
 
-Write pillars and collections in dependency order. MESSAGE.md generates as the synthesis once the six pillars are written; optional assets follow last because `/design asset` updates MESSAGE.md's `## Assets` table row on every invocation. No user questions during generation. No web research during generation. The strategy is locked.
+Compose the messaging plan — the resolved blueprint every pillar and collection generates from. One agent holding the whole strategic picture resolves coherence here, once, so the parallel writers in Phase 4 transcribe their slice instead of re-deriving consistency from each other.
 
-### Dependency order
+Write the plan to `messaging/.bootstrap-plan.md`. No web research during planning — the budget is spent; the strategy is what Phase 2 confirmed.
 
-1. **Profile** — voice attributes, boilerplate, brand pillars (anchors everything below)
-2. **Position** — category, positioning statement, competitors collection, categories collection
-3. **Pitch** — strategic narrative, UVPs, differentiators (references Position)
-4. **People** — personas collection, segments collection, cross-functional dynamics (references audience discovery)
-5. **Portfolio** — products collection, solutions collection (references offering + People)
-6. **Proof** — stories collection, reports collection (references everything above)
-7. **MESSAGE.md** — synthesized from the six pillars + identity facts as the always-on altitude-setter; Assets table written empty
-8. **Assets** (optional) — asset definitions with variants; depends on Phase 1 Question 9 and runs *after* MESSAGE.md so `/design asset` can populate the `## Assets` row per asset
+### Plan fidelity: decisions, not prose
 
-### Writing protocol per pillar
+The plan carries the **irreducible decisions and raw material** a writer cannot derive — not pre-rendered pillar copy. If a section reads like finished pillar copy, it's too detailed and you've moved the serial authoring upstream (no time saved). If it reads like a strategist's spec, it's right.
 
-For each pillar:
+| In the plan (resolved decisions + material) | NOT in the plan (the designer renders these in voice) |
+|---|---|
+| Positioning statement components filled (For / Who / We are / Unlike / Only us …) | The narrative arc's prose; the boilerplate paragraph |
+| UVP one-liners with quantitative/qualitative measures + proof tags | Differentiator write-ups expanded into paragraphs |
+| Differentiators with evidence tags (→ which UVP / story / report) | Per-persona objection reframes phrased in voice |
+| Per-persona load-bearing spec: altitude, lead-with, avoid-leading-with, proof types, CTA, format affinity | Journey-stage prose; relationship-to-product narrative |
+| Collection routing descriptions (~15 words) + cross-tags (story → personas/products/segments) | Section connective tissue and examples |
+| Glossary term list, testable guardrails, attributes/facts, scenario dimension values | — |
 
-1. Read the template from `templates/pillars/[pillar]-template.md` for section structure
-2. Read relevant sections of discovery notes
-3. Read previously-written pillars if referencing them (e.g., Pitch reads Position)
-4. Write `messaging/pillars/[pillar].md` with company-specific content
-5. Strip the bootstrap disclaimer block (`> **Not yet populated.**` blockquote) when populating
-6. For each collection profile the pillar references, write `messaging/collections/[type]/[slug].md` from `templates/collections/[type]-template.md`
-7. Sync the pillar's `## Collection Tables` H2 to reference each collection file
-8. Confirm with one line per file written: `Created messaging/pillars/profile.md` etc.
+Target ~350–550 lines for a Standard-mode house.
 
-No previews. No code blocks shown to user. The user approved the strategy in Phase 2; the agent writes.
+### Plan structure
 
-After each pillar, bridge to the next: what this pillar established and how the next one builds on it.
+`messaging/.bootstrap-plan.md`:
+
+```markdown
+---
+company: [name]
+mode: [rich | standard | empty]
+status: draft        # → approved
+facts: [founded, HQ, employees, funding, customers]
+scenario_seed: [the 5 scenario dimensions — compelling-event, topic-maturity, market-moment, strategic-shape, content-lens]
+---
+
+# Messaging Plan — [Company]
+
+## Strategic Spine
+[The verbatim through-line every designer anchors to, ~15 lines: category, the core argument,
+the one-sentence "why us," the POV, the proof posture, the voice in two adjectives. Frozen text —
+writers transcribe it, they don't paraphrase it.]
+
+## Pillar Plans
+### Profile
+[Resolved decisions: mission, vision, boilerplate inputs, voice attributes, brand pillars]
+### Position
+[Positioning statement components, market landscape points, trends w/ direction, differentiators w/ evidence tags]
+### Pitch
+[Strategic narrative beats (as bullets), elevator pitch inputs, UVPs w/ measures + proof tags, differentiators]
+### People
+[ICP decisions, buying considerations, journey stages, persona list pointer]
+### Portfolio
+[Portfolio overview/structure, product list pointer, solution list pointer]
+### Proof
+[Value-evidence metrics w/ proven|projected basis, community-evidence patterns, story + report list pointers]
+
+## Collection Manifest
+One mini-brief per collection. Each is enough to author the full file.
+
+| Type | Slug | Parent pillar | Routing description (~15 words) | Load-bearing spec / cross-tags |
+|---|---|---|---|---|
+| persona | ciso | people | [differentiating one-liner] | altitude / lead-with / avoid / proof / CTA / format |
+| competitor | acme | position | [their positioning approach] | tier; how-we-win → differentiator refs |
+| story | acme-corp | proof | [outcome one-liner] | personas:[…] products:[…] segments:[…] |
+| … | | | | |
+
+## Cross-Cutting (feeds MESSAGE.md)
+- **Glossary:** [cross-cutting terms — no product/competitor/persona/category names]
+- **Brand Guardrails:** [4–8 testable rules]
+- **Attributes:** [stage, type, market, position, business model]
+- **Scenarios — Dimensions:** [compelling-event + market-moment values; other three spec-fixed]
+
+## Plan Integrity Check
+[pass/flag per check — see below]
+```
+
+### Plan integrity check
+
+Before presenting, audit the composed plan and resolve flags — this is where rigor moves upfront:
+
+- **Claims trace to proof** — every quantitative claim maps to a metric in the evidence inventory or a story/report in the manifest. Flag unsupported claims.
+- **Differentiators trace to UVPs** — every differentiator references a UVP or a proof point. A differentiator without backing is an aspiration; cut or downgrade it.
+- **Personas have behavioral specificity** — each persona's spec is more than a job title (signals, challenges, success metrics). Flag generic personas.
+- **No cross-pillar contradictions** — positioning, pitch, and proof tell one story. Flag conflicts.
+- **Routing descriptions present** — every manifest entry has a ~15-word description.
+
+Resolve flags via AskUserQuestion (bundle them), using the Phase 2 challenge format (Option A current / Option B sharper-recommended / Option C custom).
+
+**Empty / thin-input guard.** In Empty mode, flag every plan block backed *only* by inference (no input or research behind it) and force those through AskUserQuestion before approval. Resolve placeholder debt in the plan, not in the writers — six designers inventing in isolation is worse than one agent inventing where you'd notice the drift.
+
+### Approval gate
+
+Present a readable summary of the plan (spine + the pillar headlines + the collection manifest count + any remaining flags) and the approval gate:
+
+> "Here's the messaging plan — the blueprint I'll generate from. Approve to start generation, or tell me what to change."
+
+User approves, edits, or cancels. **If the user edits the plan (directly or in conversation), re-run the integrity check** — an edit can reintroduce a contradiction the check previously cleared. On approval, set the plan's `status: approved` and proceed to Phase 4.
+
+---
+
+## Phase 4: Generate
+
+Generation transcribes the approved plan into the messaging house. No user questions, no web research, no authoring of new strategy — the plan is locked. The main agent slices the plan and dispatches `designer` subagents (`.claude/agents/designer.md`) in two parallel waves, then reconciles and synthesizes.
+
+### Pre-wave setup
+
+1. **Load the voice gate once.** Read `.claude/skills/craft/voice/SKILL.md`; pass its content inline as `voice_gate` in every dispatch.
+2. **Extract the spine.** Take the `## Strategic Spine` block verbatim; pass as `spine` in every dispatch.
+3. **Seed the progress manifest** — see Progress markers below; mark every target `pending`.
+
+### Wave A — pillars (parallel)
+
+Dispatch all six pillars in a single message (six `Agent` calls). No pillar reads another pillar — the spine is the shared contract. Build each pillar's `plan_slice` from its `## Pillar Plans` block; for pillars with collections, build `manifest_rows` by filtering the Collection Manifest to that parent pillar.
+
+```
+Agent(
+  subagent_type: "designer",
+  prompt: "Apply the protocol in .claude/agents/designer.md.
+
+  target_type: [profile | position | pitch | people | portfolio | proof]
+  target_path: messaging/pillars/[slug].md
+  template_path: templates/pillars/[slug]-template.md
+
+  plan_slice (resolved decisions + material for this pillar, verbatim):
+  [paste the pillar's Pillar Plans block]
+
+  spine (verbatim, anchor — do not paraphrase):
+  [paste Strategic Spine]
+
+  voice_gate (inline):
+  [paste full voice gate content]
+
+  manifest_rows (this pillar's Collection Tables — author rows from these; omit for Profile/Pitch):
+  [paste filtered manifest rows: file + ~15-word description per collection]
+
+  Write the single file to target_path, strip the disclaimer, run the voice gate. Return the path and a one-line status (complete | needs-revision)."
+)
+```
+
+### Wave B — collections (parallel)
+
+After Wave A returns, dispatch one `designer` per collection from the manifest, in a single message (or batched if the count exceeds the concurrency cap — the harness queues transparently). Order high-value collections first (primary personas, flagship products, hero stories) so an interrupt leaves the most important files done. Each collection gets its `parent_pillar_path` for read-only grounding.
+
+```
+Agent(
+  subagent_type: "designer",
+  prompt: "Apply the protocol in .claude/agents/designer.md.
+
+  target_type: [persona | competitor | segment | category | product | solution | story | report]
+  target_path: messaging/collections/[type]/[slug].md
+  template_path: templates/collections/[type]-template.md
+
+  plan_slice (this collection's manifest entry — routing description, load-bearing spec, cross-tags):
+  [paste the manifest row + any pillar-plan detail relevant to this collection]
+
+  spine (verbatim):
+  [paste Strategic Spine]
+
+  voice_gate (inline):
+  [paste full voice gate content]
+
+  parent_pillar_path: messaging/pillars/[parent].md   # read-only grounding (e.g., persona reads People's ICP)
+
+  Write the single file to target_path, strip the disclaimer, run the voice gate. The frontmatter description must match the manifest routing description exactly. Return the path and a one-line status (complete | needs-revision)."
+)
+```
+
+**Partial failure.** A designer returning `needs-revision` or erroring does not block its wave. Mark that target non-complete, let the wave finish, and re-dispatch failed targets before MESSAGE.md.
+
+### Collection Tables reconciliation
+
+After Wave B completes, the main agent — which holds the manifest — writes each pillar's `## Collection Tables` rows from the manifest, so the rows and the collection-file frontmatter `description` are sourced from one place and match exactly. This removes the parallel-drift hazard by construction; do not rely on two independent designers having matched.
+
+(Profile and Pitch have no Collection Tables; skip them.)
+
+Confirm generation with one line per file written, grouped by wave.
 
 ### MESSAGE.md generation
 
-After all six pillars and their collections are written, generate MESSAGE.md as the synthesis. Read the template from `templates/MESSAGE-template.md` and populate each section from existing content:
+After both waves and reconciliation complete, the main agent — not a subagent — authors MESSAGE.md as the synthesis. It must run after the waves so the catalog tables reflect what was actually written. Read the template from `templates/MESSAGE-template.md` and populate each section:
 
-- **Attributes** — derived from Profile (voice attributes) + Position (market position) + identity facts
-- **Facts** — from identity capture
-- **ICP** — distilled from People (personas) to altitude-setting summary
-- **Glossary** — extracted from all pillars (cross-cutting terms; product/competitor/persona names excluded by discipline)
-- **Brand Guardrails** — derived from Profile voice attributes (extracted as testable rules)
-- **Scenarios — Dimensions** — Compelling event and Market moment values calibrated from Position and Pitch context; other three dimensions are spec-fixed
+- **Attributes** — from the plan's Cross-Cutting `Attributes` block + identity facts
+- **Facts** — from the plan frontmatter / identity capture
+- **Glossary** — from the plan's Cross-Cutting `Glossary` block (cross-cutting terms; product/competitor/persona names excluded by discipline)
+- **Brand Guardrails** — from the plan's Cross-Cutting `Brand Guardrails` block (testable rules)
+- **Scenarios — Dimensions** — Compelling event and Market moment values from the plan's Cross-Cutting `Scenarios` block; other three dimensions are spec-fixed
 - **Pillars table** — agent-authored from a filesystem walk of `messaging/pillars/`
 - **Collections table** — agent-authored from a filesystem walk of `messaging/collections/`
 - **Assets table** — written empty at this point; if the user opts in to the assets step (next), `/design asset` populates the rows during its normal interview flow
 
-There is no script automating these tables — the agent reads each directory and authors the rows during generation.
+There is no script automating these tables — the agent reads each directory and authors the rows during generation. The cross-cutting content was resolved in the plan; the tables are derived from the written files.
 
 Present MESSAGE.md to the user once written:
 
@@ -359,7 +505,25 @@ Skip the assets step entirely if the user defers. `/design asset [slug]` is avai
 
 ### Progress markers
 
-After each pillar generation, update `messaging/.bootstrap-progress.md` with completed pillars, collection counts, and next step. Used for resume if session interrupts.
+Track generation as a per-target wave manifest in `messaging/.bootstrap-progress.md`, not a phase log. Seed every target `pending` before the waves, flip each to `dispatched` when its `Agent` call is issued, and to `complete` when its return payload arrives:
+
+```
+phase: generate
+wave_a:
+  profile: complete
+  position: complete
+  pitch: dispatched        # interrupted mid-wave
+  people: complete
+  portfolio: pending
+  proof: pending
+wave_b:
+  personas/ciso: pending
+  competitors/acme: pending
+  ...
+message_md: pending
+```
+
+On resume, re-dispatch any target not `complete`. Writes are idempotent — a designer overwrites its target file from the plan — so re-running a half-written file is safe. The plan (`messaging/.bootstrap-plan.md`) is the durable contract; resume needs only the plan plus this manifest. Don't track sub-file progress; the target is the atom, partial files are discarded on re-dispatch.
 
 ---
 
@@ -371,8 +535,9 @@ After all phases:
 
 Read every file written during the session. Check:
 
-- **MESSAGE.md ↔ pillars** — voice attributes in Profile align with MESSAGE.md Attributes; People aligns with MESSAGE.md ICP; no content duplicates across MESSAGE.md and pillars
-- **Collection Tables sync** — every collection file has a row in its parent pillar's `## Collection Tables`, and every row has a matching file
+- **Spine fidelity** — each pillar's core claim traces to the Strategic Spine; the six files read as one company's voice (the parallel-drift backstop — should be a near-pass since the spine was passed verbatim)
+- **MESSAGE.md ↔ pillars** — voice attributes in Profile align with MESSAGE.md Attributes; the People pillar carries the ICP; no content duplicates across MESSAGE.md and pillars
+- **Collection Tables sync** — every collection file has a row in its parent pillar's `## Collection Tables`, and every row has a matching file (reconciliation should guarantee this; verify)
 - **Glossary discipline** — no product, competitor, customer, persona-title, or category names in MESSAGE.md Glossary
 - **Cross-references** — products, personas, segments named in one doc exist as collection files
 - **Contradictions** — claims in one doc that conflict with another
@@ -395,7 +560,7 @@ Recommended next steps:
 
 ### Cleanup
 
-Delete `messaging/.bootstrap-progress.md` and `messaging/.bootstrap-discovery.md`. They were working documents; the messaging house is the deliverable.
+Delete `messaging/.bootstrap-progress.md`, `messaging/.bootstrap-discovery.md`, and `messaging/.bootstrap-plan.md`. They were working documents — the discovery notes, the generation contract, and the resume manifest; the messaging house is the deliverable.
 
 ### Initial journal entry
 
@@ -403,7 +568,7 @@ Append the first entry to `output/journal.md`:
 
 - **Source:** Bootstrap — initial build
 - **Type:** process
-- **Learning:** Assumptions made, conflicts surfaced, areas where information was thin, strategic choices that could go either way
+- **Learning:** Assumptions made, conflicts surfaced, areas where information was thin, strategic choices that could go either way — the approved plan was the generation contract
 - **Action:** Logged — initial messaging house populated
 
 ### Skipped assets message
@@ -433,7 +598,8 @@ Total session budget: 5-15 searches across all phases (per mode).
 | Input material URL fetches (Step 2) | Free — not counted |
 | Phase 1 workshop | Surgical — typically 0-5 |
 | Phase 2 sharpening | Light — typically 0-3 |
-| Phase 3 generation | Zero — strategy is locked |
+| Phase 3 planning | Zero — strategy is locked |
+| Phase 4 generation | Zero — strategy is locked |
 
 If a session approaches budget, surface it: "I've done significant research; let me synthesize what we have."
 
@@ -441,9 +607,10 @@ If a session approaches budget, surface it: "I've done significant research; let
 
 - Read, Write, Edit: full access for messaging house files
 - Glob, Grep: input materials, existing messaging house content
-- AskUserQuestion: the 9 essential questions, sharpening exchanges, asset interview
-- WebSearch: enabled with discipline (per budget; never during Phase 3)
-- WebFetch: enabled for user-provided URLs and search result extraction (never during Phase 3)
+- AskUserQuestion: the 9 essential questions, sharpening exchanges, plan integrity flags, asset interview
+- Agent(designer): dispatched in Phase 4 to author pillars and collections in parallel from the approved plan
+- WebSearch: enabled with discipline (per budget; never during Phase 3 or 4)
+- WebFetch: enabled for user-provided URLs and search result extraction (never during Phase 3 or 4)
 
 ### Writing conventions
 

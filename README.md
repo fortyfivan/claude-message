@@ -34,7 +34,7 @@ To configure the system for HTML production (web, email, print), add your brand 
 
 ## System design principles
 
-**Messaging is shaped.** `messaging/` holds six pillars (Profile, Pitch, Position, People, Portfolio, Proof), eight collection types (personas, products, competitors, segments, solutions, stories, categories, reports), and asset definitions (blog-post, customer-story, etc.). `MESSAGE.md` at the repo root holds company-level attributes, ICP, glossary, brand guardrails, and the catalog of everything below. Empty after clone; `/bootstrap` populates it.
+**Messaging is shaped.** `messaging/` holds six pillars (Profile, Pitch, Position, People, Portfolio, Proof), eight collection types (personas, products, competitors, segments, solutions, stories, categories, reports), and asset definitions (blog-post, customer-story, etc.). `MESSAGE.md` at the repo root holds company-level attributes, glossary, brand guardrails, and the catalog of everything below (ICP and audience framing live in the People pillar). Empty after clone; `/bootstrap` populates it.
 
 **Loading is progressive.** `MESSAGE.md` loads on every session — it's the altitude-setter for everything else. Pillars and collections load on-demand per the task. A campaign targeting CISO buyers loads People, Position, and collections/personas/ciso.md — not the whole system. Sessions stay lean even as the messaging system grows.
 
@@ -54,7 +54,6 @@ The always-on foundation. Loaded on every session as the altitude-setter for eve
 
 - **Attributes** — company stage, type, market position, regions
 - **Facts** — basics like founded date, HQ, size, funding
-- **ICP** — characteristics, behaviors, and environmental context of the ideal buyer
 - **Glossary** — cross-cutting terms with usage rules (company name capitalization, industry abbreviations, prohibited terms)
 - **Brand Guardrails** — absolute, testable constraints that bind every output
 - **Scenarios** — dimensional vocabulary for runtime context assembly (compelling event, market moment, strategic shape, content lens, topic maturity)
@@ -69,7 +68,7 @@ Six pillars in `messaging/pillars/`, each a narrative anchor for its respective 
 | **Profile**   | Identity, voice, lexicon, marketplace statement           |
 | **Pitch**     | Strategic narrative, UVPs, differentiators                |
 | **Position**  | Category claim and competitive landscape                  |
-| **People**    | Audience framing, persona altitude, buying considerations |
+| **People**    | ICP, audience framing, persona altitude, buying considerations |
 | **Portfolio** | Product ecosystem and capability map                      |
 | **Proof**     | Customer evidence and external validation                 |
 

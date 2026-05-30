@@ -9,7 +9,7 @@ Update behavior only. Pillars are required structural elements; create and remov
 
 ## Messaging System Reference
 
-This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, ICP, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the position pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
 
 Invoked via `/design pillar [name]`. The skill loads the existing pillar, runs a focused update interview, generates the revised content, shows a diff, enumerates downstream impact, and writes after approval.
 
@@ -51,7 +51,6 @@ If the user describes content that belongs in `MESSAGE.md` rather than a pillar,
 | Absolute, testable output rules ("never use X," "always capitalize Y") | MESSAGE.md Brand Guardrails | "That sounds like a brand guardrail — an absolute output constraint. Those live in `MESSAGE.md`. Want to add it with `/design message brand-guardrails` instead?" |
 | Company-level attributes (stage, market position, business model) | MESSAGE.md Attributes | "That's a company-level attribute. Update with `/design message attributes`." |
 | Stable identity facts (founded, HQ, employees, funding) | MESSAGE.md Facts | "That's stable identity. Update with `/design message facts`." |
-| ICP definition (size band, buying behavior, anti-fit) | MESSAGE.md ICP | "ICP framing lives in `MESSAGE.md`. Use `/design message icp` for that. The pillar's People doc carries per-tier messaging considerations, not ICP definition." |
 | Scenarios dimensions (compelling event values, market moment values) | MESSAGE.md Scenarios | "That's runtime scenario vocabulary — `/design message scenarios` is the path." |
 
 This is a soft prompt, not a hard refusal. The user can override by saying "no, put it in the pillar" and you proceed with the pillar edit. Soft-prompt once per session per category — don't repeat for every entry.

@@ -11,7 +11,6 @@ The operating guide for AI tools working in this repository.
 `MESSAGE.md` loads automatically at session start as foundational context. It provides:
 
 - Company attributes (altitude-setters)
-- ICP definition (characteristics, behaviors, environmental)
 - Glossary (cross-cutting terminology)
 - Brand Guardrails (absolute constraints)
 - Scenarios vocabulary (dimensions for runtime assembly)
@@ -95,8 +94,8 @@ When the user's request matches one of these intents, read the named skill and f
 | "launch our product," "orchestrate a launch," "prep the launch BoM" | `.claude/skills/workflows/build-launch/SKILL.md` |
 | "build a play," "competitive displacement play," "expansion play for..." | `.claude/skills/workflows/build-play/SKILL.md` |
 | "build an event," "plan our conference program," "plan an event around...," "RSA program," "user summit content" | `.claude/skills/workflows/build-event/SKILL.md` |
-| "update the glossary," "edit MESSAGE.md," "add a brand guardrail," "update the ICP" | `.claude/skills/workflows/design-message/SKILL.md` |
-| "create a persona," "design a competitor profile," "update the position pillar" | `.claude/skills/workflows/design-collection/SKILL.md` (collection types) or `.claude/skills/workflows/design-pillar/SKILL.md` (pillars) |
+| "update the glossary," "edit MESSAGE.md," "add a brand guardrail" | `.claude/skills/workflows/design-message/SKILL.md` |
+| "create a persona," "design a competitor profile," "update the position pillar," "update the ICP" | `.claude/skills/workflows/design-collection/SKILL.md` (collection types) or `.claude/skills/workflows/design-pillar/SKILL.md` (pillars; ICP lives in the people pillar) |
 | "create a new asset," "define a thought-leadership blog asset," "add a webinar asset" | `.claude/skills/workflows/design-asset/SKILL.md` |
 | "remove a persona," "delete this asset," "retire the X competitor" | `.claude/skills/workflows/design-collection/` (with `--remove`) or `.claude/skills/workflows/design-asset/` (with `--remove`) |
 | "investigate X," "what's changing in the market," "process this feedback," "research [competitor]" | `.claude/skills/system/run-investigation/SKILL.md` |
@@ -119,7 +118,7 @@ Some natural-language patterns don't need a workflow — answer them directly fr
 | "Pull up the [customer] story" | the matching story collection |
 | "What's our canonical term for [concept]?" | `MESSAGE.md` `## Glossary` |
 | "What stage / market / position is the company?" | `MESSAGE.md` `## Attributes` |
-| "Who is the ICP?" | `MESSAGE.md` `## ICP` |
+| "Who is the ICP?" | the people pillar `## ICP` section |
 | "What are the brand guardrails?" | `MESSAGE.md` `## Brand Guardrails` |
 | "What products do we sell?" | the portfolio pillar Collection Tables + product files |
 | "How do we win against [competitor]?" | the matching competitor collection |
@@ -158,4 +157,9 @@ Two hard rules that bind every action.
 
 ## Agents
 
-Three subagents live at `.claude/agents/`. Each carries its own protocol — read the file before dispatching.
+Four subagents live at `.claude/agents/`. Each carries its own protocol — read the file before dispatching.
+
+- **writer** — generates a single content asset into `output/`; never touches the messaging house.
+- **reader** — reviews a content asset against the messaging system.
+- **producer** — renders production-ready HTML from writer output.
+- **designer** — authors a single messaging-system document (a pillar or collection profile) from a resolved plan slice; scoped to write `messaging/pillars` and `messaging/collections` only. Bootstrap dispatches it in parallel during generation.

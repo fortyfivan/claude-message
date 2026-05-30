@@ -9,7 +9,7 @@ last-reviewed: [Instructions: ISO date, YYYY-MM-DD.]
 
 [Instructions: One-paragraph overview, under 100 words. What the company does, who it serves, why it exists.]
 
-MESSAGE.md is the always-on foundation for every messaging and content task in this repository. The agent reads it before loading any pillar, collection, or asset. The sections below set company altitude, audience, terminology, and brand constraints — content that is invariant across content types, audiences, and channels. Per-instance detail (personas, products, competitors, customer stories) lives in `messaging/pillars/` and `messaging/collections/`.
+MESSAGE.md is the always-on foundation for every messaging and content task in this repository. The agent reads it before loading any pillar, collection, or asset. The sections below set company altitude, terminology, and brand constraints — content that is invariant across content types, audiences, and channels. Audience-fit criteria (ICP), personas, products, competitors, and customer stories live in `messaging/pillars/` and `messaging/collections/`.
 
 **Run the `/bootstrap` command to populate this file through an interactive Q&A session**
 
@@ -37,37 +37,6 @@ MESSAGE.md is the always-on foundation for every messaging and content task in t
 - **Employees**: [Instructions: Count or range.]
 - **Funding**: [Instructions: Total + most recent round, or omit.]
 - **Customers**: [Instructions: Public count or range, or omit.]
-
----
-
-## ICP
-
-*Structured buyer criteria for good fit/bad fit accounts. Personas and segments documented as collections.*
-
-### Characteristics
-
-- **Company type**: [Instructions: Shape of companies we sell to.]
-- **Size band**: [Instructions: Range with sweet spot.]
-- **Growth stage**: [Instructions: Scale-up / enterprise / mature.]
-- **Verticals**: [Instructions: Industries served.]
-- **Primary buyer**: [Instructions: Title of economic buyer.]
-- **Primary champion**: [Instructions: Title of internal advocate.]
-- **Primary end-user**: [Instructions: Day-to-day user.]
-- **Tenure**: [Instructions: Typical years in role.]
-
-### Behaviors
-
-- **Buying behavior**: [Instructions: Process pattern — committee, single buyer, PLG, sales-led, hybrid.]
-- **Methodology**: [Instructions: How the buyer's team works — agile, DevOps, waterfall, mixed.]
-- **Tech maturity**: [Instructions: How they adopt technology — bleeding-edge, fast-follower, conservative.]
-- **Cultural fit**: [Instructions: What the buyer values.]
-- **Anti-fit**: [Instructions: Cultures we don't sell to. Directive.]
-
-### Environmental
-
-- **Existing tooling**: [Instructions: Tools the buyer already has — affects integration messaging.]
-- **Regulatory pressures**: [Instructions: Compliance frameworks or regulatory requirements they operate under. Skip if not relevant.]
-- **Industry pressures**: [Instructions: Macro forces affecting their business — consolidation, tech shifts, M&A, talent dynamics.]
 
 ---
 
