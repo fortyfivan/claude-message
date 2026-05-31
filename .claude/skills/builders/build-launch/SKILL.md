@@ -13,14 +13,14 @@ This skill operates against a MESSAGE.md-conformant messaging system. System arc
 
 ## Skill Composition
 
-- **Loads at workflow level:** the Context Loading pillar set (see below).
+- **Loads at builder level:** the Context Loading pillar set (see below).
 - **Loads after intake:** the product collection being launched, relevant persona collections, supporting stories and reports.
 - **Loads once per launch (passed inline to writers):** the voice craft skill.
 - **Loads once per asset (passed inline):** the asset envelope (and variant, when declared).
 - **Dispatches:** the writer subagent per asset (parallel within waves). Internal waves precede external waves; a mid-flow approval gate sits between them.
 - **Per-asset reader dispatch:** the reader subagent per asset; reader_mode chosen per asset (subagent for external high-stakes, inline for internal derivatives). Reader runs on Haiku and loads the review craft skill.
 
-Two approval gates govern the workflow: one before production begins (brief), one between internal and external waves (so sales/support/CS are ready before anything ships externally).
+Two approval gates govern the build: one before production begins (brief), one between internal and external waves (so sales/support/CS are ready before anything ships externally).
 
 ---
 
@@ -47,7 +47,7 @@ Resolve the launch name first: use the argument if provided, otherwise ask for t
 
 Scan `input/` subdirectories. Check `input/docs/` first (PRDs, release notes, NPI docs, pricing). Then `input/messaging/`, `input/research/`, `input/transcripts/`, `input/examples/`, and the `input/` root.
 
-Match by `--launch-[name]` workflow tag suffix or by prefix (`prd-`, `release-notes-`, `npi-`, `pricing-`). Note matches and produce a coverage map (what's well-covered, what's thin).
+Match by `--launch-[name]` builder tag suffix or by prefix (`prd-`, `release-notes-`, `npi-`, `pricing-`). Note matches and produce a coverage map (what's well-covered, what's thin).
 
 ### Scenario Inference
 
@@ -238,7 +238,7 @@ When `reader_mode: subagent`, the writer dispatches the reader on Haiku which lo
 
 After the writer (and reader, when `reader_mode: subagent`) complete for an asset, if the manifest declares a `production:` field, dispatch the producer subagent. Per-asset dispatches are independent — failures on one asset don't block others; surface warnings in the launch run summary.
 
-Payload mirrors build-campaign's Producer Dispatch — see that workflow for the full payload table and dispatch pattern. The only difference: `output_destination` uses the launch folder layout (`output/launches/[name]/[id]-[slug].html`).
+Payload mirrors build-campaign's Producer Dispatch — see that builder for the full payload table and dispatch pattern. The only difference: `output_destination` uses the launch folder layout (`output/launches/[name]/[id]-[slug].html`).
 
 If `brand/DESIGN.md` is missing or non-conformant, the producer refuses. Surface the specific failure in the launch run summary; the rest of the wave continues. To enable production, the user runs the one-time setup in `docs/brand-system.md`.
 

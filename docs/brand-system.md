@@ -4,7 +4,7 @@
 
 | Foundation | Directory | Always-on file | Loaded by |
 |---|---|---|---|
-| Verbal | `messaging/` | `MESSAGE.md` | Main session (orchestrator, every workflow) |
+| Verbal | `messaging/` | `MESSAGE.md` | Main session (orchestrator, every skill) |
 | Visual | `brand/` | `brand/DESIGN.md` | Producer subagent only, at dispatch time |
 
 The producer never loads `MESSAGE.md`; the orchestrator never loads `brand/DESIGN.md`. Context stays in the surface that needs it.
@@ -87,7 +87,7 @@ The producer subagent (`.claude/agents/producer.md`):
 
 Producer is invoked:
 
-- **Automatically** by build workflows (`/build campaign`, `/build launch`, `/build play`) for assets that declare a `production:` field in the brief.
+- **Automatically** by builders (`/build campaign`, `/build launch`, `/build play`) for assets that declare a `production:` field in the brief.
 - **Manually** via `/produce path/to/asset.md --target web` for one-off generation or regeneration after brand-token changes.
 
 ## Tooling interoperability

@@ -101,7 +101,7 @@ Walk the messaging house and identify cross-references:
 
 - **Parent pillar Collection Tables row** — will be removed
 - **Other collection items** that reference this one in their frontmatter arrays (e.g., a story's `personas: [...]` array; a competitor's `category_overlap: [...]`)
-- **Workflow asset manifests in `output/`** that reference this item by name (historical references; flagged but NOT modified — those briefs are immutable history)
+- **Builder asset manifests in `output/`** that reference this item by name (historical references; flagged but NOT modified — those briefs are immutable history)
 - **MESSAGE.md** routing or content references
 
 ### Step 3: Preview

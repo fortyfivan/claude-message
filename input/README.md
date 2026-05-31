@@ -1,6 +1,6 @@
 # Input Directory
 
-User-provided source materials that inform messaging, content, and campaign workflows. Place files in the appropriate subdirectory so agents can prioritize context correctly.
+User-provided source materials that inform messaging, content, and campaign builds. Place files in the appropriate subdirectory so agents can prioritize context correctly.
 
 ## Subdirectories
 
@@ -18,7 +18,7 @@ Files in the `input/` root still work for backward compatibility. Prefix determi
 
 ## Priority Hierarchy
 
-Workflows scan subdirectories in this order, with earlier directories carrying higher weight:
+Skills scan subdirectories in this order, with earlier directories carrying higher weight:
 
 1. **`messaging/`** — Voice, positioning, narrative structure (highest weight)
 2. **`docs/`** — Product detail, capabilities, factual grounding
@@ -43,12 +43,12 @@ Tag filenames with a prefix so agents know what the file contains:
 - `pricing-` — Pricing or packaging sheets
 - `brief-` — Existing positioning drafts
 
-### Workflow Tagging
+### Builder Tagging
 
-Associate a file with a specific workflow using a double-dash suffix:
+Associate a file with a specific builder using a double-dash suffix:
 
 ```
-[name]--[workflow-type]-[slug].ext
+[name]--[builder-type]-[slug].ext
 ```
 
 Examples:
@@ -56,6 +56,6 @@ Examples:
 - `research-trends--campaign-q2-digital.pdf` — Research tagged for Q2 digital campaign
 - `brand-guide--launch-rebrand.pptx` — Brand guide tagged for the rebrand launch
 
-Workflow types: `launch`, `campaign`, or any custom workflow identifier.
+Builder types: `launch`, `campaign`, or any custom builder identifier.
 
 This works for all file types (PDF, PPTX, DOCX, MD). No manifest or sidecar files needed — the tag is in the filename itself.

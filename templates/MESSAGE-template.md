@@ -76,7 +76,7 @@ Aim for 10-20 entries. More than 30 usually means the glossary is duplicating co
 
 ## Scenarios
 
-*Vocabulary for runtime messaging assembly. Workflows infer the scenario at task time by combining dimensional values; the agent uses these dimensions to set altitude and posture for each task.*
+*Vocabulary for runtime messaging assembly. Skills infer the scenario at task time by combining dimensional values; the agent uses these dimensions to set altitude and posture for each task.*
 
 ### Dimensions
 
@@ -124,7 +124,7 @@ Aim for 10-20 entries. More than 30 usually means the glossary is duplicating co
 
 ## Assets
 
-*Catalog of asset types. Briefs reference content type; workflows resolve to asset + variant.*
+*Catalog of asset types. Briefs reference content type; builders resolve to asset + variant.*
 
 | Content type | Asset | Default variant | Available variants |
 |---|---|---|---|

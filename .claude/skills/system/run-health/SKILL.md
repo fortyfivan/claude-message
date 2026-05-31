@@ -22,7 +22,7 @@ Output is a single report: green checks for what's healthy, warnings for what's 
 
 ## Boundary
 
-Health is read-only. It reports. It does not write to the messaging house or to skill files. The user remediates with the appropriate workflow (`/design`, `/run investigation`, `/bootstrap`, or manual edit).
+Health is read-only. It reports. It does not write to the messaging house or to skill files. The user remediates with the appropriate skill (`/design`, `/run investigation`, `/bootstrap`, or manual edit).
 
 ## Step 1: Load context
 
@@ -34,7 +34,7 @@ Walk the messaging house:
 - MESSAGE.md (always-on; already loaded)
 - `output/journal.md` if present (recent entries inform drift signals)
 
-Skip the SKILL.md files of generation workflows in this step — they're scoped to the calibration check.
+Skip the SKILL.md files of generation skills in this step — they're scoped to the calibration check.
 
 ## Step 2: Structural validation
 
@@ -113,7 +113,7 @@ Check the `updated` frontmatter on each pillar and collection file:
 
 ## Step 4: Report
 
-Produce a single structured report. Be concrete — every issue points to a specific file and section. Suggest the remediation workflow for each.
+Produce a single structured report. Be concrete — every issue points to a specific file and section. Suggest the remediation skill for each.
 
 ```
 Health Check — [date]

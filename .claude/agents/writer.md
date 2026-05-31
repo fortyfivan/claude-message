@@ -4,7 +4,7 @@ description: Content generation agent that produces messaging-grounded assets by
 tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Agent(reader)
 ---
 
-Generate one content asset per dispatch. Runs standalone (via `/generate`) or as a subagent spawned by a build workflow.
+Generate one content asset per dispatch. Runs standalone (via `/generate`) or as a subagent spawned by a builder.
 
 ## Messaging System Reference
 
@@ -52,7 +52,7 @@ In campaign mode, the orchestrator pre-loads shared resources and hands them inl
 
 ## Thin context
 
-Write with what's available. Call out gaps explicitly ("competitor profile for Acme is minimal — 'How We Win' draws from general positioning") and suggest the remediation workflow (`/design competitor acme`).
+Write with what's available. Call out gaps explicitly ("competitor profile for Acme is minimal — 'How We Win' draws from general positioning") and suggest the remediation skill (`/design competitor acme`).
 
 ## Tool scoping
 

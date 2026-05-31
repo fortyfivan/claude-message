@@ -41,7 +41,7 @@ Skills may override these defaults with their own context-loading rules (build-c
 |---|---|---|
 | Persona-targeted content (email, LP, persona-specific messaging) | Profile + Pitch + People | persona; matching Stories filtered on persona+product |
 | Competitive content (battlecard, comparison, displacement) | Profile + Position + Pitch | competitor; relevant Products; supporting Reports |
-| Build orchestration (campaign / launch / play multi-asset brief) | Per the workflow's Context Loading table | personas / products / competitors from intake; assets from MESSAGE.md `## Assets` |
+| Build orchestration (campaign / launch / play multi-asset brief) | Per the builder's Context Loading table | personas / products / competitors from intake; assets from MESSAGE.md `## Assets` |
 | Composing a new collection | Profile + parent pillar | template from `templates/collections/`; existing file if updating |
 | System audit / health check | All 6 pillars (frontmatter + Messaging Rules) | frontmatter-only of every collection |
 
@@ -78,9 +78,9 @@ The `input/` directory has five subdirectories scanned in priority order:
 | `input/transcripts/` | Sales calls, customer interviews, feedback logs | Medium |
 | `input/examples/` | Content references, competitor samples | Lowest |
 
-## Workflow Recognition
+## Skill Recognition
 
-When a user describes intent that matches an available workflow, invoke the workflow directly rather than waiting for an explicit slash command. Each workflow's frontmatter `description` field documents when to use it; match user intent to the most fitting workflow. Slash commands (`/build`, `/design`, `/run`, `/search`, `/generate`, `/review`) remain available for users who prefer explicit invocation.
+When a user describes intent that matches an available skill, invoke the skill directly rather than waiting for an explicit slash command. Each skill's frontmatter `description` field documents when to use it; match user intent to the most fitting skill. Slash commands (`/build`, `/design`, `/tune`, `/run`, `/search`, `/generate`, `/review`) remain available for users who prefer explicit invocation.
 
 ### Intent Table
 
@@ -90,14 +90,15 @@ When the user's request matches one of these intents, read the named skill and f
 |---|---|
 | "bootstrap the messaging system," "start from scratch," "set up messaging" | `.claude/skills/system/bootstrap/SKILL.md` |
 | "clone a brand from a website," "build brand/ from our site," "extract design tokens from [url]," "set up the brand folder from our homepage" | `.claude/skills/system/clone/SKILL.md` |
-| "build a campaign," "plan an outbound campaign," "ABM campaign for..." | `.claude/skills/workflows/build-campaign/SKILL.md` |
-| "launch our product," "orchestrate a launch," "prep the launch BoM" | `.claude/skills/workflows/build-launch/SKILL.md` |
-| "build a play," "competitive displacement play," "expansion play for..." | `.claude/skills/workflows/build-play/SKILL.md` |
-| "build an event," "plan our conference program," "plan an event around...," "RSA program," "user summit content" | `.claude/skills/workflows/build-event/SKILL.md` |
-| "update the glossary," "edit MESSAGE.md," "add a brand guardrail" | `.claude/skills/workflows/design-message/SKILL.md` |
-| "create a persona," "design a competitor profile," "update the position pillar," "update the ICP" | `.claude/skills/workflows/design-collection/SKILL.md` (collection types) or `.claude/skills/workflows/design-pillar/SKILL.md` (pillars; ICP lives in the people pillar) |
-| "create a new asset," "define a thought-leadership blog asset," "add a webinar asset" | `.claude/skills/workflows/design-asset/SKILL.md` |
-| "remove a persona," "delete this asset," "retire the X competitor" | `.claude/skills/workflows/design-collection/` (with `--remove`) or `.claude/skills/workflows/design-asset/` (with `--remove`) |
+| "define our asset types," "set up assets and variants," "tune the asset catalog," "what content formats do we produce," "build the asset layer" | `.claude/skills/system/tune/SKILL.md` |
+| "build a campaign," "plan an outbound campaign," "ABM campaign for..." | `.claude/skills/builders/build-campaign/SKILL.md` |
+| "launch our product," "orchestrate a launch," "prep the launch BoM" | `.claude/skills/builders/build-launch/SKILL.md` |
+| "build a play," "competitive displacement play," "expansion play for..." | `.claude/skills/builders/build-play/SKILL.md` |
+| "build an event," "plan our conference program," "plan an event around...," "RSA program," "user summit content" | `.claude/skills/builders/build-event/SKILL.md` |
+| "update the glossary," "edit MESSAGE.md," "add a brand guardrail" | `.claude/skills/messaging/design-message/SKILL.md` |
+| "create a persona," "design a competitor profile," "update the position pillar," "update the ICP" | `.claude/skills/messaging/design-collection/SKILL.md` (collection types) or `.claude/skills/messaging/design-pillar/SKILL.md` (pillars; ICP lives in the people pillar) |
+| "create a new asset," "define a thought-leadership blog asset," "add a webinar asset" | `.claude/skills/messaging/design-asset/SKILL.md` |
+| "remove a persona," "delete this asset," "retire the X competitor" | `.claude/skills/messaging/design-collection/` (with `--remove`) or `.claude/skills/messaging/design-asset/` (with `--remove`) |
 | "investigate X," "what's changing in the market," "process this feedback," "research [competitor]" | `.claude/skills/system/run-investigation/SKILL.md` |
 | "find content about X," "what do we have on Y," "search the messaging house" | `.claude/skills/system/search/SKILL.md` |
 | "generate a blog post," "write me an outbound email," "produce a one-pager" | `.claude/agents/writer.md` (standalone mode via the writer subagent) |
@@ -105,11 +106,11 @@ When the user's request matches one of these intents, read the named skill and f
 | "check system health," "audit the messaging house," "what's drifted" | `.claude/skills/system/run-health/SKILL.md` |
 | "produce HTML from this asset," "render the campaign for web," "make this print-ready" | `.claude/agents/producer.md` |
 
-If multiple workflows could apply, ask one clarifying question. If no workflow fits, proceed conversationally.
+If multiple skills could apply, ask one clarifying question. If no skill fits, proceed conversationally.
 
 ### Direct queries
 
-Some natural-language patterns don't need a workflow — answer them directly from the messaging house. No skill invocation required.
+Some natural-language patterns don't need a skill — answer them directly from the messaging house. No skill invocation required.
 
 | Pattern | Source |
 |---|---|
@@ -129,20 +130,21 @@ Some natural-language patterns don't need a workflow — answer them directly fr
 
 When the agent needs to find content in the messaging house matching a natural-language query, invoke the `search` skill (via `/search` or skill dispatch). The skill knows the messaging house structure and navigates intelligently.
 
-Do not implement ad-hoc search logic in other skills. Do not load all pillars and collections to "find" something — let `search` handle navigation. The search skill is the canonical query layer for both human users and workflow consumers.
+Do not implement ad-hoc search logic in other skills. Do not load all pillars and collections to "find" something — let `search` handle navigation. The search skill is the canonical query layer for both human users and skill consumers.
 
 Examples:
 
 - `/search "what's our position on AI surveillance?"`
 - `/search "proof points relevant to CISO conversations" --scope collections`
-- Workflow dispatch: `search query="proof for enterprise security buyers" scope=["collections"]`
+- Skill dispatch: `search query="proof for enterprise security buyers" scope=["collections"]`
 
 ## Custom Skills
 
 Users may add custom skills beyond the baseline shipped with claude-message. Custom skills live in the same directory structure as baseline skills:
 
 - Custom system skills: `.claude/skills/system/[name]/SKILL.md`
-- Custom workflow skills: `.claude/skills/workflows/[name]/SKILL.md`
+- Custom builder skills: `.claude/skills/builders/[name]/SKILL.md`
+- Custom messaging skills: `.claude/skills/messaging/[name]/SKILL.md`
 - Custom task skills: `.claude/skills/tasks/[name]/SKILL.md`
 - Custom craft skills: `.claude/skills/craft/[name]/SKILL.md`
 
@@ -162,4 +164,4 @@ Four subagents live at `.claude/agents/`. Each carries its own protocol — read
 - **writer** — generates a single content asset into `output/`; never touches the messaging house.
 - **reader** — reviews a content asset against the messaging system.
 - **producer** — renders production-ready HTML from writer output.
-- **designer** — authors a single messaging-system document (a pillar or collection profile) from a resolved plan slice; scoped to write `messaging/pillars` and `messaging/collections` only. Bootstrap dispatches it in parallel during generation.
+- **designer** — authors a single messaging-system document (a pillar, collection profile, asset envelope, or variant) from a resolved plan slice; scoped to write `messaging/pillars`, `messaging/collections`, and `messaging/assets` only. Bootstrap and tune dispatch it in parallel during generation.

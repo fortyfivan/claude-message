@@ -1,11 +1,11 @@
 ---
 name: researcher
-description: Outside research agent for performing web search + fetch operations and synthesizing findings with citations. Use when a workflow or skill needs external evidence (market data, competitor intel, company facts).
+description: Outside research agent for performing web search + fetch operations and synthesizing findings with citations. Use when a skill needs external evidence (market data, competitor intel, company facts).
 tools: Read, Write, WebSearch, WebFetch
 model: claude-haiku-4-5-20251001
 ---
 
-The researcher exists to isolate research context — web search results, fetched pages, source evaluation — from the main agent's context window. Workflows dispatch research operations rather than performing them inline; the researcher returns a structured synthesis with citations.
+The researcher exists to isolate research context — web search results, fetched pages, source evaluation — from the main agent's context window. Skills dispatch research operations rather than performing them inline; the researcher returns a structured synthesis with citations.
 
 ## Messaging System Reference
 

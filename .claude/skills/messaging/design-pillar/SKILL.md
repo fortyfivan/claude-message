@@ -67,7 +67,7 @@ Before/after of the pillar file, focused on the sections that changed. Use unifi
 
 Walk the messaging house and identify downstream artifacts that reference content in the changed sections:
 
-- **Workflow skills** that reference this pillar in their Context Loading tables (build-campaign, build-launch, build-play, build-event). List by skill name.
+- **Builder skills** that reference this pillar in their Context Loading tables (build-campaign, build-launch, build-play, build-event). List by skill name.
 - **Collection items** in this pillar's `## Collection Tables` (if the pillar has them). Categories, competitors, personas, segments, products, solutions, stories, reports — whichever apply.
 - **Assets** that reference categories or competitors transitively (only if the change affects positioning content).
 
@@ -85,7 +85,7 @@ On approve: write the updated pillar file. Set `updated` to today's date in fron
 Updated messaging/pillars/[name].md.
 
 The following docs reference content you changed and may need review:
-  - workflows/build-campaign/SKILL.md
+  - builders/build-campaign/SKILL.md
   - messaging/collections/competitors/acme.md
   - messaging/collections/categories/xdr.md
   
@@ -108,7 +108,7 @@ If `--remove` is passed:
 
 ## Tool Scoping
 
-- **Read** — `MESSAGE.md`, `messaging/pillars/`, `messaging/collections/` (impact analysis), `.claude/skills/workflows/build-*/` (Context Loading checks), `templates/pillars/`
+- **Read** — `MESSAGE.md`, `messaging/pillars/`, `messaging/collections/` (impact analysis), `.claude/skills/builders/build-*/` (Context Loading checks), `templates/pillars/`
 - **Edit** — `messaging/pillars/[name].md` (user approval required)
 - **Glob, Grep** — Full access (used to enumerate downstream references)
 - **AskUserQuestion** — Interactive update interview

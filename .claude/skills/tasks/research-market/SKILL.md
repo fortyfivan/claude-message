@@ -1,6 +1,6 @@
 ---
 name: research-market
-description: Market research patterns — TAM analysis, growth trends, segment definitions, industry report sources. Loaded by the researcher subagent when task_type is "market". Not user-invocable; dispatched by /run investigation, /design --research, or other workflows.
+description: Market research patterns — TAM analysis, growth trends, segment definitions, industry report sources. Loaded by the researcher subagent when task_type is "market". Not user-invocable; dispatched by /run investigation, /design --research, or other skills.
 ---
 
 # Research: Market

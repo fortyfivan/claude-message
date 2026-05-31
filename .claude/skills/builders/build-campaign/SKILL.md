@@ -13,7 +13,7 @@ This skill operates against a MESSAGE.md-conformant messaging system. System arc
 
 ## Skill Composition
 
-- **Loads at workflow level:** the campaign-type's Context Loading pillar set (see below).
+- **Loads at builder level:** the campaign-type's Context Loading pillar set (see below).
 - **Loads after user selection:** selected persona, product, competitor, category, segment collections.
 - **Loads once per campaign (passed inline to writers):** the voice craft skill.
 - **Loads once per asset (passed inline to writers):** the asset envelope and, when declared, the variant.
@@ -374,4 +374,4 @@ After all waves complete: update `status: complete`, present a completion summar
 - **Context window pressure on large campaigns (10+ assets).** Track assets by file path; pass dependency content as summaries.
 - **Partial production failure.** Mark the asset `needs-revision`, continue the wave. Downstream assets see a flagged dependency.
 - **Campaign type not listed.** Propose a custom BOM built from MESSAGE.md `## Assets`.
-- **User invokes `/build campaign event`.** Events are now their own workflow. Redirect: "Events have phase-distinct audiences (pre/on-site/post) and an asset mix that outgrew the campaign-as-single-wave model — run `/build event [event-name]` instead."
+- **User invokes `/build campaign event`.** Events are now their own builder. Redirect: "Events have phase-distinct audiences (pre/on-site/post) and an asset mix that outgrew the campaign-as-single-wave model — run `/build event [event-name]` instead."

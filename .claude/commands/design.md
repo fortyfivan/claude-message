@@ -11,10 +11,10 @@ Flags:
   --research                                     — Drive composition from web research via `craft/research/` patterns
 
 Subcommand → skill routing:
-- `message` → `.claude/skills/workflows/design-message/SKILL.md` (update-only; MESSAGE.md sections are foundational)
-- `pillar` → `.claude/skills/workflows/design-pillar/SKILL.md` (update only)
-- `[collection-type]` → `.claude/skills/workflows/design-collection/SKILL.md`
-- `asset` → `.claude/skills/workflows/design-asset/SKILL.md`
+- `message` → `.claude/skills/messaging/design-message/SKILL.md` (update-only; MESSAGE.md sections are foundational)
+- `pillar` → `.claude/skills/messaging/design-pillar/SKILL.md` (update only)
+- `[collection-type]` → `.claude/skills/messaging/design-collection/SKILL.md`
+- `asset` → `.claude/skills/messaging/design-asset/SKILL.md`
 
 Examples:
   /design message glossary

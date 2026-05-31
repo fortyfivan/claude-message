@@ -5,9 +5,9 @@ description: Builds a four-phase event program — strategy brief, pre-event, on
 
 # build-event Skill
 
-Build a complete event program through a four-phase production workflow. The result is a master brief that captures event strategy and asset plan, followed by three time-spaced production waves (pre-event, on-site, post-event) that produce the full asset set.
+Build a complete event program through a four-phase production process. The result is a master brief that captures event strategy and asset plan, followed by three time-spaced production waves (pre-event, on-site, post-event) that produce the full asset set.
 
-Events are time-bounded and multi-phased. They have distinct audiences and goals per phase — drive registration before, capture and convert during, follow up after. The workflow respects that structure.
+Events are time-bounded and multi-phased. They have distinct audiences and goals per phase — drive registration before, capture and convert during, follow up after. The builder respects that structure.
 
 ## Messaging System Reference
 
@@ -15,7 +15,7 @@ This skill operates against a MESSAGE.md-conformant messaging system. System arc
 
 ## Skill Composition
 
-- **Loads at workflow level:** the event-type's Context Loading pillar set (see below).
+- **Loads at builder level:** the event-type's Context Loading pillar set (see below).
 - **Loads after intake:** selected persona, product, partner, competitor collections; supporting stories.
 - **Loads once per event (passed inline to writers):** the voice craft skill.
 - **Loads once per asset (passed inline):** the asset envelope (and variant, when declared).
@@ -273,7 +273,7 @@ Fires within 48 hours of event close. Produces follow-up sequences and recap con
 
 ### Orchestration
 
-Post-event has the most complex audience segmentation. The user provides interaction data (booth visitors, meetings taken, session attendees, hospitality guests, etc.) or the workflow can produce templates for each tier with the user populating specifics later.
+Post-event has the most complex audience segmentation. The user provides interaction data (booth visitors, meetings taken, session attendees, hospitality guests, etc.) or the builder can produce templates for each tier with the user populating specifics later.
 
 For each post-event asset in the brief:
 
@@ -372,11 +372,11 @@ The brief.md frontmatter records what was produced so the team can audit the pro
 
 ### Multi-event coordination
 
-For organizations running multiple events in parallel or in a series, each event lives in its own `output/events/[slug]/` directory. The workflow doesn't coordinate across events; user manages event-to-event learning manually or via the feedback mechanism.
+For organizations running multiple events in parallel or in a series, each event lives in its own `output/events/[slug]/` directory. The builder doesn't coordinate across events; user manages event-to-event learning manually or via the feedback mechanism.
 
 ### Cross-functional reminders
 
-The brief captures cross-functional ownership but doesn't enforce it. The workflow surfaces ownership in the brief and per-asset metadata so the user and team know who's expected to drive each asset. Sales follow-up templates, executive briefing docs, and account briefs are marked as internal-only deliverables (not customer-facing).
+The brief captures cross-functional ownership but doesn't enforce it. The builder surfaces ownership in the brief and per-asset metadata so the user and team know who's expected to drive each asset. Sales follow-up templates, executive briefing docs, and account briefs are marked as internal-only deliverables (not customer-facing).
 
 ### Writing conventions
 

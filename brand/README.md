@@ -27,4 +27,4 @@ See [`docs/brand-system.md`](../docs/brand-system.md) for the full setup walkthr
 
 ## Producer requirements
 
-The producer subagent (`/produce`, or auto-dispatched by build workflows for assets with `production:` declared) refuses to operate without a conformant DESIGN.md. CI validates spec conformance, asset file resolution, and token references; failures surface during `/run health` and `scripts/validate.py`.
+The producer subagent (`/produce`, or auto-dispatched by builders for assets with `production:` declared) refuses to operate without a conformant DESIGN.md. CI validates spec conformance, asset file resolution, and token references; failures surface during `/run health` and `scripts/validate.py`.

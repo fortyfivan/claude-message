@@ -163,7 +163,7 @@ Folder exists, `--remove` flag → proceed.
 
 - **MESSAGE.md routing row** — will be removed (if this is the only asset for that content type) OR the row's Default updated (if alternatives exist).
 - **Asset folder** — entire `messaging/assets/[slug]/` directory will be deleted (asset.md + all variants).
-- **Historical workflow asset manifests in `output/`** — flagged but NOT modified.
+- **Historical builder asset manifests in `output/`** — flagged but NOT modified.
 
 ### Step 3: Preview
 

@@ -54,7 +54,7 @@ TEMPLATE_DESIGN_MD = TEMPLATES_DIR / "DESIGN-template.md"
 # Standard production targets shipped with claude-message.
 STANDARD_PRODUCTION_TARGETS = {"web", "email", "print"}
 
-ALLOWED_SKILL_CATEGORIES = {"system", "workflows", "tasks", "craft"}
+ALLOWED_SKILL_CATEGORIES = {"system", "builders", "messaging", "tasks", "craft"}
 PILLAR_NAMES_REQUIRING_COLLECTION_TABLES = {"position", "people", "portfolio", "proof"}
 ALL_PILLAR_NAMES = {"profile", "pitch", "position", "people", "portfolio", "proof"}
 KEBAB_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
@@ -68,9 +68,10 @@ DOC_PATHS_PERMISSIVE = {REPO_ROOT / "CHANGELOG.md"}
 BLURB_CANONICAL_PHRASE = "This skill operates against a MESSAGE.md-conformant messaging system."
 BLURB_HEADING = "## Messaging System Reference"
 
-# Skill-length thresholds (warn over). Workflows allow more headroom for orchestration logic.
+# Skill-length thresholds (warn over). Builders allow more headroom for orchestration logic.
 SKILL_LENGTH_THRESHOLDS = {
-    "workflows": 400,
+    "builders": 400,
+    "messaging": 400,
     "system": 500,  # run-investigation legitimately runs long; tune over time
     "tasks": 250,
     "craft": 300,
@@ -163,26 +164,13 @@ class Report:
 # ----- Checks -----
 
 def check_taxonomy(report: Report) -> None:
-    """#1 Every skill is under system/, workflows/, tasks/, or craft/."""
+    """#1 Every skill is under system/, builders/, messaging/, tasks/, or craft/."""
     report.begin("taxonomy")
     if not SKILLS_DIR.exists():
         return
     for child in SKILLS_DIR.iterdir():
         if child.is_dir() and child.name not in ALLOWED_SKILL_CATEGORIES:
             report.err("taxonomy", f"Unexpected skill category: .claude/skills/{child.name}/")
-
-
-def check_no_tune(report: Report) -> None:
-    """#2 No skill or doc references skills/system/tune/."""
-    report.begin("no-tune")
-    pattern = re.compile(r"skills/system/tune|/tune\b|\btune skill\b", re.IGNORECASE)
-    _scan_pattern(
-        report, "no-tune", pattern,
-        message_fmt="references removed /tune skill or command in {path}:{line}",
-        roots=[SKILLS_DIR, AGENTS_DIR, COMMANDS_DIR, MESSAGE_MD, CLAUDE_MD],
-        # Allow rename guidance in CHANGELOG/migration docs.
-        permissive=DOC_PATHS_PERMISSIVE,
-    )
 
 
 def check_no_build(report: Report) -> None:
@@ -694,7 +682,7 @@ def check_claude_md_sections(report: Report) -> None:
         "## Always-On Foundation",
         "## Progressive Loading",
         "## File Path Conventions",
-        "## Workflow Recognition",
+        "## Skill Recognition",
     ]
     headings = set(re.findall(r"^##\s+\S.*$", text, re.MULTILINE))
     for section in required_sections:
@@ -1229,7 +1217,6 @@ def main() -> int:
     report = Report()
     for check in (
         check_taxonomy,
-        check_no_tune,
         check_no_build,
         check_no_old_pillar_names,
         check_frontmatter,

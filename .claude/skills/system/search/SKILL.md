@@ -1,6 +1,6 @@
 ---
 name: search
-description: Query the messaging house for content matching natural-language intent. Navigate intelligently through pillars, collections, and assets to return cited, structured results. Invoked via /search [query] or dispatched by workflows.
+description: Query the messaging house for content matching natural-language intent. Navigate intelligently through pillars, collections, and assets to return cited, structured results. Invoked via /search [query] or dispatched by other skills.
 ---
 
 # search
@@ -112,10 +112,10 @@ Sources are always cited inline. Synthesis is welcome; fabrication is not.
 
 ## What this skill does not do
 
-- **Generate content.** Returns existing content; producing new content is the job of build-* workflows.
+- **Generate content.** Returns existing content; producing new content is the job of the builders.
 - **Edit content.** Read-only. Updates happen through `/design`.
 - **External research.** Internal to the messaging house. For external research, dispatch the researcher subagent.
-- **Multi-step orchestration.** Single-query, single-response. Workflows handle orchestration.
+- **Multi-step orchestration.** Single-query, single-response. Builders handle orchestration.
 
 ## Use cases
 
@@ -127,9 +127,9 @@ Sources are always cited inline. Synthesis is welcome; fabrication is not.
 
 Returns a Summary + Findings broken out by source category, with citations.
 
-### Workflow invocation
+### Skill invocation
 
-A build-campaign workflow during scenario inference can invoke search to find relevant proof:
+The build-campaign builder during scenario inference can invoke search to find relevant proof:
 
 ```
 search query="proof points for enterprise security buyers in regulated industries" scope=["collections"]

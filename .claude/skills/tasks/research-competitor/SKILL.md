@@ -1,6 +1,6 @@
 ---
 name: research-competitor
-description: Competitor research patterns — pricing pages, product positioning, customer reviews, win/loss heuristics, public filings. Loaded by the researcher subagent when task_type is "competitor". Not user-invocable; dispatched by /run investigation, /design competitor --research, or other workflows.
+description: Competitor research patterns — pricing pages, product positioning, customer reviews, win/loss heuristics, public filings. Loaded by the researcher subagent when task_type is "competitor". Not user-invocable; dispatched by /run investigation, /design competitor --research, or other skills.
 ---
 
 # Research: Competitor

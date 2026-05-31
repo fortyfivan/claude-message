@@ -1,6 +1,6 @@
 ---
 name: review
-description: Comprehensive messaging-alignment evaluation framework. Evaluates a content asset against voice, terminology, pitch, positioning, audience appropriateness, persona alignment, proof support, and format conformance. Used by the reader subagent during workflow QA and by the user-invocable /review command for evaluating any draft (internal output, external content, partner deliverables, sales drafts).
+description: Comprehensive messaging-alignment evaluation framework. Evaluates a content asset against voice, terminology, pitch, positioning, audience appropriateness, persona alignment, proof support, and format conformance. Used by the reader subagent during builder QA and by the user-invocable /review command for evaluating any draft (internal output, external content, partner deliverables, sales drafts).
 argument-hint: "[file-path]"
 user-invocable: true
 ---

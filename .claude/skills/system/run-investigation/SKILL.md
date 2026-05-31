@@ -5,7 +5,7 @@ description: Unified messaging-system intelligence engine. Performs external res
 
 # Run Investigation Skill
 
-Unified intelligence and system health workflow. Consolidates external research, field feedback processing, system health validation, and insight lifecycle management into a single skill.
+Unified intelligence and system-health skill. Consolidates external research, field feedback processing, system health validation, and insight lifecycle management into a single skill.
 
 Invoked via `/run investigation [mode] [args]`.
 

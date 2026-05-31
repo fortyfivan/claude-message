@@ -11,7 +11,7 @@
 
 **`claude-message`** is a Claude-native messaging system built around the MESSAGE.md spec. Run this system for consistent and targeted content generation across campaigns, launches, events, and plays. 
 
-The contents of this repository are a fully contained system that works in both Claude Code and Cowork. Slash commands work natively in Claude Code. In Cowork, `CLAUDE.md` includes an intent table that routes natural language to the right workflow — "build me a campaign about CISO buyers" routes to `/build campaign` automatically. Same skills, same outputs, same messaging house.
+The contents of this repository are a fully contained system that works in both Claude Code and Cowork. Slash commands work natively in Claude Code. In Cowork, `CLAUDE.md` includes an intent table that routes natural language to the right skill — "build me a campaign about CISO buyers" routes to `/build campaign` automatically. Same skills, same outputs, same messaging house.
 
 ## Why MESSAGE.md?
 
@@ -38,9 +38,9 @@ To configure the system for HTML production (web, email, print), add your brand 
 
 **Loading is progressive.** `MESSAGE.md` loads on every session — it's the altitude-setter for everything else. Pillars and collections load on-demand per the task. A campaign targeting CISO buyers loads People, Position, and collections/personas/ciso.md — not the whole system. Sessions stay lean even as the messaging system grows.
 
-**Workflows are the builders.** `/build campaign`, `/build launch`, `/build play` are where multi-asset content gets produced. Each workflow runs a structured interview, assembles a brief, then orchestrates the work across subagents. The user describes intent; the workflow handles inference, dispatch, and assembly.
+**Builders run multi-asset production.** `/build campaign`, `/build launch`, `/build play` are where multi-asset content gets produced. Each builder runs a structured interview, assembles a brief, then orchestrates the work across subagents. The user describes intent; the builder handles inference, dispatch, and assembly.
 
-**Subagents do the focused work.** Workflows orchestrate; subagents execute in isolated context windows. The writer generates from a dispatch payload, the reader evaluates without bias from generation, the researcher's web content stays out of the main thread, the producer reads brand tokens without polluting messaging context. Each gets the minimum it needs.
+**Subagents do the focused work.** Builders orchestrate; subagents execute in isolated context windows. The writer generates from a dispatch payload, the reader evaluates without bias from generation, the researcher's web content stays out of the main thread, the producer reads brand tokens without polluting messaging context. Each gets the minimum it needs.
 
 **Production is coded.** Writer output is markdown and JSON — clean for review, ready for downstream tooling. For HTML deliverables, `brand/DESIGN.md` (per the Google Labs `DESIGN.md` spec) holds design tokens and asset references. The producer subagent reads brand context at dispatch time to generate web, email, or print HTML. Production is opt-in — repos without brand/ operate as content-only systems.
 
@@ -97,7 +97,7 @@ Asset definitions in `messaging/assets/` describe the structural envelope for de
 - **Frontmatter requirements** — fields needed for CMS or downstream tooling
 - **Variants** — editorial calibrations for assets with meaningful variation (a blog post might have thought-leadership and use-case variants; a customer story might have anchor, mini, and video-companion)
 
-Assets define structure; pillars and collections provide voice and content. When a workflow generates a blog post, the asset says how the content is shaped; the pillars and collections say what the content is.
+Assets define structure; pillars and collections provide voice and content. When a builder generates a blog post, the asset says how the content is shaped; the pillars and collections say what the content is.
 
 ## How to use this system
 
@@ -144,18 +144,19 @@ Each asset emerges as both `.md` (for review) and `.json` (for downstream toolin
 /review output/campaigns/q1-launch/cisos-perspective.md
 ```
 
-Run commands operate on the system. `/run health` checks structural integrity, cross-references, and calibration of the messaging house. `/run investigation` dispatches the researcher subagent for deep external research on a topic — useful when you need market intelligence before a campaign or want to scan for competitive shifts. `/review` runs the reader subagent against a draft for messaging-alignment evaluation, independent of any build workflow.
+Run commands operate on the system. `/run health` checks structural integrity, cross-references, and calibration of the messaging house. `/run investigation` dispatches the researcher subagent for deep external research on a topic — useful when you need market intelligence before a campaign or want to scan for competitive shifts. `/review` runs the reader subagent against a draft for messaging-alignment evaluation, independent of any builder.
 
 ## Skill structure
 
-Skills cluster into four categories based on type:
+Skills cluster into five categories based on type:
 
-- **System** — lifecycle operations on the messaging house itself (`/bootstrap`, `/run health`, `/run investigation`)
-- **Workflows** — multi-step orchestrations with human-in-the-loop approval gates (`/build campaign`, `/design pillar`, etc.)
+- **System** — lifecycle operations on the messaging house itself (`/bootstrap`, `/tune`, `/run health`, `/run investigation`)
+- **Builders** — multi-step content production with human-in-the-loop approval gates (`/build campaign`, `/build launch`, `/build play`, `/build event`)
+- **Messaging** — author and maintain the messaging-house documents (`/design pillar`, `/design persona`, `/design asset`, etc.)
 - **Tasks** — one-off operations that subagents dispatch (research-market, research-competitor, research-company)
-- **Craft** — reusable patterns workflows and tasks both lean on (voice gate, review, SEO/GEO)
+- **Craft** — reusable patterns builders, messaging skills, and tasks lean on (voice gate, review, SEO/GEO)
 
-The distinctive thing about claude-message skills is that every skill is calibrated to the messaging system architecture, not copy-pasted from a generic skill library. Workflows know how to compose dispatch payloads for subagents working in isolated contexts. Tasks know how to load the right researcher patterns for the right kind of inquiry. Craft skills reference MESSAGE.md's brand guardrails and glossary as their source of truth, not their own internal copies.
+The distinctive thing about claude-message skills is that every skill is calibrated to the messaging system architecture, not copy-pasted from a generic skill library. Builders know how to compose dispatch payloads for subagents working in isolated contexts. Tasks know how to load the right researcher patterns for the right kind of inquiry. Craft skills reference MESSAGE.md's brand guardrails and glossary as their source of truth, not their own internal copies.
 
 Skills that operate against the messaging system carry a **Messaging System Reference** blurb asserting conformance, sourced from `templates/messaging-system-reference.md`. Adding a custom skill is a matter of dropping it into the right category folder, including the blurb if it operates against the messaging house, and letting natural-language routing pick it up. 
 

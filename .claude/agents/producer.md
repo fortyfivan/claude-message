@@ -1,6 +1,6 @@
 ---
 name: producer
-description: HTML production subagent. Generates web, email, and print HTML from writer output, applying the brand system from brand/DESIGN.md. Dispatched by build workflows for assets with production targets declared, or directly via /produce.
+description: HTML production subagent. Generates web, email, and print HTML from writer output, applying the brand system from brand/DESIGN.md. Dispatched by builders for assets with production targets declared, or directly via /produce.
 tools: Read, Write, Glob, Grep
 model: claude-haiku-4-5-20251001
 ---
@@ -65,4 +65,4 @@ Returns to the orchestrator (or the user, for standalone `/produce`):
 - **Token usage summary** — input + output token counts for cost tracking
 - **Warnings** — missing tokens (with fallback applied), missing assets (with fallback decision), resolution issues, accessibility flags (if the task skill surfaces any)
 
-Standalone mode (`/produce`) surfaces these to the user directly. Build-workflow dispatch surfaces them in the orchestrator's run summary.
+Standalone mode (`/produce`) surfaces these to the user directly. Builder dispatch surfaces them in the orchestrator's run summary.

@@ -5,7 +5,7 @@ description: Build a complete messaging system through a consultative workshop s
 
 # Bootstrap Skill
 
-Build a complete messaging system through a consultative workshop session. The result is a fully populated messaging house — six pillars, their collections, optional asset definitions — synthesized into a `MESSAGE.md` always-on foundation.
+Build a complete messaging system through a consultative workshop session. The result is a fully populated messaging house — six pillars and their collections — synthesized into a `MESSAGE.md` always-on foundation. The asset layer (asset envelopes + variants) is defined separately by `/tune` once the house is built.
 
 Treat this task as a strategist running a workshop, not a scribe filling in fields. Find the sharpest, most defensible position this company can own. If a claim could appear on a competitor's website, it doesn't belong here. Every synthesis should be identifiable as belonging to this company and no other.
 
@@ -21,7 +21,7 @@ Note: this skill *creates* the messaging system when it doesn't exist yet. The b
 
 ## What bootstrap produces
 
-A complete messaging house: six pillars, their collection profiles, optional customized asset definitions, and a synthesized MESSAGE.md as the always-on foundation. The discovery and sharpening converge on an approved **messaging plan** — the resolved blueprint for every pillar and collection. Generation then fans out from that plan: pillars and collections write in parallel waves, MESSAGE.md generates next as the distilled altitude-setter, and optional assets follow last.
+A complete messaging house: six pillars, their collection profiles, and a synthesized MESSAGE.md as the always-on foundation. The discovery and sharpening converge on an approved **messaging plan** — the resolved blueprint for every pillar and collection. Generation then fans out from that plan: pillars and collections write in parallel waves, then MESSAGE.md generates as the distilled altitude-setter. The asset catalog is built afterward by `/tune`, which defines asset envelopes and variants from the company's go-to-market motions.
 
 ---
 
@@ -32,7 +32,7 @@ Bootstrap runs four phases:
 1. **Discover** — read input materials, run the workshop, surgical web research for gaps
 2. **Sharpen** — present strategic synthesis, surface tensions, resolve through user confirmations
 3. **Plan** — compose the messaging plan (resolved per-pillar decisions + a collection manifest + cross-cutting blocks), run an integrity check, get explicit approval
-4. **Generate** — fan out parallel `designer` subagents (pillars, then collections) from the approved plan, reconcile Collection Tables, synthesize MESSAGE.md, then optional assets
+4. **Generate** — fan out parallel `designer` subagents (pillars, then collections) from the approved plan, reconcile Collection Tables, synthesize MESSAGE.md, then hand off the asset layer to `/tune`
 
 The phases are sequential and gated. Phase 2 cannot start until Phase 1 produces complete discovery notes. Phase 3 cannot start until Phase 2 closes all open tensions. Phase 4 cannot start until the plan is approved.
 
@@ -132,7 +132,7 @@ Each feeds multiple pillars; none redundant.
 
 **Batch 4: Operations** (1 question, ~2 min)
 
-9. **Asset types**: "What asset types does your team produce regularly?"
+9. **Asset types**: "What asset types does your team produce regularly?" — a light seed only; bootstrap doesn't build assets. Capture the answer to pass to `/tune`, which defines the asset catalog after the house is built.
 
 Each batch goes through one AskUserQuestion call with the batch's questions presented together. Don't interrupt between questions in a batch; let the user answer the set.
 
@@ -210,8 +210,8 @@ After the workshop completes, write `messaging/.bootstrap-discovery.md`:
 ## Voice and brand
 [Synthesis of Question 8 + extracted guardrails]
 
-## Asset types
-[Synthesis of Question 9]
+## Asset types (seed for /tune)
+[Synthesis of Question 9 — not acted on in bootstrap; handed to /tune]
 
 ## Inferences (to confirm in Phase 2)
 - Mission: [synthesized]
@@ -481,27 +481,21 @@ After both waves and reconciliation complete, the main agent — not a subagent 
 - **Scenarios — Dimensions** — Compelling event and Market moment values from the plan's Cross-Cutting `Scenarios` block; other three dimensions are spec-fixed
 - **Pillars table** — agent-authored from a filesystem walk of `messaging/pillars/`
 - **Collections table** — agent-authored from a filesystem walk of `messaging/collections/`
-- **Assets table** — written empty at this point; if the user opts in to the assets step (next), `/design asset` populates the rows during its normal interview flow
+- **Assets table** — written empty (leave its `[Instructions: ]` row intact); `/tune` populates the rows when it builds the asset catalog
 
 There is no script automating these tables — the agent reads each directory and authors the rows during generation. The cross-cutting content was resolved in the plan; the tables are derived from the written files.
 
 Present MESSAGE.md to the user once written:
 
-> "MESSAGE.md is generated. This is your always-on foundation — every workflow loads it first to set altitude. Want to review now or trust the synthesis?"
+> "MESSAGE.md is generated. This is your always-on foundation — every skill loads it first to set altitude. Want to review now or trust the synthesis?"
 
-User can request adjustments to specific sections; otherwise proceed to assets (or completion if assets were declined).
+User can request adjustments to specific sections; otherwise proceed to the assets hand-off, then completion.
 
-### Assets phase (optional)
+### Assets — hand off to `/tune`
 
-If the user listed asset types in Question 9, run the asset interview per asset *after* MESSAGE.md has been written. Delegate to `/design asset [slug]` — a two-phase interview (identity + envelope) plus optional third phase for the default variant when the asset has meaningful editorial variation. Cap at ~12 questions per asset. See `.claude/skills/workflows/design-asset/SKILL.md` for the canonical flow.
+Bootstrap stops at the messaging house; it does not interview per-asset. The asset layer (asset envelopes + variants) is defined separately by `/tune`, which is purpose-built for it: it infers the asset catalog from the company's go-to-market motions (the campaigns, launches, plays, and events they run), calibrates altitude and format from `input/examples/`, and generates every envelope + variant in one coherent pass. Keeping it separate keeps bootstrap fast and lets each flow stay focused.
 
-Each asset produces atomically:
-
-1. `messaging/assets/[slug]/asset.md` (envelope)
-2. `messaging/assets/[slug]/variants/[variant].md` (optional default variant)
-3. MESSAGE.md `## Assets` table row — added by `/design asset` exactly as it does in normal post-bootstrap operation (no special bootstrap-only path)
-
-Skip the assets step entirely if the user defers. `/design asset [slug]` is available anytime.
+Leave the MESSAGE.md `## Assets` table empty (its `[Instructions: ]` row intact). If the user named asset types in Question 9, pass that as a seed to tune rather than acting on it here. Recommend the next step in Completion. For a single one-off asset, `/design asset [slug]` is also available anytime.
 
 ### Progress markers
 
@@ -548,12 +542,13 @@ Present a single summary:
 ```
 Consistency Check:
   ✓ MESSAGE.md populated (10 sections); pillars and collections aligned
-  ✓ [N] pillars, [N] collection profiles, [N] assets configured
+  ✓ [N] pillars, [N] collection profiles configured
   ✓ Collection Tables synced
   ⚠ [specific issue if any]
 
 Recommended next steps:
   - Run /run health to validate the structure
+  - Run /tune to define your asset types and variants from the campaigns, launches, plays, and events you run
   - (Optional) To enable HTML production: copy templates/DESIGN-template.md → brand/DESIGN.md, customize tokens, drop logo + font files into brand/logos/ and brand/fonts/. See docs/brand-system.md.
   - Test with /build campaign "test topic" to verify end-to-end
 ```
@@ -571,11 +566,11 @@ Append the first entry to `output/journal.md`:
 - **Learning:** Assumptions made, conflicts surfaced, areas where information was thin, strategic choices that could go either way — the approved plan was the generation contract
 - **Action:** Logged — initial messaging house populated
 
-### Skipped assets message
+### Assets next step
 
-If the user skipped the assets step, close with:
+Bootstrap doesn't build assets. Close by pointing the user to the dedicated flow:
 
-> "You skipped assets. You can add them anytime with `/design asset [slug]`."
+> "Your messaging house is built. Next, run `/tune` to define your asset types and variants — it infers the catalog from the campaigns, launches, plays, and events you run. (Or add a single asset anytime with `/design asset [slug]`.)"
 
 ---
 
@@ -607,7 +602,7 @@ If a session approaches budget, surface it: "I've done significant research; let
 
 - Read, Write, Edit: full access for messaging house files
 - Glob, Grep: input materials, existing messaging house content
-- AskUserQuestion: the 9 essential questions, sharpening exchanges, plan integrity flags, asset interview
+- AskUserQuestion: the 9 essential questions, sharpening exchanges, plan integrity flags
 - Agent(designer): dispatched in Phase 4 to author pillars and collections in parallel from the approved plan
 - WebSearch: enabled with discipline (per budget; never during Phase 3 or 4)
 - WebFetch: enabled for user-provided URLs and search result extraction (never during Phase 3 or 4)

@@ -13,7 +13,7 @@ This skill operates against a MESSAGE.md-conformant messaging system. System arc
 
 ## Skill Composition
 
-- **Loads at workflow level:** the Context Loading pillar set (see below).
+- **Loads at builder level:** the Context Loading pillar set (see below).
 - **Loads after intake:** the selected persona, named competitor (for competitive plays), products in scope, supporting stories/reports.
 - **Loads once per play (passed inline to writers):** the voice craft skill.
 - **Loads once per asset (passed inline):** the asset envelope and variant (when declared).
@@ -238,7 +238,7 @@ When `reader_mode: subagent`, the writer dispatches the reader on Haiku which lo
 
 After the writer (and reader, when `reader_mode: subagent`) complete for an asset, if the manifest declares a `production:` field, dispatch the producer subagent. Per-asset dispatches are independent — failures on one asset don't block others; surface warnings in the play run summary.
 
-Payload mirrors build-campaign's Producer Dispatch — see that workflow for the full payload table and dispatch pattern. The only difference: `output_destination` uses the play folder layout (`output/plays/[folder]/[id]-[slug].html`).
+Payload mirrors build-campaign's Producer Dispatch — see that builder for the full payload table and dispatch pattern. The only difference: `output_destination` uses the play folder layout (`output/plays/[folder]/[id]-[slug].html`).
 
 If `brand/DESIGN.md` is missing or non-conformant, the producer refuses. Surface the specific failure in the play run summary; the rest of the wave continues. To enable production, the user runs the one-time setup in `docs/brand-system.md`.
 
