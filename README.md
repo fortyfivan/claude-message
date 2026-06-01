@@ -217,7 +217,7 @@ The result: a twelve-asset campaign costs closer to two single-asset generations
 
 ## CI
 
-`scripts/validate.py` runs on every PR via `.github/workflows/validate.yml` to check taxonomy, no removed-command references, frontmatter linting, skill anatomy, cross-reference validity, type-file conventions, assets integrity, pillar section structure, and duplicate detection. The same script runs locally: `python scripts/validate.py`.
+`scripts/validate.py` runs on every PR via `.github/workflows/validate.yml`. It focuses on deterministic **referential-integrity and contract checks** — the broken references and hard contract violations that stay silent until generation time: MESSAGE.md and CLAUDE.md required sections, scenario dimensions/enums, SKILL.md frontmatter, asset and variant resolution, and brand DESIGN.md spec/token/asset-path conformance. Softer structural, sync, and calibration-drift checks (pillar-section structure, collection-table sync, glossary discipline) are owned by the LLM-driven `/run health` command, which is better suited to those judgment calls. The same script runs locally: `python scripts/validate.py`.
 
 ## Credits
 

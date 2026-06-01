@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
-validate.py — claude-message v1 structural validation.
+validate.py — claude-message referential-integrity validation.
 
-Runs the 24 checks defined in the v2-refactor PRD against the repository.
+Runs the deterministic referential-integrity and load-bearing contract checks
+against the repository — broken references and hard contract violations that are
+silent until generation time, and that a script catches more reliably than a
+human or an LLM. Softer structural/sync/drift checks (pillar-section structure,
+collection-table sync, glossary discipline, calibration) live in `/run health`,
+which is LLM-driven and better suited to judgment calls.
+
 stdlib only — no external dependencies. Same script that runs in CI also
 runs locally for fast feedback before push.
 
@@ -19,83 +25,25 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import re
 import sys
-from collections import defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".claude" / "skills"
-AGENTS_DIR = REPO_ROOT / ".claude" / "agents"
-COMMANDS_DIR = REPO_ROOT / ".claude" / "commands"
 MESSAGING_DIR = REPO_ROOT / "messaging"
-PILLARS_DIR = MESSAGING_DIR / "pillars"
 ASSETS_DIR = MESSAGING_DIR / "assets"
 TEMPLATES_DIR = REPO_ROOT / "templates"
 TEMPLATE_ASSETS_DIR = TEMPLATES_DIR / "assets"
-TEMPLATE_PILLARS_DIR = TEMPLATES_DIR / "pillars"
-TEMPLATE_COLLECTIONS_DIR = TEMPLATES_DIR / "collections"
 MESSAGE_MD = REPO_ROOT / "MESSAGE.md"
-VARIANT_LIKELY_ASSETS = {
-    "blog-post",
-    "customer-story",
-    "whitepaper",
-    "landing-page",
-    "email",
-    "one-pager",
-    "social-post",
-}
 CLAUDE_MD = REPO_ROOT / "CLAUDE.md"
 BRAND_DIR = REPO_ROOT / "brand"
 BRAND_DESIGN_MD = BRAND_DIR / "DESIGN.md"
-TEMPLATE_DESIGN_MD = TEMPLATES_DIR / "DESIGN-template.md"
 
 # Standard production targets shipped with claude-message.
 STANDARD_PRODUCTION_TARGETS = {"web", "email", "print"}
 
-ALLOWED_SKILL_CATEGORIES = {"system", "builders", "messaging", "tasks", "craft"}
-PILLAR_NAMES_REQUIRING_COLLECTION_TABLES = {"position", "people", "portfolio", "proof"}
-ALL_PILLAR_NAMES = {"profile", "pitch", "position", "people", "portfolio", "proof"}
 KEBAB_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-DUPLICATE_WINDOW = 5  # lines per shared sequence
-
-# Documentation-only paths where stale-rename refs are tolerated.
-DOC_PATHS_PERMISSIVE = {REPO_ROOT / "CHANGELOG.md"}
-
-# Canonical text every messaging-system-conformant skill carries.
-# Source of truth: templates/messaging-system-reference.md
-BLURB_CANONICAL_PHRASE = "This skill operates against a MESSAGE.md-conformant messaging system."
-BLURB_HEADING = "## Messaging System Reference"
-
-# Skill-length thresholds (warn over). Builders allow more headroom for orchestration logic.
-SKILL_LENGTH_THRESHOLDS = {
-    "builders": 400,
-    "messaging": 400,
-    "system": 500,  # run-investigation legitimately runs long; tune over time
-    "tasks": 250,
-    "craft": 300,
-}
-
-# Path strings to scan for restatement in skill body text.
-RESTATEMENT_PATH_PATTERNS = [
-    re.compile(r"`?messaging/pillars/`?"),
-    re.compile(r"`?messaging/collections/`?"),
-    re.compile(r"`?messaging/assets/`?"),
-]
-
-
-def discover_markdown(root: Path) -> list[Path]:
-    """Return all .md files under root, skipping hidden/_archive and dev refs."""
-    files: list[Path] = []
-    for path in root.rglob("*.md"):
-        rel = path.relative_to(REPO_ROOT)
-        # Skip the dev/ reference directory and any archive/hidden dirs.
-        parts = rel.parts
-        if parts and (parts[0] == "dev" or parts[0].startswith(".") or "_archive" in parts):
-            continue
-        files.append(path)
-    return files
 
 
 def read_text(path: Path) -> str:
@@ -163,42 +111,8 @@ class Report:
 
 # ----- Checks -----
 
-def check_taxonomy(report: Report) -> None:
-    """#1 Every skill is under system/, builders/, messaging/, tasks/, or craft/."""
-    report.begin("taxonomy")
-    if not SKILLS_DIR.exists():
-        return
-    for child in SKILLS_DIR.iterdir():
-        if child.is_dir() and child.name not in ALLOWED_SKILL_CATEGORIES:
-            report.err("taxonomy", f"Unexpected skill category: .claude/skills/{child.name}/")
-
-
-def check_no_build(report: Report) -> None:
-    """#3 No skill or doc references the removed /build command."""
-    report.begin("no-build")
-    pattern = re.compile(r"/build\s+(campaign|launch|play)|\.claude/commands/build\.md")
-    _scan_pattern(
-        report, "no-build", pattern,
-        message_fmt="references removed /build command in {path}:{line}",
-        roots=[SKILLS_DIR, AGENTS_DIR, COMMANDS_DIR, MESSAGE_MD, CLAUDE_MD],
-        permissive=DOC_PATHS_PERMISSIVE,
-    )
-
-
-def check_no_old_pillar_names(report: Report) -> None:
-    """#4 No skill or doc treats `space`, `motion`, or `audience` as pillar names."""
-    report.begin("no-old-pillars")
-    pattern = re.compile(r"pillars/(space|motion|audience)\.md|\b(space|motion|audience) pillar\b", re.IGNORECASE)
-    _scan_pattern(
-        report, "no-old-pillars", pattern,
-        message_fmt="references old pillar name in {path}:{line}",
-        roots=[SKILLS_DIR, AGENTS_DIR, COMMANDS_DIR, MESSAGE_MD, CLAUDE_MD],
-        permissive=DOC_PATHS_PERMISSIVE,
-    )
-
-
 def check_frontmatter(report: Report) -> None:
-    """#5 Every SKILL.md has required frontmatter fields with valid bounds."""
+    """Every SKILL.md has required frontmatter fields with valid bounds."""
     report.begin("frontmatter")
     if not SKILLS_DIR.exists():
         return
@@ -223,68 +137,8 @@ def check_frontmatter(report: Report) -> None:
             report.err("frontmatter", f"{rel}: 'description' must be under 1024 chars (got {len(desc)})")
 
 
-def check_anatomy(report: Report) -> None:
-    """#6 Every skill is a folder containing SKILL.md. No bare .md files."""
-    report.begin("anatomy")
-    if not SKILLS_DIR.exists():
-        return
-    for category in SKILLS_DIR.iterdir():
-        if not category.is_dir():
-            continue
-        for skill in category.rglob("*"):
-            if not skill.is_file() or skill.suffix != ".md":
-                continue
-            # Type files under types/ and README.md files are not skills.
-            parts = skill.relative_to(SKILLS_DIR).parts
-            if "types" in parts or skill.name == "README.md":
-                continue
-            if skill.name != "SKILL.md":
-                report.err("anatomy", f".claude/skills/{skill.relative_to(SKILLS_DIR)}: only SKILL.md, README.md, and types/*.md are valid skill files")
-
-
-def check_cross_references(report: Report) -> None:
-    """#7 references/, scripts/, templates/ paths in SKILL.md exist (skill-relative OR repo-root)."""
-    report.begin("cross-references")
-    pattern = re.compile(r"`(references|scripts|templates)/[^`\s]+`")
-    if not SKILLS_DIR.exists():
-        return
-    for skill_md in SKILLS_DIR.rglob("SKILL.md"):
-        rel = skill_md.relative_to(REPO_ROOT)
-        text = read_text(skill_md)
-        for match in pattern.finditer(text):
-            ref = match.group(0).strip("`")
-            # Skip references with bracket placeholders — those are template/example paths, not literal.
-            if "[" in ref or "]" in ref:
-                continue
-            # Resolve as repo-root-relative first (for top-level templates/), then fall back to skill-relative.
-            target_root = REPO_ROOT / ref
-            target_local = skill_md.parent / ref
-            if not target_root.exists() and not target_local.exists():
-                report.warn("cross-references", f"{rel}: references missing path '{ref}'")
-
-
-def check_asset_variants_warn(report: Report) -> None:
-    """#8 Warn when variant-likely assets (blog-post, paper, story, web pages) lack a variants/ directory."""
-    report.begin("asset-variants-warn")
-    if not ASSETS_DIR.exists():
-        return
-    for asset_dir in ASSETS_DIR.iterdir():
-        if not asset_dir.is_dir():
-            continue
-        slug = asset_dir.name
-        if slug not in VARIANT_LIKELY_ASSETS:
-            continue
-        variants_dir = asset_dir / "variants"
-        if not variants_dir.exists() or not any(variants_dir.glob("*.md")):
-            report.warn(
-                "asset-variants-warn",
-                f"messaging/assets/{slug}/ has no variants/ — variant-likely assets typically benefit from at least one variant. "
-                f"Add via `/design asset {slug} --add-variant [name]`.",
-            )
-
-
 def check_assets(report: Report) -> None:
-    """#9 Every content type in MESSAGE.md's Assets table maps to either a populated asset folder OR a template."""
+    """Every content type in MESSAGE.md's Assets table maps to either a populated asset folder OR a template."""
     report.begin("assets")
     if not MESSAGE_MD.exists():
         report.err("assets", "MESSAGE.md not found")
@@ -312,32 +166,8 @@ def check_assets(report: Report) -> None:
             )
 
 
-def check_no_format_paths(report: Report) -> None:
-    """#13 No references to retired `messaging/formats/`, `format.md` (as asset spec), or `## Format Routing` heading."""
-    report.begin("no-format-paths")
-    pattern = re.compile(r"messaging/formats/|templates/formats/|/format\.md\b|## Format Routing")
-    _scan_pattern(
-        report, "no-format-paths", pattern,
-        message_fmt="references retired format paths/heading in {path}:{line}",
-        roots=[SKILLS_DIR, AGENTS_DIR, COMMANDS_DIR, MESSAGE_MD, CLAUDE_MD],
-        permissive=DOC_PATHS_PERMISSIVE,
-    )
-
-
-def check_no_legacy_commands(report: Report) -> None:
-    """#14 No references to retired commands `/campaign`, `/launch`, `/play`, `/compose`, `/health`, `/investigate`, `/update` (allowed in CHANGELOG)."""
-    report.begin("no-legacy-commands")
-    pattern = re.compile(r"/(campaign|launch|play|compose|health|investigate|update)(?:\s|`|$)")
-    _scan_pattern(
-        report, "no-legacy-commands", pattern,
-        message_fmt="references retired command in {path}:{line}",
-        roots=[SKILLS_DIR, AGENTS_DIR, COMMANDS_DIR, MESSAGE_MD, CLAUDE_MD],
-        permissive=DOC_PATHS_PERMISSIVE,
-    )
-
-
 def check_asset_default_variants(report: Report) -> None:
-    """#15 Asset frontmatter `default-variant` (when non-empty) must match an existing file in the asset's variants/ directory."""
+    """Asset frontmatter `default-variant` (when non-empty) must match an existing file in the asset's variants/ directory."""
     report.begin("asset-default-variants")
     if not ASSETS_DIR.exists():
         return
@@ -364,7 +194,7 @@ def check_asset_default_variants(report: Report) -> None:
 
 
 def check_asset_variants_table(report: Report) -> None:
-    """#21 For populated assets with variants/, asset.md must have a `## Variants` table; table rows must reference real variant files; exactly one row marked default; default-variant frontmatter must agree."""
+    """For populated assets with variants/, asset.md must have a `## Variants` table; table rows must reference real variant files; exactly one row marked default; default-variant frontmatter must agree."""
     report.begin("asset-variants-table")
     if not ASSETS_DIR.exists():
         return
@@ -429,129 +259,8 @@ def check_asset_variants_table(report: Report) -> None:
                 )
 
 
-def _parse_yaml_list(text: str, key: str) -> list[str]:
-    """Minimal parser for a YAML list field in frontmatter. Handles `key: [a, b]` and multi-line `key:\\n  - a\\n  - b`."""
-    if not text.startswith("---\n"):
-        return []
-    end = text.find("\n---", 4)
-    if end == -1:
-        return []
-    block = text[4:end]
-    # Inline form: key: [a, b, c]
-    inline = re.search(rf"^{re.escape(key)}:\s*\[(.*?)\]\s*$", block, re.MULTILINE)
-    if inline:
-        items = [i.strip().strip('"').strip("'") for i in inline.group(1).split(",")]
-        return [i for i in items if i]
-    # Multi-line form
-    multiline = re.search(rf"^{re.escape(key)}:\s*$\n((?:\s*-\s*\S.*\n?)+)", block, re.MULTILINE)
-    if multiline:
-        items = []
-        for line in multiline.group(1).splitlines():
-            m = re.match(r"\s*-\s*(.*)", line)
-            if m:
-                items.append(m.group(1).strip().strip('"').strip("'"))
-        return items
-    return []
-
-
-def check_pillar_sections(report: Report) -> None:
-    """#10 Every pillar contains required sections. WARN-ONLY per project policy."""
-    report.begin("pillar-sections")
-    if not PILLARS_DIR.exists():
-        return
-    required_universal = {"## Messaging Blocks", "## Writing Guidelines", "## Messaging Rules"}
-    for pillar_md in sorted(PILLARS_DIR.glob("*.md")):
-        rel = pillar_md.relative_to(REPO_ROOT)
-        text = read_text(pillar_md)
-        pillar_name = pillar_md.stem
-        headings = set(re.findall(r"^##\s+\S.*$", text, re.MULTILINE))
-        for required in required_universal:
-            if not any(h.startswith(required) for h in headings):
-                report.warn("pillar-sections", f"{rel}: missing required section '{required}'")
-        if pillar_name in PILLAR_NAMES_REQUIRING_COLLECTION_TABLES:
-            if not any(h.startswith("## Collection Tables") for h in headings):
-                report.warn("pillar-sections", f"{rel}: missing required '## Collection Tables' section (Position/People/Portfolio/Proof)")
-
-
-def check_templates(report: Report) -> None:
-    """#12 The templates/ directory has the expected shape and templates declare required sections."""
-    report.begin("templates")
-    if not TEMPLATES_DIR.exists():
-        report.err("templates", "templates/ directory does not exist")
-        return
-    # Pillar templates
-    if TEMPLATE_PILLARS_DIR.exists():
-        for pillar in ALL_PILLAR_NAMES:
-            t = TEMPLATE_PILLARS_DIR / f"{pillar}-template.md"
-            if not t.exists():
-                report.warn("templates", f"missing pillar template: {t.relative_to(REPO_ROOT)}")
-            else:
-                text = read_text(t)
-                for required in ("## Messaging Blocks", "## Writing Guidelines", "## Messaging Rules"):
-                    if required not in text:
-                        report.warn("templates", f"{t.relative_to(REPO_ROOT)}: missing section '{required}'")
-    else:
-        report.err("templates", "templates/pillars/ does not exist")
-    # Collection templates
-    if TEMPLATE_COLLECTIONS_DIR.exists():
-        for ctype in ("category", "competitor", "persona", "product", "report", "segment", "solution", "story"):
-            t = TEMPLATE_COLLECTIONS_DIR / f"{ctype}-template.md"
-            if not t.exists():
-                report.warn("templates", f"missing collection template: {t.relative_to(REPO_ROOT)}")
-    else:
-        report.err("templates", "templates/collections/ does not exist")
-    # Asset templates — each is a folder with asset.md + README.md
-    # Sections required depend on whether the asset is variant-likely (Structure + CTA live in variants)
-    # or atomic (Structure + CTA live in asset.md by necessity).
-    if TEMPLATE_ASSETS_DIR.exists():
-        for entry in TEMPLATE_ASSETS_DIR.iterdir():
-            if not entry.is_dir() or not entry.name.endswith("-template"):
-                continue
-            slug = entry.name[: -len("-template")]
-            fmt = entry / "asset.md"
-            readme = entry / "README.md"
-            if not fmt.exists():
-                report.err("templates", f"{entry.relative_to(REPO_ROOT)}/ missing asset.md")
-            if not readme.exists():
-                report.warn("templates", f"{entry.relative_to(REPO_ROOT)}/ missing README.md (author guidance)")
-            if not fmt.exists():
-                continue
-            text = read_text(fmt)
-            is_variant_likely = slug in VARIANT_LIKELY_ASSETS
-            if is_variant_likely:
-                # Variant-likely envelope: Conventions + Frontmatter requirements + Variants table
-                for required in ("## Conventions", "## Frontmatter requirements", "## Variants"):
-                    if required not in text:
-                        report.warn("templates", f"{fmt.relative_to(REPO_ROOT)}: missing section '{required}'")
-                # Forbid Structure / CTA on variant-likely envelope (they belong in variants)
-                for forbidden in ("## Structure", "## CTA conventions"):
-                    if forbidden in text:
-                        report.warn(
-                            "templates",
-                            f"{fmt.relative_to(REPO_ROOT)}: variant-likely asset templates should not declare '{forbidden}' — that section belongs in variants/",
-                        )
-            else:
-                # Atomic envelope: Structure + Conventions + Frontmatter requirements + CTA conventions
-                for required in ("## Structure", "## Conventions", "## Frontmatter requirements", "## CTA conventions"):
-                    if required not in text:
-                        report.warn("templates", f"{fmt.relative_to(REPO_ROOT)}: missing section '{required}'")
-    else:
-        report.err("templates", "templates/assets/ does not exist")
-    # Variant templates — variant-likely asset templates include a variants/variant-template.md
-    if TEMPLATE_ASSETS_DIR.exists():
-        for slug in VARIANT_LIKELY_ASSETS:
-            variant_template = TEMPLATE_ASSETS_DIR / f"{slug}-template" / "variants" / "variant-template.md"
-            if not variant_template.exists():
-                report.warn("templates", f"missing variant template: {variant_template.relative_to(REPO_ROOT)}")
-            else:
-                text = read_text(variant_template)
-                for required in ("## When to use", "## Voice notes", "## Structure", "## CTA conventions"):
-                    if required not in text:
-                        report.warn("templates", f"{variant_template.relative_to(REPO_ROOT)}: missing section '{required}'")
-
-
 def check_message_sections(report: Report) -> None:
-    """#16 MESSAGE.md contains all 9 required sections (Loading lives in CLAUDE.md)."""
+    """MESSAGE.md contains all 8 required sections (Loading lives in CLAUDE.md; ICP lives in the People pillar)."""
     report.begin("message-sections")
     if not MESSAGE_MD.exists():
         report.err("message-sections", "MESSAGE.md does not exist at repo root")
@@ -560,7 +269,6 @@ def check_message_sections(report: Report) -> None:
     required_sections = [
         "## Attributes",
         "## Facts",
-        "## ICP",
         "## Glossary",
         "## Brand Guardrails",
         "## Scenarios",
@@ -588,7 +296,7 @@ def check_message_sections(report: Report) -> None:
 
 
 def check_scenarios_dimensions(report: Report) -> None:
-    """#17 MESSAGE.md Scenarios section declares exactly 5 dimensions with spec-fixed enum values present."""
+    """MESSAGE.md Scenarios section declares exactly 5 dimensions with spec-fixed enum values present."""
     report.begin("scenarios-dimensions")
     if not MESSAGE_MD.exists():
         return
@@ -629,50 +337,8 @@ def check_scenarios_dimensions(report: Report) -> None:
                 report.warn("scenarios-dimensions", f"MESSAGE.md Scenarios: dimension '{dim}' missing spec value '{value}'")
 
 
-def check_glossary_discipline(report: Report) -> None:
-    """#18 Warn when product/competitor/customer/persona/category names appear in MESSAGE.md Glossary."""
-    report.begin("glossary-discipline")
-    if not MESSAGE_MD.exists():
-        return
-    text = read_text(MESSAGE_MD)
-    m = re.search(r"^##\s+Glossary\b.*?$\n(.*?)(?=^##\s+\S|\Z)", text, re.MULTILINE | re.DOTALL)
-    if not m:
-        return
-    body = m.group(1)
-    # Extract bolded terms — the pattern `- **Term**` indicates a glossary entry.
-    glossary_terms = set()
-    for line in body.splitlines():
-        bm = re.match(r"\s*-\s*\*\*([^*]+)\*\*", line)
-        if bm:
-            term = bm.group(1).strip().lower()
-            # Skip the template placeholder.
-            if term.startswith("[instructions"):
-                continue
-            glossary_terms.add(term)
-    if not glossary_terms:
-        return
-    # Cross-check against known collection items if any exist.
-    collections_dir = MESSAGING_DIR / "collections"
-    if not collections_dir.exists():
-        return
-    for ctype_subdir in ("products", "competitors", "stories", "personas", "categories"):
-        cdir = collections_dir / ctype_subdir
-        if not cdir.exists():
-            continue
-        for cfile in cdir.glob("*.md"):
-            if cfile.name == ".gitkeep":
-                continue
-            slug = cfile.stem.replace("-", " ").lower()
-            if slug in glossary_terms:
-                report.warn(
-                    "glossary-discipline",
-                    f"MESSAGE.md Glossary: term '{slug}' appears to be a {ctype_subdir[:-1]} name "
-                    f"(see {cfile.relative_to(REPO_ROOT)}) — collection-scoped terms belong in their collection",
-                )
-
-
 def check_claude_md_sections(report: Report) -> None:
-    """#19 CLAUDE.md contains the operating-guide sections that own loading + path conventions."""
+    """CLAUDE.md contains the operating-guide sections that own loading + path conventions."""
     report.begin("claude-md-sections")
     if not CLAUDE_MD.exists():
         report.err("claude-md-sections", "CLAUDE.md does not exist at repo root")
@@ -694,208 +360,6 @@ def check_claude_md_sections(report: Report) -> None:
         report.warn("claude-md-sections", "CLAUDE.md Progressive Loading: missing 'Infer the scenario' step")
     if "Assemble the" not in body:
         report.warn("claude-md-sections", "CLAUDE.md Progressive Loading: missing 'Assemble the ...' step")
-
-
-SPEC_FIXED_SCENARIO_VALUES = {
-    "topic-maturity": {"nascent", "emerging", "established", "mature"},
-    "strategic-shape": {
-        "competitive-takeout", "new-product-introduction", "brand-campaign",
-        "category-creation", "customer-expansion", "crisis-response",
-        "thought-leadership", "demand-generation",
-    },
-    "content-lens": {"Awareness", "Acquisition", "Activation", "Adoption", "Advocacy", "Amplification"},
-}
-
-
-def check_brief_scenarios(report: Report) -> None:
-    """#20 If briefs exist in output/{campaigns,launches,plays}/*/brief.md, each must declare a scenario block."""
-    report.begin("brief-scenarios")
-    output_root = REPO_ROOT / "output"
-    if not output_root.exists():
-        return
-    brief_glob_roots = [output_root / sub for sub in ("campaigns", "launches", "plays")]
-    required_keys = {"compelling-event", "topic-maturity", "market-moment", "strategic-shape", "content-lens"}
-    for root in brief_glob_roots:
-        if not root.exists():
-            continue
-        for brief in root.glob("*/brief.md"):
-            text = read_text(brief)
-            rel = brief.relative_to(REPO_ROOT)
-            if "scenario:" not in text:
-                report.warn("brief-scenarios", f"{rel}: missing 'scenario:' frontmatter block")
-                continue
-            # Look for the scenario block — minimal multi-line parser
-            m = re.search(r"^scenario:\s*\n((?:\s+\S.*\n?)+)", text, re.MULTILINE)
-            if not m:
-                report.warn("brief-scenarios", f"{rel}: scenario field present but block malformed")
-                continue
-            block = m.group(1)
-            present_keys = set(re.findall(r"^\s+([a-z-]+):", block, re.MULTILINE))
-            missing = required_keys - present_keys
-            if missing:
-                report.warn("brief-scenarios", f"{rel}: scenario missing keys: {sorted(missing)}")
-            # Validate spec-fixed enums (when value is non-null)
-            for key, allowed in SPEC_FIXED_SCENARIO_VALUES.items():
-                v_match = re.search(rf"^\s+{re.escape(key)}:\s*(.+?)$", block, re.MULTILINE)
-                if not v_match:
-                    continue
-                raw = v_match.group(1).strip().strip('"').strip("'")
-                if raw.lower() in ("null", "~", ""):
-                    continue
-                if raw not in allowed:
-                    report.warn(
-                        "brief-scenarios",
-                        f"{rel}: scenario.{key} value '{raw}' not in spec-fixed enum {sorted(allowed)}",
-                    )
-
-
-def _strip_blurb(text: str) -> str:
-    """Remove the canonical Messaging System Reference blurb section from skill text.
-
-    Strips from the `## Messaging System Reference` heading up to (but not including)
-    the next H2. Lets check_duplicates ignore the canonical text that's deliberately
-    shared across every conformant skill.
-    """
-    pattern = re.compile(
-        r"^##\s+Messaging\s+System\s+Reference\s*$.*?(?=^##\s+\S)",
-        re.MULTILINE | re.DOTALL,
-    )
-    return pattern.sub("", text)
-
-
-def check_duplicates(report: Report) -> None:
-    """#11 Flag shared 5+ consecutive line sequences across SKILL.md files."""
-    report.begin("duplicates")
-    if not SKILLS_DIR.exists():
-        return
-    fingerprint_to_locations: dict[str, list[tuple[str, int]]] = defaultdict(list)
-    for skill_md in SKILLS_DIR.rglob("SKILL.md"):
-        rel = str(skill_md.relative_to(REPO_ROOT))
-        text = read_text(skill_md)
-        # Strip the canonical Messaging System Reference blurb — its repetition across
-        # skills is by design (single source: templates/messaging-system-reference.md).
-        text = _strip_blurb(text)
-        lines = text.splitlines()
-        # Skip frontmatter when computing duplicates.
-        if lines and lines[0].strip() == "---":
-            try:
-                end = lines.index("---", 1)
-                lines = lines[end + 1:]
-            except ValueError:
-                pass
-        for i in range(len(lines) - DUPLICATE_WINDOW + 1):
-            window = lines[i:i + DUPLICATE_WINDOW]
-            stripped = [ln.strip() for ln in window]
-            # Skip windows that are mostly blank/heading runs.
-            if sum(1 for s in stripped if s) < 3:
-                continue
-            digest = hashlib.md5("\n".join(stripped).encode("utf-8")).hexdigest()
-            fingerprint_to_locations[digest].append((rel, i + 1))
-    for digest, locations in fingerprint_to_locations.items():
-        if len(locations) > 1 and len({loc[0] for loc in locations}) > 1:
-            files = ", ".join(f"{p}:{ln}" for p, ln in locations[:4])
-            more = "" if len(locations) <= 4 else f" +{len(locations) - 4} more"
-            report.warn("duplicates", f"{DUPLICATE_WINDOW}+ identical lines repeated across files: {files}{more}")
-
-
-def _iter_skill_and_agent_files() -> list[tuple[Path, str]]:
-    """Yield (path, category) tuples for every conformance-bearing file."""
-    out: list[tuple[Path, str]] = []
-    if SKILLS_DIR.exists():
-        for skill_md in SKILLS_DIR.rglob("SKILL.md"):
-            rel_parts = skill_md.relative_to(SKILLS_DIR).parts
-            category = rel_parts[0] if rel_parts else "unknown"
-            out.append((skill_md, category))
-    if AGENTS_DIR.exists():
-        for agent_md in AGENTS_DIR.glob("*.md"):
-            out.append((agent_md, "agents"))
-    return out
-
-
-def check_blurb_presence(report: Report) -> None:
-    """#22 Warn when a skill/agent lacks the canonical Messaging System Reference blurb.
-
-    Exempts files with `system-independent: true` in frontmatter.
-    """
-    report.begin("blurb-presence")
-    for path, _category in _iter_skill_and_agent_files():
-        text = read_text(path)
-        fm = parse_frontmatter(text) or {}
-        if fm.get("system-independent") is True or fm.get("system-independent") == "true":
-            continue
-        if BLURB_CANONICAL_PHRASE not in text:
-            rel = path.relative_to(REPO_ROOT)
-            report.warn(
-                "blurb-presence",
-                f"{rel}: missing canonical Messaging System Reference blurb (paste verbatim from `templates/messaging-system-reference.md` or mark `system-independent: true`)",
-            )
-
-
-def check_path_restatement(report: Report) -> None:
-    """#23 Warn when skill body text restates `messaging/{pillars,collections,assets}/` paths
-    as agent-facing references (i.e., not as operational paths).
-
-    Exempts: code blocks, frontmatter, the canonical blurb section, indented (likely
-    diagram) lines, and lines whose context makes the path operational — output
-    destinations, template loads, removal enumerations, folder-shape descriptions,
-    tool scoping, variant/slug example paths.
-    """
-    report.begin("path-restatement")
-    exempt_markers = (
-        "output", "writes to", "destination", "delete", "remove", "removal",
-        "template", "tool scop", "## tool", "## modes", "## boundary",
-        "folder shape", "audit log", "variants/[", "[slug]", "[variant]",
-        "[name]", "[type]", "overwrite",
-        "preview", "enumerate impact", "atomic deletion",
-        "confirm each file",
-    )
-    blurb_heading_re = re.compile(r"^##\s+Messaging\s+System\s+Reference\s*$")
-    h2_re = re.compile(r"^##\s+\S")
-    for path, _category in _iter_skill_and_agent_files():
-        text = read_text(path)
-        lines = text.splitlines()
-        in_frontmatter = False
-        in_code_block = False
-        in_blurb = False
-        for i, line in enumerate(lines, start=1):
-            stripped = line.lstrip()
-            # Frontmatter delimiter handling (first --- opens, second --- closes).
-            if i == 1 and stripped == "---":
-                in_frontmatter = True
-                continue
-            if in_frontmatter:
-                if stripped == "---":
-                    in_frontmatter = False
-                continue
-            # Blurb section handling.
-            if blurb_heading_re.match(stripped):
-                in_blurb = True
-                continue
-            if in_blurb and h2_re.match(stripped):
-                in_blurb = False
-                # fall through to check this line
-            if in_blurb:
-                continue
-            # Code block handling.
-            if stripped.startswith("```"):
-                in_code_block = not in_code_block
-                continue
-            if in_code_block:
-                continue
-            # Skip likely diagram / tree lines (indented 4+ chars).
-            if len(line) - len(line.lstrip(" ")) >= 4:
-                continue
-            lower = line.lower()
-            if any(marker in lower for marker in exempt_markers):
-                continue
-            for pat in RESTATEMENT_PATH_PATTERNS:
-                if pat.search(line):
-                    rel = path.relative_to(REPO_ROOT)
-                    report.warn(
-                        "path-restatement",
-                        f"{rel}:{i}: hardcoded messaging path — consider replacing with a name-based reference (e.g., 'the position pillar')",
-                    )
-                    break
 
 
 def _split_design_md(text: str) -> tuple[str, str] | None:
@@ -1026,7 +490,7 @@ def _token_exists(frontmatter: str, dotted_path: str) -> bool:
 
 
 def check_design_md_spec(report: Report) -> None:
-    """#25 brand/DESIGN.md conforms to the Google Labs DESIGN.md spec (required frontmatter + body sections)."""
+    """brand/DESIGN.md conforms to the Google Labs DESIGN.md spec (required frontmatter + body sections)."""
     report.begin("design-md-spec")
     if not BRAND_DESIGN_MD.exists():
         return  # Brand foundation not initialized; check no-ops.
@@ -1051,7 +515,7 @@ def check_design_md_spec(report: Report) -> None:
 
 
 def check_design_md_minimums(report: Report) -> None:
-    """#26 brand/DESIGN.md defines minimum tokens (primary color, headline-lg + body-md typography, button-primary component)."""
+    """brand/DESIGN.md defines minimum tokens (primary color, headline-lg + body-md typography, button-primary component)."""
     report.begin("design-md-minimums")
     if not BRAND_DESIGN_MD.exists():
         return
@@ -1079,7 +543,7 @@ def check_design_md_minimums(report: Report) -> None:
 
 
 def check_brand_asset_resolution(report: Report) -> None:
-    """#27 Every path declared in brand/DESIGN.md's assets: block resolves to a file on disk."""
+    """Every path declared in brand/DESIGN.md's assets: block resolves to a file on disk."""
     report.begin("brand-asset-resolution")
     if not BRAND_DESIGN_MD.exists():
         return
@@ -1099,7 +563,7 @@ def check_brand_asset_resolution(report: Report) -> None:
 
 
 def check_design_token_references(report: Report) -> None:
-    """#28 Every {path.to.token} reference inside components: resolves to a defined token."""
+    """Every {path.to.token} reference inside components: resolves to a defined token."""
     report.begin("design-token-references")
     if not BRAND_DESIGN_MD.exists():
         return
@@ -1117,7 +581,7 @@ def check_design_token_references(report: Report) -> None:
 
 
 def check_asset_production_targets(report: Report) -> None:
-    """#29 Asset templates' production-targets: values are valid (web/email/print or a custom produce-* skill)."""
+    """Asset templates' production-targets: values are valid (web/email/print or a custom produce-* skill)."""
     report.begin("asset-production-targets")
     valid_targets = set(STANDARD_PRODUCTION_TARGETS)
     # Discover custom production targets from tasks/produce-* skills.
@@ -1163,87 +627,26 @@ def check_asset_production_targets(report: Report) -> None:
                 )
 
 
-def check_skill_length(report: Report) -> None:
-    """#24 Warn when skill files exceed length thresholds (informational only)."""
-    report.begin("skill-length")
-    if not SKILLS_DIR.exists():
-        return
-    for skill_md in SKILLS_DIR.rglob("SKILL.md"):
-        rel = skill_md.relative_to(REPO_ROOT)
-        rel_in_skills = skill_md.relative_to(SKILLS_DIR).parts
-        category = rel_in_skills[0] if rel_in_skills else "unknown"
-        threshold = SKILL_LENGTH_THRESHOLDS.get(category, 250)
-        line_count = len(read_text(skill_md).splitlines())
-        if line_count > threshold:
-            report.warn(
-                "skill-length",
-                f"{rel}: {line_count} lines exceeds {threshold}-line threshold for {category} skills — audit for restatement",
-            )
-
-
-# ----- Helpers -----
-
-def _scan_pattern(
-    report: Report,
-    check_id: str,
-    pattern: re.Pattern[str],
-    *,
-    message_fmt: str,
-    roots: list[Path],
-    permissive: set[Path] = frozenset(),
-) -> None:
-    targets: list[Path] = []
-    for root in roots:
-        if root.is_file():
-            targets.append(root)
-        elif root.is_dir():
-            targets.extend(discover_markdown(root))
-    for path in targets:
-        if path in permissive:
-            continue
-        text = read_text(path)
-        for i, line in enumerate(text.splitlines(), start=1):
-            if pattern.search(line):
-                rel = path.relative_to(REPO_ROOT)
-                report.err(check_id, message_fmt.format(path=rel, line=i))
-
-
 def main() -> int:
-    parser = argparse.ArgumentParser(description="claude-message v1 structural validation")
+    parser = argparse.ArgumentParser(description="claude-message referential-integrity validation")
     parser.add_argument("--quiet", action="store_true", help="Only emit errors and summary")
     parser.add_argument("--no-warn", action="store_true", help="Treat warnings as errors (exit 1)")
     args = parser.parse_args()
 
     report = Report()
     for check in (
-        check_taxonomy,
-        check_no_build,
-        check_no_old_pillar_names,
         check_frontmatter,
-        check_anatomy,
-        check_cross_references,
-        check_asset_variants_warn,
         check_assets,
-        check_pillar_sections,
-        check_duplicates,
-        check_templates,
-        check_no_format_paths,
-        check_no_legacy_commands,
         check_asset_default_variants,
         check_asset_variants_table,
         check_message_sections,
         check_scenarios_dimensions,
-        check_glossary_discipline,
         check_claude_md_sections,
-        check_brief_scenarios,
-        check_blurb_presence,
-        check_path_restatement,
         check_design_md_spec,
         check_design_md_minimums,
         check_brand_asset_resolution,
         check_design_token_references,
         check_asset_production_targets,
-        check_skill_length,
     ):
         try:
             check(report)

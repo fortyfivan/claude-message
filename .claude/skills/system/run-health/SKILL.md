@@ -45,6 +45,7 @@ Validate the shapes the system expects.
 Each pillar must contain:
 - `## Messaging Blocks`
 - `## Collection Tables` (Position, People, Portfolio, Proof only — not Profile or Pitch)
+- `## ICP` (People pillar only — the ICP definition lives here, not in MESSAGE.md)
 - `## Writing Guidelines`
 - `## Messaging Rules`
 
