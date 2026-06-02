@@ -115,15 +115,10 @@ Related categories that are converging, competing, or complementary. Reference c
 
 ## Writing Guidelines
 
-- Analyst landscape should be honest about the company's current standing — overclaiming analyst recognition damages credibility in evaluation-stage content
-- Differentiation within a category must be backed by evidence — do not introduce claims here that aren't supported elsewhere in the messaging system
-- Key buyers in this category may have different priorities than their general persona profile describes — use the Category-Specific Context to capture the delta
-- Portfolio alignment determines which product docs to load when generating category-specific content — if a product isn't listed here, it shouldn't be referenced in category-level messaging
-- Adjacent category relationships affect competitive content — converging categories mean new competitors, complementary categories mean co-marketing opportunities
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
+
+[Format:
+3-5 bullets]

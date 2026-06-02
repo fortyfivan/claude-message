@@ -10,5 +10,3 @@ updated: ""
 ## Messaging Blocks
 
 ## Writing Guidelines
-
-## Messaging Rules

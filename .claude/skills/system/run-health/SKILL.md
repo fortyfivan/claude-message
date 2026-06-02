@@ -47,7 +47,6 @@ Each pillar must contain:
 - `## Collection Tables` (Position, People, Portfolio, Proof only — not Profile or Pitch)
 - `## ICP` (People pillar only — the ICP definition lives here, not in MESSAGE.md)
 - `## Writing Guidelines`
-- `## Messaging Rules`
 
 Report any missing sections. Per project policy, missing pillar sections produce **warnings**, not errors — they may be in-progress.
 

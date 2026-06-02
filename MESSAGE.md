@@ -97,8 +97,8 @@ Aim for 10-20 entries. More than 30 usually means the glossary is duplicating co
 | Pillar | File | Description | Load When |
 |---|---|---|---|
 | Profile | `pillars/profile.md` | Voice attributes, personality | Always |
-| Pitch | `pillars/pitch.md` | Core narrative, key messages | Always |
-| Position | `pillars/position.md` | Category claim and differentiators | Marketing content |
+| Pitch | `pillars/pitch.md` | Core narrative, key messages, differentiators | Always |
+| Position | `pillars/position.md` | Category claim and market positioning | Marketing content |
 | People | `pillars/people.md` | Audience framing by tier | Marketing content |
 | Portfolio | `pillars/portfolio.md` | Product summary, capability map | References to products |
 | Proof | `pillars/proof.md` | Customer wins, analyst recognition | Marketing content |

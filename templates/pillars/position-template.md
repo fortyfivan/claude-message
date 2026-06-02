@@ -5,7 +5,7 @@ updated: ""
 
 # Market Space
 
-This pillar defines where the company competes — the market landscape, the category it occupies, how it's positioned relative to alternatives, and what makes it different. Every competitive contrast, every differentiator, every "why us" claim should trace back to this pillar.
+This pillar defines where the company competes — the market landscape, the category it occupies, and how it's positioned relative to alternatives. It frames the "why us" at the positioning altitude (the Positioning Statement's "Only Us" line); the enumerated, defensible differentiators that prove it live in the Pitch pillar's Key Differentiators, which the Positioning Statement draws on.
 
 ## Messaging Blocks
 
@@ -62,22 +62,6 @@ The framework below ensures completeness. Fill in each component, then read the 
 - **Only us** (unique approach)
 - **With us** (primary gain)]
 
-### Key Differentiators
-
-[Instructions:
-List the specific capabilities, architecture decisions, or approach characteristics that make the company uniquely different from alternatives. These should be defensible and verifiable — things a competitor cannot claim or replicate without significant investment.]
-
-[Tips:
-- Distinguish between defensible differentiators (architectural decisions, proprietary data, patents, unique integrations) and positioning differentiators (approach, philosophy, methodology, experience)
-- Every differentiator should be provable — if you can't back it with product evidence or customer proof, it's an aspiration, not a differentiator
-- 5-8 differentiators is typical — enough to cover the competitive surface without becoming a feature list]
-
-[Format:
-For each differentiator:
-- **Differentiator:** [what it is]
-- **Type:** [defensible | positioning]
-- **Evidence:** [how it's provable — product capability, architecture, customer result, third-party validation]]
-
 ## Collection Tables
 
 Reference tables routing to deeper collection detail. The pillar carries the substantive messaging above; collections carry the per-instance detail. Each row resolves to a file in `messaging/collections/<type>/`.
@@ -110,17 +94,10 @@ List the alternatives customers evaluate instead of choosing you. This includes 
 
 ## Writing Guidelines
 
-- The positioning statement is authoritative but not meant to be used as explicit copy — it's the internal anchor that external messaging derives from
-- Never mention competitors by name in non-competitive content unless the skill explicitly calls for it
-- Every differentiator must be backed by evidence — claims without proof erode trust and violate the company's stage constraints defined in Profile
-- When positioning conflicts with proof, defer to proof — do not make claims that exceed what the company can demonstrate
-- Tailwind trends reinforce urgency; headwind trends require honest acknowledgment — ignoring headwinds creates vulnerability in competitive and evaluation-stage content
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+[Format:
+3-5 bullets]

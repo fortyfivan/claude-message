@@ -307,7 +307,7 @@ The plan carries the **irreducible decisions and raw material** a writer cannot 
 | In the plan (resolved decisions + material) | NOT in the plan (the designer renders these in voice) |
 |---|---|
 | Positioning statement components filled (For / Who / We are / Unlike / Only us …) | The narrative arc's prose; the boilerplate paragraph |
-| UVP one-liners with quantitative/qualitative measures + proof tags | Differentiator write-ups expanded into paragraphs |
+| UVP statements with brand-pillar / differentiator / proof / portfolio pointers | Differentiator write-ups expanded into paragraphs |
 | Differentiators with evidence tags (→ which UVP / story / report) | Per-persona objection reframes phrased in voice |
 | Per-persona load-bearing spec: altitude, lead-with, avoid-leading-with, proof types, CTA, format affinity | Journey-stage prose; relationship-to-product narrative |
 | Collection routing descriptions (~15 words) + cross-tags (story → personas/products/segments) | Section connective tissue and examples |
@@ -337,11 +337,11 @@ writers transcribe it, they don't paraphrase it.]
 
 ## Pillar Plans
 ### Profile
-[Resolved decisions: mission, vision, boilerplate inputs, voice attributes, brand pillars]
+[Resolved decisions: mission, vision, boilerplate inputs, voice attributes, brand pillars (themes UVPs map to)]
 ### Position
-[Positioning statement components, market landscape points, trends w/ direction, differentiators w/ evidence tags]
+[Positioning statement components, market landscape points, trends w/ direction]
 ### Pitch
-[Strategic narrative beats (as bullets), elevator pitch inputs, UVPs w/ measures + proof tags, differentiators]
+[Strategic narrative beats (as bullets), elevator pitch inputs, UVPs w/ pointers (brand pillar / differentiators / proof / portfolio), differentiators w/ evidence tags]
 ### People
 [ICP decisions, buying considerations, journey stages, persona list pointer]
 ### Portfolio
@@ -616,8 +616,7 @@ If a session approaches budget, surface it: "I've done significant research; let
 - Collection file frontmatter `description` matches its Collection Tables row exactly
 - Messaging Blocks carry source material an agent draws from
 - Collection Tables route to collection files
-- Writing Guidelines: 3-5 bullets max per doc; interpretation rules only
-- Messaging Rules: 3-5 bullets max per doc; company-specific constraints not derivable from content
+- Writing Guidelines: 3-5 bullets max per doc; company-specific application rules and constraints, not generic interpretation
 - Persona Messaging Guidance is load-bearing — populate altitude, lead-with, avoid-leading-with, proof types, language cues, CTA, format affinity for every persona
 
 ### When to push back

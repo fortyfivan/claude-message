@@ -93,16 +93,10 @@ For each quote:
 
 ## Writing Guidelines
 
-- Quotes must be exact — do not paraphrase or adapt attributed statements. If the exact words don't fit the context, choose a different quote
-- Approval status is a hard constraint — only quotes marked "approved" can appear in external content. "Pending" and "internal-only" quotes are for sales enablement and internal use only
-- Story relevance is determined by the frontmatter tags (products, personas, segments) — keep these current so the writer can filter efficiently
-- Stories age — flag profiles as "stale" when the outcomes are more than 18 months old or when the customer's situation has materially changed. Stale stories can still be used but should be supplemented with current proof
-- Each story should support at least one Value Evidence metric from proof.md — a story that doesn't connect to a measurable claim is an anecdote, not proof
-- Before/after framing is always stronger than standalone metrics — use it whenever the data supports it
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
+
+[Format:
+3-5 bullets]

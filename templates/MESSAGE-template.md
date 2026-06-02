@@ -92,7 +92,7 @@ Aim for 10-20 entries. More than 30 usually means the glossary is duplicating co
 
 ## Pillars
 
-*Spec-defined. Top-level messaging elements that cover the full landscape.*
+*Top-level messaging elements that cover the full landscape.*
 
 | Pillar | File | Description | Load When |
 |---|---|---|---|
@@ -107,7 +107,7 @@ Aim for 10-20 entries. More than 30 usually means the glossary is duplicating co
 
 ## Collections
 
-*Spec-defined. Individual profiles loaded on-demand for optimal relevance.*
+*Individual profiles loaded on-demand for optimal relevance.*
 
 | Collection | Path | Description | Load When |
 |---|---|---|---|

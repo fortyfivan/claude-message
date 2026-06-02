@@ -50,6 +50,26 @@ Provide the canonical About statement used across press releases, social profile
 1 short paragraph suitable for copy-paste.
 Optional: short, medium, and long versions.]
 
+### Brand Pillars
+
+[Instructions:
+Define the 3-5 durable themes the company stands for — the top-level identity tenets that carry through voice, design, and storytelling across every asset. Brand pillars are who the company is in spirit; they persist across product changes and market shifts. They are the backbone the Pitch pillar's UVPs roll up to: each UVP points to exactly one primary brand pillar by its Title.
+
+Keep these at the identity altitude. Brand pillars are not value propositions (what you deliver — see Pitch's UVPs), not differentiators (why you win — see Pitch's Key Differentiators), and not claims (measurable outcomes — those live in Proof). Do not carry measures, differentiators, or portfolio mapping here; those attach one level down, at the UVP that expresses the pillar.]
+
+[Tips:
+- Frame as identity themes, not promises — "Reconciliation, not aggregation" is a brand pillar; "60% less manual reconciliation" is proof of a UVP
+- The Title is the canonical handle — UVPs reference it verbatim, so make it short and memorable
+- These should be opinionated — if a generic competitor could adopt the same pillar, it's not distinctive enough
+- One-Liner is the theme in a single sentence; Supporting Messages expand it; Why It Matters frames the strategic/category stakes (not the buyer-level stakes — that's the UVP's job)]
+
+[Format:
+3-5 brand pillars, each:
+- **Title:** [short, memorable handle UVPs will reference verbatim]
+- **One-Liner:** [the theme in a single sentence]
+- **Supporting Messages:** [2-3 bullets that expand the theme]
+- **Why It Matters:** [the strategic or category-level stakes]]
+
 ### Brand Voice
 
 #### Tone
@@ -80,32 +100,12 @@ Define the default level of technical depth your messaging should assume. This e
 - **Go deeper when:** [conditions that warrant more technical detail]
 - **Simplify when:** [conditions that warrant less]]
 
-#### Brand Pillars
-
-[Instructions:
-List 3-5 durable identity tenets that define what the brand stands for. Brand pillars are who the company is in spirit — recurring themes that color voice, design, and storytelling across every asset. They are not value propositions (what you deliver — see Pitch) and not customer outcomes (what customers achieve — see Pitch's UVPs and Differentiators).]
-
-[Tips:
-- Brand pillars persist across product changes and market shifts; UVPs do not
-- Frame as identity statements, not promises — "We treat operators like first-class users" is a brand pillar; "We reduce MTTR by 60%" is a UVP
-- These should still be opinionated — if a generic competitor could adopt the same pillar, it's not distinctive enough]
-
-[Format:
-Numbered list of 3-5 identity tenets]
-
 ## Writing Guidelines
 
-- Brand Voice (Tone, Technical Depth, Brand Pillars) is always-on unless explicitly overridden by a skill
-- Company attributes (stage, type, market, position) live in `MESSAGE.md` Attributes — load that for stage-calibrated proof burden and positioning boldness
-- The canonical Glossary lives in `MESSAGE.md` — never duplicate terms here
-- Brand Guardrails (absolute output constraints) live in `MESSAGE.md` — voice violations are caught at validation, not declared here
-- Strategic narrative, UVPs, and differentiators live in `messaging/pillars/pitch.md` — load it for any narrative-led or value-led content
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the voice in this document should be applied. These rules encode voice and narrative decisions unique to the company.
+Populated during bootstrap with 3-5 rules for how this pillar's voice and narrative should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the content itself.
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+[Format:
+3-5 bullets]

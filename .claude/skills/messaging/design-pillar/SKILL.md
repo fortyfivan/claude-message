@@ -29,12 +29,12 @@ Check the pillar exists. If not, refuse (see above). The valid `[name]` values a
 
 ### Step 2: Load current content
 
-Read the existing pillar file. Present the four required sections (Messaging Blocks, Collection Tables where applicable, Writing Guidelines, Messaging Rules) so the user can see what's currently there before deciding what to change.
+Read the existing pillar file. Present the three required sections (Messaging Blocks, Collection Tables where applicable, Writing Guidelines) so the user can see what's currently there before deciding what to change.
 
 ### Step 3: Update interview
 
 Focused — "What do you want to change?" Not the full bootstrap-style interview. Probe for:
-- Which section(s) need revision (Messaging Blocks, Writing Guidelines, Messaging Rules; Collection Tables generally update via `/design [collection-type]`, not here)
+- Which section(s) need revision (Messaging Blocks, Writing Guidelines; Collection Tables generally update via `/design [collection-type]`, not here)
 - What specifically (a paragraph, a rule, a sub-section)
 - Whether the change is additive (adding a new claim, voice attribute, rule) or replacement (rewording, retiring)
 - Whether the change is driven by recent feedback or research — if yes, accept `--research` to dispatch the researcher subagent before regeneration

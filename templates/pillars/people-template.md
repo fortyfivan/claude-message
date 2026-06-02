@@ -104,18 +104,10 @@ List segments that carry particular messaging considerations. Only create segmen
 
 ## Writing Guidelines
 
-- ICP fit (the `## ICP` section above) is validated before refining to specific segments and personas — segments and personas are deltas from this baseline, not redefinitions of fit
-- Personas influence tone and emphasis, not positioning — positioning comes from Position
-- Customer journey stages determine proof type and emotional register — earlier stages require framing and insight, later stages require confidence and validation
-- Buying Considerations apply when content addresses a buying group; persona profiles apply when content speaks to one role
-- Segments adapt context and emphasis, not redefine value propositions — segment adjustments layer on top of persona messaging
-- Do not invent personas or segments beyond those defined
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the audience messaging in this document should be applied.
+Populated during bootstrap with 3-5 rules for how this pillar's audience messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+[Format:
+3-5 bullets]

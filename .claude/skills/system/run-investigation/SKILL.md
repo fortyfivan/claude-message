@@ -282,7 +282,7 @@ Seven checks validate messaging-system integrity. Run automatically during Revie
 ### Check 1: Gap — what's missing?
 
 - **Pillar existence.** All 6 pillar files exist and are non-empty. Severity: critical.
-- **Section structure.** Each pillar has `## Messaging Blocks`, `## Writing Guidelines`, `## Messaging Rules`. Position/People/Portfolio/Proof also have `## Collection Tables`. Severity: warning.
+- **Section structure.** Each pillar has `## Messaging Blocks`, `## Writing Guidelines`. Position/People/Portfolio/Proof also have `## Collection Tables`. Severity: warning.
 - **Pillar subsections.** Every subsection defined in the corresponding template exists in the pillar doc. Severity: warning.
 - **Collection population.** At least one file in `personas/`, `products/`, `competitors/`. Severity: warning if empty.
 - **Glossary populated.** The glossary block in `profile.md` has at least one row. Severity: warning if empty.

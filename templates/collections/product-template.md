@@ -127,17 +127,10 @@ Bulleted list of proof points, each with source or attribution]
 
 ## Writing Guidelines
 
-- Product profiles are for product-level specificity — default to portfolio.md or solution profiles for broader messaging
-- For modules and add-ons, always reference the parent platform context — the module's value is incomplete without the platform it extends
-- Unique capabilities lead in competitive and differentiation content — core capabilities support but don't lead
-- Do not introduce competitive claims that aren't grounded in the positioning pillar
-- Value messages work at the product altitude — do not restate company-level or portfolio-level claims
-- Architecture is messaging when it's a differentiator — if architecture isn't a competitive factor for this product, keep the section minimal
-- Pricing model (when set) informs CTA — freemium leads with self-serve activation, contact-sales leads with demo or conversation
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
+
+[Format:
+3-5 bullets]

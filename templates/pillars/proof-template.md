@@ -85,18 +85,10 @@ Document reports as discrete profiles in `messaging/collections/reports/[report-
 
 ## Writing Guidelines
 
-- Evidence basis matters — proven metrics can be stated as fact; projected metrics must be hedged ("customers typically see" or "expected to reduce")
-- Match proof type to journey stage and persona — earlier stages need trends and insights, later stages need metrics and validation; executives respond to business outcomes, practitioners to technical benchmarks
-- Company stage constrains proof expectations — don't overclaim beyond what the company can demonstrate
-- Customer evidence beats third-party validation — when both are available, lead with the customer story; pair with a Report when the buyer is in evaluation and external authority adds weight
-- Story profiles are the primary proof source for content generation — prefer embedded quotes over paraphrasing from the pillar summaries
-- Reports require attribution — every cited stat or quote from a Report must carry its source and date in the published asset
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+[Format:
+3-5 bullets]

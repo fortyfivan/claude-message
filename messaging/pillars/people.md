@@ -14,5 +14,3 @@ updated: ""
 ## Collection Tables
 
 ## Writing Guidelines
-
-## Messaging Rules

@@ -84,25 +84,30 @@ Provide a short, conversational version of the strategic narrative as you would 
 ### Unique Value Propositions
 
 [Instructions:
-Document the core value propositions that anchor your messaging system. Each proposition describes a differentiated outcome only your company can deliver, tied to a real, timely, and funded customer problem. Each UVP carries its own measures inline — the quantitative outcomes (time saved, cost reduced, risk avoided) and qualitative outcomes (observable behavioral changes) that evidence it. These should remain consistent across campaigns, assets, and channels.]
+Document the core value propositions that anchor your messaging system. Each proposition describes a differentiated outcome only your company can deliver, tied to a real, timely, and funded customer problem. UVPs are the layer that ships in market with minimal adaptation, so each one is mostly statement plus pointers — it expresses a brand pillar, cites the differentiators that make it defensible, and references the proof that evidences it rather than restating numbers inline. These should remain consistent across campaigns, assets, and channels.
+
+A UVP does not carry measures inline — Proof is the single home for measures. Cite the relevant entries in `proof.md` via the Proof pointer; don't restate metrics here.]
 
 [Tips:
 - 3-5 propositions is the right range — more than 5 dilutes focus, fewer than 3 lacks coverage
 - Focus on measurable business and technical outcomes, not features
 - Each proposition should stand on its own as a key message
-- Quantitative measures should include realistic ranges customers achieve — "40-60% reduction in MTTR" is more credible than "significant improvement"
-- Qualitative measures should describe observable changes — "security team shifts from reactive triage to proactive risk management" not "improved security"
-- Align propositions to your portfolio messaging for direct mapping]
+- Pointer hygiene keeps the system navigable: each pointer field resolves to a named home, not prose
+- Brand pillar: name exactly one primary brand pillar, by its Title in `profile.md`, verbatim — no blends, no "incorporates," no secondary list. If a UVP genuinely spans two pillars, it's probably two UVPs
+- Differentiators: list the Titles of the relevant entries from Key Differentiators below
+- Proof: point to the measures in `proof.md` that evidence this UVP — don't restate the numbers
+- Portfolio: name the products or solutions in `portfolio.md` this proposition maps to]
 
 [Format:
 For each value proposition:
-- **One-Liner:** A concise statement of the differentiated outcome
-- **Supporting Messages:** 3 bullets that expand on the outcome and context
-- **Why It Matters:** The buyer impact or risk addressed
-- **Why We're Different:** What makes this uniquely yours
-- **Quantitative Measures:** Specific metrics that evidence this proposition (e.g., "60% reduction in MTTR," "3x faster deployment," "$2M annual savings")
-- **Qualitative Measures:** Observable changes that evidence this proposition (e.g., "team shifts from reactive to proactive," "clearer prioritization across the org")
-- **Portfolio Mapping:** (optional) Specific products or solutions this proposition applies to]
+- **Title:** [short, memorable handle for the proposition]
+- **Statement:** The market-facing line — written to ship with minimal adaptation
+- **What it says:** The expansion — what the statement means in practice
+- **Why it matters:** The buyer impact or risk addressed
+- **Brand pillar:** [→ one primary brand pillar, by its Title in `profile.md`]
+- **Differentiators:** [→ the relevant Key Differentiator Titles below]
+- **Proof:** [→ the measures in `proof.md` that evidence this UVP]
+- **Portfolio:** [→ products or solutions in `portfolio.md` this applies to]]
 
 ### Key Differentiators
 
@@ -122,18 +127,10 @@ For each differentiator:
 
 ## Writing Guidelines
 
-- The strategic narrative is the source for narrative-led content (pitch decks, executive briefs, blog heroes, anchor pages) — preserve its logic, not its exact language, unless explicitly instructed
-- The perspective shift between Proof of Value and Reason to Believe is intentional — when adapting the narrative to an asset, preserve the transition from "we" to "you"
-- The Elevator Pitch is the spoken form — use it for short-form contexts (booth one-liners, call openings, social bios), not as page copy
-- UVPs are durable messaging anchors — pull benefits and outcomes from the closest matching proposition. When making a quantified claim, pull the number from the UVP's Quantitative Measures; validate against matching Stories in `messaging/pillars/proof.md` and Reports in `messaging/collections/reports/`
-- Differentiators must be backed by evidence — claims without proof erode trust and violate stage constraints defined in Profile. Don't lead with differentiators in early-funnel content; establish category and pain first (Position + narrative), then layer differentiation
-- Stage (from `profile.md` frontmatter) calibrates narrative boldness and UVP claims — emerging-stage companies should not deploy established-stage gravitas
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Keep to 3-5 rules. Only encode constraints that are genuinely unique to this company and not derivable from the messaging content itself.
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+[Format:
+3-5 bullets]

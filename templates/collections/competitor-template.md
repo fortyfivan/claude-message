@@ -163,20 +163,10 @@ For each vendor:
 
 ## Writing Guidelines
 
-- This profile is a messaging tool, not a competitive intelligence database — focus on what affects content, campaigns, and sales conversations
-- Be honest about competitor strengths — understating them damages credibility with buyers who've done their research
-- Differentiation messages must trace back to differentiators defined in pitch.md — do not introduce competitive claims here that aren't supported elsewhere in the messaging system
-- Win/Loss Patterns are the most actionable section for strategic planning — prioritize keeping them current over general Strengths/Weaknesses updates
-- When generating competitive content (battlecards, objection handling, competitive blog posts), load this profile alongside the relevant persona profile — the competitive argument changes depending on who you're talking to
-- "When They Win" scenarios should inform campaign targeting exclusions and counter-play development, not be hidden or minimized
-- Strategic Approach determines engagement posture — "monitor" alternatives should not receive the same content investment as "beat" alternatives
-- The messaging sections (Their Approach through Differentiation Messages) describe the group. Vendor Specifics carry individual vendor facts. Enablement skills should pull from both — group messaging for the narrative, vendor data for accuracy
-- Group deviations are the most important field in Vendor Specifics — they tell the writer where to break from the group narrative for a specific vendor
-- For status-quo and DIY alternatives, Strengths/Weaknesses frame around organizational inertia and switching cost, not product capabilities. Vendor Specifics may be minimal or absent for these alternative types
-
-## Messaging Rules
-
 [Instructions:
-This section is populated during bootstrap with company-specific rules about how the messaging in this document should be applied. These rules encode positioning decisions, constraints, and strategic choices unique to the company.
+Populated during bootstrap with 3-5 rules for how this document's messaging should be applied — interpretation calls, constraints, and strategic choices unique to this company.
 
-Writing Guidelines (above) tell agents how to interpret the document structure. Messaging Rules tell agents what company-specific constraints to honor when using the content.]
+Encode only what is specific to this company and not derivable from the content itself or the system architecture. Cut anything generic: if a competitor could write the same rule for their own messaging system, it doesn't belong here. Favor rules that change what an agent produces — what to lead with, what to avoid leading with, which claims are off-limits, and what to defer to when sources conflict.]
+
+[Format:
+3-5 bullets]

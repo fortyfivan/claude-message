@@ -9,24 +9,26 @@
                                                              |___/
 ```
 
-**`claude-message`** is a Claude-native messaging system built around the MESSAGE.md spec. Run this system for consistent and targeted content generation across campaigns, launches, events, and plays. 
-
-The contents of this repository are a fully contained system that works in both Claude Code and Cowork. Slash commands work natively in Claude Code. In Cowork, `CLAUDE.md` includes an intent table that routes natural language to the right skill — "build me a campaign about CISO buyers" routes to `/build campaign` automatically. Same skills, same outputs, same messaging house.
+**`claude-message`** is a Claude-native messaging factory built around the MESSAGE.md spec. Run this system for always-on positioning and messaging, and consistent and targeted content generation across campaigns, launches, events, and plays. 
 
 ## Why MESSAGE.md?
 
-Markets are dynamic, your messaging must be too. Context is king in the AI era, but if your messaging is stuck in static documents or if agents are running wild with no guardrails, the slop will continue. 
+MESSAGE.md is a dynamic messaging framework specification meant to extract what typically goes stale in dusty old docs, and turn it into a living system.
+
+Why? Markets are dynamic, your messaging must be too. Context is king in the AI era, but if your messaging is stuck in static documents, the slop will continue. 
 
 Product Marketers, this is your time to shine. Be the durable context layer for your entire GTM. 
 
 ## Get started
+
+The contents of this repository are a fully contained system that runs in Claude Code.
 
 ```
 git clone https://github.com/fortyfivan/claude-message.git my-company-messaging
 cd my-company-messaging
 ```
 
-Then open the folder in **Claude Code** (`claude`) or **Claude Cowork** (Customize → Add folder). Both tools discover the skills, agents, and commands in `.claude/` automatically.
+Then open the folder in **Claude Code** (`claude`). It discovers the skills, agents, and commands in `.claude/` automatically.
 
 In a Claude Code session, run `/bootstrap` to populate the messaging system. The workshop runs an interactive discovery session to lock in your messaging — it takes about 30-90 minutes depending on how much source material you bring in `input/`. When it finishes, you have a complete messaging house ready for content production.
 

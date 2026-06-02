@@ -4,7 +4,7 @@ The operating guide for AI tools working in this repository.
 
 ## About claude-message
 
-`claude-message` is a Claude-native messaging system for marketing teams. The messaging house in `messaging/` is the single source of truth — agents read it for context, write to it with explicit user approval, and generate every asset from it. 
+This repository operates as a messaging factory for marketing teams. Context is the anchored in the messaging house as defined in `MESSAGE.md` and detailed across `messaging/`. Ground every positioning, messaging, and content generation task in the messaging house to ensure accuracy, consistency, and relevance.
 
 ## Always-On Foundation
 
@@ -14,9 +14,11 @@ The operating guide for AI tools working in this repository.
 - Glossary (cross-cutting terminology)
 - Brand Guardrails (absolute constraints)
 - Scenarios vocabulary (dimensions for runtime assembly)
-- The catalog of pillars, collections, and assets
+- Messaging pillars (foundational company messaging)
+- Collection profiles (specific messaging elements)
+- Asset definitions (content artifacts)
 
-If MESSAGE.md is missing, malformed, or non-conformant to the format spec, prompt the user to run `/bootstrap` (for empty repos) or `/run health` (to diagnose). Do not proceed with content production tasks until MESSAGE.md is present and valid.
+*Note: If MESSAGE.md is missing, malformed, or non-conformant to the format spec, prompt the user to run `/bootstrap` (for empty repos) or `/run health` (to diagnose). Do not proceed with content tasks until MESSAGE.md is present and valid.*
 
 ## Progressive Loading
 
@@ -35,52 +37,9 @@ After MESSAGE.md, the agent loads additional content based on task context. The 
 
 Skills may override these defaults with their own context-loading rules (build-campaign / build-launch / build-play / build-event each carry a Context Loading table). Skill-specific overrides take precedence.
 
-**Reference patterns** (typical task footprints):
-
-| Pattern | Pillars typically loaded | Collections via routing |
-|---|---|---|
-| Persona-targeted content (email, LP, persona-specific messaging) | Profile + Pitch + People | persona; matching Stories filtered on persona+product |
-| Competitive content (battlecard, comparison, displacement) | Profile + Position + Pitch | competitor; relevant Products; supporting Reports |
-| Build orchestration (campaign / launch / play multi-asset brief) | Per the builder's Context Loading table | personas / products / competitors from intake; assets from MESSAGE.md `## Assets` |
-| Composing a new collection | Profile + parent pillar | template from `templates/collections/`; existing file if updating |
-| System audit / health check | All 6 pillars (frontmatter + Messaging Rules) | frontmatter-only of every collection |
-
-A typical content production task loads MESSAGE.md plus 3–7 additional files. Avoid "load everything to be thorough" patterns.
-
-## File Path Conventions
-
-Resources resolve to predictable paths. Skills reference content by name ("the position pillar," "the CISO persona," "the blog-post asset"); the agent resolves the path from these conventions.
-
-| Resource | Path |
-|---|---|
-| Always-on foundation | `MESSAGE.md` |
-| Pillars | `messaging/pillars/[slug].md` |
-| Collection items | `messaging/collections/[type]/[slug].md` |
-| Assets | `messaging/assets/[slug]/asset.md` |
-| Skills | `.claude/skills/[category]/[name]/SKILL.md` |
-| Subagents | `.claude/agents/[name].md` |
-| Commands | `.claude/commands/[name].md` |
-| Generated output | `output/[workflow]/[name]/` |
-| Investigation state | `insights/` |
-| Brand foundation | `brand/DESIGN.md` |
-
-Brand foundation loads inside the producer subagent at dispatch time; never in the main session.
-
-### Input directory priority
-
-The `input/` directory has five subdirectories scanned in priority order:
-
-| Subdirectory | Content | Priority |
-|---|---|---|
-| `input/messaging/` | Brand guides, positioning decks, messaging frameworks | Highest |
-| `input/docs/` | PRDs, release notes, specs, pricing sheets | High |
-| `input/research/` | Market research, analyst reports, competitive intel | Medium |
-| `input/transcripts/` | Sales calls, customer interviews, feedback logs | Medium |
-| `input/examples/` | Content references, competitor samples | Lowest |
-
 ## Skill Recognition
 
-When a user describes intent that matches an available skill, invoke the skill directly rather than waiting for an explicit slash command. Each skill's frontmatter `description` field documents when to use it; match user intent to the most fitting skill. Slash commands (`/build`, `/design`, `/tune`, `/run`, `/search`, `/generate`, `/review`) remain available for users who prefer explicit invocation.
+Slash commands (`/build`, `/design`, `/tune`, `/run`, `/search`, `/generate`, `/review`) are the primary way to invoke skills. As a convenience, when a user describes intent in natural language that matches an available skill, invoke that skill directly instead of waiting for the explicit slash command. Each skill's frontmatter `description` field documents when to use it; match user intent to the most fitting skill.
 
 ### Intent Table
 
