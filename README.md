@@ -9,15 +9,13 @@
                                                              |___/
 ```
 
-**`claude-message`** is a Claude-native messaging factory built around the MESSAGE.md spec. Run this system for always-on positioning and messaging, and consistent and targeted content generation across campaigns, launches, events, and plays. 
+**`claude-message`** is a Claude-native messaging factory built around the [MESSAGE.md](https://github.com/fortyfivan/message.md) spec. Run this system for always-on positioning and messaging, and consistent and targeted content generation across campaigns, launches, events, and plays. 
 
 ## Why MESSAGE.md?
 
-MESSAGE.md is a dynamic messaging framework specification meant to extract what typically goes stale in dusty old docs, and turn it into a living system.
+[MESSAGE.md](https://github.com/fortyfivan/message.md) is a dynamic messaging framework specification meant to extract what typically goes stale in dusty old docs, and turn it into a living system.
 
 Why? Markets are dynamic, your messaging must be too. Context is king in the AI era, but if your messaging is stuck in static documents, the slop will continue. 
-
-Product Marketers, this is your time to shine. Be the durable context layer for your entire GTM. 
 
 ## Get started
 
@@ -44,7 +42,7 @@ To configure the system for HTML production (web, email, print), add your brand 
 
 **Subagents do the focused work.** Builders orchestrate; subagents execute in isolated context windows. The writer generates from a dispatch payload, the reader evaluates without bias from generation, the researcher's web content stays out of the main thread, the producer reads brand tokens without polluting messaging context. Each gets the minimum it needs.
 
-**Production is coded.** Writer output is markdown and JSON — clean for review, ready for downstream tooling. For HTML deliverables, `brand/DESIGN.md` (per the Google Labs `DESIGN.md` spec) holds design tokens and asset references. The producer subagent reads brand context at dispatch time to generate web, email, or print HTML. Production is opt-in — repos without brand/ operate as content-only systems.
+**Production is coded.** Writer output is markdown and JSON — clean for review, ready for downstream tooling. For HTML deliverables, `brand/DESIGN.md` holds design tokens and asset references. The producer subagent reads brand context at dispatch time to generate web, email, or print HTML. Production is opt-in — repos without brand/ operate as content-only systems.
 
 ## The messaging house
 
