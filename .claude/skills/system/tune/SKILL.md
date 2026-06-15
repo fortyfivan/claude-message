@@ -11,7 +11,7 @@ Treat this as a strategist mapping content operations, not a scribe cataloguing 
 
 ## Messaging System Reference
 
-This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the people pillar," "the CISO persona") and follows the file path conventions in CLAUDE.md. If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
+This skill operates against a MESSAGE.md-conformant messaging system. System architecture and progressive loading rules are documented in `CLAUDE.md`. The skill assumes MESSAGE.md is loaded and provides company attributes, glossary, brand guardrails, scenarios vocabulary, and the catalog of pillars, collections, and assets. The skill references content by name (e.g., "the people pillar," "the CISO persona"). If the messaging system is missing or non-conformant, the skill cannot operate; the agent should prompt for `/bootstrap` or `/run health`.
 
 ## Precondition
 
@@ -62,7 +62,7 @@ Take the **union of the default assets for the motions the company runs** as the
 
 Catalog rows are not shapes. A "nurture email" or "product landing page" row tells you nothing about the *ordered sections, their lengths, the opening move, the CTA pattern* — and inferring those from the motion type is exactly what produces generic output. Tier B fixes that by grounding each shape in a real specimen.
 
-**1. Find a specimen.** For each asset type, locate a real artifact — first from `input/examples/`, then the other `input/` dirs (per the input priority in CLAUDE.md). A real sent email, a published landing page, a shipped one-pager is the truest signal for altitude, structure, and format. If none is staged, **actively solicit one** (batch the asks across assets):
+**1. Find a specimen.** For each asset type, locate a real artifact — first from `input/examples/`, then the other `input/` dirs. A real sent email, a published landing page, a shipped one-pager is the truest signal for altitude, structure, and format. If none is staged, **actively solicit one** (batch the asks across assets):
 
 > "To shape your [outbound email] accurately, paste a representative one — or point me to a file. One real send beats me guessing its structure."
 

@@ -7,7 +7,9 @@ updated: ""
 
 This pillar defines who the company sells to and how it communicates to them — the ICP (who fits, who doesn't), the cross-functional dynamics that shape how messaging needs to land, the customer journey, and the routing tables for personas and segments. The ICP anchors everything downstream: if a company isn't ICP-fit, the messaging considerations here don't apply.
 
-## ICP
+## Messaging Blocks
+
+### ICP
 
 *Structured buyer criteria for good fit/bad fit accounts. Personas and segments documented as collections.*
 
@@ -17,10 +19,6 @@ This pillar defines who the company sells to and how it communicates to them —
 - **Size band**: [Instructions: Range with sweet spot.]
 - **Growth stage**: [Instructions: Scale-up / enterprise / mature.]
 - **Verticals**: [Instructions: Industries served.]
-- **Primary buyer**: [Instructions: Title of economic buyer.]
-- **Primary champion**: [Instructions: Title of internal advocate.]
-- **Primary end-user**: [Instructions: Day-to-day user.]
-- **Tenure**: [Instructions: Typical years in role.]
 
 ### Behaviors
 
@@ -36,7 +34,6 @@ This pillar defines who the company sells to and how it communicates to them —
 - **Regulatory pressures**: [Instructions: Compliance frameworks or regulatory requirements they operate under. Skip if not relevant.]
 - **Industry pressures**: [Instructions: Macro forces affecting their business — consolidation, tech shifts, M&A, talent dynamics.]
 
-## Messaging Blocks
 
 ### Buying Considerations
 

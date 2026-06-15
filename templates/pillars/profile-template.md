@@ -5,7 +5,7 @@ updated: ""
 
 # Company Profile
 
-This pillar carries the company's voice — how it sounds, what it stands for, and the narrative it returns to. Company-level attributes, facts, glossary, and brand guardrails live in `MESSAGE.md` (always-on); this file holds the voice and personality content that shapes how every asset reads.
+This pillar carries the company's voice and personality content that shapes how every asset reads.
 
 ## Messaging Blocks
 

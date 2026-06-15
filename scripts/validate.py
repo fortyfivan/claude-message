@@ -338,7 +338,7 @@ def check_scenarios_dimensions(report: Report) -> None:
 
 
 def check_claude_md_sections(report: Report) -> None:
-    """CLAUDE.md contains the operating-guide sections that own loading + path conventions."""
+    """CLAUDE.md contains the operating-guide sections that own loading."""
     report.begin("claude-md-sections")
     if not CLAUDE_MD.exists():
         report.err("claude-md-sections", "CLAUDE.md does not exist at repo root")
@@ -347,7 +347,6 @@ def check_claude_md_sections(report: Report) -> None:
     required_sections = [
         "## Always-On Foundation",
         "## Progressive Loading",
-        "## File Path Conventions",
         "## Skill Recognition",
     ]
     headings = set(re.findall(r"^##\s+\S.*$", text, re.MULTILINE))
